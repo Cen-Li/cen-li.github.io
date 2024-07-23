@@ -21,7 +21,7 @@ repository               : "academicpages/academicpages.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "cenocean.jpg"
+  avatar           : "censmall.png"
   name             : "Dr. Cen Li"
   pronouns         : # example: "she/her"  
   bio              : "Professor of Computer Science Dept"
