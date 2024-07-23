@@ -24,19 +24,16 @@ author:
   avatar           : "cenocean.jpg"
   name             : "Dr. Cen Li"
   pronouns         : # example: "she/her"  
-  bio              : "Short biography for the left-hand sidebar"
-  location         : "Earth"
-  employer         : "Red Brick University"
+  bio              : "Professor of Computer Science Dept"
+  location         : "TN"
+  employer         : "Middle Tenn State University"
   uri              : # URL
-  email            : "none@example.org" 
+  email            : "Cen.Li@mtsu.edu" 
 
   # Academic websites
-  arxiv            : # URL - Update with the correct link to your profile
-  googlescholar    : "https://scholar.google.com/citations?user=PS_CX0AAAAAJ"
+  googlescholar    : "https://scholar.google.com/citations?hl=en&view_op=list_works&gmla=AETOMgG7peLZUoyRztm2LgyJXSMft9iBaIyKQd9TEp09b3YlBVyis6FryFB7AngI7v9Bxg7Mf3Rm1hAwjslV_Mkrzq8l&user=-uLK5AEAAAAJ"
   impactstory      : # URL
   orcid            : "http://orcid.org/yourorcidurl"
-  semantic         : # URL
-  pubmed           : "https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
   researchgate     : # URL
 
   # Repositories and software development
