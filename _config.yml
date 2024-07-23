@@ -8,7 +8,7 @@
 
 # Basic Site Settings
 locale                   : "en-US"
-title                    : "Cen Li/ Dr Li's Page"
+title                    : "Dr Li's Page"
 title_separator          : "-"
 name                     : &name "Cen Li"
 description              : &description "personal description"
@@ -24,17 +24,14 @@ author:
   avatar           : "censmall.png"
   name             : "Dr. Cen Li"
   pronouns         : # example: "she/her"  
-  bio              : "Professor of Computer Science Dept"
-  location         : "TN"
+  bio              : "Professor of Computer Science"
+  location         : "Murfreesboro, TN"
   employer         : "Middle Tenn State University"
-  uri              : # URL
+  uri              : https://csc.mtsu.edu
   email            : "Cen.Li@mtsu.edu" 
 
   # Academic websites
   googlescholar    : "https://scholar.google.com/citations?hl=en&view_op=list_works&gmla=AETOMgG7peLZUoyRztm2LgyJXSMft9iBaIyKQd9TEp09b3YlBVyis6FryFB7AngI7v9Bxg7Mf3Rm1hAwjslV_Mkrzq8l&user=-uLK5AEAAAAJ"
-  impactstory      : # URL
-  orcid            : "http://orcid.org/yourorcidurl"
-  researchgate     : # URL
 
   # Repositories and software development
   bitbucket        : # Username - Update with your username on the site
