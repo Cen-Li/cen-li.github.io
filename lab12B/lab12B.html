@@ -1,0 +1,144 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+  <title>Lab 12B - Array Deletion 
+  </title>
+</head>
+  <!--!!!!!!!!!! Lesson Title and Objective   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!--> 
+    <center>
+      <h1>
+Lab 12B -- Programming C++ with <em>Array Deletion</em> 
+      </h1>
+      </center>
+
+In this lab, we continue to practice performing Insert/Delete operations in one dimensional array.
+You will write a function that deletes an item from an array.
+
+<p>
+First create a new project, rename your "main.cpp" file to "deletebook.cpp".
+This program works as described below:
+   <ol>
+   <li>First, it reads the titles of a collection of books
+from a data file and stores them in an array. <br>
+The data file <font color=red>booktitles.dat</font> can be copied using the command:<p>
+<font color="red">
+cp ~cen/data/booktitles.dat workspace-directory/project-directory/.</font>
+<p>
+ <li>Once read, it prints out the list of book titles, one title per line.
+ <p>
+The above two steps have been completed in the program written for closed lab 11 and 12.
+You may copy/paste the part of the source code from those labs for these steps.
+<p>
+Then, the program goes into a deletion loop. At each iteration of the loop:
+<ol>
+<li>It prompts the user to enter a book title to be deleted from the
+array
+   <ul>
+   <li> If the book is present in the array, delete the book by shifting all the books after the specified book title one position up the array. Modify the size of the array appropriately.
+   <li> If the book is not present in the array, give an error message to the user stating the fact that the book is not present.
+  </ul>
+<li> The loop terminates after the user press "enter" when prompted with a book title.
+</ol>
+<p>
+<b>Special Requirements</b>
+<ul>
+<li> A user defined function named "DeleteByTitle" should be written for the delete operation. Think whether to use void or value returning function, what are the parameters for this function.
+<li><font color=blue> You are required to use the two functions we have studied: <em>LinearSearch</em> and <em>DeleteByPosition</em> for this program. These two functions are called from within the "DeleteByTitle" function. </font>
+</ul>
+
+<p>
+Here is an example run of the program:
+<hr>
+
+<xmp>
+Books in the collection:
+1 : The Untethered Soul: The Journey Beyond Yourself
+2 : Ruby
+3 : When I Found You
+4 : The Pecan Man
+5 : Yellow Crocus
+6 : Take Me With You
+7 : What She Left Behind
+8 : The Alchemist
+9 : We Are Water: A Novel (P.S.)
+10 : The Nightingale
+11 : Drowning Ruth: A Novel
+12 : The Invention of Wings
+13 : The Secret Life of Bees
+14 : Cane River
+15 : The Life We Bury
+16 : The Plum Tree
+17 : Shantaram: A Novel
+18 : Middlesex: A Novel
+19 : A Bend in the Road
+20 : The Book of Awakening: Having the Life You Want by Being Present to the Life You Have
+21 : Whistling Past the Graveyard
+22 : A Spool of Blue Thread: A novel
+23 : The Gifts of Imperfection: Let Go of Who You Think You're Supposed to Be and Embrace Who You Are
+24 : What I Know For Sure
+25 : A New Earth: Awakening to Your Life's Purpose
+26 : While I Was Gone
+27 : I Know This Much Is True: A Novel
+28 : Night (Night)
+29 : She's Come Undone
+
+Enter the title of the book to delete: The Plum Tree
+
+The book is deleted.
+After deletion ...
+
+Books in the collection:
+1 : The Untethered Soul: The Journey Beyond Yourself
+2 : Ruby
+3 : When I Found You
+4 : The Pecan Man
+5 : Yellow Crocus
+6 : Take Me With You
+7 : What She Left Behind
+8 : The Alchemist
+9 : We Are Water: A Novel (P.S.)
+10 : The Nightingale
+11 : Drowning Ruth: A Novel
+12 : The Invention of Wings
+13 : The Secret Life of Bees
+14 : Cane River
+15 : The Life We Bury
+16 : Shantaram: A Novel
+17 : Middlesex: A Novel
+18 : A Bend in the Road
+19 : The Book of Awakening: Having the Life You Want by Being Present to the Life You Have
+20 : Whistling Past the Graveyard
+21 : A Spool of Blue Thread: A novel
+22 : The Gifts of Imperfection: Let Go of Who You Think You're Supposed to Be and Embrace Who You Are
+23 : What I Know For Sure
+24 : A New Earth: Awakening to Your Life's Purpose
+25 : While I Was Gone
+26 : I Know This Much Is True: A Novel
+27 : Night (Night)
+28 : She's Come Undone
+
+Enter the title of the book to delete: Harry Potter
+The book is not in the collection. Deletion not carried out.
+
+Enter the title of the book to delete:
+
+</xmp>
+
+<hr>
+
+<p>
+For this lab, you need to submit one file: <em>deletebook.cpp</em>.
+<p>
+<h2>Steps to edit, compile, run, and submit the program:</h2>
+<ul>
+<li>If after you compile your program, there is compilation errors, then you need to modify the program according to the error messages. 
+You may need to edit and compile your program multiple times before it compiles successfully.
+
+<li>Now you can run the program, check to make sure the output is correct. If not, you need to modify the program and recompile and rerun the program.
+
+<li>Once you are able to successfully run the program with the correct outputs, you are ready to submit the program electronically. Only submit the source file. 
+
+Locate the source file in your "project" directory under your "workspae" directory. 
+For example, if you named your "workspace" as "codelite" under your home directory, and named the project "cla12B", then "deletebook.cpp" should be in ~/codelite/cla12B directory.
+
+</body></html>

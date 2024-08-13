@@ -1,0 +1,123 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+  <title>Lab 15 - Overloaded operators 
+  </title>
+</head>
+  <!--!!!!!!!!!! Lesson Title and Objective   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!--> 
+    <center>
+      <h1>
+Lab 15 -- Defining Copy constructor and Overloaded Operators in C++ Class
+      </h1>
+      </center>
+
+
+<p>
+In this lab, we will learn to define copy constructor, comparison methods,
+and overloaded operators.
+First, define a "fraction" class. 
+A fraction class is used to represent a fraction, i.e., 3/5,  and methods that are commonly required to 
+operate on a fraction.
+The data in a fraction class are: the numerator and the denominator, both are integers.
+<p>
+The constructors of a fraction class include:
+<ul>
+<li>default constructor,
+<li>value constructor
+</ul>
+The methods include:
+<ul>
+<li>the display method that displays the fraction,
+<li>the <b>Set methods (mutator methods)</b> to set the values for the numerator and the denominator values.
+</ul>
+Since we have already practiced defining the above constructors and methods in lab 14, 
+some of these methods will be provided.
+In ths lab, we will practice defining an additional constructor and a few more methods.
+
+<p><b>Program Requirements</b><p>
+First, create a new project. Then, create a fraction class for that project.
+You can copy the skeleton programs for reference for this class using the command:<br>
+<b>cp ~cen/data/fraction.*   workspace-folder/project-folder/. </b> <br>
+(this command will copy both the fraction.h and fraction.cpp files into your directory).
+
+<p>
+Once you have copy/paste the fraction.h and fraction.cpp content into your current project, 
+fill in the blank area in the program to define the following constructor and methods:
+<ul>
+<li>the <b>copy constructor</b>
+
+<li>the <b>Read method</b>: reads the numerator and denominator values for a fraction object from user keyboard input
+
+<li>the <b>Display method</b>: output the fraction in the form "numerator / denominator"
+
+<li>the <b>Add method</b>: add a right hand side(rhs) object to the "self" object. This method should return a fraction type object.
+
+<li>the <b>LessThan method</b>: determine if the "self" object is less than the right hand side object. If fraction is "less than" the second fraction if the float value correspond to the first fraction is smaller than the float value correspond to the second fraction. This method should return a boolean type value.
+
+<li>the <b>overloaded > operator</b>:
+determine if the "self" fraction object is greater than the right hand side fraction object. This method should return a boolean type value.
+
+<li>the <b>overloaded != operator</b>:
+determine if the "self" object is not equal to the right hand side fraction object. This method should return a boolean type value.
+
+</ul>
+<p>
+
+To test your fraction class, write a client program with the following statements:
+
+<xmp>
+// fill in the blank area 
+#include "fraction.h"
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    // use the default constructor to declare an fraction object, frac1 
+
+
+    // use the "Read" method to read from keyboard and assign numerator and denominator values for frac1, 
+    // input 3 for the numerator value, and 10 for the denominator value
+
+
+    // use the "Display" method to display frac1
+    
+
+    // declare a second fraction object, frac2, using the copy constructor and let frac2 be initialized as a copy of frac1 
+
+
+    // use the SetDenominator method to change the denominator of frac2 to 5
+
+
+    // use the overloaded > operator to determine which fraction, frac1 or frac2, is bigger, 
+    // display the info on which fraction is bigger
+
+
+    // use the default constructor to declare the third fraction object, frac3
+
+
+    // use the Add operator to add frac1 and frac2, and assign the resulting fraction to frac3
+
+
+    // use the "Display" method to display frac3
+
+
+    return 0;
+}
+</xmp>
+
+For this lab, you need to submit three files: <em>fraction.h, fraction.cpp, main.cpp</em>.
+<p>
+<h2>Steps to edit, compile, run, and submit the program:</h2>
+<ul>
+<li>If after you compile your program, there is compilation errors, then you need to modify the program according to the error messages. 
+You may need to edit and compile your program multiple times before it compiles successfully.
+
+<li>Now you can run the program, check to make sure the output is correct. If not, you need to modify the program and recompile and rerun the program.
+
+<li>Once you are able to successfully run the program with the correct outputs, you are ready to submit the program electronically. Only submit the source file. 
+
+Locate the source file in your "project" directory under your "workspace" directory. 
+For example, if you named your "workspace" as "codelite" under your home directory, and named the project "cla15", then the 3 files should be in ~/codelite/cla15 directory.
+
+</body></html>
