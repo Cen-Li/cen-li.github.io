@@ -1,0 +1,140 @@
+<!DOCTYPE html> 
+<head>
+<style type="text/css">
+	
+	body {
+		background-color: #dddddd;
+	}
+	
+	h2 {
+		color: #FFFFFF;
+	}
+	
+	h3 {
+		color: #FFFFFF;
+		padding-left: 10px;
+	}
+	
+	a {
+		text-decoration: none;
+		color: #FFFFFF;
+	}
+	
+	a:hover {
+		text-decoration: underline;
+		color: #FF0000;
+	}
+	
+	#container {
+		width: 1000px;
+		padding: 0;
+		margin: 0 auto;
+	}
+	
+	#header {
+		background-color: #003366;
+		width: 100%;
+		height: 220px;
+	}
+	
+	#image {
+		width: 200px;
+		height: 180px;
+		text-align: center;
+		float: left;
+		padding: 10px 0;
+	}
+	
+	#name {
+		width: 800px;
+		text-align: center;
+		float: right;
+	}
+	
+	#menu {
+		background-color: #003366;
+		height: 800px;
+		width: 200px;
+		float: left;
+	}
+	
+	#menu table {
+		width: 100%;
+	}
+	
+	#menu td {
+		color: #FFFFFF;
+		background-color: #334466;
+		font-size: 1.1em;
+		width: 100%;
+		height: 30px;
+		text-decoration: none;
+		text-align: center;
+		padding: 5px 0;
+		border: 1px solid #dddddd;
+	}
+	
+	#menu td:hover {
+		color: #FFFFFF;
+		background-color: #003366;
+		text-decoration: none;
+	}
+	
+	#content {
+		width: 790px;
+		height: 100%;
+		padding: 10px 0 0 10px;
+		float: right;}
+
+</style>
+	
+</head>
+
+<body>
+
+<div id="container">
+	<div id="header">
+		<div id="image">
+			<img src="cenocean.jpg" width=180 height=180 />
+		</div>
+		<div id="name">
+			<h2>Dr. Cen Li <br /><br /> Professor <br /> <a href=http://www.mtsu.edu/csc/>Department of Computer Science</a> <br /> <a href=http://www.mtsu.edu>Middle Tennessee State University</a></h2>
+		</div>
+	</div>
+	
+	<div id="menu">
+		<table>
+			<tr>
+				<td><a href="content.html" target="contentFrame">Home</a></td>
+			</tr>
+			<tr>
+				<td><a href="education.html" target="contentFrame">Education</a></td>
+			</tr>
+			<tr>
+				<td><a href="teaching.html" target="contentFrame">Teaching</a></td>
+			</tr>
+			<tr>
+				<td><a href="papers/papers.html" target="contentFrame">Publications</a></td>
+			</tr>
+			<tr>
+				<td><a href="students.html" target="contentFrame">Student Projects</a></td>
+			</tr>
+			<!--
+			<tr>
+				<td><a href="http://peerspace.cs.mtsu.edu" target=_blank>NSF CCLI: PeerSpace</a></td>
+			</tr>
+			<tr>
+				<td>NSF CPATH: Project<sup>MT</sup></td>
+			</tr>
+			<tr>
+				<td><a href="stepmt08/webpage/index.htm" target="contentFrame">NSF MT<sup>STEP</sup>: Robotics</a></td>
+				-->
+		</table>
+	</div>
+	
+	<div id="content">
+		<iframe src="content.html" width=786 height=800 name="contentFrame">Your browser doesn't support iframe :(</iframe>
+	</div>
+</div>
+
+</body>
