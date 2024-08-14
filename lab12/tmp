@@ -1,8 +1,0 @@
-void DisplayMenu()
-{
-    cout << " *************************" << endl;
-    cout << " Enter '1' for Insertion. " << endl;
-    cout << " Enter '2' for Insertion. " << endl;
-    cout << " *************************" << endl;
-    cout << endl;
-}
