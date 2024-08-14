@@ -1,0 +1,44 @@
+
+C4.5 [release 8] decision tree generator	Mon Feb  6 19:17:10 2012
+----------------------------------------
+
+    Options:
+	File stem <XDF>
+	Trees evaluated on unseen cases
+
+Read 13 cases (4 attributes) from XDF.data
+
+Decision Tree:
+
+outlook = sunny: Don't Play (4.0/1.0)
+outlook = overcast: Play (4.0)
+outlook = rain:
+|   windy = true: Don't Play (2.0)
+|   windy = false: Play (3.0)
+
+
+Tree saved
+
+
+Evaluation on training data (13 items):
+
+	 Before Pruning           After Pruning
+	----------------   ---------------------------
+	Size      Errors   Size      Errors   Estimate
+
+	   6    1( 7.7%)      6    1( 7.7%)    (42.1%)   <<
+
+Evaluation on test data (1 items):
+
+	 Before Pruning           After Pruning
+	----------------   ---------------------------
+	Size      Errors   Size      Errors   Estimate
+
+	   6    1(100.0%)      6    1(100.0%)    (42.1%)   <<
+
+
+	  (a)  (b)	<-classified as
+	 ---- ----
+	         1	(a): class Play
+	          	(b): class Don't Play
+

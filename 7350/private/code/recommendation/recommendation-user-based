@@ -1,0 +1,216 @@
+Script started on Tue 04 Sep 2012 09:20:27 PM CDT
+$ vi re[K[Killustration-user-based.py[C[1P illustration-user-based.py[C[C[C[1P illustration-user-based.py[C[Cc illustration-user-based.py[C[C[Ca illustration-user-based.py[C[C[C[Ct illustration-user-based.py[C[C[C[C[C
+# user based recommendations
+import pprint
+from math import sqrt
+
+# load database and construct the  nested dictionary
+def loadMovies():
+
+  #Get movie titles
+  movies={}
+  for line in open('movies.dat'):
+    (id, title) = line.split('|')[0:2]
+    movies[id] = title
+
+  #load data
+  prefs={}
+  for line in open('test.dat'):
+    (usr, movieid, rating, ts) = line.split('\t')
+    prefs.setdefault(usr, {})
+    prefs[usr][movies[movieid]]=float(rating)
+  return (movies, prefs)
+
+# compute the Euclidean distance between two person's preferences
+def sim_distance(prefs, person1, person2):
+
+  #Get the list of shared items
+  si = {}
+  for it in prefs[person1]:
+    if it in prefs[person2]:
+      si[it]=1
+
+  #if they have no ratings in common, return 0
+  if (len(si) == 0): return 0
+
+  # Add up the squares of all the differences
+  euclidean_distance = sqrt(sum([pow(prefs[person1][it] - prefs[person2][it], 2) 
+                    for it in si]))
+
+  similarity = 1/(1+euclidean_distance)
+  return similarity
+
+# compute the pearson correlation coefficient
+def sim_pearson(prefs, person1, person2):
+ 
+  #Get the list of shared items
+  si = {}
+  for it in prefs[person1]:
+    if it in prefs[person2]:
+      si[it]=1
+  
+  # Find the number of elements
+  n = len(si)
+
+  # if they have no ratings in common, return 0
+  if n==0:  return 0
+
+  # sum
+  sum1 = sum([prefs[person1][it] for it in si])
+  sum2 = sum([prefs[person2][it] for it in si])
+
+  # sum of the squares
+  sum1Square = sum([pow(prefs[person1][it], 2) for it in si])
+  sum2Square = sum([pow(prefs[person2][it], 2) for it in si])
+
+  # sum up the products
+  pSum = sum([prefs[person1][it]*prefs[person2][it] for it in si])
+
+  # compute the correlation coefficient
+  num = pSum - (sum1*sum2/n)
+  denom = sqrt((sum1Square - pow(sum1, 2)/n)*(sum2Square - pow(sum2, 2)/n))
+
+  if denom == 0: return 0
+
+  pearson_correlation = num/denom
+
+  return pearson_correlation
+
+# return the top N most similar person/items
+def topMatches(prefs, person, n=5, similarity=sim_pearson):
+  scores=[(similarity(prefs, person, other), other)
+             for other in prefs if other != person]
+  print scores
+
+  # sort the list so the highest scores appear at the top
+  scores.sort()
+  scores.reverse()
+
+  return scores[0:n]
+
+# Get recommendations for a person by using a weighted average
+# of every other user's ranking
+def getRecommendations(prefs, person, similarity=sim_pearson):
+
+  totals={}
+  simSums = {}
+
+  for other in prefs:
+    toPrint = []
+    # don't compare one to himself
+    if other == person:
+      continue
+
+    sim = similarity(prefs, person, other)
+    #print '%s\t%f\t' % (other, sim)
+    toPrint.append(other)
+    toPrint.append(sim)
+  
+    #ignore scores of zero or lower
+    if sim < 0: 
+      continue
+
+    for item in prefs[other]:
+      #only score movies I have not seen before
+      if item not in prefs[person] or prefs[person][item]==0:
+        print item
+        totals.setdefault(item, 0)
+        
+        #simiarity * score
+        totals[item] += prefs[other][item]*sim
+        toPrint.append(totals[item])
+        #print '%f\t' % totals[item]
+
+        #sum of similarities
+        simSums.setdefault(item, 0)
+        simSums[item] += sim
+
+    print toPrint
+    for (item, total) in totals.items():
+      print '%f\t' % total 
+    print "\n"
+
+  ## !! indentation
+  # Create the normalized list
+  rankings=[(total/(simSums[item]), item)
+              for item, total in totals.items()]
+
+  # Retrn the sorted list
+  rankings.sort()
+  rankings.reverse()
+    
+  return rankings
+
+# main function
+if __name__ == '__main__':
+
+  movies, prefs = loadMovies()
+  pp = pprint.PrettyPrinter(indent=2)
+  print "List of movies are:\n"
+  pp.pprint(movies)
+
+  print "\nThe preference list is:\n"
+  pp.pprint(prefs)
+
+  recommendations = getRecommendations(prefs, '1', sim_distance)
+  print recommendations
+  
+$ cat illustration-user-based.py[C[Cls -l[K[C[Cchmod 755 movies.dat test.dat recommend-user*[C[Cls -l[K[C[Cvi test.dat[C[Cls[Kcd ..[C[C[2Ppwdcd ..[C[C[3Pls[K[Kpython illustration-user-based.py
+List of movies are:
+
+{ '1': 'Toy Story (1995)',
+  '2': 'GoldenEye (1995)',
+  '3': 'Four Rooms (1995)',
+  '4': 'Get Shorty (1995)',
+  '5': 'Copycat (1995)'}
+
+The preference list is:
+
+{ '1': { 'Get Shorty (1995)': 3.0, 'GoldenEye (1995)': 3.0},
+  '2': { 'Four Rooms (1995)': 2.0,
+         'Get Shorty (1995)': 4.0,
+         'GoldenEye (1995)': 3.0,
+         'Toy Story (1995)': 2.0},
+  '3': { 'Four Rooms (1995)': 2.0,
+         'Get Shorty (1995)': 5.0,
+         'GoldenEye (1995)': 4.0},
+  '4': { 'Copycat (1995)': 4.0,
+         'Four Rooms (1995)': 4.0,
+         'Get Shorty (1995)': 3.0},
+  '5': { 'Copycat (1995)': 5.0,
+         'Get Shorty (1995)': 5.0,
+         'GoldenEye (1995)': 3.0,
+         'Toy Story (1995)': 3.0}}
+Four Rooms (1995)
+['3', 0.3090169943749474, 0.6180339887498948]
+0.618034	
+
+
+Four Rooms (1995)
+Toy Story (1995)
+['2', 0.5, 1.618033988749895, 1.0]
+1.000000	
+1.618034	
+
+
+Copycat (1995)
+Toy Story (1995)
+['5', 0.3333333333333333, 1.6666666666666665, 2.0]
+1.666667	
+2.000000	
+1.618034	
+
+
+Copycat (1995)
+Four Rooms (1995)
+['4', 1.0, 5.666666666666666, 5.618033988749895]
+5.666667	
+2.000000	
+5.618034	
+
+
+[(4.25, 'Copycat (1995)'), (3.1055728090000843, 'Four Rooms (1995)'), (2.4000000000000004, 'Toy Story (1995)')]
+$ exit
+exit
+
+Script done on Tue 04 Sep 2012 09:20:59 PM CDT

@@ -1,0 +1,4 @@
+AuthName "Password Protected Material"
+AuthType Basic
+Require valid-user 
+AuthUserFile /nfshome/cen/public_html/7350/private/.htpasswd

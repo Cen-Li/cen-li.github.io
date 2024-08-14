@@ -1,0 +1,110 @@
+
+C4.5 [release 8] rule generator	Mon Feb  6 19:14:02 2012
+-------------------------------
+
+    Options:
+	File stem <XDF>
+	Rulesets evaluated on unseen cases
+
+Read 392 cases (16 attributes) from XDF
+
+------------------
+Processing tree 0
+
+Final rules from tree 0:
+
+Rule 2:
+    	physician fee freeze = n
+	->  class democrat  [98.3%]
+
+Rule 13:
+    	mx missile = y
+    	synfuels corporation cutback = y
+	->  class democrat  [96.2%]
+
+Rule 12:
+    	water project cost sharing = y
+    	adoption of the budget resolution = y
+    	synfuels corporation cutback = y
+	->  class democrat  [95.2%]
+
+Rule 5:
+    	physician fee freeze = y
+    	synfuels corporation cutback = n
+	->  class republican  [95.9%]
+
+Rule 11:
+    	water project cost sharing = n
+    	physician fee freeze = y
+    	mx missile = n
+	->  class republican  [95.4%]
+
+Rule 7:
+    	adoption of the budget resolution = n
+    	physician fee freeze = y
+    	mx missile = n
+	->  class republican  [94.9%]
+
+Rule 3:
+    	adoption of the budget resolution = n
+    	education spending = u
+	->  class republican  [87.1%]
+
+Rule 17:
+    	physician fee freeze = u
+    	mx missile = u
+	->  class republican  [50.0%]
+
+Default class: democrat
+
+
+Evaluation on training data (392 items):
+
+Rule  Size  Error  Used  Wrong	          Advantage
+----  ----  -----  ----  -----	          ---------
+   2     1   1.7%   221      2 (0.9%)	    -1 (0|1) 	democrat
+  13     2   3.8%     7      1 (14.3%)	     0 (0|0) 	democrat
+  12     3   4.8%     6      0 (0.0%)	     0 (0|0) 	democrat
+   5     2   4.1%   123      3 (2.4%)	    19 (21|2) 	republican
+  11     3   4.6%     9      1 (11.1%)	     2 (2|0) 	republican
+   7     3   5.1%    19      2 (10.5%)	    11 (13|2) 	republican
+  17     2  50.0%     2      0 (0.0%)	     2 (2|0) 	republican
+
+Drop rule 2
+
+Rule  Size  Error  Used  Wrong	          Advantage
+----  ----  -----  ----  -----	          ---------
+  13     2   3.8%    69      1 (1.4%)	     0 (0|0) 	democrat
+  12     3   4.8%    23      0 (0.0%)	     0 (0|0) 	democrat
+   5     2   4.1%   123      3 (2.4%)	    19 (21|2) 	republican
+  11     3   4.6%     9      1 (11.1%)	     2 (2|0) 	republican
+   7     3   5.1%    19      2 (10.5%)	    11 (13|2) 	republican
+   3     2  12.9%     1      0 (0.0%)	     1 (1|0) 	republican
+  17     2  50.0%     2      0 (0.0%)	     2 (2|0) 	republican
+
+Tested 392, errors 10 (2.6%)   <<
+
+
+	  (a)  (b)	<-classified as
+	 ---- ----
+	  234    6	(a): class democrat
+	    4  148	(b): class republican
+
+
+Evaluation on test data (43 items):
+
+Rule  Size  Error  Used  Wrong	          Advantage
+----  ----  -----  ----  -----	          ---------
+  13     2   3.8%     6      0 (0.0%)	     0 (0|0) 	democrat
+  12     3   4.8%     4      0 (0.0%)	     0 (0|0) 	democrat
+   5     2   4.1%    15      0 (0.0%)	     2 (2|0) 	republican
+   7     3   5.1%     1      0 (0.0%)	     1 (1|0) 	republican
+
+Tested 43, errors 0 (0.0%)   <<
+
+
+	  (a)  (b)	<-classified as
+	 ---- ----
+	   27     	(a): class democrat
+	        16	(b): class republican
+

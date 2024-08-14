@@ -1,0 +1,13 @@
+@RELATION cancer
+
+@ATTRIBUTE radius	REAL
+@ATTRIBUTE texturex	REAL
+@ATTRIBUTE perimeterx 	REAL
+@ATTRIBUTE areax	REAL
+@ATTRIBUTE smoothnessx	REAL
+@ATTRIBUTE compactnessx	REAL
+@ATTRIBUTE concavityx	REAL
+@ATTRIBUTE concavepointsx	REAL
+@ATTRIBUTE class 	{1,-1}
+
+@DATA

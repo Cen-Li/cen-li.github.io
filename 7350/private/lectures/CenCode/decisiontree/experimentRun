@@ -1,0 +1,83 @@
+python
+Python 2.4.4 (#1, Oct 18 2006, 10:34:39) 
+[GCC 4.0.1 (Apple Computer, Inc. build 5341)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import decisiontree
+>>> print decisiontree.my_data
+[['slashdot', 'USA', 'yes', '18', 'None\n'], ['google', 'France', 'yes', '23', 'Premium\n'], ['digg', 'USA', 'yes', '24', 'Basic\n'], ['kiwitobes', 'France', 'yes', '23', 'Basic\n'], ['google', 'UK', 'no', '21', 'Premium\n'], ['(direct)', 'New Zealand', 'no', '12', 'None\n'], ['(direct)', 'UK', 'no', '21', 'Basic\n'], ['google', 'USA', 'no', '24', 'Premium\n'], ['slashdot', 'France', 'yes', '19', 'None\n'], ['digg', 'USA', 'no', '18', 'None\n'], ['google', 'UK', 'no', '18', 'None\n'], ['kiwitobes', 'UK', 'no', '19', 'None\n'], ['digg', 'New Zealand', 'yes', '12', 'Basic\n'], ['slashdot', 'UK', 'no', '21', 'None\n'], ['google', 'UK', 'yes', '18', 'Basic\n'], ['kiwitobes', 'France', 'yes', '19', 'Basic\n']]
+>>> decisiontree.divideset(decisiontree.my_data, 2, 'yes')
+([['slashdot', 'USA', 'yes', '18', 'None\n'], ['google', 'France', 'yes', '23', 'Premium\n'], ['digg', 'USA', 'yes', '24', 'Basic\n'], ['kiwitobes', 'France', 'yes', '23', 'Basic\n'], ['slashdot', 'France', 'yes', '19', 'None\n'], ['digg', 'New Zealand', 'yes', '12', 'Basic\n'], ['google', 'UK', 'yes', '18', 'Basic\n'], ['kiwitobes', 'France', 'yes', '19', 'Basic\n']], [['google', 'UK', 'no', '21', 'Premium\n'], ['(direct)', 'New Zealand', 'no', '12', 'None\n'], ['(direct)', 'UK', 'no', '21', 'Basic\n'], ['google', 'USA', 'no', '24', 'Premium\n'], ['digg', 'USA', 'no', '18', 'None\n'], ['google', 'UK', 'no', '18', 'None\n'], ['kiwitobes', 'UK', 'no', '19', 'None\n'], ['slashdot', 'UK', 'no', '21', 'None\n']])
+>>> sets=decisiontree.divideset(decisiontree.my_data, 2, 'yes')
+>>> sets[0]
+[['slashdot', 'USA', 'yes', '18', 'None\n'], ['google', 'France', 'yes', '23', 'Premium\n'], ['digg', 'USA', 'yes', '24', 'Basic\n'], ['kiwitobes', 'France', 'yes', '23', 'Basic\n'], ['slashdot', 'France', 'yes', '19', 'None\n'], ['digg', 'New Zealand', 'yes', '12', 'Basic\n'], ['google', 'UK', 'yes', '18', 'Basic\n'], ['kiwitobes', 'France', 'yes', '19', 'Basic\n']]
+>>> sets[1]
+[['google', 'UK', 'no', '21', 'Premium\n'], ['(direct)', 'New Zealand', 'no', '12', 'None\n'], ['(direct)', 'UK', 'no', '21', 'Basic\n'], ['google', 'USA', 'no', '24', 'Premium\n'], ['digg', 'USA', 'no', '18', 'None\n'], ['google', 'UK', 'no', '18', 'None\n'], ['kiwitobes', 'UK', 'no', '19', 'None\n'], ['slashdot', 'UK', 'no', '21', 'None\n']]
+>>> entropy=decisiontree.entropy(decisiontree.my_data)
+>>> print entropy
+1.50524081494
+>>> leftchild_entropy = decisiontree.entropy(sets[0])
+>>> print leftchild_entropy
+1.2987949407
+>>> tree=decisiontree.buildtree(decisiontree.my_data)
+>>> printtree(tree, ' ')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in ?
+NameError: name 'printtree' is not defined
+>>> decisiontree.printtree(tree)
+0:google? 
+T-> 3:18? 
+  T-> 2:yes? 
+    T-> {'Basic\n': 1}
+    F-> {'None\n': 1}
+  F-> {'Premium\n': 3}
+F-> 0:slashdot? 
+  T-> {'None\n': 3}
+  F-> 2:yes? 
+    T-> {'Basic\n': 4}
+    F-> 3:21? 
+      T-> {'Basic\n': 1}
+      F-> {'None\n': 3}
+>>> newObj=['(direct)', 'USA', 'yes', 5]
+>>> decisiontree.classify(newObj, tree)
+{'Basic\n': 4}
+>>> decisiontree.prune(tree, 0.1)
+>>> decisiontree.printtree(tree)
+0:google? 
+T-> 3:18? 
+  T-> 2:yes? 
+    T-> {'Basic\n': 1}
+    F-> {'None\n': 1}
+  F-> {'Premium\n': 3}
+F-> 0:slashdot? 
+  T-> {'None\n': 3}
+  F-> 2:yes? 
+    T-> {'Basic\n': 4}
+    F-> 3:21? 
+      T-> {'Basic\n': 1}
+      F-> {'None\n': 3}
+>>> decisiontree.prune(tree, 0.5)
+>>> decisiontree.printtree(tree)
+0:google? 
+T-> 3:18? 
+  T-> 2:yes? 
+    T-> {'Basic\n': 1}
+    F-> {'None\n': 1}
+  F-> {'Premium\n': 3}
+F-> 0:slashdot? 
+  T-> {'None\n': 3}
+  F-> 2:yes? 
+    T-> {'Basic\n': 4}
+    F-> 3:21? 
+      T-> {'Basic\n': 1}
+      F-> {'None\n': 3}
+>>> decisiontree.prune(tree, 1)
+>>> decisiontree.printtree(tree)
+0:google? 
+T-> 3:18? 
+  T-> 2:yes? 
+    T-> {'Basic\n': 1}
+    F-> {'None\n': 1}
+  F-> {'Premium\n': 3}
+F-> {'Basic\n': 5, 'None\n': 6}
+>>> decisiontree.classify(newObj, tree)
+{'Basic\n': 5, 'None\n': 6}
