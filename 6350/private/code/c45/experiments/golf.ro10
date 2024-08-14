@@ -1,0 +1,68 @@
+
+C4.5 [release 8] rule generator	Mon Feb  6 19:17:10 2012
+-------------------------------
+
+    Options:
+	File stem <XDF>
+	Rulesets evaluated on unseen cases
+
+Read 13 cases (4 attributes) from XDF
+
+------------------
+Processing tree 0
+
+Final rules from tree 0:
+
+Rule 2:
+    	outlook = overcast
+	->  class Play  [70.7%]
+
+Rule 4:
+    	outlook = rain
+    	windy = false
+	->  class Play  [63.0%]
+
+Rule 3:
+    	outlook = rain
+    	windy = true
+	->  class Don't Play  [50.0%]
+
+Rule 1:
+    	outlook = sunny
+	->  class Don't Play  [45.3%]
+
+Default class: Play
+
+
+Evaluation on training data (13 items):
+
+Rule  Size  Error  Used  Wrong	          Advantage
+----  ----  -----  ----  -----	          ---------
+   2     1  29.3%     4      0 (0.0%)	     0 (0|0) 	Play
+   4     2  37.0%     3      0 (0.0%)	     0 (0|0) 	Play
+   3     2  50.0%     2      0 (0.0%)	     2 (2|0) 	Don't Play
+   1     1  54.7%     4      1 (25.0%)	     2 (3|1) 	Don't Play
+
+Tested 13, errors 1 (7.7%)   <<
+
+
+	  (a)  (b)	<-classified as
+	 ---- ----
+	    7    1	(a): class Play
+	         5	(b): class Don't Play
+
+
+Evaluation on test data (1 items):
+
+Rule  Size  Error  Used  Wrong	          Advantage
+----  ----  -----  ----  -----	          ---------
+   1     1  54.7%     1      1 (100.0%)	    -1 (0|1) 	Don't Play
+
+Tested 1, errors 1 (100.0%)   <<
+
+
+	  (a)  (b)	<-classified as
+	 ---- ----
+	         1	(a): class Play
+	          	(b): class Don't Play
+

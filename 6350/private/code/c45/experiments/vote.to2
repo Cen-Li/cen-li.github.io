@@ -1,0 +1,79 @@
+
+C4.5 [release 8] decision tree generator	Mon Feb  6 19:14:02 2012
+----------------------------------------
+
+    Options:
+	File stem <XDF>
+	Trees evaluated on unseen cases
+
+Read 391 cases (16 attributes) from XDF.data
+
+Decision Tree:
+
+physician fee freeze = n:
+|   adoption of the budget resolution = y: democrat (199.0)
+|   adoption of the budget resolution = u: democrat (3.0)
+|   adoption of the budget resolution = n:
+|   |   education spending = n: democrat (12.0)
+|   |   education spending = y: democrat (9.0)
+|   |   education spending = u: republican (1.0)
+physician fee freeze = y:
+|   synfuels corporation cutback = n: republican (123.0/3.0)
+|   synfuels corporation cutback = u: republican (7.0)
+|   synfuels corporation cutback = y:
+|   |   mx missile = y: democrat (4.0/1.0)
+|   |   mx missile = u: republican (0.0)
+|   |   mx missile = n:
+|   |   |   adoption of the budget resolution = u: republican (0.0)
+|   |   |   adoption of the budget resolution = n:
+|   |   |   |   immigration = y: republican (8.0)
+|   |   |   |   immigration = u: republican (0.0)
+|   |   |   |   immigration = n:
+|   |   |   |   |   export administration act south africa = n: democrat (3.0/1.0)
+|   |   |   |   |   export administration act south africa = y: republican (6.0)
+|   |   |   |   |   export administration act south africa = u: democrat (2.0/1.0)
+|   |   |   adoption of the budget resolution = y:
+|   |   |   |   water project cost sharing = n: republican (2.0)
+|   |   |   |   water project cost sharing = y: democrat (3.0)
+|   |   |   |   water project cost sharing = u: democrat (0.0)
+physician fee freeze = u:
+|   mx missile = n: democrat (3.0)
+|   mx missile = y: democrat (4.0/1.0)
+|   mx missile = u: republican (2.0)
+
+
+Simplified Decision Tree:
+
+physician fee freeze = n: democrat (224.0/2.6)
+physician fee freeze = y: republican (158.0/15.1)
+physician fee freeze = u:
+|   mx missile = n: democrat (3.0/1.1)
+|   mx missile = y: democrat (4.0/2.2)
+|   mx missile = u: republican (2.0/1.0)
+
+
+Tree saved
+
+
+Evaluation on training data (391 items):
+
+	 Before Pruning           After Pruning
+	----------------   ---------------------------
+	Size      Errors   Size      Errors   Estimate
+
+	  31    7( 1.8%)      7   14( 3.6%)    ( 5.6%)   <<
+
+Evaluation on test data (44 items):
+
+	 Before Pruning           After Pruning
+	----------------   ---------------------------
+	Size      Errors   Size      Errors   Estimate
+
+	  31    3( 6.8%)      7    3( 6.8%)    ( 5.6%)   <<
+
+
+	  (a)  (b)	<-classified as
+	 ---- ----
+	   24    2	(a): class democrat
+	    1   17	(b): class republican
+

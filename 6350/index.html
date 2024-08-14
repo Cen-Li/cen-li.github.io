@@ -1,0 +1,480 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<HEAD>
+<TITLE>CSCI 6350 Data Mining </TITLE>
+<META NAME="author" CONTENT="Cen Li">
+
+<style type="text/css">
+body {font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;}
+#mytable
+{
+border:1px solid black;
+width: 100%;
+}
+#mytable th
+{
+border:1px solid black;
+font-size: small;
+font-weight: bold;
+padding-left:10px;
+padding-right:0px;
+padding-top:0px;
+padding-bottom:0px;
+}
+#mytable td
+{
+border:1px solid black;
+font-size: small;
+padding-left:10px;
+padding-right:0px;
+padding-top:0px;
+padding-bottom:0px;
+}
+#mytable td li
+{
+position: relative;
+left: -25px;
+padding-top:0px;
+padding-bottom:0px;
+}
+</style>
+
+</HEAD>
+<BODY bgcolor="white">
+
+<center>
+ <table border="8"> <tbody><tr valign="middle">
+   <td bgcolor="white"><img src="../images/WordmarkTiny.gif" alt="MTSU" width="97" height="48"></td>
+   <td bgcolor="white"> <center>
+     <font color="navy" size="6"> &nbsp; <b>
+       CSCI 6600/7350 - Data Mining <br>
+       </font><font color="navy" size=2> <b>
+       Instructor: <a href=http://www.cs.mtsu.edu/~cen/>Dr. Cen Li</a> <br>
+       Email: Cen.Li@mtsu.edu</a><br>
+       Office Hours: Tue, Wed, Thur,  10:30 am -- 12:00 pm<br>Other times by appointment.<br>
+     </b></font> &nbsp;
+   </center> </td>
+ </tr> </tbody></table>
+</center>
+<p>
+
+
+<b>Tentative Schedule</b><p>
+<center>
+<TABLE  id=mytable>
+
+<TR>
+    <TH width="50">Week</TH>
+    <TH>Date</TH>
+    <TH>Topics</TH>
+    <TH>Assignment</TH>
+</TR>
+
+<TR>
+    <TH>Week 1</TH>
+    <TD> Jan 16th (Tue) and Jan 18th (Thur) </TD>
+    <TD colspan = 2>no class</a>
+</TR>
+
+<TR>
+    <TH rowspan="2">Week 2</TH>
+	<TD> Jan 22nd (Tue) </TD>
+	<TD><ul>
+        <li><a href=private/syllabus.pdf>Course Syllabus</a>
+        <li><a href=private/lectures/1-Introduction.pdf>Intro to Data Mining</a> </TD>
+        </ul>
+	</TD>
+	<TD> 
+   </TD>
+</TR>
+
+<TR>
+    <TD> Jan 24th (Thur) </TD>
+    <TD>
+     <ul>
+     <li><a href=private/lectures/1-Introduction.pdf>Intro to Data Mining</a> (continued)
+     </ul>
+     </TD>
+     <TD> 
+       Install:
+       <ul>
+       <li> Anaconda.com (Anaconda-Navigator)
+       <li> pip install jupyterlab, jupyter lab
+       </ul>
+    </TD>
+</TR>
+
+
+<TR>
+    <TH rowspan="2">Week 3</TH>
+    <TD> Jan 30th </TD>
+    <TD> 
+        <ul>
+         <li>Recommendation System
+         <ul>
+         <li><a href=http://www.grouplens.org/ target=new>GroupLens web site</li>
+         <li><a href=private/lectures/RecommendationSystem.pdf target=new>Notes on Recommendation</a>
+         <li><a href=private/lectures/StudentNotes.pdf target=new>Program Demo Notes</a>
+         </ul>
+        </ul>
+     </TD>
+     <TD>
+     <ul>
+     <li><a href=private/projects/project1.pdf target=new>Project1.pdf</a>
+          (<font color=red>Due: midnight, Thursday, Feb 8th</font>)
+        <ul>
+        <li><a href=private/projects/ target=new>movies100K.tar.gz</a>
+        <br><font color=blue>In this folder, u.data is the file containing user-movie-ranking information (a larger version of test.dat in class demo)
+        <br> u.item is the file containing movie information (a larger version of movies.dat in class demo) </font>
+        <li><a href=private/lectures/RecommendationSystems/movies.dat targer=new>movies.dat</a>
+        <li><a href=private/lectures/RecommendationSystems/test.dat targer=new>test.dat</a>
+        <li><a href=private/projects/recom.txt targer=new>recom.py.txt</a> <br>
+        <li><a href=private/lectures/RecommendationSystems/StudentNotes.pdf target=new>Program demo result</a></li>
+        <!--<li><a href=https://github.com/cenlkang/data-mining.git>access recom.jpynb</li>-->
+        </ul>
+     </ul>    
+     </TD>
+</TR>
+
+<TR>
+    <TD> Feb 1st </TD>
+    <TD> 
+      <ul>
+         <li><a href=private/lectures/Association-Apriori.pdf>Association Rule Discovery(Apriori)</a>
+         <ul>
+            <li><a href=private/lectures/demo/apriori.txt>Example Apryori program(apriori.py)</a>
+            <li><a href=private/lectures/demo/Market_Basket_Optimisation.csv>Data file</a>
+         </ul>
+       </ul>
+    </TD>
+    <TD></TD>
+</TR>
+
+
+<TR>
+    <TH rowspan="2"> Week 4</TH>
+    <TD> Feb 6th</TD>
+    <TD>
+       <ul> 
+         <li><a href=private/lectures/Association-Apriori.pdf>Association Rule Discovery(Apriori)continued</a>
+         <ul>
+         <li><a href=private/lectures/AprioriAssociationRuleExample.pdf>A Complete Example</a>
+         <li><a href=https://zaxrosenberg.com/unofficial-apyori-documentation/>Apyori doc</a>
+         </ul>
+         <li><a href=private/lectures/FP-Growth.pdf target=new>Association Rule Discovery (FP-Growth)</a>
+       </ul>
+     </TD>
+     <TD></TD>
+</TR>
+
+<TR>
+    <TD> Feb 8th</TD>
+    <TD>
+        <ul>
+         <li><a href=private/lectures/FP-Growth.pdf target=new>Association Rule Discovery (FP-Growth)(continued)</a>
+             <li> <a href=private/lectures/3-ClassificationRegressionIntro.pdf>Classification and Regression Intro</a>
+             <li> <a href=private/lectures/4-LinearRegression.pdf>Linear Regression</a>
+                 <ul>
+                 <li><a href=https://github.com/cenlkang/data-mining.git>access simple_regression.ipynb and multiple_linear_regression.ipynb</a>
+                 <li><a href=private/code/50_Startups.csv>data file (50_Startups.csv)</a>
+                 <li><a href=private/code/Salary_Data.csv>data file (Salary_Data.csv)</a>
+                 </ul>
+         </ul>
+     </TD>
+    <TD><a href=private/homework/homework1.pdf target=new>Homework 1</a> (Due midnight Friday, Feb 16th)</TD>
+</TR>
+
+<TR>
+    <TH rowspan="2"> Week 5</TH>
+    <TD> Feb 13th </TD>
+    <TD> 
+        <ul>
+             <li> <a href=private/lectures/5-LogisticRegression.pdf>Logistic Regression Classification</a>
+                 <ul>
+                 <li><a href=https://github.com/cenlkang/data-mining.git>access _regression.ipynb</a>
+                 <li><a href=private/code/Social_Network_Ads.csv>data file</a>
+                 </ul>
+         </ul>
+     </TD>
+     <TD>
+     <a href=https://medium.com/analytics-vidhya/derivative-of-log-loss-function-for-logistic-regression-9b832f025c2d target=new>The Derivative of Cost Function for Logistic Regression</a>
+     </TD>
+</TR>
+
+<TR>
+    <TD> Feb 15th</TD>
+    <TD> <ul>
+             <li> <a href=private/lectures/13-KNN.pdf>K Nearest Neighbor Classification</a>
+             <ul>
+             <li><a href=https://github.com/cenlkang/data-mining.git>access k_nearest_neighbors.ipynb
+             <li><a href=private/code/Social_Network_Ads.csv>data file</a>
+             </ul>
+         </ul>
+    </TD>
+    <TD> 
+    </TD>
+</TR>
+
+<TR>
+    <TH rowspan="2"> Week 6</TH>
+    <TD> Feb 20th </TD>
+	<TD>
+ 	<ul>
+         <li> <a href=private/lectures/13-KNN.pdf>K Nearest Neighbor Classification(continued)</a>
+	</ul>
+	<TD> 
+        </TD>
+</TR>
+
+<TR>
+    <TD> Feb 22nd </TD>
+	<TD>
+        <ul>
+	 <li><a href=private/lectures/DecisionTree.pdf>Decision Tree Classification(1)</a> 
+             <ul>
+         <li><a href=private/lectures/decisiontree-notes.pdf>In class example notes</a>  (This notes show computation for the first 2 attributes. A complete computation should include calculations for all 3 attributes)
+             <li><a href=https://github.com/cenlkang/data-mining.git>access decision_tree_classification.ipynb</a>
+             <li><a href=private/code/Social_Network_Ads.csv>data file</a>
+             <ul>
+             <li><a href=https://mljar.com/blog/visualize-decision-tree/>draw decision tree</a>
+             </ul>
+             </ul>
+	</ul>
+    <TD> 
+        <ul>
+         <li><a href=private/homework/homework2.pdf>Homework 2</a>
+        </ul>
+    </TD>
+</TR>
+
+
+<TR>
+    <TH rowspan="2"> Week 7</TH>
+    <TD> Feb 27th</TD>
+	<TD>
+        <ul>
+	<li><a href=private/lectures/3-prob-naive.pdf>Probability review and Density estimator
+	</ul>
+    <TD> </TD>
+</TR>
+
+<TR>
+    <TD> Feb 29th  </TD>
+         <TD>
+	 <ul>
+        <li><a href=private/lectures/independenceHandout.pdf>Conditional Independence</a>
+	<li><a href=private/lectures/3-prob-naive.pdf>Naive Bayes Classifier</a>
+        <li><a href=https://github.com/cenlkang/data-mining.git>access naive_bayes.ipynb</a>
+	 </ul>
+         </TD>
+         <TD>
+       <ul><li><a href=private/projects/term-project.pdf>Semester Project</a></ul>
+         </TD>
+</TR>
+
+<TR>
+    <TH rowspan="1"> Week 8</TH>
+    <TD> March 5th and 7th  </TD>
+    <TD> 
+    <ul>
+      <li>Spring break, no class
+     </ul>
+    <TD>
+    </TD>
+</TR>
+
+<TR>
+    <TH rowspan="2">Week 9</TH>
+    <TD> March 12th </TD>
+    <TD> <ul>
+    <li>Naive Bayes for text classification
+    <li><a href=private/lectures/18-ANN.pdf>Artificial Neural Network </a>
+        <ul>
+             <li><a href=https://github.com/cenlkang/data-mining.git>access artificial_neural_network.ipynb</a>
+             <li><a href=private/code/Churn_Modelling.csv>data file</a>
+        </ul>
+         </ul>
+    </TD>
+	<TD>
+         <ul>
+         </ul>
+        </ul> 
+       </TD>
+</TR>
+
+<TR>
+    <TD> March 14th </TD>
+    <TD> 
+    <ul>
+    <li><a href=private/lectures/19-ensemble.pdf target=new>Ensemble Classifier</a>
+    <li><a href=private/lectures/AdaBoost.pdf target=new>Boosting notes</a>
+    </ul>
+    </TD>
+    <TD> 
+       <ul><li><a href=private/projects/project2.pdf>Project 2</a>
+       </ul>
+    </TD>
+</TR>
+
+<TR>
+    <TH rowspan="2"> Week 10</TH>
+    <TD> March 19th</TD>
+    <TD> <ul> 
+        <li>Semester Project Proposal In class presentation
+         </ul>
+    </TD>
+    <TD>
+        <ul>
+        <li> <a href=private/homework/homework3.pdf target=new>Homework 3</a> <br>
+        </ul>
+    </TD>
+</TR>
+
+<TR>
+    <TD> March 21st</TD>
+    <TD> <ul> 
+        <li><a href=private/lectures/SVM.pdf target=new>Support Vector Machines and the Kernel Functions</a>
+    </TD>
+    <TD>
+    </TD>
+</TR>
+
+<TR>
+    <TH rowspan="2">Week 11</TH>
+    <TD> March 26th</TD>
+    <TD>
+    <ul>
+        <li> <a href=private/lectures/5-FeatureSelection.pdf>Feature Selection</a> 
+        <ul>
+        <li><a href=private/lectures/feature_select_notes.pdf target=new>class notes on univariate feature selection</a>
+        <li><a href=private/lectures/20-FeatureSelection-MIFS-Relief-example.pdf target=new>class notes on multivariate feature selection</a>
+         </ul>
+    </ul>
+    </TD>
+    <TD>
+        <ul>
+        </ul>
+    </TD>
+</TR>
+
+<TR>
+    <TD> March 28th</TD>
+    <TD>
+    <ul>
+        <li> <a href=private/lectures/5-FeatureSelection.pdf>Feature Selection</a>(continued) 
+    </ul>
+    </TD>
+    <TD></TD>
+</TR>
+
+<TR>
+    <TH rowspan="2">Week 12</TH>
+    <TD> April 2nd</TD>
+    <TD>
+    <ul>
+      <li><a href=private/lectures/20-PCA-LDA.pdf target=new>Dimensionality Reduction: PCA and LDA</a>
+    </ul>
+    </TD>
+    <TD>
+    </TD>
+</TR>
+
+
+<TR>
+    <TD> April 4th</TD>
+    <TD>
+    <ul>
+     <li>Team project work
+    </ul>
+    </TD>
+    <TD></TD>
+</TR>
+
+<TR>
+<TH rowspan="2"> Week 13</TH>
+    <TD> April 9th</TD>
+   <TD> Semester project progress report in class presentation </TD>
+  <TD> 
+  </TD>
+</TR>
+
+<TR>
+   <TD> April 11th</TD>
+   <TD>
+    <ul>
+    <li><a href=private/lectures/clustering-1.pdf>Partitional Clustering</a> 
+       <ul>
+          <li><a href=https://scikit-learn.org/stable/modules/clustering.html>Scikit Learn Clustering</a>
+          <li><a href=https://scikit-learn-extra.readthedocs.io/en/stable/modules/cluster.html>Scikit learn KMedoids</a>
+       </ul>
+    </ul>
+   </TD>
+  <TD> 
+        <ul>
+        <li> <a href=private/homework/homework4.pdf target=new>Homework 4</a>
+        </ul>
+  </TD>
+</TR>
+
+<TR>
+    <TH rowspan="2"> Week 14</TH>
+    <TD> April 16th</TD>
+    <TD>
+       <ul>
+       <li><a href=private/lectures/clustering-2.pdf>Hierarchical Clustering</a> 
+       <li><a href=private/lectures/BIRCH.pdf>BIRCH: An Efficient Data Clustering Method for Very Large Databases</a> 
+       </ul>
+    </TD>
+    <TD>
+    </TD>
+</TR>
+
+<TR>
+    <TD> April 18th</TD>
+    <TD>
+    <ul>
+       <li><a href=private/lectures/clustering-3.pdf>Model based clustering</a>
+       <li><a href=https://cdn.aaai.org/KDD/1996/KDD96-037.pdf>DB Scan:A Density-based Algorithm for Discovering Clusters"</a>
+    </ul>
+  </TD>
+    <TD></TD>
+</TR>
+
+
+<TR>
+<TH> Week 15</TH>
+    <TD> April 23rd</TD>
+    <TD>
+       <ul>
+       <li>Semester project final presentation
+       </ul>
+    </TD>
+    <TD>
+    </TD>
+</TR>
+
+</TABLE>
+</center>
+
+<p> 
+
+<font size=small>
+<h3>Useful Information</h3>
+<UL>
+<li><a href=https://mtmailmtsu-my.sharepoint.com/:o:/g/personal/cli_mtsu_edu/EvKGxS313cpIp48hSw43T3wBa8CkC_bhRs0VCjo-xB0_FQ?e=cqwrxk>OneNote to class notes</a><p>
+
+<LI><a href=http://scikit-learn.org/stable/>Scikit: Machine Learning in Python</a>
+<LI><a href=http://www.cs.waikato.ac.nz/ml/weka/book.html>Data Mining: Practical Machine Learning Tools and Techniques (Third Edition)</a> by Ian H. Witten, Eibe Frank, Mark A. Hall, Morgan Kaufmann, Jan 2011. </LI>
+    <li> <a href=http://python.org>Python Official Web Site</a>
+        <ul>
+        <li> <a href=http://pythonconquerstheuniverse.wordpress.com/2011/08/29/lambda_tutorial>lamba function tutorial</a>
+        </ul>
+	<LI> <a href=http://www.cs.waikato.ac.nz/ml/weka/>WEKA home page</a> </LI>
+    <LI> <a href=http://www.kdnuggets.org/>KDNuggets</a> </LI>
+    <LI> <a href=http://archive.ics.uci.edu/ml/>UCI Machine Learning Repository</a> </LI>
+<li><a href=https://arxiv.org/pdf/1609.04747.pdf>Sebastian Ruder, "An overview of gradient descent optimization algorithms"</a>
+<li><a href=http://users.rowan.edu/~polikar/RESEARCH/PUBLICATIONS/csm06.pdf>Robi Polikar, 
+"Ensemble Based Systems in Decision Making"</a>
+	</UL>
+<p>
+
+</BODY>

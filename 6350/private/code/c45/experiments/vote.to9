@@ -1,0 +1,82 @@
+
+C4.5 [release 8] decision tree generator	Mon Feb  6 19:14:02 2012
+----------------------------------------
+
+    Options:
+	File stem <XDF>
+	Trees evaluated on unseen cases
+
+Read 392 cases (16 attributes) from XDF.data
+
+Decision Tree:
+
+physician fee freeze = n:
+|   adoption of the budget resolution = y: democrat (197.0)
+|   adoption of the budget resolution = u: democrat (3.0)
+|   adoption of the budget resolution = n:
+|   |   education spending = n: democrat (12.0/1.0)
+|   |   education spending = y: democrat (8.0)
+|   |   education spending = u: republican (1.0)
+physician fee freeze = y:
+|   synfuels corporation cutback = n: republican (126.0/3.0)
+|   synfuels corporation cutback = u: republican (6.0)
+|   synfuels corporation cutback = y:
+|   |   mx missile = y: democrat (5.0/1.0)
+|   |   mx missile = u: republican (0.0)
+|   |   mx missile = n:
+|   |   |   adoption of the budget resolution = n: republican (18.0/2.0)
+|   |   |   adoption of the budget resolution = u: republican (0.0)
+|   |   |   adoption of the budget resolution = y:
+|   |   |   |   water project cost sharing = n: republican (2.0)
+|   |   |   |   water project cost sharing = y: democrat (4.0)
+|   |   |   |   water project cost sharing = u: democrat (0.0)
+physician fee freeze = u:
+|   education spending = n: democrat (6.0)
+|   education spending = y: republican (1.0)
+|   education spending = u: democrat (3.0/1.0)
+
+
+Simplified Decision Tree:
+
+physician fee freeze = n: democrat (221.0/3.8)
+physician fee freeze = u: democrat (10.0/3.5)
+physician fee freeze = y:
+|   synfuels corporation cutback = n: republican (126.0/5.0)
+|   synfuels corporation cutback = u: republican (6.0/1.2)
+|   synfuels corporation cutback = y:
+|   |   mx missile = y: democrat (5.0/2.3)
+|   |   mx missile = u: republican (0.0)
+|   |   mx missile = n:
+|   |   |   adoption of the budget resolution = n: republican (18.0/3.7)
+|   |   |   adoption of the budget resolution = u: republican (0.0)
+|   |   |   adoption of the budget resolution = y:
+|   |   |   |   water project cost sharing = n: republican (2.0/1.0)
+|   |   |   |   water project cost sharing = y: democrat (4.0/1.2)
+|   |   |   |   water project cost sharing = u: democrat (0.0)
+
+
+Tree saved
+
+
+Evaluation on training data (392 items):
+
+	 Before Pruning           After Pruning
+	----------------   ---------------------------
+	Size      Errors   Size      Errors   Estimate
+
+	  25    8( 2.0%)     16   10( 2.6%)    ( 5.6%)   <<
+
+Evaluation on test data (43 items):
+
+	 Before Pruning           After Pruning
+	----------------   ---------------------------
+	Size      Errors   Size      Errors   Estimate
+
+	  25    2( 4.7%)     16    2( 4.7%)    ( 5.6%)   <<
+
+
+	  (a)  (b)	<-classified as
+	 ---- ----
+	   26    1	(a): class democrat
+	    1   15	(b): class republican
+

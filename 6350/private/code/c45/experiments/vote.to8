@@ -1,0 +1,79 @@
+
+C4.5 [release 8] decision tree generator	Mon Feb  6 19:14:02 2012
+----------------------------------------
+
+    Options:
+	File stem <XDF>
+	Trees evaluated on unseen cases
+
+Read 392 cases (16 attributes) from XDF.data
+
+Decision Tree:
+
+physician fee freeze = n:
+|   adoption of the budget resolution = y: democrat (197.0)
+|   adoption of the budget resolution = u: democrat (1.0)
+|   adoption of the budget resolution = n:
+|   |   education spending = n: democrat (13.0/1.0)
+|   |   education spending = y: democrat (10.0)
+|   |   education spending = u: republican (1.0)
+physician fee freeze = y:
+|   synfuels corporation cutback = n: republican (127.0/3.0)
+|   synfuels corporation cutback = u: republican (5.0)
+|   synfuels corporation cutback = y:
+|   |   adoption of the budget resolution = n: republican (19.0/4.0)
+|   |   adoption of the budget resolution = u: democrat (1.0)
+|   |   adoption of the budget resolution = y:
+|   |   |   anti satellite test ban = n: democrat (5.0)
+|   |   |   anti satellite test ban = y: republican (3.0)
+|   |   |   anti satellite test ban = u: democrat (0.0)
+physician fee freeze = u:
+|   export administration act south africa = n: democrat (1.0)
+|   export administration act south africa = y: democrat (5.0)
+|   export administration act south africa = u: republican (4.0/1.0)
+
+
+Simplified Decision Tree:
+
+physician fee freeze = n: democrat (222.0/3.8)
+physician fee freeze = y:
+|   synfuels corporation cutback = n: republican (127.0/5.0)
+|   synfuels corporation cutback = u: republican (5.0/1.2)
+|   synfuels corporation cutback = y:
+|   |   adoption of the budget resolution = n: republican (19.0/5.9)
+|   |   adoption of the budget resolution = u: democrat (1.0/0.8)
+|   |   adoption of the budget resolution = y:
+|   |   |   anti satellite test ban = n: democrat (5.0/1.2)
+|   |   |   anti satellite test ban = y: republican (3.0/1.1)
+|   |   |   anti satellite test ban = u: democrat (0.0)
+physician fee freeze = u:
+|   export administration act south africa = n: democrat (1.0/0.8)
+|   export administration act south africa = y: democrat (5.0/1.2)
+|   export administration act south africa = u: republican (4.0/2.2)
+
+
+Tree saved
+
+
+Evaluation on training data (392 items):
+
+	 Before Pruning           After Pruning
+	----------------   ---------------------------
+	Size      Errors   Size      Errors   Estimate
+
+	  22    9( 2.3%)     16   10( 2.6%)    ( 5.9%)   <<
+
+Evaluation on test data (43 items):
+
+	 Before Pruning           After Pruning
+	----------------   ---------------------------
+	Size      Errors   Size      Errors   Estimate
+
+	  22    2( 4.7%)     16    2( 4.7%)    ( 5.9%)   <<
+
+
+	  (a)  (b)	<-classified as
+	 ---- ----
+	   25    2	(a): class democrat
+	        16	(b): class republican
+

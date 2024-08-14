@@ -1,0 +1,6 @@
+red	square	big	pos
+blue	square	big	pos
+red	round	small	neg
+green	square	small	neg
+red	round	big	pos
+green	square	big	neg

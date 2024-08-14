@@ -1,0 +1,23 @@
+Tested 391, errors 7 (1.8%)   <<
+Tested 44, errors 2 (4.5%)   <<
+Tested 391, errors 11 (2.8%)   <<
+Tested 44, errors 1 (2.3%)   <<
+Tested 391, errors 7 (1.8%)   <<
+Tested 44, errors 3 (6.8%)   <<
+Tested 391, errors 6 (1.5%)   <<
+Tested 44, errors 2 (4.5%)   <<
+Tested 391, errors 12 (3.1%)   <<
+Tested 44, errors 3 (6.8%)   <<
+Tested 392, errors 10 (2.6%)   <<
+Tested 43, errors 0 (0.0%)   <<
+Tested 392, errors 8 (2.0%)   <<
+Tested 43, errors 4 (9.3%)   <<
+Tested 392, errors 11 (2.8%)   <<
+Tested 43, errors 5 (11.6%)   <<
+Tested 392, errors 9 (2.3%)   <<
+Tested 43, errors 2 (4.7%)   <<
+Tested 392, errors 10 (2.6%)   <<
+Tested 43, errors 2 (4.7%)   <<
+
+train:	Tested 391.5, errors 9.1 (2.3%)   <<
+test:	Tested 43.5, errors 2.4 (5.5%)   <<
