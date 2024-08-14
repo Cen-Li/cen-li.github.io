@@ -1,0 +1,335 @@
+//******************************************************
+// This program demonstrates the vector methods
+//******************************************************
+#include <iostream>
+#include <vector>
+#include <string>
+#include <fstream>
+using namespace std; 
+
+int main () 
+{
+  vector<string> myVector;      // Create an empty vector
+  string word;
+  ifstream inFile;
+  inFile.open("words");
+  int count;
+  // Read and push words onto the vector
+  for (count = 1; count <= 8; count++)
+  {
+    getline(inFile, word);
+    myVector.push_back(word);
+  }
+  cout << "Vector size is " << myVector.size() << endl;
+  
+  // Items are printed using an iterator
+  vector<string>::iterator position;
+  cout << "Items printed using an iterator." << endl;
+  for (position = myVector.begin(); 
+       position != myVector.end(); position++)
+    cout << *position << endl;
+ 
+  // Items are printed using an index
+  cout << "Items printed using an index." << endl;
+  for (int counter = 0; counter< myVector.size(); counter++)
+    cout << myVector[counter] << endl;
+
+  // Access and print items by position number
+  cout << "Here are the first and last words." << endl;
+  cout << myVector.at(0) << endl;
+  cout << myVector.at(myVector.size()-1);
+  return 0;
+}
+
+
+//******************************************************
+// This program demonstrates STL list
+//******************************************************
+#include <iostream>
+#include <list>
+#include <string>
+#include <fstream>
+using namespace std; 
+
+int main () 
+{
+  list<string> myList;           // Create an empty list
+  string word;
+  ifstream inFile;
+  inFile.open("words");
+  int count;
+
+  // Read and push words onto a list
+  for (count = 1; count <= 8; count++)
+  {
+    getline(inFile, word);
+    myList.push_front(word);
+  }
+  cout << "List size is " << myList.size() << endl;
+  inFile.close();
+
+  // Create an iterator
+  list<string>::iterator position; 
+  cout << "Items printed using an iterator." << endl;
+  for (position = myList.begin(); 
+       position != myList.end(); position++)
+    cout << *position << endl;
+
+  // Create a reverse iteraor and print
+  list<string>::reverse_iterator rPosition;
+  cout << endl << "Items in reverse order." << endl;
+  for (rPosition = myList.rbegin(); 
+       rPosition != myList.rend(); ++rPosition)
+    cout << *rPosition << endl;
+
+  // Sort and print with forward iterator
+  myList.sort();
+  cout << endl << "Items in sorted order." << endl;
+  for (position = myList.begin(); 
+       position != myList.end(); position++)
+  cout << *position << endl;
+  return 0;
+}
+
+
+//******************************************************
+// This program demonstrates STL list
+//******************************************************
+#include <iostream>
+#include <list>
+#include <string>
+#include <fstream>
+using namespace std; 
+
+int main () 
+{
+  list<string> myList;           // Create an empty list
+  string word;
+  ifstream inFile;
+  inFile.open("words");
+  int count;
+  // Read and push words onto a list.
+  for (count = 1; count <= 8; count++)
+  {
+    getline(inFile, word);
+    myList.push_front(word);
+  }
+
+  // FILL IN Code to print out the list items using an iterator
+  list<string>::iterator position;
+  // FILL IN Code to print the first two items
+
+
+
+  // FILL IN Code to print the last two items
+
+
+
+  // FILL IN Code to remove the second element
+
+
+
+  // FILL IN Code to sort the list and print the items
+
+
+
+
+  return 0;
+}
+
+
+//******************************************************
+// This program demonstrates the stack methods
+//******************************************************
+#include <iostream>
+#include <stack>
+#include <string>
+#include <fstream>
+using namespace std; 
+
+int main () 
+{
+  stack<string> myStack;          // Create an empty stack
+  string word;
+  ifstream inFile;
+  inFile.open("words");  
+
+  // Read and push words onto the stack
+  for (int count = 1; count <= 8; count++) 
+  {
+    getline(inFile, word);
+    myStack.push(word);
+  }
+  cout << "Stack size is " << myStack.size() << endl;  
+
+  // Remove words and print
+  while (!myStack.empty())
+  {
+    cout << myStack.top() << endl;
+    myStack.pop();
+  }
+  cout << "Stack size is " << myStack.size() << endl;
+  return 0;
+}
+
+//******************************************************
+// This program demonstrates the stack methods
+//******************************************************
+#include <iostream>
+#include <stack>
+#include <fstream>
+using namespace std; 
+
+int main () 
+{
+  // FILL IN Code to create an empty stack of integers
+
+
+  int number;
+  ifstream inFile;
+  inFile.open("numbers");  
+
+  // FILL IN Code to read and push numbers onto the stack
+  //   until EOF is encountered
+
+
+
+
+
+
+
+
+
+  // FILL IN Code to remove and print the numbers
+
+
+
+
+
+
+  return 0;
+}
+
+
+//**************************************************************
+/*
+ * File: IsBalanced.cpp
+ * --------------------
+ * This program checks to see whether the standard bracketing operators
+ * (parentheses, square brackets, and curly braces) are correctly matched.
+ */
+
+#include <iostream>
+#include <string>
+#include <stack>
+using namespace std;
+
+/* Function prototypes */
+
+bool isBalanced(string exp);
+bool operatorMatches(char open, char close);
+
+/* Main program */
+int main() {
+   string str;
+   while (true) {
+      cout << "Enter String: ";
+      getline(cin, str);
+
+      if (str == "") 
+        break;
+      if (isBalanced(str)) {
+         cout << "Brackets are properly nested" << endl;
+      } else {
+         cout << "Brackets are incorrect" << endl;
+      }
+   }
+   return 0;
+}
+
+//********************************************************************
+/*
+ * Function: isBalanced
+ * Usage: if (isBalanced(str)) . . .
+ * ---------------------------------
+ * Returns true if the bracketing operators (parentheses, square
+ * brackets, and curly braces) are correctly paired in the input string.
+ */
+
+bool isBalanced(string str) {
+   stack<char> aStack;
+   char topItem;
+
+   for (int i = 0; i < str.length(); i++) {
+      char ch = str[i];
+      switch (ch) {
+        case '{': 
+        case '[': 
+        case '(': aStack.push(ch); 
+                  break;
+        case '}': 
+        case ']': 
+        case ')': if (aStack.empty()) 
+                    return false;
+                  topItem = aStack.top();
+                  if (!operatorMatches(topItem, ch)) 
+                    return false;
+                  else
+                    aStack.pop();
+                  break;
+      }
+   }
+   return aStack.empty();
+}
+
+/*
+ * Function: operatorMatches
+ * Usage: if (operatorMatches(open, close)) . . .
+ * ----------------------------------------------
+ * Returns true if the characters open and close represent matching operators.
+ * If op is not a bracketing operator, this function returns false.
+ */
+
+bool operatorMatches(char open, char close) {
+   switch (open) {
+     case '{': return close == '}';
+     case '[': return close == ']';
+     case '(': return close == ')';
+     default: return false;
+   }
+}
+//******************************************************
+// This program demonstrates the queue methods
+//******************************************************
+#include <iostream>
+#include <queue>
+#include <string>
+#include <fstream>
+using namespace std; 
+
+int main () 
+{
+  queue<string> myQueue;          // Create an empty queue
+  string word;
+  ifstream inFile;
+  inFile.open("words");
+
+  // Read and push words onto the queue
+  for (int count = 1; count <= 8; count++)
+  {
+    getline(inFile, word);
+    myQueue.push(word);
+  }
+  cout << "Queue size is " << myQueue.size() << endl;
+
+  // Remove words and print
+  while (!myQueue.empty())
+  {
+    cout << myQueue.front() << endl;
+    myQueue.pop();
+  }
+
+   cout << "Queue size is " << myQueue.size() << endl;
+   return 0;
+}
+

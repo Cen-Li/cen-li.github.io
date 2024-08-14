@@ -1,0 +1,271 @@
+User login:
+
+First name:  Amelia
+Last name:  Keynes
+User ID:  akk3d
+Password:  LETMEIN
+
+User authentication successful... Loading Main Menu
+
+
+
+ PLease choose from the following menu:
+      1. Print all seller information
+      2. Check information of one seller
+      3. Add a seller
+      4. Remove a seller
+      5. Quit
+Enter your choice: 1
+
+              Name: Joseph Edmondson
+           User ID: jed2k
+             Email: jed2k@apple.com 
+    Average rating: 3
+  Total items sold: 1400
+              Name: Jack Smith
+           User ID: jsmith
+             Email: jack.smith@google.com 
+    Average rating: 4
+  Total items sold: 1800
+           Website: https://www.bottledMusic.com
+      Current Sale: 900
+              Name: Sarra Eddleman
+           User ID: see2j
+             Email: see2j@gmail.com 
+    Average rating: 4
+  Total items sold: 2400
+              Name: Bob Kat
+           User ID: bkat
+             Email: bob.kat@google.com 
+    Average rating: 3
+  Total items sold: 4800
+           Website: https://www.KatStuff.com
+      Current Sale: 1900
+
+
+ PLease choose from the following menu:
+      1. Print all seller information
+      2. Check information of one seller
+      3. Add a seller
+      4. Remove a seller
+      5. Quit
+Enter your choice: 2
+
+Enter first name: Sarra
+Enter last name: Eddleman
+
+              Name: Sarra Eddleman
+           User ID: see2j
+             Email: see2j@gmail.com 
+    Average rating: 4
+  Total items sold: 2400
+
+
+ PLease choose from the following menu:
+      1. Print all seller information
+      2. Check information of one seller
+      3. Add a seller
+      4. Remove a seller
+      5. Quit
+Enter your choice: 2
+
+Enter first name: Jack
+Enter last name: Smith
+
+              Name: Jack Smith
+           User ID: jsmith
+             Email: jack.smith@google.com 
+    Average rating: 4
+  Total items sold: 1800
+           Website: https://www.bottledMusic.com
+      Current Sale: 900
+
+
+ PLease choose from the following menu:
+      1. Print all seller information
+      2. Check information of one seller
+      3. Add a seller
+      4. Remove a seller
+      5. Quit
+Enter your choice: 4
+
+Enter first name: Jack
+Enter last name: Smith
+
+
+ PLease choose from the following menu:
+      1. Print all seller information
+      2. Check information of one seller
+      3. Add a seller
+      4. Remove a seller
+      5. Quit
+Enter your choice: 1
+
+              Name: Joseph Edmondson
+           User ID: jed2k
+             Email: jed2k@apple.com 
+    Average rating: 3
+  Total items sold: 1400
+              Name: Sarra Eddleman
+           User ID: see2j
+             Email: see2j@gmail.com 
+    Average rating: 4
+  Total items sold: 2400
+              Name: Bob Kat
+           User ID: bkat
+             Email: bob.kat@google.com 
+    Average rating: 3
+  Total items sold: 4800
+           Website: https://www.KatStuff.com
+      Current Sale: 1900
+
+
+ PLease choose from the following menu:
+      1. Print all seller information
+      2. Check information of one seller
+      3. Add a seller
+      4. Remove a seller
+      5. Quit
+Enter your choice: 3
+
+Please enter the following information (enter invalid type to quit):
+
+Is the seller a (S)eller or (P)ower Seller?  S
+
+First name:  Angela
+Last name:  Thomas
+User ID:  angthomas
+Email Address:  angela.thomas@bellsouth.com
+Average Star Rating:  3.7
+Total Items sold:   380
+
+The new Seller has been added.  Returning to Seller management...
+
+
+ PLease choose from the following menu:
+      1. Print all seller information
+      2. Check information of one seller
+      3. Add a seller
+      4. Remove a seller
+      5. Quit
+Enter your choice: 1
+
+              Name: Joseph Edmondson
+           User ID: jed2k
+             Email: jed2k@apple.com 
+    Average rating: 3
+  Total items sold: 1400
+              Name: Sarra Eddleman
+           User ID: see2j
+             Email: see2j@gmail.com 
+    Average rating: 4
+  Total items sold: 2400
+              Name: Bob Kat
+           User ID: bkat
+             Email: bob.kat@google.com 
+    Average rating: 3
+  Total items sold: 4800
+           Website: https://www.KatStuff.com
+      Current Sale: 1900
+              Name: Angela Thomas
+           User ID: angthomas
+             Email: angela.thomas@bellsouth.com
+    Average rating: 3
+  Total items sold: 380
+
+
+ PLease choose from the following menu:
+      1. Print all seller information
+      2. Check information of one seller
+      3. Add a seller
+      4. Remove a seller
+      5. Quit
+Enter your choice: 3
+
+Please enter the following information (enter invalid type to quit):
+
+Is the seller a (S)eller or (P)ower Seller?  P
+
+First name:  Linda
+Last name:  Harmon
+User ID:  lh2l
+Email Address:  lh2l@mtsu.edu
+Average Star Rating:  5.0
+Total Items sold:   3400
+Website Address:  www.FunStuff.com
+Current year products Sold:  500
+
+The new Power Seller has been added.  Returning to Seller Management...
+
+
+
+ PLease choose from the following menu:
+      1. Print all seller information
+      2. Check information of one seller
+      3. Add a seller
+      4. Remove a seller
+      5. Quit
+Enter your choice: 1
+
+              Name: Joseph Edmondson
+           User ID: jed2k
+             Email: jed2k@apple.com 
+    Average rating: 3
+  Total items sold: 1400
+              Name: Sarra Eddleman
+           User ID: see2j
+             Email: see2j@gmail.com 
+    Average rating: 4
+  Total items sold: 2400
+              Name: Bob Kat
+           User ID: bkat
+             Email: bob.kat@google.com 
+    Average rating: 3
+  Total items sold: 4800
+           Website: https://www.KatStuff.com
+      Current Sale: 1900
+              Name: Angela Thomas
+           User ID: angthomas
+             Email: angela.thomas@bellsouth.com
+    Average rating: 3
+  Total items sold: 380
+              Name: Linda Harmon
+           User ID: lh2l
+             Email: lh2l@mtsu.edu
+    Average rating: 5
+  Total items sold: 3400
+           Website: www.FunStuff.com
+      Current Sale: 500
+
+
+ PLease choose from the following menu:
+      1. Print all seller information
+      2. Check information of one seller
+      3. Add a seller
+      4. Remove a seller
+      5. Quit
+Enter your choice: 5
+
+Thank you for using BidHere.com! 
+
+=====================================================
+The following are two examples of unsuccessful log in 
+======================================================
+
+User login:
+
+First name:  Cen
+Last name:  Li
+
+Invalid user... exit.
+
+======================================================
+======================================================
+
+User login:
+
+First name:  Rosa
+Last name:  Johnson
+Password:  letusin
+
+Invalid password... exit.

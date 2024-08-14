@@ -1,0 +1,628 @@
+Initial Deck of Cards: 
+  HEART-2 2 points
+  HEART-3 3 points
+  HEART-4 4 points
+  HEART-5 5 points
+  HEART-6 6 points
+  HEART-7 7 points
+  HEART-8 8 points
+  HEART-9 9 points
+  HEART-10 10 points
+  HEART-Jack 10 points
+  HEART-Queen 10 points
+  HEART-King 10 points
+  HEART-Ace 15 points
+  DIAMOND-2 2 points
+  DIAMOND-3 3 points
+  DIAMOND-4 4 points
+  DIAMOND-5 5 points
+  DIAMOND-6 6 points
+  DIAMOND-7 7 points
+  DIAMOND-8 8 points
+  DIAMOND-9 9 points
+  DIAMOND-10 10 points
+  DIAMOND-Jack 10 points
+  DIAMOND-Queen 10 points
+  DIAMOND-King 10 points
+  DIAMOND-Ace 15 points
+  CLUB-2 2 points
+  CLUB-3 3 points
+  CLUB-4 4 points
+  CLUB-5 5 points
+  CLUB-6 6 points
+  CLUB-7 7 points
+  CLUB-8 8 points
+  CLUB-9 9 points
+  CLUB-10 10 points
+  CLUB-Jack 10 points
+  CLUB-Queen 10 points
+  CLUB-King 10 points
+  CLUB-Ace 15 points
+  SPADE-2 2 points
+  SPADE-3 3 points
+  SPADE-4 4 points
+  SPADE-5 5 points
+  SPADE-6 6 points
+  SPADE-7 7 points
+  SPADE-8 8 points
+  SPADE-9 9 points
+  SPADE-10 10 points
+  SPADE-Jack 10 points
+  SPADE-Queen 10 points
+  SPADE-King 10 points
+  SPADE-Ace 15 points
+=== end Initial Deck Cards === 
+
+After Shuffle the Cards: 
+  HEART-King 10 points
+  HEART-10 10 points
+  HEART-6 6 points
+  DIAMOND-10 10 points
+  DIAMOND-Jack 10 points
+  SPADE-Ace 15 points
+  SPADE-9 9 points
+  DIAMOND-4 4 points
+  HEART-5 5 points
+  HEART-3 3 points
+  HEART-Jack 10 points
+  CLUB-Queen 10 points
+  HEART-Queen 10 points
+  HEART-2 2 points
+  CLUB-5 5 points
+  SPADE-6 6 points
+  DIAMOND-5 5 points
+  SPADE-4 4 points
+  SPADE-5 5 points
+  DIAMOND-2 2 points
+  CLUB-6 6 points
+  DIAMOND-King 10 points
+  SPADE-2 2 points
+  CLUB-King 10 points
+  HEART-8 8 points
+  CLUB-2 2 points
+  CLUB-Ace 15 points
+  SPADE-Queen 10 points
+  SPADE-8 8 points
+  SPADE-King 10 points
+  HEART-4 4 points
+  HEART-Ace 15 points
+  CLUB-10 10 points
+  SPADE-10 10 points
+  DIAMOND-6 6 points
+  DIAMOND-7 7 points
+  HEART-9 9 points
+  CLUB-Jack 10 points
+  SPADE-Jack 10 points
+  CLUB-3 3 points
+  SPADE-3 3 points
+  DIAMOND-3 3 points
+  CLUB-9 9 points
+  SPADE-7 7 points
+  DIAMOND-Ace 15 points
+  CLUB-8 8 points
+  DIAMOND-9 9 points
+  DIAMOND-8 8 points
+  DIAMOND-Queen 10 points
+  CLUB-7 7 points
+  CLUB-4 4 points
+  HEART-7 7 points
+=== end Shuffled Cards === 
+
+
+=======================
+ Round: 1 of 26
+ Computer's score: 0
+ Joey's score: 0
+=======================
+Computer: 
+  HEART-7 7 points
+  CLUB-4 4 points
+  CLUB-7 7 points
+
+---------------------
+Here are your cards: 
+  1   DIAMOND-Queen 10 points
+  2   DIAMOND-8 8 points
+  3   DIAMOND-9 9 points
+Select one card to play (enter 1, 2, or 3): 1
+Computer played:   HEART-7 7 points
+Joey played:   DIAMOND-Queen 10 points
+Joey wins the hand, added 17 points
+
+=======================
+ Round: 2 of 26
+ Computer's score: 0
+ Joey's score: 17
+=======================
+Computer: 
+  CLUB-8 8 points
+  CLUB-4 4 points
+  CLUB-7 7 points
+
+---------------------
+Here are your cards: 
+  1   DIAMOND-Ace 15 points
+  2   DIAMOND-8 8 points
+  3   DIAMOND-9 9 points
+Select one card to play (enter 1, 2, or 3): 2
+Computer played:   CLUB-7 7 points
+Joey played:   DIAMOND-8 8 points
+Joey wins the hand, added 15 points
+
+=======================
+ Round: 3 of 26
+ Computer's score: 0
+ Joey's score: 32
+=======================
+Computer: 
+  CLUB-8 8 points
+  CLUB-4 4 points
+  SPADE-7 7 points
+
+---------------------
+Here are your cards: 
+  1   DIAMOND-Ace 15 points
+  2   CLUB-9 9 points
+  3   DIAMOND-9 9 points
+Select one card to play (enter 1, 2, or 3): 3
+Computer played:   CLUB-4 4 points
+Joey played:   DIAMOND-9 9 points
+Joey wins the hand, added 13 points
+
+=======================
+ Round: 4 of 26
+ Computer's score: 0
+ Joey's score: 45
+=======================
+Computer: 
+  CLUB-8 8 points
+  DIAMOND-3 3 points
+  SPADE-7 7 points
+
+---------------------
+Here are your cards: 
+  1   DIAMOND-Ace 15 points
+  2   CLUB-9 9 points
+  3   SPADE-3 3 points
+Select one card to play (enter 1, 2, or 3): 2
+Computer played:   SPADE-7 7 points
+Joey played:   CLUB-9 9 points
+Joey wins the hand, added 16 points
+
+=======================
+ Round: 5 of 26
+ Computer's score: 0
+ Joey's score: 61
+=======================
+Computer: 
+  CLUB-8 8 points
+  DIAMOND-3 3 points
+  CLUB-3 3 points
+
+---------------------
+Here are your cards: 
+  1   DIAMOND-Ace 15 points
+  2   SPADE-Jack 10 points
+  3   SPADE-3 3 points
+Select one card to play (enter 1, 2, or 3): 6
+Select one card to play (enter 1, 2, or 3): 4
+Select one card to play (enter 1, 2, or 3): 2
+Computer played:   CLUB-3 3 points
+Joey played:   SPADE-Jack 10 points
+Joey wins the hand, added 13 points
+
+=======================
+ Round: 6 of 26
+ Computer's score: 0
+ Joey's score: 74
+=======================
+Computer: 
+  CLUB-8 8 points
+  DIAMOND-3 3 points
+  CLUB-Jack 10 points
+
+---------------------
+Here are your cards: 
+  1   DIAMOND-Ace 15 points
+  2   HEART-9 9 points
+  3   SPADE-3 3 points
+Select one card to play (enter 1, 2, or 3): 1
+Computer played:   CLUB-8 8 points
+Joey played:   DIAMOND-Ace 15 points
+Joey wins the hand, added 23 points
+
+=======================
+ Round: 7 of 26
+ Computer's score: 0
+ Joey's score: 97
+=======================
+Computer: 
+  DIAMOND-7 7 points
+  DIAMOND-3 3 points
+  CLUB-Jack 10 points
+
+---------------------
+Here are your cards: 
+  1   DIAMOND-6 6 points
+  2   HEART-9 9 points
+  3   SPADE-3 3 points
+Select one card to play (enter 1, 2, or 3): 3
+Computer played:   DIAMOND-7 7 points
+Joey played:   SPADE-3 3 points
+computer wins the hand, added 10 points
+
+=======================
+ Round: 8 of 26
+ Computer's score: 10
+ Joey's score: 97
+=======================
+Computer: 
+  SPADE-10 10 points
+  DIAMOND-3 3 points
+  CLUB-Jack 10 points
+
+---------------------
+Here are your cards: 
+  1   DIAMOND-6 6 points
+  2   HEART-9 9 points
+  3   CLUB-10 10 points
+Select one card to play (enter 1, 2, or 3): 2
+Computer played:   CLUB-Jack 10 points
+Joey played:   HEART-9 9 points
+computer wins the hand, added 19 points
+
+=======================
+ Round: 9 of 26
+ Computer's score: 29
+ Joey's score: 97
+=======================
+Computer: 
+  SPADE-10 10 points
+  DIAMOND-3 3 points
+  HEART-Ace 15 points
+
+---------------------
+Here are your cards: 
+  1   DIAMOND-6 6 points
+  2   HEART-4 4 points
+  3   CLUB-10 10 points
+Select one card to play (enter 1, 2, or 3): 3
+Computer played:   HEART-Ace 15 points
+Joey played:   CLUB-10 10 points
+computer wins the hand, added 25 points
+
+=======================
+ Round: 10 of 26
+ Computer's score: 54
+ Joey's score: 97
+=======================
+Computer: 
+  SPADE-10 10 points
+  DIAMOND-3 3 points
+  SPADE-King 10 points
+
+---------------------
+Here are your cards: 
+  1   DIAMOND-6 6 points
+  2   HEART-4 4 points
+  3   SPADE-8 8 points
+Select one card to play (enter 1, 2, or 3): 1
+Computer played:   DIAMOND-3 3 points
+Joey played:   DIAMOND-6 6 points
+Joey wins the hand, added 9 points
+
+=======================
+ Round: 11 of 26
+ Computer's score: 54
+ Joey's score: 106
+=======================
+Computer: 
+  SPADE-10 10 points
+  SPADE-Queen 10 points
+  SPADE-King 10 points
+
+---------------------
+Here are your cards: 
+  1   CLUB-Ace 15 points
+  2   HEART-4 4 points
+  3   SPADE-8 8 points
+Select one card to play (enter 1, 2, or 3): 2
+Computer played:   SPADE-King 10 points
+Joey played:   HEART-4 4 points
+computer wins the hand, added 14 points
+
+=======================
+ Round: 12 of 26
+ Computer's score: 68
+ Joey's score: 106
+=======================
+Computer: 
+  SPADE-10 10 points
+  SPADE-Queen 10 points
+  CLUB-2 2 points
+
+---------------------
+Here are your cards: 
+  1   CLUB-Ace 15 points
+  2   HEART-8 8 points
+  3   SPADE-8 8 points
+Select one card to play (enter 1, 2, or 3): 2
+Computer played:   CLUB-2 2 points
+Joey played:   HEART-8 8 points
+Joey wins the hand, added 10 points
+
+=======================
+ Round: 13 of 26
+ Computer's score: 68
+ Joey's score: 116
+=======================
+Computer: 
+  SPADE-10 10 points
+  SPADE-Queen 10 points
+  CLUB-King 10 points
+
+---------------------
+Here are your cards: 
+  1   CLUB-Ace 15 points
+  2   SPADE-2 2 points
+  3   SPADE-8 8 points
+Select one card to play (enter 1, 2, or 3): 1
+Computer played:   CLUB-King 10 points
+Joey played:   CLUB-Ace 15 points
+Joey wins the hand, added 25 points
+
+=======================
+ Round: 14 of 26
+ Computer's score: 68
+ Joey's score: 141
+=======================
+Computer: 
+  SPADE-10 10 points
+  SPADE-Queen 10 points
+  DIAMOND-King 10 points
+
+---------------------
+Here are your cards: 
+  1   CLUB-6 6 points
+  2   SPADE-2 2 points
+  3   SPADE-8 8 points
+Select one card to play (enter 1, 2, or 3): 2
+Computer played:   SPADE-10 10 points
+Joey played:   SPADE-2 2 points
+computer wins the hand, added 12 points
+
+=======================
+ Round: 15 of 26
+ Computer's score: 80
+ Joey's score: 141
+=======================
+Computer: 
+  DIAMOND-2 2 points
+  SPADE-Queen 10 points
+  DIAMOND-King 10 points
+
+---------------------
+Here are your cards: 
+  1   CLUB-6 6 points
+  2   SPADE-5 5 points
+  3   SPADE-8 8 points
+Select one card to play (enter 1, 2, or 3): 1
+Computer played:   DIAMOND-King 10 points
+Joey played:   CLUB-6 6 points
+computer wins the hand, added 16 points
+
+=======================
+ Round: 16 of 26
+ Computer's score: 96
+ Joey's score: 141
+=======================
+Computer: 
+  DIAMOND-2 2 points
+  SPADE-Queen 10 points
+  SPADE-4 4 points
+
+---------------------
+Here are your cards: 
+  1   DIAMOND-5 5 points
+  2   SPADE-5 5 points
+  3   SPADE-8 8 points
+Select one card to play (enter 1, 2, or 3): 2
+Computer played:   SPADE-4 4 points
+Joey played:   SPADE-5 5 points
+Joey wins the hand, added 9 points
+
+=======================
+ Round: 17 of 26
+ Computer's score: 96
+ Joey's score: 150
+=======================
+Computer: 
+  DIAMOND-2 2 points
+  SPADE-Queen 10 points
+  SPADE-6 6 points
+
+---------------------
+Here are your cards: 
+  1   DIAMOND-5 5 points
+  2   CLUB-5 5 points
+  3   SPADE-8 8 points
+Select one card to play (enter 1, 2, or 3): 3
+Computer played:   DIAMOND-2 2 points
+Joey played:   SPADE-8 8 points
+Joey wins the hand, added 10 points
+
+=======================
+ Round: 18 of 26
+ Computer's score: 96
+ Joey's score: 160
+=======================
+Computer: 
+  HEART-2 2 points
+  SPADE-Queen 10 points
+  SPADE-6 6 points
+
+---------------------
+Here are your cards: 
+  1   DIAMOND-5 5 points
+  2   CLUB-5 5 points
+  3   HEART-Queen 10 points
+Select one card to play (enter 1, 2, or 3): 2
+Computer played:   SPADE-6 6 points
+Joey played:   CLUB-5 5 points
+computer wins the hand, added 11 points
+
+=======================
+ Round: 19 of 26
+ Computer's score: 107
+ Joey's score: 160
+=======================
+Computer: 
+  HEART-2 2 points
+  SPADE-Queen 10 points
+  CLUB-Queen 10 points
+
+---------------------
+Here are your cards: 
+  1   DIAMOND-5 5 points
+  2   HEART-Jack 10 points
+  3   HEART-Queen 10 points
+Select one card to play (enter 1, 2, or 3): 1
+Computer played:   HEART-2 2 points
+Joey played:   DIAMOND-5 5 points
+Joey wins the hand, added 7 points
+
+=======================
+ Round: 20 of 26
+ Computer's score: 107
+ Joey's score: 167
+=======================
+Computer: 
+  HEART-3 3 points
+  SPADE-Queen 10 points
+  CLUB-Queen 10 points
+
+---------------------
+Here are your cards: 
+  1   HEART-5 5 points
+  2   HEART-Jack 10 points
+  3   HEART-Queen 10 points
+Select one card to play (enter 1, 2, or 3): 2
+Computer played:   SPADE-Queen 10 points
+Joey played:   HEART-Jack 10 points
+computer wins the hand, added 20 points
+
+=======================
+ Round: 21 of 26
+ Computer's score: 127
+ Joey's score: 167
+=======================
+Computer: 
+  HEART-3 3 points
+  DIAMOND-4 4 points
+  CLUB-Queen 10 points
+
+---------------------
+Here are your cards: 
+  1   HEART-5 5 points
+  2   SPADE-9 9 points
+  3   HEART-Queen 10 points
+Select one card to play (enter 1, 2, or 3): 1
+Computer played:   CLUB-Queen 10 points
+Joey played:   HEART-5 5 points
+computer wins the hand, added 15 points
+
+=======================
+ Round: 22 of 26
+ Computer's score: 142
+ Joey's score: 167
+=======================
+Computer: 
+  HEART-3 3 points
+  DIAMOND-4 4 points
+  SPADE-Ace 15 points
+
+---------------------
+Here are your cards: 
+  1   DIAMOND-Jack 10 points
+  2   SPADE-9 9 points
+  3   HEART-Queen 10 points
+Select one card to play (enter 1, 2, or 3): 2
+Computer played:   DIAMOND-4 4 points
+Joey played:   SPADE-9 9 points
+Joey wins the hand, added 13 points
+
+=======================
+ Round: 23 of 26
+ Computer's score: 142
+ Joey's score: 180
+=======================
+Computer: 
+  HEART-3 3 points
+  DIAMOND-10 10 points
+  SPADE-Ace 15 points
+
+---------------------
+Here are your cards: 
+  1   DIAMOND-Jack 10 points
+  2   HEART-6 6 points
+  3   HEART-Queen 10 points
+Select one card to play (enter 1, 2, or 3): 1
+Computer played:   SPADE-Ace 15 points
+Joey played:   DIAMOND-Jack 10 points
+computer wins the hand, added 25 points
+
+=======================
+ Round: 24 of 26
+ Computer's score: 167
+ Joey's score: 180
+=======================
+Computer: 
+  HEART-3 3 points
+  DIAMOND-10 10 points
+  HEART-10 10 points
+
+---------------------
+Here are your cards: 
+  1   HEART-King 10 points
+  2   HEART-6 6 points
+  3   HEART-Queen 10 points
+Select one card to play (enter 1, 2, or 3): 1
+Computer played:   HEART-10 10 points
+Joey played:   HEART-King 10 points
+Joey wins the hand, added 20 points
+
+=======================
+ Round: 25 of 26
+ Computer's score: 167
+ Joey's score: 200
+=======================
+Computer: 
+  HEART-3 3 points
+  DIAMOND-10 10 points
+
+---------------------
+Here are your cards: 
+  1   HEART-6 6 points
+  2   HEART-Queen 10 points
+Select one card to play (enter 1, or 2): 2
+Computer played:   HEART-3 3 points
+Joey played:   HEART-Queen 10 points
+Joey wins the hand, added 13 points
+
+=======================
+ Round: 26 of 26
+ Computer's score: 167
+ Joey's score: 213
+=======================
+Computer: 
+  DIAMOND-10 10 points
+
+---------------------
+Computer played:   DIAMOND-10 10 points
+Joey played:   HEART-6 6 points
+computer wins the hand, added 16 points
+ === END OF GAME === 
+Computer's score: 183
+Joey's score: 213
+Joey wins! 
+

@@ -1,0 +1,431 @@
+
+// mammal.h
+// Notice: use Protected data 
+
+#include <iostream>
+using namespace std;
+
+#ifndef MAM_H
+#define MAM_H
+
+class mammal
+{
+public:
+    // constructors and destructor
+    mammal();
+    mammal (int W, int H, int A);
+    mammal (const mammal & other);
+    virtual ~mammal();
+
+    // member functions
+    void setWeight(int w);
+    void setHeight(int h);
+    int returnWeight() const;
+    int returnHeight() const;
+
+    // force dynamic binding for classes derived this class
+    virtual void print() const;
+    virtual void speak() const;
+
+    // overloaded relational operators
+    // A mammal is considered < then the other one if  it is lighter
+    bool operator < (const mammal& rhs) const;
+    mammal & operator = (const mammal & rhs);
+
+    // Two mammals are considered equal if they have the same height and weight
+    bool operator == (const mammal& rhs) const;
+
+    // overload the input/output operators
+    friend ostream & operator << (ostream & os, const mammal & rhs);
+    //   friend istream & operator >> (istream & is, mammal & rhs);
+
+protected:
+    int weight;
+    int height;
+    int age;
+};
+#endif
+
+====================================================================
+#include "mammal.h"
+#include <iostream>
+using namespace std;
+
+mammal::mammal()
+{
+    cout << "Executing mammal's default constructor" << endl;
+    weight=1;
+    height=1;
+    age=1;
+}
+
+mammal::mammal(int W, int H, int A)
+{
+    cout << "Executing mammal's value constructor" << endl;
+    weight=W;
+    height=H;
+    age = A;
+} 
+
+mammal::mammal(const mammal& other)
+{
+    cout << "Executing mammal's copy constructor" << endl;
+
+    weight = other.weight;
+    height = other.height;
+    age = other.age;
+}
+
+mammal::~mammal()
+{
+    cout <<"Executing mammal's destructor\n";
+}
+
+void mammal::setWeight(int w)
+{
+    weight = w;
+}
+
+void mammal::setHeight(int h)
+{
+    height = h;
+}
+
+int mammal:: returnWeight() const
+{
+    return weight;
+}
+
+int mammal::returnHeight() const
+{
+    return height;
+}
+
+void mammal::speak() const
+{
+    cout <<"WaaWa  WaaWa" << endl;
+}
+
+void mammal::print() const
+{
+    cout << "Height: " << height << endl;
+    cout << "Weight: " << weight << endl;
+}
+
+// one mammal is considered < then the other one if 
+// it is lighter 
+bool mammal::operator < (const mammal& rhs) const
+{
+    return (weight < rhs.weight);
+}
+
+// two mammals are considered equal if they have the same
+// height and weight
+bool mammal::operator == (const mammal& rhs) const
+{
+    return ((height==rhs.height)&&(weight == rhs.weight));
+}
+
+mammal & mammal::operator = (const mammal & rhs)
+{
+    if (this !=  &rhs)
+    {
+        height = rhs.height;
+        weight = rhs.weight;
+        age = rhs.age;
+    }
+
+    return *this;
+}
+
+// note: there is no scope resolution operator here
+ostream & operator << (ostream & os, const mammal & rhs)
+{
+    os << "The height is " << rhs.height << endl;
+    os << "weight is " << rhs.weight << endl;
+
+    return os;
+}
+
+// note: there is no scope resolution operator here
+/*
+istream & operator >> (istream & is, mammal & rhs)
+{
+    cout << "Please enter the height: ";
+    is >> rhs.height;
+
+    cout << "Please enter the weight: ";
+    is >> rhs.weight;
+
+    return is;
+}
+*/
+
+=======================================================
+
+#include "mammal.h"
+
+#ifndef DOG_H
+#define DOG_H
+
+enum BREED {LAB, COLLIE, DACHOUND, COCKER, PUG, POODLE, TERRIER};
+
+class dog : public mammal
+{
+    public:
+        dog();
+        dog(int H, int W, int A, BREED  B);
+        dog(const dog&other);
+        ~dog();
+
+        void printBreed() const;
+        BREED returnBreed() const;
+        virtual void speak() const;
+        virtual void print() const;
+
+        // need to redefine overloaded operators for derived class
+        bool operator == (const dog & rhs) const;
+        dog & operator = (const dog& rhs);
+
+        // need to redefine friend functions for derived class
+        friend ostream & operator << (ostream & os, const dog& rhs);
+
+    protected:
+        BREED itsBreed;
+};
+#endif
+
+==========================================================
+
+#include "dog.h"
+#include <iostream>
+#include <string>
+using namespace std;
+
+dog::dog()
+{
+    cout <<"Executing dog’s default constructor\n";
+    itsBreed=COLLIE;
+}
+
+dog::dog(int W, int H, int A, BREED B) : mammal(W, H, A), itsBreed(B)
+{
+    cout << "Executing dog\'s value constructor\n";
+}
+
+dog::dog(const dog & other) : mammal(other), itsBreed(other.itsBreed)
+{
+    cout << "Executing dog\'s copy constructor\n";
+}
+
+dog::~dog()
+{
+    cout <<"Executing dog destructor" << endl;
+}
+
+BREED dog::returnBreed() const
+{
+    return itsBreed;
+}
+
+void dog::printBreed() const
+{
+    static string breedNames[6]={"COLLIE", "DACHOUND", "COCKER", 
+                           "LAB", "POODLE", "TERRIER"};
+
+    cout <<"breed : ";
+    cout << breedNames[itsBreed] << endl;
+}
+
+void dog::print() const
+{
+    mammal::print();
+    printBreed();
+}
+
+void dog::speak()  const
+{
+    cout <<"BOW-WOo BoW-Woo" << endl;
+}
+
+
+bool dog::operator == (const dog & rhs) const
+{
+    return (weight == rhs.weight && height == rhs.height
+            && itsBreed == rhs.itsBreed);
+}
+
+dog & dog::operator = (const dog& rhs)
+{
+    if (this != &rhs)
+    {
+        weight = rhs.weight;
+        height = rhs.height;
+        age = rhs.age;
+        itsBreed = rhs.itsBreed;
+     }
+
+     return *this;
+}
+
+ostream & operator << (ostream & os, const dog& rhs)
+{
+    static string breedNames[6]={"COLLIE", "DACHOUND", "COCKER", "LAB", "POODLE", "TERRIER"};
+
+    os << "weight: " << rhs.weight<< endl;
+    os << "height: " << rhs.height<< endl;
+    os << "breed : " << breedNames[rhs.itsBreed] << endl;
+
+    return os;
+}
+
+============================================================
+
+#include "dog.h"
+#ifndef SHOWDOG_H
+#define SHOWDOG_H
+
+enum ShowCategory {PUPPY, Twelve_TO_18_MONTH_OLD, NOVICE, BRED_BY_EXHIBITOR, AMERICAN_BRED, OPEN};
+
+class showdog : public dog 
+{ 
+public:
+        showdog();
+        showdog(int H, int W, int A, BREED  B, ShowCategory C);
+        showdog(const showdog& other);
+        
+        ~showdog();
+
+        void setCategory(ShowCategory c);
+        ShowCategory returnCategory() const;
+        void printCategory() const;
+
+        virtual void speak() const;
+        virtual void print() const;
+
+        bool operator == (const showdog & rhs) const;
+        showdog & operator = (const showdog & rhs);
+        friend ostream & operator << (ostream & os, const showdog& rhs);
+
+protected:
+        ShowCategory  category;
+        
+};
+#endif
+
+========================================================
+
+#include "showdog.h"
+
+showdog::showdog() : dog()
+{
+   category = PUPPY; 
+}
+
+showdog::showdog(int H, int W, int A, BREED  B, ShowCategory C):
+  dog(H, W, A, B), category(C)
+{
+}
+
+showdog::showdog(const showdog& other):dog(other),category(other.category)
+{
+}
+
+showdog::~showdog()
+{
+    cout << "executing showdog's destructor" << endl;
+}
+
+void showdog::setCategory(ShowCategory C)
+{
+    category = C;
+}
+
+ShowCategory showdog::returnCategory() const
+{
+    return category;
+}
+
+void showdog::printCategory() const
+{
+    static string categoryNames[6] = {"PUPPY", "12_TO_18_MONTH_OLD", "NOVICE", "BRED_BY_EXHIBITOR", "AMERICAN_BRED", "OPEN"};
+    cout << categoryNames[category];
+}
+
+void showdog::print() const
+{
+    dog::print();
+    printCategory();
+}
+
+void showdog::speak() const
+{
+    cout << "I am the best, I am the prettiest!" << endl;
+}
+
+bool showdog::operator == (const showdog & rhs) const
+{
+    return (weight == rhs.weight && height == rhs.height
+         && itsBreed == rhs.itsBreed && category == rhs.category);
+}
+
+showdog & showdog::operator = (const showdog & rhs)
+{
+    if (this != & rhs)
+    {
+        weight = rhs.weight;
+        height = rhs.height;
+        age = rhs.age;
+        itsBreed = rhs.itsBreed;
+        category = rhs.category;
+    }
+
+    return *this;
+}
+
+ostream & operator << (ostream & os, const showdog& rhs)
+{
+    os << "weight: " << rhs.weight<< " pounds" << endl;
+    os << "height: " << rhs.height<< " inches" << endl;
+    os << "breed: " << rhs.itsBreed << endl;
+    os << "category: " << rhs.category << endl;
+}
+
+============================================================
+
+// main.cc
+// Compile with: aCC mammal.cpp dog.cpp showdog.cpp main.cc
+// Dynamic binding with Polymorphism
+// Need to use reference
+
+#include <iostream>
+#include "showdog.h"
+using namespace std;
+
+void WhatDoesItSay(mammal * who);
+
+int main()
+{
+    mammal *general;
+
+    mammal animal;
+    dog myDog(2, 10, 2, COLLIE);
+    showdog precious(10, 20, 3, TERRIER, OPEN);
+
+    for (int i=0; i<3; i++)
+    {
+       if (i==0)  general = &animal;
+       else if (i==1) general = &myDog;
+       else general = &precious;
+
+       WhatDoesItSay(general);
+    }
+
+    return 0;
+}
+
+void WhatDoesItSay(mammal * who)
+{
+    who->speak();
+    cout << endl;
+}

@@ -1,0 +1,158 @@
+const int MAX_ROUNDS = 13;			//Maximum rounds
+
+//declare prototypes of the functions here
+
+
+int main()
+{
+    // declare local variables
+	CardStruct table[MAX_PLAYERS];		//This structure holds the 4 cards played by the 4 players in one round of the game
+	CardClass deckOfCards;				//deck is created
+	PlayerClass players[MAX_PLAYERS];	//user and players
+	
+    srand(time(NULL));
+
+	//shuffle the deck of cards
+	
+
+	//This for loop deals ONLY ONE card at a time
+	//by repetitively calling the DealCard method of CardClass
+	
+
+
+	//This for loop sorts each players cards
+	
+	
+	//Find who leads the first round
+	
+	
+	//This while loop iterates 13 rounds of the game, one round per iteration
+	// Each round, display the user's game and play according to the rule of the game
+	while(round<=13)
+	{
+		
+		// fill in the code
+
+
+		round++;
+	}
+	
+	//Find who is the winner
+	
+	//prints the player who won the game
+	
+	return 0;
+}
+
+//This function calls the PlayerClass member function to find who leads the first game
+int FindLead(PlayerClass p[])
+{
+    // fill in code
+}
+
+//This function plays one round of the game
+// p[] pass in the 4 PlayerClass objects, i.e., the 4 players
+// t[] will hold the 4 cards for a round
+// lead will:
+//    (1)pass in who should lead the current round, and  
+//    (2)pass back to the calling function who will lead the next round of the game
+void PlayRound(PlayerClass p[], CardStruct t[], int & lead)
+{
+	// declare local variables
+
+
+	//First, print "user" if the lead is 0
+	//otherwise prints computer number
+
+	
+	//This for loop lets the players to each play a card
+	//Make sure to collect the 4 cards played in the array t
+	for(i=0; i<MAX_PLAYERS; i++)
+	{
+		//if a player's hand is full
+		//and if the player is leading,
+		//then start the game by play 2 of club
+		
+		
+		//else if computer is leading, then the computer plays a card
+		
+
+		//else if the user is leading, get a choice from the user
+		//otherwise computer plays a card by following a leading suit
+		
+
+		//Print "user" if the lead is 0
+		//otherwise prints computer number
+
+		
+		//sets the leading suit played by the players who is leading the round
+		
+
+		//Displays a card played by a current player
+		
+		//Clockwise rotation, move onto the next player
+		
+	}
+	
+	//Finds who has the highest value of a round
+	//And assigns lead to who has the highest value
+	
+	
+	// Display which player gets how many points on this round
+
+
+	// Adds current round's score to the player who had the highest value
+	
+
+	//Prints the score board
+	DisplayScoreBoard(p);
+}
+
+//This function prints one card's suit and value
+void DisplayCard(const CardStruct c)
+{
+   // fill code
+}
+
+//This function read the user's choice
+// turn : if it is 0, the user is leading the round; otherwise the user is following in the round
+// s : leading suit of the current game
+int GetChoice(PlayerClass user, CardSuitType s, int turn)
+{
+	
+    // declare local variables
+
+	//if the user is leading the round get a choice from the user
+	
+
+	//if the user is playing after the lead,
+	//then get a choice and check if it is a valid choice
+	//continue to ask until a valid choice is made
+
+}
+
+//This function find who has played the card of highest value of the round
+int FindCollector(const CardStruct t[], int & score, CardSuitType leadingSuit)
+{
+    // declare local variables 
+
+
+	//loop to sum up all of the points
+	//and then find who has played the card of highest value for the round
+	
+	// the array index corresponding to the player with the highest value for the round is retured.
+}
+
+//This function prints each player's score
+void DisplayScoreBoard(PlayerClass p[])
+{
+    // fill code
+}
+
+//This function finds who won the game
+// winner's index is retured
+int FindWinner(PlayerClass p[])
+{
+	
+    // fill code
+}

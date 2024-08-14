@@ -1,0 +1,883 @@
+<HEAD>
+<TITLE>CSCI 3110 -- Data Structures</TITLE>
+<META NAME="author" CONTENT="Cen Li">
+
+<style type="text/css">
+body {font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;}
+#mytable
+{
+border:1px solid black;
+width: 100%;
+}
+#mytable th
+{
+border:1px solid black;
+font-size: small;
+font-weight: bold;
+padding-left:10px;
+padding-right:0px;
+padding-top:0px;
+padding-bottom:0px;
+}
+#mytable td
+{
+border:1px solid black;
+font-size: small;
+padding-left:10px;
+padding-right:0px;
+padding-top:0px;
+padding-bottom:0px;
+}
+#mytable td li
+{
+position: relative;
+left: -25px;
+padding-top:0px;
+padding-bottom:0px;
+}
+</style>
+
+</HEAD>
+<BODY bgcolor="white">
+
+<center>
+ <table border="8"> <tbody><tr valign="middle">
+   <td bgcolor="white"><img src="../images/WordmarkTiny.gif" alt="MTSU" width="97" height="48"></td>
+   <td bgcolor="white"> <center>
+     <font color="navy" size="6"> &nbsp; <b><em>CSCI 3110: Data Structures</em>
+     </b></font>
+     <p>
+     <font color="navy" size="4"> &nbsp; <b><em>Spring 2024</em>
+     </b></font>
+     <p>
+     <font color="navy" size="2"> &nbsp; <b>
+     <em><br>
+       	<a href=http://www.cs.mtsu.edu/~cen>Instructor: Dr. Cen Li</a> <br>Email: Cen.Li@mtsu.edu <br>
+           Office hours:  Tue, Wed, Thur, 10:30 am -- 12:00 pm<br>
+           Others by appointment
+        <p>
+          Teaching Assistant: Mr. Caleb Griffy <br>
+          Email: cgg3a@mtmail.mtsu.edu <br>
+         Office hours: Monday 4:00-6:00pm
+   </center> </td>
+ </tr> </tbody></table>
+</center>
+<p>
+
+<p>
+<a href=https://www.mtsu.edu/csc/tutoring.php>Computer Science Tutoring Page</a>
+<p>
+
+<p>
+<center><b>Tentative Class schedule (subject to change)</b></center>
+<TABLE  id=mytable>
+<TR>
+<b>
+    <TH width="50">Week</TH>
+    <TH> Date</TH>
+    <TH> Lecture Topics </TH>
+    <TH> Code Examples </TH>
+    <TH> Project Assignments </TH>
+</b>
+</TR>
+
+<TR>
+    <TH>Week 1</TH>
+    <TH>Jan 16th(Tue) and Jan 18th(Thur)</TH>
+    <TD colspan=3> No class
+</TR>
+
+<TR>
+    <TH rowspan="2">Week 2</TH>
+    <TH>Jan 22nd (Tue) </TH>
+	<TD>
+            <ul>
+            <li> <a href=private/Syllabus.pdf target=new>Course Syllabus</a>
+                <li>Review: Array, structure type,  Array of structure, file I/O, Linear Search, Sorting, formatted output
+            <li> <a href=private/lectures/0-introduction.pdf target=new>Introduction to Data Structures
+	    </ul>
+        </TD>
+	<TD> 
+                   <ul>
+                   <li>Example illustrating: Array of Structure, linear search in array, and sorting of an array of structs:
+                   <ul>
+                   <li><a href=private/code/StructArray/type.h target=new>type.h</a>
+                   <li><a href=private/code/StructArray/main.cpp target=new>main.cpp</a>
+                   <li><a href=private/code/StructArray/movies.dat target=new>movies.dat</a>
+                   <li><a href=private/code/StructArray/theaters.dat target=new>theaters.dat</a>
+                   <li><a href=private/code/StructArray/showings.dat target=new>showings.dat</a>
+                  <p>
+                   </ul>
+                  
+                   </ul>
+         </TD>
+	<TD>
+	     <ul>
+              <li>Download and install Visual Studio Code:
+             <a href=https://code.visualstudio.com/download>VS Code</a><p>
+             <li><a href=https://code.visualstudio.com/docs/cpp/introvideos-cpp>Learn to Build, Run and Debug C++ program in VS Code<p>
+             <li>Download the Program from the class to build, run and debug in VSCode before Thursday's class.
+             <p>
+             <li>You may access VS Code from Jupyterhub
+            <ul>
+                <li><a href=https://jupyterhub.cs.mtsu.edu/azuread/hub/login?next=%2Fazuread%2Fhub%2Fhome>MTSU Jupiterhub</a><br>
+                 (Log in with your MTSU pipeline ID)
+            </ul>
+	     </ul>
+        </TD>
+</TR>
+
+<TR>
+    <TH>Jan 24th (Thur)</TH>
+	<TD>
+	     <ul>
+                <li> Debugging in VS Code
+                <li> Discuss Project 1
+               <li> <a href=private/lectures/0-Introduction.pdf target=new>Introduction to Data Structures
+	     </ul>
+	</TD>
+	<TD>
+	</TD>
+	<TD>
+            <ul>
+                <li><a href=private/projects/project1/Project1.pdf target=new>Project 1</a>
+                (<a href=private/projects/project1/evaluation1.pdf target=new>Evaluation Rubric</a>) <br>
+                <font color=red>Due: midnight Thursday Feb 1st, Deadline: midnight Monday Feb 5th</font><br>
+                <li>Start files and data file
+                    <ul>
+                    <li><a href=private/projects/project1/type.h target=new>type.h</a>, 
+                    <li><a href=private/projects/project1/main.cpp target=new>main.cpp</a>, 
+                    <li><a href=private/projects/project1/grades.dat target=new>grades.dat</a>
+                    </ul>
+                <li>Read:
+                <ul>
+                  <li><a href=private/projects/programrequirements.pdf target=new>Requirements for Programs</a> 
+                  <li><a href=https://www.internalpointers.com/post/understanding-meaning-lvalues-and-rvalues-c target=new>l-value and r-value explained</a>
+                </ul>
+	     </ul>
+	</TD>
+</TR>
+
+<TR>
+  <TH rowspan="2">Week 3</TH>
+    <TH> Jan 30th (Tue)</TH>
+	<TD>
+	     <ul>
+                <li><a href=private/lectures/1-FuncParamReturnType.pdf target=new>Function review</a>
+                <li> <a href=private/lectures/0-typedef-enum.pdf target=new>Enumeration type</a>
+            <li> <a href=private/lectures/class.pdf target=new>Review C++ Class</a>
+                 <ul><li> <a href=private/lectures/ClassReview.pdf target=new>a more detailed review</a></ul>
+            <li>Code walkthrough: CheckingAcct example.
+             <ul>
+             <li><a href=private/code/CheckingAcct/CheckingAcct.h target=new>CheckingAcct.h</a>
+             <li><a href=private/code/CheckingAcct/CheckingAcct.cpp target=new>CheckingAcct.cpp</a>
+             <li><a href=private/code/CheckingAcct/main.cpp target=new>main.cpp</a>
+             </ul>
+	     </ul>
+	</TD>
+	<TD>
+	     <ul>
+             <li>Example 1: basic concepts
+             <ul>
+             <li><a href=private/code/SphereClass/Sphere.h target=new>Sphere.h</a>
+             <li><a href=private/code/SphereClass/Sphere.cpp target=new>Sphere.cpp</a>
+             <li><a href=private/code/SphereClass/main.cpp target=new>main.cpp</a>
+             <li><a href=private/code/SphereClass/mainArray.cpp target=new>mainArray.cpp (array of objects)</a>
+             </ul>
+             <li>Example 2:  C++ class with array as its data:
+              <ul>
+                <li><a href=private/code/sortedList-Array/slist.h target=new>slist.h</a>
+                <li><a href=private/code/sortedList-Array/slist.cpp target=new>slist.cpp</a>
+                <li><a href=private/code/sortedList-Array/main.cpp target=new>main.cpp</a>
+             </ul>
+             <li>Example 3:  C++ class with array and array element is of struct type
+              <ul>
+               <li><a href=private/code/List-Array-Struct-Item/List.h target=new>List.h</a>
+               <li><a href=private/code/List-Array-Struct-Item/List.cpp target=new>List.cpp</a>
+               <li><a href=private/code/List-Array-Struct-Item/main.cpp target=new>main.cpp</a>
+              </ul>
+            <li>Example 4: List Class (sorted, array based implementation):
+            <ul>
+            <li><a href=private/code/sortedList-Array/slist.h target=new>slist.h</a>
+            <li><a href=private/code/sortedList-Array/slist.cpp target=new>slist.cpp</a>
+            <li><a href=private/code/sortedList-Array/main.cpp target=new>main.cpp</a>
+            </ul>
+            
+        </ul>
+	     </ul>
+	</TD>
+	<TD>
+            <ul>
+                <li>Homework 1 (D2L Quiz) (Due: midnight Friday Feb 2nd)
+                <p>
+                <li>Other readings:
+                <ul>
+                <li><a href=https://www.learncpp.com/cpp-tutorial/static-member-functions/>static data and static member function in c++ class</a>
+                <li><a href=https://www.ibm.com/docs/en/i/7.1?topic=only-conversion-constructors-c>conversion constructors</a>
+                <li><a href=https://www.ibm.com/docs/en/i/7.1?topic=only-explicit-specifier-c>The explicit specifier</a>
+                </ul>
+                <ul>
+                </ul>
+            </ul>
+	</TD>
+</TR>
+
+<TR>
+    <TH> Feb 1st (Thur)</TH>
+	<TD>
+	     <ul>
+             <li> <a href=private/lectures/class.pdf target=new>Review C++ Class</a>
+                 <ul><li> <a href=private/lectures/ClassReview.pdf target=new>a more detailed review</a></ul>
+	     </ul>
+	</TD>
+	<TD>
+	     <ul>
+             <li>Example : overloaded operators
+             <ul>
+             <li><a href=private/code/FeetInches/FeetInches.h target=new>FeetInches.h</a>
+             <li><a href=private/code/FeetInches/FeetInches.cpp target=new>FeetInches.cpp</a>
+             <li><a href=private/code/FeetInches/main.cpp target=new>main.cpp</a>
+	     </ul>
+	</TD>
+	<TD>
+	     <ul>
+               <li>Read: <a href=https://www.geeksforgeeks.org/use-of-explicit-keyword-in-cpp/>Use "explicit" on a constructor to prevent auto conversion </a>
+             </ul>
+	</TD>
+</TR>
+
+<TR>
+  <TH rowspan="2">Week 4</TH>
+    <TH> Feb 6th </TH>
+	<TD>
+	     <ul>
+             <li> <a href=private/lectures/overloadedOp.pdf target=new>Overloaded Operators Review</a>
+             <li><a href=private/lectures/friendship.pdf target=new>Class friendship</a>
+             <li> Project consists of multiple classes
+                 <ul><li>Cho Han Example</ul>
+             <p>
+	     <p>
+             <li>Discuss Project 2
+	     </ul>
+	</TD>
+	<TD>
+        <ul>
+             <li>Example : overloaded operators -- Date Class
+             <ul>
+             <li><a href=private/code/DateClass/Date.h target=new>Date.h</a>
+             <li><a href=private/code/DateClass/Date.cpp target=new>Date.cpp</a>
+             <li><a href=private/code/DateClass/main.cpp target=new>main.cpp</a>
+             </ul>
+             <li>Example : Copy constructor and overloaded = operator with dynamically allocated memory:
+             <ul>
+       	     <li><a href=private/code/StudentTests/StudentTestScores.h>StudentTestScores.h</a>, 
+             <li><a href=private/code/StudentTests/main.cpp>main.cpp</a></li>
+             </ul>
+             <li>ChoHan Example - Program with 3 classes
+              <ul>
+                <li><a href=private/code/ChoHan/Die.h>Die.h</a>
+                <li><a href=private/code/ChoHan/Die.cpp>Die.cpp</a>
+                <li><a href=private/code/ChoHan/Dealer.h>Dealer.h</a>
+                <li><a href=private/code/ChoHan/Dealer.cpp>Dealer.cpp</a>
+                <li><a href=private/code/ChoHan/Player.h>Player.h</a>
+                <li><a href=private/code/ChoHan/Player.cpp>Player.cpp</a>
+                <li><a href=private/code/ChoHan/main.cpp>main.cpp</a>
+                <li><a href=private/code/ChoHan/makefile>makefile</a>
+              </ul>
+        </ul>
+	</TD>
+	<TD>
+           <ul>
+               <li><a href=private/projects/project2/Project2.pdf target=new>Project 2</a> 
+                  <ul>
+                  <li><a href=private/projects/project2/evaluation2.pdf target=new>Evaluation Rubric</a>
+                  <li>starting files and data files:
+                      <ul>
+                      <li><a href=private/projects/project2/main.cpp target=new>main.cpp</a> 
+                      <li><a href=private/projects/project2/student.h target=new>student.h</a> 
+                      <li><a href=private/projects/project2/roster.h target=new>roster.h</a> 
+                      <li><a href=private/projects/project2/grades.dat target=new>grades.dat</a> 
+                      <li><a href=private/projects/project2/Makefile target=new>Makefile</a> 
+                      <li><a href=private/projects/project2/oneStudent.dat target=new>oneStudent.dat</a>(for testing and debugging only)
+                      <li>In addition, you need to create student.cpp and roster.cpp files 
+                      </ul>
+                  </ul>
+               <p>
+               <li>Homework 2 (D2L Quiz) (Due: midnight Friday Feb 9th)
+             </ul>
+	</TD>
+</TR>
+
+<TH> Feb 8th </TH>
+	<TD>
+	     <ul> 
+             <li> <a href=private/lectures/PointerReview.pdf target=new>Pointer review</a>
+	     </ul>
+	</TD>
+	<TD>
+          <ul>
+          <li>Example: List Class (unsorted, linked list implmentation):
+            <ul>
+            <li><a href=private/code/LinkedList-TextBook/unsortedListClass/list.h target=new>list.h</a>
+            <li><a href=private/code/LinkedList-TextBook/unsortedListClass/list.cpp target=new>list.cpp</a>
+            <li><a href=private/code/LinkedList-TextBook/unsortedListClass/main.cpp target=new>main.cpp</a>
+            </ul>
+          <li>Example: List Class (sorted, linked list implmentation):
+            <ul>
+            <li><a href=private/code/LinkedList-TextBook/sortedListClass/slist.h target=new>slist.h</a>
+            <li><a href=private/code/LinkedList-TextBook/sortedListClass/slist.cpp target=new>slist.cpp</a>
+            <li><a href=private/code/LinkedList-TextBook/sortedListClass/main.cpp target=new>main.cpp</a>
+            </ul>
+         </ul>
+	</TD>
+	<TD>
+	</TD>
+</TR>
+
+<TR>
+    <TH rowspan="2">Week 5</TH>
+    <TH> Feb 13th</TH>
+	<TD>
+	     <ul> 
+             <li> <a href=private/lectures/LinkedListReview.pdf target=new>Linked List review</a>
+             <li><a href=private/lectures/template.pdf target=new>Templated function, Templated Class</a>
+             <li> Templated linked list class
+	     </ul>
+	</TD>
+	<TD>
+          <ul>
+          <li>Example: Templated Linked List Class
+             <ul>
+                <li><a href=private/code/TemplatedLinkedList/LinkedList.h>LinkedList.h</a>
+                <li><a href=private/code/TemplatedLinkedList/main.cpp>main.cpp</a>
+                <li><a href=private/code/TemplatedLinkedList/FeetInches.h>FeetInches.h</a>
+                <li><a href=private/code/TemplatedLinkedList/FeetInches.cpp>FeetInches.cpp</a>
+             </ul>
+          </ul>
+	</TD>
+	<TD>
+               <ul>
+               <li>Read:
+               <ul>
+                <li><a href=https://cplusplus.com/reference/vector/vector/>Cplusplus.com vector</a>
+                <li><a href=https://cplusplus.com/reference/list/list/>Cplusplus.com list</a>
+	        <li><a href=https://cplusplus.com/reference/deque/deque/>Cplusplus.com deque</a>
+               </ul>
+               </ul>
+	     <ul>
+               <li>Homework 3 (D2L Quiz) (Due: midnight Friday Feb 16th)
+               <p>
+               <li>Read: <a href=https://medium.com/@technologic/securely-overloading-friend-operator-for-template-class-t-32988bc228f5>Overload << operator for template class
+             </ul>
+	</TD>
+</TR>
+
+<TR>
+    <TH> Feb 15th</TH>
+	<TD>
+	     <ul>
+             <li> <a href=private/lectures/8A-STL.pdf target=new>Standard Template Library (STL)</a> 
+             <li> <a href=private/lectures/STL-vector.pdf target=new>STL vector</a>
+             <li> <a href=private/lectures/9-STL-SetMap.pdf target=new>STL Set and Map</a> 
+	     </ul>
+	</TD>
+	<TD>
+             <ul>
+             <li>Example 1: vector basics
+             <ul>
+             <li><a href=private/code/stl/vector/vectorQuestion.cpp target=new>vectorQuestion.cpp</a>
+             <li><a href=private/code/stl/vector/vectorDr.cpp target=new>vectorDr.cpp</a>
+             <li><a href=private/code/stl/vector/words.dat target=new>words.dat</a>
+             </ul>
+             <li>Example 2: STL vector
+             <ul>
+             <li><a href=private/code/vector.cpp target=new>vector.cpp</a>
+             </ul>
+             <li>Example 3: STL list
+             <ul>
+                 <li><a href=private/code/stl/listQuestion.cpp target=new>listQuestion.cpp</a>
+             </ul>
+             <li>Example 4: STL deque
+                 <ul>
+                 <li><a href=private/code/deque.cpp>deque.cpp</a>
+                 </ul>
+            </ul>
+	</TD>
+	<TD>
+</TR>
+
+<TR>
+<TH rowspan=2>Week 6</TH>
+    <TH> Feb 20th</TH>
+	<TD>
+	     <ul>
+             <li><a href=private/lectures/STL-Stack.pdf target=new>STL Stack</a>
+              <li>Discuss Project 3
+	     </ul>
+	</TD>
+	<TD>
+             <ul>
+             <li>STL stack 
+               <ul>
+               <li>Checking balanced braces
+               <a href=private/code/stl/IsBalanced.cpp target=new>IsBalanced.cpp</a>
+               <li>Postfix expression evaluation      
+               <a href=private/code/stl/postfix.cpp target=new>postfix.cpp</a>
+               </ul>
+	</TD>
+	<TD>
+	     <ul>
+             <li>Homework 4 (D2L Quiz) <p>
+             <li><a href=private/projects/project3/Project3.pdf target=new>Project 3</a>
+                <ul>
+                <li> <a href=private/projects/project3/evaluation3.pdf target=new>Evaluation rubric</a> 
+                <li> Provided code and data files:
+                    <ul>
+                    <li><a href=private/projects/project3/main.cpp>main.cpp</a>
+                    <li><a href=private/projects/project3/flightMap.h>flightMap.h</a>
+                    <li><a href=private/projects/project3/flightMap.cpp>flightMap.cpp</a>
+                    <li><a href=private/projects/project3/type.h>type.h</a>
+                    <li><a href=private/projects/project3/type.cpp>type.cpp</a>
+                    <li><a href=private/projects/project3/cities.dat>cities.dat</a>
+                    <li><a href=private/projects/project3/flights.dat>flights.dat</a>
+                    </ul>
+    
+                <li>Example code to demonstrate how to use STL list with struct type data
+                <ul>
+                <li><a href=private/projects/project3/type.h target=new>type.h</a>
+                <li><a href=private/projects/project3/ExampleMain.cpp target=new>ExampleMain.cpp</a>
+                </ul>
+
+                </ul>
+             </ul>
+	</TD>
+</TR>
+
+
+<TR>
+    <TH> Feb 22nd</TH>
+	<TD>
+	     <ul>
+              <li>Review for Test 1
+	     </ul>
+	</TD>
+	<TD>
+	</TD>
+	<TD>
+	</TD>
+</TR>
+
+<TR>
+    <TH rowspan=2>Week 7</TH>
+    <TH> Feb 27th </TH>
+     <TD>
+       <ul> <li>Test 1 (<a href=private/tests/test1-review.pdf target=new>Test 1 Preparation Guide</a>) </ul>
+     </TD>
+     <TD></TD>
+     <TD></TD>
+</TR>
+
+<TR>
+    <TH> Feb 29th </TH>
+     <TD>
+       <ul> 
+             <li>Stack and Queue (continued)
+             <li><a href=private/lectures/STL-Queue.pdf target=new>STL Queue</a>
+                <ul>
+                 <li> <a href=https://en.cppreference.com/w/cpp/container/stack>cpp reference.com std::stack</a>
+                 <li> <a href=https://en.cppreference.com/w/cpp/container/queue>cpp reference.com std::queue</a>
+                </ul>
+     </TD>
+     <TD> <ul>
+             <li>STL queue
+               <ul>
+               <li>Checking for parlindrome
+               <a href=private/code/stl/queue/parlindrome.cpp target=new>parlindrome.cpp</a>
+               </ul>      
+          </ul>
+     </TD>
+     <TD></TD>
+</TR>
+
+<TR>
+    <TH rowspan=1>Week 8</TH>
+	<TH> March 5th and 7th </TH>
+        <TD colspan=3>Spring Break, no class</TD>
+</TR>
+
+<TR>
+    <TH rowspan=2>Week 9</TH>
+    <TH> March 12th </TH>
+	<TD>
+	     <ul>
+             <li> <a href=private/lectures/inheritance-1.pdf target=new>Inheritance 1</a>
+	     </ul>
+	</TD>
+	<TD>
+             <ul>
+              <li>Inheritance: Class calling sequence
+               <ul>
+                <li><a href=private/code/sequence.cpp>sequence.cpp</a>
+               </ul>
+              <li>Inheritance: execution order 
+                <ul>
+                <li><a href=private/code/executionOrder.cpp>executionOrder.cpp</a>
+                </ul>
+             <li>Inheritance: Mammal and Dog
+                 <ul>
+                 <li><a href=private/code/inheritance-mammal/mammal.h>mammal.h</a>
+                 <li><a href=private/code/inheritance-mammal/mammal.cpp>mammal.cpp</a>
+                 <li><a href=private/code/inheritance-mammal/dog.h>dog.h</a>
+                 <li><a href=private/code/inheritance-mammal/dog.cpp>dog.cpp</a>
+                 <li><a href=private/code/inheritance-mammal/main.cpp>main.cpp</a>
+                 </ul>
+	     </ul>
+	</TD>
+	<TD>
+             <ul>
+             <li><a href=private/projects/project4/Project4.pdf target=new>Project 4</a>
+               <ul>
+                 <li><a href=private/projects/project4/main.cpp>main.cpp</a>
+                 <li><a href=private/projects/project4/type.h>type.h</a>
+                 <li><a href=private/projects/project4/type.cpp>type.cpp</a>
+                 <li><a href=private/projects/project4/flightMap.h>flightMap.h</a>
+                 <li><a href=private/projects/project4/flightMap.cpp>flightMap.cpp</a>
+                 <li><a href=private/projects/project4/cities.dat>cities.dat</a>
+                 <li><a href=private/projects/project4/flights.dat>flights.dat</a>
+                 <li><a href=private/projects/project4/requests.dat>requests.dat</a>
+                 <p>
+                 <li><a href=private/projects/project4/evaluation4.pdf target=new>Project evaluation rubric</a>
+               </ul>
+             </ul>
+	     <ul>
+             <li>Read: <a href=https://www.learncpp.com/cpp-tutorial/the-virtual-table/>The C++ Virtual Table </a>
+             </ul>
+	</TD>
+</TR>
+
+<TR>
+    <TH> March 14th </TH>
+	<TD>
+	     <ul>
+             <li><a href=private/lectures/inheritance-2.pdf target=new>Inheritance 2</a>
+	     </ul>
+	</TD>
+	<TD>
+	     </ul>
+             <ul>
+              <li>inheritance: Employee base class and 2 derived classes
+              <ul>
+                <li><a href=private/code/inheritance-employee/Employee.h>Employee.h</a>
+                <li><a href=private/code/inheritance-employee/Employee.cpp>Employee.cpp</a>
+                <li><a href=private/code/inheritance-employee/HourlyEmployee.h>HourlyEmployee.h</a>
+                <li><a href=private/code/inheritance-employee/HourlyEmployee.cpp>HourlyEmployee.cpp</a>
+                <li><a href=private/code/inheritance-employee/SalariedEmployee.h>SalariedEmployee.h</a>
+                <li><a href=private/code/inheritance-employee/SalariedEmployee.cpp>SalariedEmployee.cpp</a>
+                <li><a href=private/code/inheritance-employee/main.cpp>main.cpp</a>
+              </ul>
+              <li>Inheritance: Shape class and two derived classes
+               <ul>
+                <li><a href=private/code/shape/Shape.h>Shape.h</a>
+                <li><a href=private/code/shape/Shape.cpp>Shape.cpp</a>
+                <li><a href=private/code/shape/Circle.h>Circle.h</a>
+                <li><a href=private/code/shape/Circle.cpp>Circle.cpp</a>
+                <li><a href=private/code/shape/Rectangle.h>Rectangle.h</a>
+                <li><a href=private/code/shape/Rectangle.cpp>Rectangle.cpp</a>
+                <li><a href=private/code/shape/main.cpp>main.cpp</a>
+               </ul>
+	</TD>
+	<TD>
+	     <ul><li>Homework 5 (D2L Quiz)(Due: midnight, Wednesday March 20th)</ul>
+	</TD>
+</TR>
+
+<TR>
+    <TH rowspan=2>Week 10</TH>
+    <TH> March 19th</TH>
+	<TD>
+	     <ul>
+             <li><a href=private/lectures/AlgorithmAnalysis.pdf target=new>Algorithm Analysis(1)</a>
+	     </ul>
+	</TD>
+	<TD>
+	</TD>
+	<TD>
+	</TD>
+</TR>
+
+<TR>
+    <TH> March 21st</TH>
+	<TD>
+	     <ul>
+             <li><a href=private/lectures/AlgorithmAnalysis.pdf target=new>Algorithm Analysis(2)</a>
+	     </ul>
+	</TD>
+	<TD>
+	</TD>
+	<TD>
+	     <ul><li>Homework 6 (D2L Quiz)(Due: midnight, Wednesday March 27th)</ul> </ul>
+	</TD>
+</TR>
+
+<TR>
+    <TH rowspan=2>Week 11</TH>
+    <TH> March 26th</TH>
+	<TD>
+	     <ul>
+             <li><a href=private/lectures/12-recursion.pdf target=new>Recursion revisited</a>
+	     </u>
+	</TD>
+	<TD>
+             <ul>
+               <li>Tower of Hanoi: <a href=private/code/recursion/solveTower.cpp>solveTower.cpp</a> <br>
+               <li>Eight Queen's Problem:
+               <ul>
+               <li><a href=private/code/recursion/eightQueenFull/Queens.h>Queens.h</a>,
+               <a href=private/code/recursion/eightQueenFull/Queens.cpp>Queens.cpp</a>,
+               <a href=private/code/recursion/eightQueenFull/main.cpp>main.cpp</a> <br>
+               </ul>
+	     </ul>
+	</TD>
+	<TD>
+	</TD>
+</TR>
+
+<TR>
+    <TH> March 28th </TH>
+	<TD>
+	     <ul> 
+             <li><a href=private/lectures/Sorting.pdf target=new>Sorting Algorithms</a> 
+              <li><a href="https://visualgo.net/bn/sorting">Animated sorting algorithms</a>
+	     </ul>
+	</TD>
+	<TD>
+	     <ul>
+             <li><a href=https://www.youtube.com/watch?v=PZ-3d7u_TU0>Watch Proof: Recursive identity for Binomial Coefficients</a>
+             </ul>
+             <ul>
+               <li><a href=private/code/sorting/selectionSort.cpp>Selection Sort</a>
+               <li><a href=private/code/sorting/bubbleSort.cpp>Bubble Sort</a>
+               <li><a href=private/code/sorting/insertionSort.cpp>insertion Sort</a>
+               <li><a href=private/code/sorting/mergesort.cpp>Merge Sort</a>
+               <li><a href=private/code/sorting/quicksort.cpp>Quick Sort</a>
+               <li><a href=private/code/sorting/shellsort.cpp>shell Sort</a>
+               <li><a href=private/code/sorting/radixsort.cpp>radix Sort</a>
+               <p><li><a href=https://youtu.be/vr5dCRHAgb0>Student suggested sorting video</a>
+	     </ul>
+	</TD>
+	<TD>
+	     <ul>
+              <li>Homework 7 (D2L Quiz)(Due: midnight, Wednesday April 3rd)  <p>
+              <p>
+              <li><a href=private/projects/project5/Project5.pdf target=new>Project 5</a>,
+              <a href=private/projects/project5/evaluation5.pdf target=new>Evaluation</a>
+              <ul>
+              <li><a href=private/projects/project5/parameters.h>parameters.h</a>, 
+              <li><a href=private/projects/project5/main.cpp>main.cpp</a>, 
+              <li><a href=private/projects/project5/eagle.dat>eagle.dat</a>, 
+              </ul>
+              <p>
+              <li><a href=private/projects/Bonus/ProjectBonus.pdf target=new>Bonus Project</a> (Optional)
+                 <br>(Grading: (1) The maximum points added to the project total is 60 bonus points, (20 points for solving each maze)
+                    (2) Upload into the Dropbox a screenshort of the solved mazes from program output in addition to all the files used in this project)
+                 <br>
+               <li>Here is a help file for the project: 
+                   <a href=private/projects/Bonus/ProjectBonus-help.pdf>Project Help File</a>
+               <li>Here are all the provided files:
+               <ul>
+	       <li><a href=private/projects/Bonus/type.h>type.h</a>
+               <li><a href=private/projects/Bonus/CreatureClass.h>CreatureClass.h</a>
+               <li><a href=private/projects/Bonus/CreatureClass.cpp>CreatureClass.cpp</a>
+	       <li><a href=private/projects/Bonus/MazeClass.h>MazeClass.h</a>
+	       <li><a href=private/projects/Bonus/MazeClass.cpp>MazeClass.cpp</a>
+	       <li><a href=private/projects/Bonus/main.cpp>main.cpp</a>
+	       <li><a href=private/projects/Bonus/myMaze1.dat>myMaze1.dat</a>
+	       <li><a href=private/projects/Bonus/myMaze2.dat>myMaze2.dat</a>
+	       <li><a href=private/projects/Bonus/myMaze3.dat>myMaze3.dat</a>
+               </ul>
+            </ul>
+        </TD>
+</TR>
+
+<TR>
+    <TH rowspan=2>Week 12</TH>
+    <TH>  April 2nd</TH>
+	<TD>
+	     <ul>
+             <li><a href=private/lectures/Sorting.pdf target=new>Sorting algorithms (continued)</a>
+	     </ul>
+	</TD>
+	<TD>
+	</TD>
+	<TD>
+	</TD>
+</TR>
+
+<TR>
+    <TH> April 4th </TH>
+	<TD>
+	     <ul>
+             <li><a href=private/lectures/Heap.pdf target=new>Heap, Priority Queue, Heap Sort</a>
+	     </ul>
+	</TD>
+	<TD>
+ 	     <ul>
+              <li>Heap Class
+              <ul>
+              <li><a href=private/code/Heap/Heap.h>Heap.h</a>
+              <li><a href=private/code/Heap/Heap.cpp>Heap.cpp</a>
+              </ul>
+	     </ul>
+	</TD>
+	<TD>
+	     <ul>
+              <li> Homework 8 (D2L Quiz)<p>
+             </ul>
+	     <ul>
+             </ul>
+	</TD>
+</TR>
+
+<TR>
+    <TH rowspan=2>Week 13</TH>
+    <TH> April 9th </TH>
+	<TD>
+	     <ul>
+             <li><a href=private/lectures/Heap.pdf target=new>Heap, Priority Queue, Heap Sort</a>
+	     </ul>
+	</TD>
+	<TD>
+             <ul>
+               <li>Binary Search Tree 
+               <ul>
+                   <li><a href=private/code/BST/bst.h>bst.h</a>
+                   <li><a href=private/code/BST/bst.cpp>bst.cpp</a>
+               </ul>
+               <li> Template BST with exception handling
+               <ul>
+                  <li><a href=private/code/Tree/BST.h>BST.h</a>
+                  <li><a href=private/code/Tree/BST.cpp>BST.cpp</a>
+                  <li><a href=private/code/Tree/main.cpp>main.cpp</a>
+                  <li><a href=private/code/Tree/TreeException.cpp>TreeException.cpp</a>
+               </ul>
+	     </ul>
+	</TD>
+	<TD>
+	     <ul>
+</TR>
+
+
+<TR>
+    <TH> April 11th</TH>
+	<TD>
+	     <ul> 
+             <li>Test 2 (<a href=private/tests/test2review.pdf target=new>Test review sheet</a>)
+	     </ul>
+	</TD>
+	<TD>
+             <ul>
+	     </ul>
+	</TD>
+	<TD>
+	</TD>
+</TR>
+
+<TR>
+    <TH rowspan=2>Week 14</TH>
+    <TH> April 16th </TH>
+	<TD>
+	     <ul>
+             <li><a href=private/lectures/BST.pdf target=new>Tree, Binary Tree, Binary Search Tree</a>
+	     </ul>
+	</TD>
+	<TD>
+	</TD>
+	<TD>
+	     <ul>
+             <li>Homework 9 <p> 
+             <li><a href=private/projects/project6/Project6.pdf target=new>Project 6</a>
+             (<a href=private/projects/project6/evaluation6.pdf target=new>evaluation rubric</a>)
+                <ul>
+                  <li><a href=private/projects/project6/text1.dat>data1</a>, 
+                  <a href=private/projects/project6/concordanceresult1.txt>example result for data1</a>
+                  <li><a href=private/projects/project6/text2.dat>data2</a> 
+                  <li>Provided code:
+                  <ul>
+                  <li><a href=private/projects/project6/wordEntry.h>wordEntry.h</a> (<font color=red>Updated</font> with more details), 
+                      <a href=private/projects/project6/wordEntry.cpp>wordEntry.cpp</a> 
+                  <li><a href=private/projects/project6/BST.h>BST.h</a> (<font color=red>Updated</font> line 10), 
+                  <li><a href=private/projects/project6/BST.cpp>BST.cpp</a>, 
+                  <li><a href=private/projects/project6/main.cpp>main.cpp</a>
+                  </ul>
+                </ul>
+             </ul>
+	</TD>
+</TR>
+
+<TR>
+   <TH> April 18th </TH>
+	<TD>
+         <ul>
+             <li><a href=private/lectures/BST.pdf target=new>Tree, Binary Tree, Binary Search Tree</a>(continued)
+         <li><a href=private/lectures/AVL.pdf target=new>AVL tree</a> </ul>
+	</TD>
+	<TD>
+             <ul>
+                  <li><a href=private/code/Tree/AVL-node.cpp>AVL-node.cpp</a>
+                  <li><a href=private/code/Tree/AVL.cpp>AVL.cpp</a>
+	     </ul>
+	</TD>
+	<TD>
+	</TD>
+</TR>
+
+<TR>
+   <TH rowspan=1>Week 15</TH>
+   <TH> April 23rd</TH>
+     <TD>
+        <ul>
+         <li><a href=private/lectures/Hashing.pdf target=new>Hashing</a>
+          <ul>
+           <li><a href=https://medium.com/swlh/why-should-the-length-of-your-hash-table-be-a-prime-number-760ec65a75d1>Why a prime number is often selected as the hash table size?</a>
+          </ul>
+	 </ul>
+     </TD>
+	<TD>
+	</TD>
+	<TD>
+	     <ul>
+              <li>Homework 10
+             </ul>
+	</TD>
+</TR>
+
+<TR>
+   <TH rowspan=1>Week 16</TH>
+    <TH rowspan=1> Final Exam </TH>
+    <TD colspan=2> Thursday, May 2nd, 1:00 - 3:00 pm  <br>
+    <TD colspan=2>
+   </TD>
+    </TD>
+    </TH>
+</TR>
+
+</TABLE>
+</center>
+
+<p>
+<font size=small>
+<h3>Useful Information</h3>
+  	<UL>
+<li><a href=https://mtmailmtsu-my.sharepoint.com/:o:/g/personal/cli_mtsu_edu/EvKGxS313cpIp48hSw43T3wBa8CkC_bhRs0VCjo-xB0_FQ?e=cqwrxk>OneNote to class notes</a><p>
+	     <p>
+             <li><a href="http://en.cppreference.com/w/cpp/language">C++ Online Reference</a>
+             <li><a href="http://www.cplusplus.com/">C++ Reference</a>
+             <p>
+             <li> Other C++ concepts:
+             <ul>
+                <li> <a href=private/lectures/string.pdf target=new>C++ string functions</a>
+                <li> <a href=https://www.bitdegree.org/learn/random-number-generator-cpp>random number generation</a>
+             </ul>
+	</UL>
+<p>
+</BODY>

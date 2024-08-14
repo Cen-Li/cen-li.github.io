@@ -1,0 +1,251 @@
+
+#include <iostream>
+using namespace std;
+
+#ifndef MAM_H
+#define MAM_H
+
+class mammal
+{
+public:
+    // constructors and destructor
+    mammal();
+    mammal (int W, int H, int A);
+    mammal (const mammal & other);
+    ~mammal();
+
+    // member functions
+    void setWeight(int w);
+    void setHeight(int h);
+    int returnWeight() const;
+    int returnHeight() const;
+
+    void speak() const;
+
+    // overloaded relational operators
+    // A mammal is considered < then the other one if  it is lighter
+    bool operator < (const mammal& rhs) const;
+
+    // Two mammals are considered equal if they have the same height and weight
+    bool operator == (const mammal& rhs) const;
+
+    // overload the input/output operators
+    friend ostream & operator << (ostream & os, const mammal & rhs);
+    friend istream & operator >> (istream & is, mammal & rhs);
+
+private:
+    int weight;
+    int height;
+    int age;
+};
+#endif
+
+
+
+#include "mammal.h"
+#include <iostream>
+using namespace std;
+
+mammal::mammal()
+{
+    cout << "Executing mammal's default constructor" << endl;
+    weight=1;
+    height=1;
+    age=1;
+}
+
+mammal::mammal(int W, int H, int A)
+{
+    cout << "Executing mammal's value constructor" << endl;
+    weight=W;
+    height=H;
+    age = A;
+} 
+
+mammal::mammal(const mammal& other)
+{
+    cout << "Executing mammal's copy constructor" << endl;
+
+    weight = other.weight;
+    height = other.height;
+    age = other.age;
+}
+
+mammal::~mammal()
+{
+    cout <<"Executing mammal's destructor\n";
+}
+
+void mammal::setWeight(int w)
+{
+    weight = w;
+}
+
+void mammal::setHeight(int h)
+{
+    height = h;
+}
+
+int mammal:: returnWeight() const
+{
+    return weight;
+}
+
+int mammal::returnHeight() const
+{
+    return height;
+}
+
+void mammal::speak()const
+{
+    cout <<"WaaWa  WaaWa" << endl;
+}
+
+// one mammal is considered < then the other one if 
+// it is lighter 
+bool mammal::operator < (const mammal& rhs) const
+{
+    return (weight < rhs.weight);
+}
+
+// two mammals are considered equal if they have the same
+// height and weight
+bool mammal::operator == (const mammal& rhs) const
+{
+    return ((height==rhs.height)&&(weight == rhs.weight));
+}
+
+// note: there is no scope resolution operator here
+ostream & operator << (ostream & os, const mammal & rhs)
+{
+    os << "The height is " << rhs.height << endl;
+    os << "weight is " << rhs.weight << endl;
+
+    return os;
+}
+
+// note: there is no scope resolution operator here
+istream & operator >> (istream & is, mammal & rhs)
+{
+    cout << "Please enter the height: ";
+    is >> rhs.height;
+
+    cout << "Please enter the weight: ";
+    is >> rhs.weight;
+
+    return is;
+}
+===========================================================
+
+#include "mammal.h"
+#ifndef DOG_H
+#define DOG_H
+
+enum BREED {LAB, COLLIE, DACHOUND, COCKER, PUG, POODLE, TERRIER};
+
+class dog : public mammal
+{
+    public:
+        dog();
+        dog(int H, int W, int A, BREED  B);
+        dog(const dog&other);
+        
+        ~dog();
+        void printBreed() const;
+        void speak()const;
+    private:
+        BREED itsBreed;
+};
+#endif
+
+===========================================================
+
+#include "dog.h"
+#include <iostream>
+using namespace std;
+
+dog::dog()
+{
+    cout <<"Executing dog’s default constructor\n";
+    itsBreed=COLLIE;
+}
+
+dog::dog(int W, int H, int A, BREED B) : mammal(W, H, A), itsBreed(B)
+{
+    cout << "Executing dog\'s value constructor\n";
+}
+
+dog::dog(const dog & other) : mammal(other), itsBreed(other.itsBreed)
+{
+    cout << "Executing dog\'s copy constructor\n";
+}
+
+dog::~dog()
+{
+    cout <<"Executing dog destructor\n";
+}
+
+void dog::printBreed() const
+{
+    cout <<"The breed is " ;
+    switch (itsBreed)
+    {
+    case COLLIE: cout <<"COLLIE\n"; break;
+    case DACHOUND: cout <<"Dachound\n"; break;
+    case COCKER:  cout <<"COCKER\n"; break;
+    case LAB:   cout <<"LABRADOR RETRIEVER\n";  break;
+    case POODLE:   cout <<"POODLE\n";  break;
+    case TERRIER:   cout <<"TERRIER\n";  break;
+    }
+}
+
+void dog::speak()  const
+{
+    cout <<"BOW-WOo BoW-Woo" << endl;
+}
+
+===========================================================
+
+// main.cc
+// Compile with: aCC mammal.cc dog.cc main1.cc
+// Look at the order of execution for the contructors and destructors
+
+#include <iostream>
+#include "dog.h"
+using namespace std;
+
+int main()
+{
+    mammal animal;
+    dog myDog(2, 10, 2, COLLIE);
+
+    cout << endl;
+    cout << "My dog's weight is " << myDog.returnWeight() << " pounds\n";
+    cout <<"My dog's height is " << myDog.returnHeight() << " inches\n";
+    cout << endl;
+
+    cout <<"The animal's weight is " << animal.returnWeight() << " pounds\n" << endl;
+
+    cout <<"My dog says :\t";
+    myDog.speak();
+
+    cout <<"Animal says :\t";
+    animal.speak();
+    cout << endl;
+
+    dog  newAdopt(myDog);
+    newAdopt.setWeight(105);
+    if (myDog < newAdopt)
+    {
+        cout << "Our newly adopted dog: " << endl;
+        cout << newAdopt;
+        cout << endl;
+    }
+    else 
+    {
+        cout << "Our newly adopted dog is lighter." << endl;
+    }
+
+    return 0;
+}
+

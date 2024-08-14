@@ -1,0 +1,38 @@
+
+int main() {
+
+
+   // ....
+
+   cin >> a >> b;
+
+   cout << ComputePerimeter(a, b) << endl;
+
+   // ....
+
+
+   cin >> ch;
+   if (CheckChar(ch))
+      cout << "Yes, it is an alpha numeric letter" << endl;
+   else
+      cout << "No ...." << endl;
+}
+
+
+float  ComputePerimeter( float a, float b) 
+{
+
+   float sideC;
+
+   sideC = sqrt (a*a + b*b);
+
+   return a+b+sideC;
+}
+
+bool CheckChar (char ch)
+{
+   if ((ch >= 'a' && ch <= 'z') || (ch>='A'&& ch <= 'Z') ||  (ch >= '0' && ch<= '9'))
+      return true;
+   else 
+      return false;
+}

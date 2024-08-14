@@ -1,0 +1,45 @@
+// Assignment:			OLA5/Flight Map
+// Description: type header file
+
+#ifndef _TYPE_H
+#define	_TYPE_H
+
+#include <string>
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+// Flight Record
+struct FlightRec
+{
+	int fNumber;			// Flight number
+	string origin;			// Origin city
+	string dest;			// destination city
+	float cost;				// Price of ticket
+};
+
+// Overloaded operators
+
+// Name: operator ==
+// Function: Compare if two records are equal
+// Precondition: none
+// Postcondition: returns true if records same
+bool operator == (FlightRec & lhs, FlightRec & rhs);
+
+// Name: operator >
+// Function: Output the record
+// Precondition: none
+// Postcondition: records compared
+bool operator > (FlightRec & lhs, FlightRec & rhs);
+
+// Name: operator <<
+// Function: Output the record
+// Precondition: none
+// Postcondition: record displayed
+ostream & operator << (ostream & out, FlightRec & fr);
+
+// Typedefs
+typedef FlightRec ListItem;	// ListItem
+
+#endif	/* _TYPE_H */

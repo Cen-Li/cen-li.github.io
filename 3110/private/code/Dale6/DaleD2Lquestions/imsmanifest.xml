@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?><manifest identifier="man00001" xmlns="http://www.imsglobal.org/xsd/imscp_v1p1" xmlns:d2l_2p0="http://desire2learn.com/xsd/d2lcp_v2p0">
+
+  <resources>
+    <resource d2l_2p0:material_type="d2lquestionlibrary" href="brg00016661fe2c19bee.xml" identifier="brg00016661fe2c19bee" type="webcontent"/>
+  </resources>
+
+</manifest>

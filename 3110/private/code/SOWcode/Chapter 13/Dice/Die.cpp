@@ -1,0 +1,94 @@
+// Implememtation file for the Die class
+#include <cstdlib>     // For rand and srand
+#include <iostream>
+#include <ctime>       // For the time function
+#include "Die.h"
+using namespace std;
+
+// definition of the default constructor
+Die::Die()
+{
+   // Get the system time.
+   unsigned seed = time(0);
+   
+   // Seed the random number generator.
+   srand(seed);
+
+   sides = 4;
+
+   roll ();
+}
+
+// Another constructor for illustration
+Die::Die(int numSides, int initValue)
+{
+   sides = numSides;
+   if (initValue <= numSides && initValue >=1)
+      value = initValue;
+   else
+      value = 1;
+}
+
+//*******************************************************
+// The constructor accepts an argument for the number   *
+// of sides for the die, and performs a roll.           *
+//*******************************************************
+Die::Die(int numSides)
+{
+   // Get the system time.
+   unsigned seed = time(0);
+   
+   // Seed the random number generator.
+   srand(seed);
+
+   // Set the number of sides.
+   sides = numSides;
+   
+   // Perform an initial roll.
+   roll();
+}
+
+// define EqualTo method
+bool Die::EqualTo(Die rhs) const
+{
+   return  (value == rhs.value);
+}
+
+
+
+//*******************************************************
+// The roll member function simulates the rolling of    *
+// the die.                                             *
+//*******************************************************
+void Die::roll()
+{
+   // Constant for the minimum die value
+   const int MIN_VALUE = 1;   // Minimum die value
+
+   // Get a random value for the die.
+   value = (rand() % (sides - MIN_VALUE + 1)) + MIN_VALUE;
+}
+
+//*******************************************************
+// The getSides member function returns the number of   *
+// for this die.                                        *
+//*******************************************************
+int Die::getSides()
+{
+   return sides;
+}
+
+//*******************************************************
+// The getValue member function returns the die's value.*
+//*******************************************************
+int Die::getValue()
+{
+   return value;
+}
+
+// define the destructor
+Die::~Die()
+{
+   cout << "An object left its scope" << endl;
+}
+

@@ -1,0 +1,70 @@
+C++ templates Rules
+
+In the specification file (header file):
+
+1.    Precede the class definition by the template parameter list. 
+    Example: 
+            template <class T> 
+            class stackclass 
+            { 
+                    ..... 
+            }; 
+
+2.    Use the generic type names in the template definition to declare data 
+items and member functions. 
+    Example: 
+        template <class T> 
+        class stackclass 
+        { 
+             public: 
+                stackclass(); 
+                ~stackclass(); 
+                T Pop(); 
+                void Push (const T& Item); 
+            ............... 
+        }; 
+
+In the implementation file:
+
+3.    The template parameter list should precede function definitions. 
+    Example: 
+            template <class T> 
+            void stackclass<T>:: Push (const T& Item) 
+            { 
+                Temp = new node; 
+                Temp->Data = Item; 
+                Top->Next = Temp; 
+                Top = Temp; 
+            } 
+
+4.    Any reference to the class as a datatype must include the template types 
+enclosed in angle brackets. 
+             template <class T> 
+            void stackclass<T>:: Push (const T& Item) 
+            { 
+                Temp = new node <T>; 
+                Temp->Data = Item; 
+                Top->Next = Temp; 
+                Top = Temp; 
+            } 
+
+In the client program:
+
+5.    When declaring instances of a templated class, indicate the actual type to 
+be used for the templated class using angle brackets (<>). 
+    Example: 
+            ........ 
+            int main() 
+            { 
+                stackclass <int> MyStack; 
+                .............. 
+               return 0; 
+           } 
+
+6.    A class template can have more than one data-type parameter. 
+    Example: 
+            template <class T1, class T2> 
+            class studentclass 
+            { 
+                ............ 
+            }; 

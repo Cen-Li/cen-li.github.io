@@ -1,0 +1,123 @@
+/*
+Maps are a kind of associative containers that stores elements formed by the 
+combination of a key value and a mapped value.
+
+In a map, the key value is generally used to uniquely identify the element, 
+while the mapped value is some sort of value associated to this key. Types of 
+key and mapped value may differ. For example, a typical example of a map is a 
+telephone guide where the name is the key and the telephone number is the mapped 
+value.
+
+Internally, the elements in the map are sorted from lower to higher key value 
+following a specific strict weak ordering criterion set on construction.
+
+As associative containers, they are especially designed to be efficient accessing 
+its elements by their key (unlike sequence containers, which are more efficient 
+accessing elements by their relative or absolute position).
+
+Therefore, the main characteristics of a map as an associative container are:
+    * Unique key values: no two elements in the map have keys that compare 
+      equal to each other. For a similar associative container allowing for 
+      multiple elements with equivalent keys, see multimap.
+    * Each element is composed of a key and a mapped value. For a simpler 
+      associative container where the element value itself is its key, see set.
+    * Elements follow a strict weak ordering at all times. Unordered associative 
+      arrays, like unordered_map, are available in implementations following TR1.
+
+This container class supports bidirectional iterators.
+Iterators to elements of map containers access to both the key and the mapped value. 
+For this, the class defines what is called its value_type, which is a pair class 
+with its first value corresponding to the const version of the key type 
+(template parameter Key) and its second value corresponding to the mapped value 
+(template parameter T):
+
+typedef pair<const Key, T> value_type;
+
+Iterators of a map container point to elements of this value_type. Thus, for an 
+iterator called it that points to an element of a map, its key and mapped value 
+can be accessed respectively with:
+
+map<Key,T>::iterator it;
+(*it).first;             // the key value (of type Key)
+(*it).second;            // the mapped value (of type T)
+(*it);                   // the "element value" (of type pair<const Key,T>) 
+
+Naturally, any other direct access operator, such as -> or [] can be used, for example:
+it->first;               // same as (*it).first   (the key value)
+it->second;              // same as (*it).second  (the mapped value) 
+*/
+
+
+#include <map>   //The header to be included 
+#include <string>
+#include <iostream>
+
+using namespace std;
+
+//a simplied student object
+class Student
+{
+public:
+    Student(string name="unknow", string mno="unknown") : m_name(name), m_mno(mno)
+    {}
+
+    string getName() const
+    {
+        return m_name;
+    }
+
+    string getMno() const
+    {
+        return m_mno;
+    }
+
+    friend ostream& operator << (ostream& os, const Student s)
+    {
+        os << "Student name: " << s.m_name << "; m_no: " << s.m_mno << endl;
+        return os;
+    }
+    //.... other member functions
+private:
+    string  m_name;
+    string  m_mno;
+};
+
+int main()
+{
+    const int   NUM = 6;
+    string names[NUM] = {"David", "Matt", "Jessica", "Chris", "Kevin", "George"};
+    string mnos[NUM] = {"M10023", "M10005", "M10012", "M10075", "M10201", "M11000"};
+
+    //declare a map object
+    map<string, Student>    smap;
+
+    //insert one into smap
+    smap[ mnos[0] ] = Student(names[0], mnos[0]);
+
+    //another way to insert element
+    smap.insert( pair<string, Student>(mnos[1], Student(names[1], mnos[1])) );
+    
+    for(int i=2; i<NUM; i++ )
+        smap[ mnos[i] ] = Student(names[i], mnos[i]);
+
+    //search the student with given mno: M120001
+    map<string, Student>::iterator  it;
+
+    it = smap.find( "M120001" );
+    if ( it == smap.end() )
+        cout << "The student with mno: M120001 doesn't exist!" << endl;
+    else
+        cout << "The name of the student with mno:M120001 is "
+             << it->second << endl;
+
+    //traverse all elements in the map container
+    for( it=smap.begin(); it!=smap.end(); ++it )
+    {
+        cout << it->second << endl;
+    }
+
+
+    return 0;
+
+
+}

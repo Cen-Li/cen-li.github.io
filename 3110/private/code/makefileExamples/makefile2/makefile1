@@ -1,0 +1,11 @@
+convert: convertMain.o convertFunc.o convertHeader.h
+	c++ convertMain.o convertFunc.o -o convert
+
+convertMain.o: convertMain.cpp convertHeader.h
+	c++ -c convertMain.cpp 
+
+convertFunc.o: convertFunc.cpp convertHeader.h
+	c++ -c convertFunc.cpp
+
+clean:
+	rm *.o 
