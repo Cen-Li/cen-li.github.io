@@ -1,0 +1,255 @@
+	  Billboard Top Song (2012 - 2015) Management
+
+Please select from the following menu choices:
+
+		1.	Look up an artist
+		2.	Add a song
+		3.	Delete a song
+		4.	Print
+		5.	Exit
+
+
+	     1
+		1.	Look up an artist:
+Enter an artist name: Beyonce
+
+Here are the songs by Beyonce
+Title			 Rank	   Year
+Drunk in Love		 22	   2015
+Partition		 72	   2015
+Best Thing I Never Had	 57	   2012
+Countdown		 100	   2012
+
+
+	  Billboard Top Song (2012 - 2015) Management
+
+Please select from the following menu choices:
+
+		1.	Look up an artist
+		2.	Add a song
+		3.	Delete a song
+		4.	Print
+		5.	Exit
+
+
+	     1
+		1.	Look up an artist:
+Enter an artist name: Justin Bieber
+
+Here are the songs by Justin Bieber
+Title			 Rank	   Year
+Boyfriend		 24	   2013
+
+
+	  Billboard Top Song (2012 - 2015) Management
+
+Please select from the following menu choices:
+
+		1.	Look up an artist
+		2.	Add a song
+		3.	Delete a song
+		4.	Print
+		5.	Exit
+
+
+	     4
+		4.	Print
+	      Enter the year to print: 2014
+
+Here are the songs for 2014:
+
+Artist			      Title				      Rank
+Robin Thicke, T.I. & Pharrell Blurred Lines			      1
+Lorde			      Royals				      2
+Katy Perry		      Roar				      3
+Macklemore & Ryan Lewis       Thrift Shop			      4
+will.i.am & Britney Spears    Scream & Shout			      5
+Pink & Nate Ruess	      Just Give Me a Reason		      6
+Avicii			      Wake Me Up			      7
+Eminem & Rihanna	      The Monster			      8
+Daft Punk & Pharrell Williams Get Lucky 			      9
+Passenger		      Let Her Go			      10
+Miley Cyrus		      Wrecking Ball			      11
+Macklemore & Ryan Lewis       Same Love 			      12
+One Direction		      Story of My Life			      13
+Pitbull & Ke$ha 	      Timber				      14
+Avicii			      Hey, Brother			      15
+Rihanna & Mikky Ekko	      Stay				      16
+Justin Timberlake	      Mirrors				      17
+Miley Cyrus		      We Can't Stop			      18
+Pharrell Williams	      Happy				      19
+The Lumineers		      Ho Hey				      20
+Jason Derulo & 2 Chainz       Talk Dirty			      21
+Baauer			      Harlem Shake			      22
+One Direction		      One Way or Another (Teenage Kicks)      23
+Bastille		      Pompeii				      24
+Emeli Sande		      Next to Me			      25
+Imagine Dragons 	      Radioactive			      26
+Taylor Swift		      I Knew You Were Trouble		      27
+Macklemore & Ryan Lewis       Can't Hold Us			      28
+Lorde			      Tennis Court			      29
+Capital Cities		      Safe & Sound			      30
+Florida Georgia Line	      Cruise				      31
+Bruno Mars		      When I Was Your Man		      32
+Zedd			      Clarity				      33
+Swedish House Mafia & John MartinDon't You Worry Child			 34
+Pitbull & Christina Aguilera  Feel This Moment			      35
+Lana Del Rey & Cedric Gervais Summertime Sadness		      36
+Calvin Harris & Ellie GouldingI Need Your Love			      37
+Lady GaGa		      Applause				      38
+Bruno Mars		      Treasure				      39
+Justin Bieber & Nicki Minaj   Beauty & A Beat			      40
+Paramore		      Still Into You			      41
+Jason Derulo		      The Other Side			      42
+Kristen Anderson-Lopez & Robert LopezLet It Go				     43
+Olly Murs & Flo-Rida	      Troublemaker			      44
+Birdy			      Wings				      45
+Finbar Furey		      The Last Great Love Song		      46
+Ed Sheeran		      I See Fire			      47
+Ginny Blackmore 	      Bones				      48
+Kodaline		      High Hopes			      49
+Sam Bailey		      Skyscraper			      50
+Lily Allen		      Somewhere Only We Know		      51
+One Direction		      Strong				      52
+Jackie Thomas		      It's Worth It			      53
+John Legend		      All of Me 			      54
+OneRepublic		      Counting Stars			      55
+James Blunt		      Bonfire Heart			      56
+Drake			      Hold On, We're Going Home 	      57
+Magic!			      Rude				      58
+Morning Musume		      Help Me!! 			      59
+Nogizaka46		      Girl's Rule			      60
+Smap			      Shareosu/Hello			      61
+Masaharu Fukuyama	      Tanjo-bi ni wa Mashiro na Yuri o/Get the Groove62
+Nogizaka46		      Barrette				      63
+Southern All Stars	      Peace to Highlight		      64
+Tsuyoshi Domoto 	      Mabataki				      65
+Kis-My-Ft2		      Snow Dome no Yakusoku/Luv Sick	      66
+Kat-tun 		      Expose				      67
+Exile Tribe		      Burning Up			      68
+Not Yet 		      Hirihiri no Hana			      69
+2PM			      Winter Games			      70
+Tomohisa Yamashita	      Summer Nude '13			      71
+Smap			      Mistake!/Battery			      72
+Kanjani Eight		      Kokoro Sora Moyo			      73
+Arashi			      Calling/Breathless		      74
+Nogizaka46		      Kimi no Na wa Kibo-		      75
+Kanjani Eight		      Hesomagari/Koko ni Shikanai Keshiki     76
+Sexy Zone		      Real Sexy!/Bad Boys		      77
+fripSide		      Sister's Noise			      78
+Smap			      Joy!!				      79
+Kis-My-Ft2		      Ki.Su.U.Ma.I/S.O.S (Smile On Smile)     80
+Kinki Kids		      Mada Namida ni Naranai Kanashimi ga / Koi wa Nioeto81
+Kis-My-Ft2		      Kimi to no Kiseki 		      82
+Exile			      EXILE PRIDE			      83
+Golden Bomber		      Dance My Generation		      84
+Arashi			      Endless Game			      85
+Kanjani Eight		      Namida no Kotae			      86
+TVXQ			      Catch Me -If You Wanna-		      87
+Morning Musume		      Brainstorming/Kimi Sae Ireba Nani mo Iranai88
+Kat-tun 		      Face to Face			      89
+Morning Musume		      Wagamama Ki no Mama Ai no Joke/Ai no Gundan90
+Sexy Zone		      Bai Bai Dubai			      91
+Hey! Say! JUMP		      Come On A My House		      92
+Ryosuke Yamada		      Mystery Virgin			      93
+V6			      Rock Your Soul			      94
+Kis-My-Ft2		      My Resistance			      95
+Jay-Z & Justin Timberlake     Suit & Tie			      96
+Maroon 5		      Daylight				      97
+Jay-Z & Justin Timberlake     Holy Grail			      98
+Selena Gomez		      Come & Get It			      99
+Ciara			      Body Party			      100
+
+
+	  Billboard Top Song (2012 - 2015) Management
+
+Please select from the following menu choices:
+
+		1.	Look up an artist
+		2.	Add a song
+		3.	Delete a song
+		4.	Print
+		5.	Exit
+
+
+	     2
+		2.	Add a song
+	 Enter the song title to add: Love Yourself
+
+Enter the artist name: Justin Bieber
+
+Enter the song rank: 2
+
+Enter the year of song release: 2015
+
+
+	  Billboard Top Song (2012 - 2015) Management
+
+Please select from the following menu choices:
+
+		1.	Look up an artist
+		2.	Add a song
+		3.	Delete a song
+		4.	Print
+		5.	Exit
+
+
+	     1
+		1.	Look up an artist:
+Enter an artist name: Justin Bieber
+
+Here are the songs by Justin Bieber
+Title			 Rank	   Year
+Boyfriend		 24	   2013
+Love Yourself		 2	   2015
+
+
+	  Billboard Top Song (2012 - 2015) Management
+
+Please select from the following menu choices:
+
+		1.	Look up an artist
+		2.	Add a song
+		3.	Delete a song
+		4.	Print
+		5.	Exit
+
+
+	     3
+		3.	Delete a song
+      Enter the song to delete: Lover Yourself
+name was not in the list.
+
+
+		       Billboard Top Song (2012 - 2015) Management
+
+Please select from the following menu choices:
+
+		1.	Look up an artist
+		2.	Add a song
+		3.	Delete a song
+		4.	Print
+		5.	Exit
+
+
+	     1
+		1.	Look up an artist:
+Enter an artist name: Justin Bieber
+
+Here are the songs by Justin Bieber
+Title			 Rank	   Year
+Boyfriend		 24	   2013
+
+
+	  Billboard Top Song (2012 - 2015) Management
+
+Please select from the following menu choices:
+
+		1.	Look up an artist
+		2.	Add a song
+		3.	Delete a song
+		4.	Print
+		5.	Exit
+
+
+	     5

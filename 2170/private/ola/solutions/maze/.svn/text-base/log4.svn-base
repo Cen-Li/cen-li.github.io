@@ -1,0 +1,1041 @@
+Script started on Sun Mar 20 22:20:23 2011
+$ pr -n -t -e4 CreatureClass.h
+    1	////Programmer:         Chris Vogel
+    2	//  Assignment:         OLA4B
+    3	//  Class:              CSCI 2170-002
+    4	//  Course instructor:  Dr. Cen Li
+    5	//  Due date:           Sunday, 03/20/2011
+    6	//
+    7	//  Descrition: This is the specification file for CreatureClass.
+    8	
+    9	#ifndef CREATURECLASS_H
+   10	#define CREATURECLASS_H
+   11	using namespace std;
+   12	
+   13	// I feel that this should be in a separate file, but PeerSpace
+   14	// doesn't have a field for another file. The preprocessor instructions
+   15	// keep the Coordinate struct from being defined twice.
+   16	#ifndef COORDINATE
+   17	#define COORDINATE
+   18	// This struct defines a location within the maze
+   19	// The top-left corner of the maze is (0, 0)
+   20	struct Coordinate
+   21	{
+   22	    // The horizontal location
+   23	    int x;
+   24	    
+   25	    // The vertical location
+   26	    int y;
+   27	};
+   28	#endif
+   29	class CreatureClass
+   30	{
+   31	    private:
+   32	        // The current location of the creature
+   33	        Coordinate location;
+   34	        
+   35	    public:
+   36	        // Constructor CreatureClass()
+   37	        // Description: Initializes the location
+   38	        // Precondition: Location uninitialized
+   39	        // Postcondition: Location initialized (0,0)
+   40	        CreatureClass();
+   41	        
+   42	        // Constructor CreatureClass
+   43	        // Description: Initializes the location to a custom point
+   44	        //  by passing it to SetLocation(point)
+   45	        // Arguments:
+   46	        //  Coordinate point: the desired starting location
+   47	        // Precondition: Location uninitialized
+   48	        // Postcondition: Location initialized with custom value
+   49	        CreatureClass(Coordinate point);
+   50	        
+   51	        // void SetLocation
+   52	        // Description: Moves the creature to a custom point
+   53	        // Arguments:
+   54	        //  Coordinate point: the desired destination for the creature
+   55	        // Precondition: the creature was at another location
+   56	        // Postcondition: the creature is at "point"
+   57	        void SetLocation(Coordinate point);
+   58	        
+   59	        // Coordinate GetLocation
+   60	        // Description: Return the current coordinate of the creature
+   61	        // Precondition: None
+   62	        // Postcondition: Returns coordinate
+   63	        Coordinate GetLocation();
+   64	};
+   65	
+   66	#endif
+$ pr -n -t -e4 CreatureClass.cpp
+    1	////Programmer:         Chris Vogel
+    2	//  Assignment:         OLA4B
+    3	//  Class:              CSCI 2170-002
+    4	//  Course instructor:  Dr. Cen Li
+    5	//  Due date:           Sunday, 03/20/2011
+    6	//
+    7	//  Descrition: This is the implementation file for CreatureClass.
+    8	#include "CreatureClass.h"
+    9	#include <iostream>
+   10	
+   11	// Constructor CreatureClass()
+   12	// Description: Initializes the location
+   13	// Precondition: Location uninitialized
+   14	// Postcondition: Location initialized (0,0)
+   15	CreatureClass::CreatureClass()
+   16	{
+   17	    location.x = 0;
+   18	    location.y = 0;
+   19	}
+   20	
+   21	// Constructor CreatureClass
+   22	// Description: Initializes the location to a custom point
+   23	//  by passing it to SetLocation(point)
+   24	// Arguments:
+   25	//  Coordinate point: the desired starting location
+   26	// Precondition: Location uninitialized
+   27	// Postcondition: Location initialized with custom value
+   28	CreatureClass::CreatureClass(Coordinate point)
+   29	{
+   30	    SetLocation(point);
+   31	}
+   32	
+   33	// void SetLocation
+   34	// Description: Moves the creature to a custom point
+   35	// Arguments:
+   36	//  Coordinate point: the desired destination for the creature
+   37	// Precondition: the creature was at another location
+   38	// Postcondition: the creature is at "point"
+   39	void CreatureClass::SetLocation(Coordinate point)
+   40	{
+   41	    location.x = point.x;
+   42	    location.y = point.y;
+   43	}
+   44	
+   45	// Coordinate GetLocation
+   46	// Description: Return the current coordinate of the creature
+   47	// Precondition: None
+   48	// Postcondition: Returns coordinate
+   49	Coordinate CreatureClass::GetLocation()
+   50	{
+   51	    return location;
+   52	}
+$ pr -n -t -e4 MazeClass.h
+    1	////Programmer:         Chris Vogel
+    2	//  Assignment:         OLA4B
+    3	//  Class:              CSCI 2170-002
+    4	//  Course instructor:  Dr. Cen Li
+    5	//  Due date:           Sunday, 03/20/2011
+    6	//
+    7	//  Descrition: This is the specification file for MazeClass.
+    8	
+    9	#ifndef MAZECLASS_H
+   10	#define MAZECLASS_H
+   11	#include <fstream>
+   12	
+   13	using namespace std;
+   14	
+   15	// I feel that this should be in a separate file, but PeerSpace
+   16	// doesn't have a field for another file. The preprocessor instructions
+   17	// keep the Coordinate struct from being defined twice.
+   18	#ifndef COORDINATE
+   19	#define COORDINATE
+   20	// This struct defines a location within the maze
+   21	// The top-left corner of the maze is (0, 0)
+   22	struct Coordinate
+   23	{
+   24	    // The horizontal location
+   25	    int x;
+   26	    
+   27	    // The vertical location
+   28	    int y;
+   29	};
+   30	
+   31	#endif
+   32	
+   33	// All the possible attributes that a spot in the maze could have
+   34	// WALL: A wall is there (represented by "*")
+   35	// VISITED: The creature has already been there ("v")
+   36	// PATH: The location is part of the solution through the maze ("p")
+   37	// CLEAR: The location has no wall, nor has it been visited ("c")
+   38	enum SquareType {WALL, VISITED, PATH, CLEAR};
+   39	// Numbers         0      1       2      3
+   40	// Letter values   *      v       p      c
+   41	
+   42	class MazeClass
+   43	{
+   44	    private:
+   45	        // The maze (two-dimensional array of SquareType)
+   46	        SquareType** maze;
+   47	        
+   48	        // How many rows are in the maze
+   49	        int numRows;
+   50	        
+   51	        // How many columns are in the maze
+   52	        int numColumns;
+   53	        
+   54	        // The entrance location of the maze
+   55	        Coordinate entrance;
+   56	        
+   57	        // The exit location of the maze
+   58	        Coordinate exit;
+   59	    
+   60	    public:
+   61	        // void ReadMaze
+   62	        // Description: This function reads the maze from a data file
+   63	        // Arguments:
+   64	        //  ifstream& mazeFile: location of maze data
+   65	        // Precondition: There is no maze
+   66	        // Postcondition: The maze information from the file is used to
+   67	        //      populate the 2D maze array
+   68	        void ReadMaze(ifstream& mazeFile);
+   69	        
+   70	        // void Display
+   71	        // Description: This function displays the maze and converts the
+   72	        //  SquareType values to human-readable values
+   73	        // Precondition: None
+   74	        // Postcondition: The maze is displayed
+   75	        void Display() const;
+   76	        
+   77	        // Coordinate GetEntrance
+   78	        // Description: This function returns the entrance of the maze as a
+   79	        //  coordinate.
+   80	        // Precondition: None
+   81	        // Postcondition: The entrance coordinate is returned
+   82	        Coordinate GetEntrance() const;
+   83	        
+   84	        // Coordinate GetExit
+   85	        // Description: This function returns the exit of the maze as a
+   86	        //  coordinate.
+   87	        // Precondition: None
+   88	        // Postcondition: The exit coordinate is returned
+   89	        Coordinate GetExit() const;
+   90	        
+   91	        // bool MarkVisited
+   92	        // Description: This function marks a point in the maze as visited.
+   93	        // Arguments:
+   94	        //  Coordinate point: the point to be marked visited
+   95	        // Precondition: The point is marked clear
+   96	        // Postcondition: The point is marked visited
+   97	        // return TRUE: The operation was successful
+   98	        // return FALSE: The operation was unsuccessful
+   99	        bool MarkVisited(Coordinate point);
+  100	        
+  101	        // bool MarkPath
+  102	        // Description: This function marks a point in the maze as part of
+  103	        //  the solution.
+  104	        // Arguments:
+  105	        //  Coordinate point: the point to be marked as part of the path
+  106	        // Precondition: The point is marked clear
+  107	        // Postcondition: The point is marked part of the path
+  108	        // return TRUE: The operation was successful
+  109	        // return FALSE: The operation was unsuccessful
+  110	        bool MarkPath(Coordinate point);
+  111	        
+  112	        // bool IsWall
+  113	        // Description: This function returns whether a certain point is a wall
+  114	        // Arguments:
+  115	        //  Coordinate point: the point that could be a wall
+  116	        // Precondition: None
+  117	        // Postcondition: If TRUE, the point is a wall. If FALSE, the point
+  118	        //  is not a wall.
+  119	        bool IsWall(Coordinate point) const;
+  120	        
+  121	        // bool IsClear
+  122	        // Description: This function returns whether a certain point is clear
+  123	        // Arguments:
+  124	        //  Coordinate point: the point that could be clear
+  125	        // Precondition: None
+  126	        // Postcondition: If TRUE, the point is clear. If FALSE, the point
+  127	        //  is not clear.
+  128	        bool IsClear(Coordinate point) const;
+  129	        
+  130	        // bool IsPath
+  131	        // Description: This function returns whether a certain point is part
+  132	        //  of the solution (the path).
+  133	        // Arguments:
+  134	        //  Coordinate point: the point that could be part of the path
+  135	        // Precondition: None
+  136	        // Postcondition: If TRUE, the point is part of the path. If FALSE,
+  137	        //  the point is not part of the path.
+  138	        bool IsPath(Coordinate point) const;
+  139	        
+  140	        // bool IsVisited
+  141	        // Description: This function returns whether a certain point
+  142	        //  is visited
+  143	        // Arguments:
+  144	        //  Coordinate point: the point that could be visited
+  145	        // Precondition: None
+  146	        // Postcondition: If TRUE, the point is visited. If FALSE, the point
+  147	        //  is not visited.
+  148	        bool IsVisited(Coordinate point) const;
+  149	        
+  150	        // bool IsExit
+  151	        // Description: This function returns whether a certain point
+  152	        //  is the exit
+  153	        // Arguments:
+  154	        //  Coordinate point: the point that could be the exit
+  155	        // Precondition: None
+  156	        // Postcondition: If TRUE, the point is the exit. If FALSE, the point
+  157	        //  is not the exit.
+  158	        bool IsExit(Coordinate point) const;
+  159	        
+  160	        // bool IsInMaze
+  161	        // Description: This function returns whether a certain point is
+  162	        //  in the maze
+  163	        // Arguments:
+  164	        //  Coordinate point: the point that could be in the maze
+  165	        // Precondition: None
+  166	        // Postcondition: If TRUE, the point is in the maze. If FALSE,
+  167	        //  the point is not in the maze.
+  168	        bool IsInMaze(Coordinate point) const;
+  169	        
+  170	        // Destructor ~MazeClass
+  171	        // Description: This is the destructor for MazeClass.
+  172	        // Precondition: The pointers have memory allocated
+  173	        // Postcondition: The pointers have been cleared
+  174	        ~MazeClass();
+  175	};
+  176	
+  177	
+  178	#endif
+$ pr -n -t -e4 MazeClass.cpp
+    1	////Programmer:         Chris Vogel
+    2	//  Assignment:         OLA4B
+    3	//  Class:              CSCI 2170-002
+    4	//  Course instructor:  Dr. Cen Li
+    5	//  Due date:           Sunday, 03/20/2011
+    6	//
+    7	//  Descrition: This is the implementation file for MazeClass.
+    8	
+    9	#include "MazeClass.h"
+   10	#include <iostream>
+   11	#include <fstream>
+   12	
+   13	using namespace std;
+   14	
+   15	// void ReadMaze
+   16	// Description: This function reads the maze from a data file
+   17	// Arguments:
+   18	//  ifstream& mazeFile: location of maze data
+   19	// Precondition: There is no maze
+   20	// Postcondition: The maze information from the file is used to
+   21	//      populate the 2D maze array
+   22	void MazeClass::ReadMaze(ifstream& mazeFile)
+   23	{
+   24	    // Read the data from the file
+   25	    mazeFile >> numRows;
+   26	    mazeFile >> numColumns;
+   27	    mazeFile >> entrance.y;
+   28	    mazeFile >> entrance.x;
+   29	    mazeFile >> exit.y;
+   30	    mazeFile >> exit.x;
+   31	    
+   32	    // Make pointer array (rows)
+   33	    maze = new SquareType* [numRows];
+   34	    // For every row
+   35	    for(int i = 0; i < numRows; i++)
+   36	    {
+   37	        // Make pointer array (columns)
+   38	        maze[i] = new SquareType [numColumns];
+   39	        
+   40	        // We don't want the newline characters
+   41	        mazeFile.ignore(1, '\n');
+   42	        
+   43	        // For every column
+   44	        for(int j = 0; j < numColumns; j++)
+   45	        {
+   46	            char square;
+   47	            // Read a character from the data file to square
+   48	            mazeFile.get(square);
+   49	            
+   50	            // Give each column a SquareType
+   51	            switch(square)
+   52	            {
+   53	                case '*':
+   54	                    maze[i][j] = WALL;
+   55	                    break;
+   56	                case ' ':
+   57	                    maze[i][j] = CLEAR;
+   58	                    break;
+   59	            }
+   60	        }
+   61	    }
+   62	}
+   63	
+   64	
+   65	// void Display
+   66	// Description: This function displays the maze and converts the
+   67	//  SquareType values to human-readable values
+   68	// Precondition: None
+   69	// Postcondition: The maze is displayed
+   70	void MazeClass::Display() const
+   71	{
+   72	    // For every row
+   73	    for(int i = 0; i < numRows; i++)
+   74	    {
+   75	        // For every column
+   76	        for(int j = 0; j < numColumns; j++)
+   77	        {
+   78	            // Convert the SquareType to human-readable form
+   79	            // and display
+   80	            switch(maze[i][j])
+   81	            {
+   82	                case WALL:
+   83	                    cout << '*';
+   84	                    break;
+   85	                case VISITED:
+   86	                    cout << 'v';
+   87	                    break;
+   88	                case PATH:
+   89	                    cout << 'p';
+   90	                    break;
+   91	                case CLEAR:
+   92	                    cout << ' ';
+   93	                    break;
+   94	            }
+   95	        }
+   96	        
+   97	        // The end of a row
+   98	        cout << endl;
+   99	    }
+  100	}
+  101	
+  102	
+  103	// Coordinate GetEntrance
+  104	// Description: This function returns the entrance of the maze as a
+  105	//  coordinate.
+  106	// Precondition: None
+  107	// Postcondition: The entrance coordinate is returned
+  108	Coordinate MazeClass::GetEntrance() const
+  109	{
+  110	    return entrance;
+  111	}
+  112	
+  113	
+  114	// Coordinate GetExit
+  115	// Description: This function returns the exit of the maze as a
+  116	//  coordinate.
+  117	// Precondition: None
+  118	// Postcondition: The exit coordinate is returned
+  119	Coordinate MazeClass::GetExit() const
+  120	{
+  121	    return exit;
+  122	}
+  123	
+  124	// bool MarkVisited
+  125	// Description: This function marks a point in the maze as visited.
+  126	// Arguments:
+  127	//  Coordinate point: the point to be marked visited
+  128	// Precondition: The point is marked clear
+  129	// Postcondition: The point is marked visited
+  130	// return TRUE: The operation was successful
+  131	// return FALSE: The operation was unsuccessful
+  132	bool MazeClass::MarkVisited(Coordinate point)
+  133	{
+  134	    // If the point is a valid one
+  135	    // and
+  136	    // If the point is not a wall
+  137	    if(IsInMaze(point) && !IsWall(point))
+  138	    {
+  139	        // Mark visited
+  140	        maze[point.y][point.x] = VISITED;
+  141	        
+  142	        // The operation was successful
+  143	        return true;
+  144	    }
+  145	    
+  146	    // The operation was unsuccessful
+  147	    // Was a wall?
+  148	    // Was not in the maze?
+  149	    return false;
+  150	}
+  151	
+  152	
+  153	// bool MarkPath
+  154	// Description: This function marks a point in the maze as part of
+  155	//  the solution.
+  156	// Arguments:
+  157	//  Coordinate point: the point to be marked as part of the path
+  158	// Precondition: The point is marked clear
+  159	// Postcondition: The point is marked part of the path
+  160	// return TRUE: The operation was successful
+  161	// return FALSE: The operation was unsuccessful
+  162	bool MazeClass::MarkPath(Coordinate point)
+  163	{
+  164	    // If the point is a valid one
+  165	    // and
+  166	    // If the point is not a wall
+  167	    if(IsInMaze(point) && !IsWall(point))
+  168	    {
+  169	        // Mark as path
+  170	        maze[point.y][point.x] = PATH;
+  171	        
+  172	        // The operation was successful
+  173	        return true;
+  174	    }
+  175	    
+  176	    // The operation was unsuccessful
+  177	    // Was a wall?
+  178	    // Was not in the maze?
+  179	    return false;
+  180	}
+  181	
+  182	// bool IsWall
+  183	// Description: This function returns whether a certain point is a wall
+  184	// Arguments:
+  185	//  Coordinate point: the point that could be a wall
+  186	// Precondition: None
+  187	// Postcondition: If TRUE, the point is a wall. If FALSE, the point
+  188	//  is not a wall.
+  189	bool MazeClass::IsWall(Coordinate point) const
+  190	{
+  191	    return (maze[point.y][point.x] == WALL);
+  192	}
+  193	
+  194	// bool IsClear
+  195	// Description: This function returns whether a certain point is clear
+  196	// Arguments:
+  197	//  Coordinate point: the point that could be clear
+  198	// Precondition: None
+  199	// Postcondition: If TRUE, the point is clear. If FALSE, the point
+  200	//  is not clear.
+  201	bool MazeClass::IsClear(Coordinate point) const
+  202	{
+  203	    return maze[point.y][point.x] == CLEAR;
+  204	}
+  205	
+  206	// bool IsPath
+  207	// Description: This function returns whether a certain point is part
+  208	//  of the solution (the path).
+  209	// Arguments:
+  210	//  Coordinate point: the point that could be part of the path
+  211	// Precondition: None
+  212	// Postcondition: If TRUE, the point is part of the path. If FALSE,
+  213	//  the point is not part of the path.
+  214	bool MazeClass::IsPath(Coordinate point) const
+  215	{
+  216	    return maze[point.y][point.x] == PATH;
+  217	}
+  218	
+  219	// bool IsVisited
+  220	// Description: This function returns whether a certain point
+  221	//  is visited
+  222	// Arguments:
+  223	//  Coordinate point: the point that could be visited
+  224	// Precondition: None
+  225	// Postcondition: If TRUE, the point is visited. If FALSE, the point
+  226	//  is not visited.
+  227	bool MazeClass::IsVisited(Coordinate point) const
+  228	{
+  229	    return maze[point.y][point.x] == VISITED;
+  230	}
+  231	
+  232	// bool IsExit
+  233	// Description: This function returns whether a certain point
+  234	//  is the exit
+  235	// Arguments:
+  236	//  Coordinate point: the point that could be the exit
+  237	// Precondition: None
+  238	// Postcondition: If TRUE, the point is the exit. If FALSE, the point
+  239	//  is not the exit.
+  240	bool MazeClass::IsExit(Coordinate point) const
+  241	{
+  242	    return (point.x == exit.x && point.y == exit.y);
+  243	}
+  244	
+  245	// bool IsInMaze
+  246	// Description: This function returns whether a certain point is
+  247	//  in the maze
+  248	// Arguments:
+  249	//  Coordinate point: the point that could be in the maze
+  250	// Precondition: None
+  251	// Postcondition: If TRUE, the point is in the maze. If FALSE,
+  252	//  the point is not in the maze.
+  253	bool MazeClass::IsInMaze(Coordinate point) const
+  254	{
+  255	    return (point.y <= numRows && point.x <= numColumns);
+  256	}
+  257	
+  258	
+  259	// Destructor ~MazeClass
+  260	// Description: This is the destructor for MazeClass.
+  261	// Precondition: The pointers have memory allocated
+  262	// Postcondition: The pointers have been cleared
+  263	MazeClass::~MazeClass()
+  264	{
+  265	    // Clear the pointers from memory
+  266	    for(int i = 0; i < numRows; i++)
+  267	        delete [] maze[i];
+  268	    delete [] maze;
+  269	}
+  270	
+$ pr -n -t -e4 ola4.cc
+    1	////Programmer:         Chris Vogel
+    2	//  Assignment:         OLA4B
+    3	//  Class:              CSCI 2170-002
+    4	//  Course instructor:  Dr. Cen Li
+    5	//  Due date:           Sunday, 03/20/2011
+    6	//
+    7	//  Descrition: This is a client program for MazeClass and CreatureClass.
+    8	//      This program is an attempt to solve mazes. While it always solves
+    9	//      any maze that can be solved, it sometimes doesn't select the
+   10	//      most efficient path (example: MyMaze3.dat).
+   11	
+   12	#include "MazeClass.h"
+   13	#include "CreatureClass.h"
+   14	#include <iostream>
+   15	#include <fstream>
+   16	
+   17	using namespace std;
+   18	// void GoNorth()
+   19	// Description: A recursive function that calls GoNorth(), GoWest(),
+   20	//  GoEast(), and then (if the creature is in a corner) GoSouth().
+   21	// Arguments:
+   22	//  MazeClass maze: The maze object
+   23	//  CreatureClass creature: The creature object
+   24	//  bool success: Whether the function was successful or not
+   25	void GoNorth(MazeClass& maze, CreatureClass& creature, bool& success);
+   26	
+   27	// void GoWest()
+   28	// Description: A recursive function that calls GoSouth(), GoWest(),
+   29	//  GoNorth(), and then (if the creature is in a corner) GoEast().
+   30	// Arguments:
+   31	//  MazeClass maze: The maze object
+   32	//  CreatureClass creature: The creature object
+   33	//  bool success: Whether the function was successful or not
+   34	void GoWest(MazeClass& maze, CreatureClass& creature, bool& success);
+   35	
+   36	// void GoEast()
+   37	// Description: A recursive function that calls GoNorth(), GoEast(),
+   38	//  GoSouth(), and then (if the creature is in a corner) GoWest().
+   39	// Arguments:
+   40	//  MazeClass maze: The maze object
+   41	//  CreatureClass creature: The creature object
+   42	//  bool success: Whether the function was successful or not
+   43	void GoEast(MazeClass& maze, CreatureClass& creature, bool& success);
+   44	
+   45	// void GoSouth()
+   46	// Description: A recursive function that calls GoSouth(), GoWest(),
+   47	//  GoEast(), and then (if the creature is in a corner) GoNorth().
+   48	// Arguments:
+   49	//  MazeClass maze: The maze object
+   50	//  CreatureClass creature: The creature object
+   51	//  bool success: Whether the function was successful or not
+   52	void GoSouth(MazeClass& maze, CreatureClass& creature, bool& success);
+   53	
+   54	int main()
+   55	{
+   56	    // The name of the file that contains the maze information
+   57	    char file[50];
+   58	    
+   59	    // The maze
+   60	    MazeClass maze;
+   61	    
+   62	    // The entrance of the maze
+   63	    Coordinate entrance;
+   64	    
+   65	    // The exit of the maze
+   66	    Coordinate exit;
+   67	    
+   68	    // The file that contains the maze information
+   69	    ifstream mazeFile;
+   70	    
+   71	    // Whether each GoNorth(), GoSouth(), etc. function was successful
+   72	    bool success = false;
+   73	    
+   74	    // The creature
+   75	    CreatureClass creature;
+   76	    
+   77	    
+   78	    // Prompt for file name
+   79	    cout << "What is the file name of the maze? ";
+   80	    
+   81	    // Put that file name into the variable file
+   82	    cin >> file;
+   83	
+   84	    // Attempt to open the file
+   85	    mazeFile.open(file);
+   86	    
+   87	    // If the file was opened successfully
+   88	    if(mazeFile.good())
+   89	    {
+   90	        // Read the maze information from the file
+   91	        maze.ReadMaze(mazeFile);
+   92	        
+   93	        // Get the entrance
+   94	        entrance = maze.GetEntrance();
+   95	        
+   96	        // Get the exit
+   97	        exit = maze.GetExit();
+   98	        
+   99	        // Put the creature at the entrance
+  100	        creature.SetLocation(entrance);
+  101	        
+  102	        // I believe I should only have to call one, but the program
+  103	        // won't work unless I call three.
+  104	        
+  105	        // Move the creature south and then whichever way it can go
+  106	        GoSouth(maze, creature, success);
+  107	        // Move the creature east and then whichever way it can go
+  108	        GoEast(maze, creature, success);
+  109	        // Move the creature west and then whichever way it can go
+  110	        GoWest(maze, creature, success);
+  111	        
+  112	        // If the exit is part of the path (if the maze was solved)
+  113	        if(maze.IsPath(exit))
+  114	        {
+  115	            cout << "A solution was found! Follow the \"p\"!" << endl;
+  116	            // The recursive functions don't mark the entrance as part of
+  117	            // the path, but it must be if there is a path to the exit
+  118	            maze.MarkPath(entrance);
+  119	        }
+  120	        // The maze was not solved
+  121	        else
+  122	            cout << "No solution was found!" << endl;
+  123	
+  124	        // Display the maze
+  125	        maze.Display();
+  126	        
+  127	
+  128	    }
+  129	    
+  130	    // If the file could not be opened
+  131	    else
+  132	    {
+  133	        cout << "FILE \"" << file << "\" CANNOT BE OPENED. EXITING!" << endl;
+  134	    }
+  135	    
+  136	    return 0;
+  137	}
+  138	
+  139	// void GoNorth()
+  140	// Description: A recursive function that calls GoNorth(), GoWest(),
+  141	//  GoEast(), and then (if the creature is in a corner) GoSouth().
+  142	// Arguments:
+  143	//  MazeClass maze: The maze object
+  144	//  CreatureClass creature: The creature object
+  145	//  bool success: Whether the function was successful or not
+  146	void GoNorth(MazeClass& maze, CreatureClass& creature, bool& success)
+  147	{
+  148	    // Get the creature's current location
+  149	    Coordinate creatureLocation = creature.GetLocation();
+  150	    
+  151	    // Temporarily move the creature north
+  152	    creatureLocation.y--;
+  153	    
+  154	    // if that temporary location is clear
+  155	    // if it's in the maze
+  156	    // if it's NOT visited
+  157	    if(
+  158	        maze.IsClear(creatureLocation)
+  159	        &&
+  160	        maze.IsInMaze(creatureLocation)
+  161	        &&
+  162	        !maze.IsVisited(creatureLocation)
+  163	      )
+  164	    {
+  165	        // Make that temporary location permanent
+  166	        creature.SetLocation(creatureLocation);
+  167	        
+  168	        // Mark it as part of the path
+  169	        maze.MarkPath(creatureLocation);
+  170	
+  171	        // If the creature is at the exit
+  172	        // we're finished
+  173	        if(maze.IsExit(creatureLocation))
+  174	            success = true;
+  175	        
+  176	        // If not at the exit
+  177	        else
+  178	        {
+  179	            // Move the creature north and then whichever way it can go
+  180	            GoNorth(maze, creature, success);
+  181	            // If not at the exit
+  182	            if(!success)
+  183	            {
+  184	                // Move the creature west and then whichever way it can go
+  185	                GoWest(maze, creature, success);
+  186	                // If not at the exit
+  187	                if(!success)
+  188	                {
+  189	                    // Move the creature east and then whichever way it can go
+  190	                    GoEast(maze, creature, success);
+  191	                    // If not at the exit
+  192	                    if(!success)
+  193	                    {
+  194	                        // Mark the location visited
+  195	                        maze.MarkVisited(creatureLocation);
+  196	                        // Backtrack
+  197	                        creatureLocation.y++;
+  198	                        creature.SetLocation(creatureLocation);
+  199	                        GoSouth(maze, creature, success);
+  200	                    }
+  201	                }
+  202	            }
+  203	        }
+  204	    }
+  205	    
+  206	    // The creature can't move north
+  207	    else
+  208	        success = false;
+  209	}
+  210	
+  211	// void GoWest()
+  212	// Description: A recursive function that calls GoSouth(), GoWest(),
+  213	//  GoNorth(), and then (if the creature is in a corner) GoEast().
+  214	// Arguments:
+  215	//  MazeClass maze: The maze object
+  216	//  CreatureClass creature: The creature object
+  217	//  bool success: Whether the function was successful or not
+  218	void GoWest(MazeClass& maze, CreatureClass& creature, bool& success)
+  219	{
+  220	    // Get the creature's current location  
+  221	    Coordinate creatureLocation = creature.GetLocation();
+  222	
+  223	    // Temporarily move the creature west
+  224	    creatureLocation.x--;
+  225	    
+  226	    // if that temporary location is clear
+  227	    // if it's in the maze
+  228	    // if it's NOT visited  
+  229	    if(
+  230	        maze.IsClear(creatureLocation)
+  231	        &&
+  232	        maze.IsInMaze(creatureLocation)
+  233	        &&
+  234	        !maze.IsVisited(creatureLocation)
+  235	      )
+  236	    {
+  237	        // Make that temporary location permanent
+  238	        creature.SetLocation(creatureLocation);
+  239	        
+  240	        // Mark it as part of the path
+  241	        maze.MarkPath(creatureLocation);
+  242	
+  243	        // If the creature is at the exit
+  244	        // we're finished
+  245	        if(maze.IsExit(creatureLocation))
+  246	            success = true;
+  247	            
+  248	        // If not at the exit
+  249	        else
+  250	        {
+  251	            // Move the creature south and then whichever way it can go
+  252	            GoSouth(maze, creature, success);
+  253	            // If not at the exit
+  254	            if(!success)
+  255	            {
+  256	                // Move the creature west and then whichever way it can go
+  257	                GoWest(maze, creature, success);
+  258	                // If not at the exit
+  259	                if(!success)
+  260	                {
+  261	                    // Move the creature north and then whichever way it can go
+  262	                    GoNorth(maze, creature, success);
+  263	                    // If not at the exit
+  264	                    if(!success)
+  265	                    {
+  266	                        // Mark the location visited
+  267	                        maze.MarkVisited(creatureLocation);
+  268	                        // Backtrack
+  269	                        creatureLocation.x++;
+  270	                        creature.SetLocation(creatureLocation);
+  271	                        GoEast(maze, creature, success);
+  272	                    }
+  273	                }
+  274	            }
+  275	        }
+  276	    }
+  277	    // The creature can't move west
+  278	    else
+  279	        success = false;
+  280	}
+  281	
+  282	// void GoEast()
+  283	// Description: A recursive function that calls GoNorth(), GoEast(),
+  284	//  GoSouth(), and then (if the creature is in a corner) GoWest().
+  285	// Arguments:
+  286	//  MazeClass maze: The maze object
+  287	//  CreatureClass creature: The creature object
+  288	//  bool success: Whether the function was successful or not
+  289	void GoEast(MazeClass& maze, CreatureClass& creature, bool& success)
+  290	{
+  291	    // Get the creature's current location
+  292	    Coordinate creatureLocation = creature.GetLocation();
+  293	    // Temporarily move the creature east
+  294	    creatureLocation.x++;
+  295	    
+  296	    // if that temporary location is clear
+  297	    // if it's in the maze
+  298	    // if it's NOT visited
+  299	    if(
+  300	        maze.IsClear(creatureLocation)
+  301	        &&
+  302	        maze.IsInMaze(creatureLocation)
+  303	        &&
+  304	        !maze.IsVisited(creatureLocation)
+  305	      )
+  306	    {
+  307	        // Make that temporary location permanent
+  308	        creature.SetLocation(creatureLocation);
+  309	        
+  310	        // Mark it as part of the path
+  311	        maze.MarkPath(creatureLocation);
+  312	
+  313	        // If the creature is at the exit
+  314	        // we're finished
+  315	        if(maze.IsExit(creatureLocation))
+  316	            success = true;
+  317	
+  318	        // If not at the exit
+  319	        else
+  320	        {
+  321	            // Move the creature north and then whichever way it can go
+  322	            GoNorth(maze, creature, success);
+  323	            // If not at the exit
+  324	            if(!success)
+  325	            {
+  326	                // Move the creature east and then whichever way it can go
+  327	                GoEast(maze, creature, success);
+  328	                // If not at the exit
+  329	                if(!success)
+  330	                {
+  331	                    // Move the creature south and then whichever way it can go
+  332	                    GoSouth(maze, creature, success);
+  333	                    // If not at the exit
+  334	                    if(!success)
+  335	                    {
+  336	                        // Mark the location visited
+  337	                        maze.MarkVisited(creatureLocation);
+  338	                        // Backtrack
+  339	                        creatureLocation.x--;
+  340	                        creature.SetLocation(creatureLocation);
+  341	                        GoWest(maze, creature, success);
+  342	                    }
+  343	                }
+  344	            }
+  345	        }
+  346	    }
+  347	    // The creature can't move east
+  348	    else
+  349	        success = false;
+  350	}
+  351	
+  352	void GoSouth(MazeClass& maze, CreatureClass& creature, bool& success)
+  353	{
+  354	    // Get the creature's current location
+  355	    Coordinate creatureLocation = creature.GetLocation();
+  356	    // Temporarily move the creature south
+  357	    creatureLocation.y++;
+  358	    
+  359	    // if that temporary location is clear
+  360	    // if it's in the maze
+  361	    // if it's NOT visited
+  362	    if(
+  363	        maze.IsClear(creatureLocation)
+  364	        &&
+  365	        maze.IsInMaze(creatureLocation)
+  366	        &&
+  367	        !maze.IsVisited(creatureLocation)
+  368	      )
+  369	    {
+  370	        // Make that temporary location permanent
+  371	        creature.SetLocation(creatureLocation);
+  372	        
+  373	        // Mark it as part of the path
+  374	        maze.MarkPath(creatureLocation);
+  375	
+  376	        // If the creature is at the exit
+  377	        // we're finished
+  378	        if(maze.IsExit(creatureLocation))
+  379	            success = true;
+  380	
+  381	        // If not at the exit
+  382	        else
+  383	        {
+  384	            // Move the creature south and then whichever way it can go
+  385	            GoSouth(maze, creature, success);
+  386	            // If not at the exit
+  387	            if(!success)
+  388	            {
+  389	                // Move the creature west and then whichever way it can go
+  390	                GoWest(maze, creature, success);
+  391	                // If not at the exit
+  392	                if(!success)
+  393	                {
+  394	                    // Move the creature east and then whichever way it can go
+  395	                    GoEast(maze, creature, success);
+  396	                    // If not at the exit
+  397	                    if(!success)
+  398	                    {
+  399	                        // Mark the location visited
+  400	                        maze.MarkVisited(creatureLocation);
+  401	                        // Backtrack
+  402	                        creatureLocation.y--;
+  403	                        creature.SetLocation(creatureLocation);
+  404	                        GoNorth(maze, creature, success);
+  405	                    }
+  406	                }
+  407	            }
+  408	        }
+  409	    }
+  410	    // The creature can't move south
+  411	    else
+  412	        success = false;
+  413	}
+$ aCC CreatureClass.cpp MazeClass.cpp ola4.cc -o run
+$ run
+What is the file name of the maze? MyMaze1.dat
+A solution was found! Follow the "p"!
+******************p*
+*     *      *****p*
+* ***** ***       p*
+* ***** *****   **p*
+* *             * p*
+* *******  *ppppppp*
+************p*******
+$ run
+What is the file name of the maze? MyMz aze2.dat
+No solution was found!
+************************* ****
+*vvvvvvvvvvvv***** *     *   *
+*vvvvvvvvvvvv************  ***
+***vvv*vvvvvvvvvvvvvvv********
+*vvvvvvvvvvvvvvvvvvvvvvvvvvvv*
+*vvvv*********vvv**v*vvvvvvvv*
+*vvvvvvvvvvvvvvv*vvvvvvv*v*vv*
+*vvvvvvvvvvvvvv**********vvvv*
+*vvvvv*vvvvvvvv**v************
+*vvvvvvvvvvvvvvvvvvvvvvvvvvvv 
+*vvvvv****************vvvvvvv*
+*vvvvvvvvvvvvvvvvvvvv*****vv**
+***************vvv*vvvvvvvvvv*
+*       *******vvvvvvvvvvvvv**
+******************************
+$ run
+What is the file name of the maze? MyMaze3.dat
+A solution was found! Follow the "p"!
+*************************p****
+*vvpppppppppp***** *     p   *
+*vvp        p************p ***
+vvvp        pvpppppppppppp   *
+*vvp        pvp *  *         *
+***p  *     pvp       ********
+*ppppppppppppvp              *
+*pvvp*********p  ** *        *
+*pvvpvvvvpppppp *       * *  *
+*pvvp****p *                  
+*pvvpppppp     **********    *
+*pvvpp*        *              
+*pvvpp*        ** ************
+*pvvpp                        
+*pvvpp****************       *
+*pppppp              *****  **
+******p *******   *          *
+ppppppp                      *
+*       *******             **
+******************************
+$ exit
+exit
+
+Script done on Sun Mar 20 22:21:29 2011

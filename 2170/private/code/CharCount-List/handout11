@@ -1,0 +1,198 @@
+// type.h
+// This file specifies the data file and constants used for the
+// list class
+
+const int MAX_LENGTH = 30;      // Maximum possible number of
+                                //   components needed
+struct ItemType
+{
+  char letter;
+  int  count;
+};
+
+=========================================================
+//******************************************************************
+// SPECIFICATION FILE (charCountList.h)
+// This file gives the specification of the list needed to
+// count characters in a list.
+// The list components are not assumed to be in order by value.
+//******************************************************************
+
+#include "type.h"
+
+#ifndef CharCountList_H
+#define CharCountList_H
+
+class CharCountList
+{
+public:
+  CharCountList();
+  
+  void Store(char character);
+  // Puts character in the list with a count of one
+  
+  // Action responsibilities
+  void IncrementCount(char character);
+  // Increments count field accosicated with character
+
+  void ResetList();
+  // Initializes for client iteration
+ 
+  // Knowledge responsibilities
+  ItemType GetNextItem();
+  // Returns next item in the traversal.
+  // Assumes no transformer called since last class to function
+
+  bool HasNextItem();
+  // Returns true if next item exists; false otherwise 
+
+  bool IsThere(char character);
+  // Returns true if character is in the list; false otherwise  
+
+  bool IsFull() const;
+  // Returns true when there are MAX_LENGTH items in the list
+  // Otherwise, return false
+        
+private:
+    int length;
+    int currentPos;
+    ItemType data[MAX_LENGTH];
+};
+
+#endif
+
+============================================================
+//******************************************************************
+// IMPLEMENTATION FILE (CharCountList.cpp)
+// This file implements the list class member functions needed
+// to count characters in text
+// List representation: a one-dimensional array, a length variable,
+// and a current position for traversals.
+//******************************************************************
+#include "CharCountList.h"
+#include <iostream>
+
+using namespace std;
+
+//******************************************************************
+
+CharCountList::CharCountList()
+{
+  length = 0;
+}
+
+
+//******************************************************************
+
+void CharCountList::Store(char character)
+{
+  ItemType item;
+  item.count = 1;
+  item.letter = character;
+  data[length] = item;
+  length++;
+}
+
+//******************************************************************
+
+void CharCountList::IncrementCount(char character)
+// Uses linear search
+{
+  int index = 0;    // Index variable
+  while (index < length && character != data[index].letter)
+	 index++;
+  data[index].count++;
+}
+
+//******************************************************************
+
+void CharCountList::ResetList()
+{
+  currentPos = 0;
+}
+
+//******************************************************************
+
+ItemType CharCountList::GetNextItem()
+{
+  ItemType item;
+  item = data[currentPos];
+  currentPos++;
+  return item;
+}
+
+
+//******************************************************************
+
+bool CharCountList::HasNextItem()
+{
+  return currentPos != length;
+}
+
+//*****************************************************************
+
+bool CharCountList::IsThere(char character)
+{
+  int index = 0;    // Index variable
+  while (index < length && character != data[index].letter)
+	 index++;
+  return index != length;
+}
+
+//*****************************************************************
+
+bool CharCountList::IsFull() const
+{
+  return length==MAX_LENGTH;
+}
+
+================================================================
+
+// main.cpp
+// This is the client program for the CharCountList class
+// The program counts the frequency of the characters appeared in a data file
+// It illustrates:
+// - how to access list member functions
+// - use list iterator to step through the list
+
+#include "CharCountList.h"
+
+#include <fstream>
+#include <iostream>
+#include <cassert>
+using namespace std;
+
+int main()
+{
+    CharCountList  oneList;  // created an empty CharCountList object
+    ifstream        myIn;
+    char            ch;      // read in the next character
+    ItemType        item;    // place holder to store the item retrieved from the list
+
+    // open the data file
+    myIn.open("charData.dat");
+    assert(myIn);
+
+    // read the character one-by-one til the end of the data file
+    // Add the character to the list with count 1 when the character
+    // is read the first time
+    // After the first time, increment the counter of that character by 1
+    while ((myIn >> ch) &&(!oneList.IsFull())) {
+        if (!oneList.IsThere(ch)) {
+            oneList.Store(ch);
+        }
+        else  {
+            oneList.IncrementCount(ch);
+        }
+    }
+
+    // Display the frequncy of the characters
+    while (oneList.HasNextItem())   {
+        item = oneList.GetNextItem();
+        cout << item.letter << " appeared " <<  item.count << " times" << endl;
+    }
+
+    myIn.close();
+
+    return 0;
+}

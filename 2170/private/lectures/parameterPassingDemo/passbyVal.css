@@ -1,0 +1,29 @@
+.container, .codeBody{
+	position:relative;
+	float:left;
+	width:50%;
+}
+#text{
+	position:absolute;
+	left: 0px;
+	top: 0px;
+	z-incex: 10;
+}
+.codeBody{
+	margin: 10px 0 0 0;
+	height:512px;
+}
+pre:hover
+pre:focus{
+	width: :min-content;
+}
+pre{
+	text-align: left;
+	white-space: pre;
+	background: black;
+	color:white;
+	padding:10px;
+	font-size: 16px;
+	tab-size:4;
+	font-family: Verdana, Geneva,sans-serif;
+}

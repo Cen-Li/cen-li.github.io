@@ -1,0 +1,609 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Brad Rudnik">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win95; I) [Netscape]">
+   <title>Lab 8 - Answer Sheet</title>
+
+<!-- load the style sheet ------------------------------------------->
+<LINK rel="stylesheet" type="text/css" href="http://www.cs.mtsu.edu/~cs2170/manual/styles.css" title="styles">
+
+</head>
+<body background="http://www.cs.mtsu.edu/~cs2170/manual/lab8/lab8.gif">
+
+<form method="post">
+<input type=hidden name=lab value="lab8">
+<input type=hidden name=name value="">
+<input type=hidden name=uname value="">
+<input type=hidden name=partner value="">
+<input type=hidden name=instructor value="">
+<center>
+<h1>
+Lab 8 -- Pointers and Linked Lists
+</h1></center>
+
+<center>
+<h3>
+Answer Sheet</h3></center>
+
+<center>
+<input type=submit name="submit" value="Final Answer Sheet">
+<input type=submit name="submit" value="Click to Save Answers: Only if you must quit now">
+</center>
+
+<h3>
+<a NAME="Exercise1"></a>Exercise 1</h3>
+<strong>(Multiple Choice) </strong>Given&nbsp;a&nbsp;<strong>non-sorted&nbsp;</strong>array&nbsp;with&nbsp;6&nbsp;locations&nbsp;containing&nbsp;the&nbsp;following&nbsp;items
+  (note&nbsp;location&nbsp;5&nbsp;in&nbsp;the&nbsp;array&nbsp;is&nbsp;empty)&nbsp;and&nbsp;with&nbsp;<strong>next_available_location&nbsp;=&nbsp;5</strong>: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; index&nbsp;&nbsp;&nbsp;&nbsp;array&nbsp;value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;40 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp; What&nbsp;would&nbsp;be&nbsp;the&nbsp;value&nbsp;of&nbsp;<strong>next_available_location</strong>&nbsp;if&nbsp;10&nbsp;were&nbsp;deleted? <br>
+  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>A.&nbsp;</strong>&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&nbsp;B.</strong>&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>C.</strong>&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>D.&nbsp;</strong>&nbsp;&nbsp;&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>E.&nbsp;</strong>&nbsp;&nbsp;&nbsp;5 </span></p>
+<br>
+<textarea name="exercise1" rows=1 cols=20></textarea><br>
+<h3>
+<a NAME="Exercise2"></a>Exercise 2 </h3>
+ <strong>(Multiple Choice) </strong>Given&nbsp;an&nbsp;array&nbsp;with&nbsp;5&nbsp;locations&nbsp;containing&nbsp;the&nbsp;following&nbsp;items&nbsp;and&nbsp;<strong>next_available_location&nbsp;=&nbsp;0</strong>: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; index&nbsp;&nbsp;&nbsp;&nbsp;array&nbsp;value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;40 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;<span class="style2">&nbsp; <strong>What&nbsp;would&nbsp;be&nbsp;the&nbsp;result&nbsp;of&nbsp;adding&nbsp;the&nbsp;value&nbsp;5?</strong> <br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong> A.&nbsp;&nbsp;</strong>&nbsp;&nbsp;index&nbsp;&nbsp;&nbsp;&nbsp;array value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;40 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;5 <br>
+&nbsp;&nbsp;&nbsp;&nbsp; <strong>B.&nbsp;&nbsp;</strong>&nbsp;&nbsp;index&nbsp;&nbsp;&nbsp;&nbsp;array value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;5 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;40 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp; <strong>C.&nbsp;&nbsp;</strong>&nbsp;&nbsp;index&nbsp;&nbsp;&nbsp;&nbsp;array value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;5 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;40 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;100&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong> D.&nbsp;</strong>&nbsp;&nbsp;&nbsp;index&nbsp;&nbsp;&nbsp;&nbsp;array value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;5 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;40 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;100 <br>
+&nbsp;&nbsp;&nbsp;&nbsp; <strong>E.</strong>&nbsp;&nbsp;&nbsp;&nbsp;can not add 5 because the list is full </span><br>
+</p>
+<br>
+<textarea name="exercise2" rows=1 cols=20></textarea><br>
+<h3>
+<a NAME="Exercise3"></a>Exercise 3</h3><strong>(Multiple Choice)</strong>Given&nbsp;a&nbsp;<strong>non-sorted</strong>&nbsp;array&nbsp;with&nbsp;6&nbsp;locations&nbsp;containing&nbsp;the&nbsp;following&nbsp;items&nbsp;(note&nbsp;location&nbsp;5&nbsp;in&nbsp;the&nbsp;array&nbsp;is&nbsp;empty): <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; index&nbsp;&nbsp;&nbsp;&nbsp;array&nbsp;value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;40 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp; What&nbsp;would&nbsp;be&nbsp;the&nbsp;result&nbsp;of&nbsp;<strong>deleting&nbsp;the&nbsp;value&nbsp;40</strong>&nbsp;and&nbsp;<strong>inserting&nbsp;the&nbsp;value&nbsp;50</strong>? <br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>A.&nbsp;&nbsp;</strong>&nbsp;&nbsp;index&nbsp;&nbsp;&nbsp;&nbsp;array value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;50 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;100 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>B.&nbsp;&nbsp;</strong>&nbsp;&nbsp;index&nbsp;&nbsp;&nbsp;&nbsp;array value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;50 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;100 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>C.</strong>&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;&nbsp;&nbsp;&nbsp;array value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;100 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;50 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>D.</strong>&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;&nbsp;&nbsp;&nbsp;array value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;100 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;100 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;50&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong> E.&nbsp;</strong>&nbsp;&nbsp;&nbsp;index&nbsp;&nbsp;&nbsp;&nbsp;array value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;100 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;50&nbsp;&nbsp;&nbsp;&nbsp; <br>
+</p>
+<br>
+<textarea name="exercise3" rows=1 cols=20></textarea><br>
+<h3>
+<a NAME="Exercise4"></a>Exercise 4.P</h3><strong>(Multiple Choice)</strong>Given&nbsp;a&nbsp;<strong>sorted</strong>&nbsp;array&nbsp;with&nbsp;6&nbsp;locations&nbsp;containing&nbsp;the&nbsp;following&nbsp;items&nbsp;(note&nbsp;location&nbsp;5&nbsp;in&nbsp;the&nbsp;array&nbsp;is&nbsp;empty): <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; index&nbsp;&nbsp;&nbsp;&nbsp;array&nbsp;value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;40 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp; <strong>What&nbsp;would&nbsp;be&nbsp;the&nbsp;result&nbsp;of&nbsp;adding&nbsp;the&nbsp;value&nbsp;50</strong>? <br>
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>A.</strong> index&nbsp;&nbsp;&nbsp;&nbsp;array value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;40 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;50 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;100 <br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>B.</strong> index&nbsp;&nbsp;&nbsp;&nbsp;array value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;40 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;50 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;100 <br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>C. </strong>index&nbsp;&nbsp;&nbsp;&nbsp;array value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;40 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;100 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;50 <br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>D. </strong>index&nbsp;&nbsp;&nbsp;&nbsp;array value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;50 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;40 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;100 <br>
+</span></span><br>
+<textarea name="exercise4" rows=1 cols=20></textarea><br>
+<h3>
+<a NAME="Exercise5"></a>Exercise 5.P</h3><strong>(True/False)</strong>If&nbsp;the&nbsp;following&nbsp;declarations&nbsp;have&nbsp;been&nbsp;made: 
+<blockquote>
+<pre class="style2">
+     int xarr[5]; 
+     int next_available_location; 
+	 </pre></blockquote>
+<p><span class="style2">and the current value of <strong>next_available_location</strong> is 5, it&nbsp;is&nbsp;possible&nbsp;to&nbsp;insert&nbsp;one&nbsp;more&nbsp;item&nbsp;into&nbsp;the&nbsp;list.</span></p>
+<br>
+<textarea name="exercise5" rows=1 cols=20></textarea><br>
+<h3>
+<a NAME="Exercise6"></a>Exercise 6</h3>
+<span class="style2"><strong>(Multiple Choice)</strong>Which&nbsp;of&nbsp;the&nbsp;following&nbsp;is&nbsp;
+<strong>not</strong>&nbsp;one&nbsp;of&nbsp;the&nbsp;fundamental&nbsp;data&nbsp;types? <br>
+  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>A.</strong>&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>B.</strong>&nbsp;&nbsp;&nbsp;&nbsp;pointer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;<strong>C.&nbsp;</strong>&nbsp;&nbsp;&nbsp;char&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>D.</strong>
+&nbsp;&nbsp;&nbsp;&nbsp;short&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>E.&nbsp;</strong>&nbsp;&nbsp;&nbsp;
+none of the above </span></p>
+<br>
+<br>
+<textarea name="exercise6" rows=1 cols=20></textarea><br>
+<h3>
+<a NAME="Exercise7"></a>Exercise 7</h3> Write&nbsp;a&nbsp;declaration&nbsp;statement&nbsp;that&nbsp;will
+&nbsp;statically&nbsp;allocate&nbsp;an&nbsp;integer&nbsp;variable&nbsp;x. </span></p>
+<br>
+<br>
+<textarea name="exercise7" rows=2 cols=40></textarea><br>
+<h3>
+<a NAME="Exercise8"></a>Exercise 8</h3><strong> (Multiple Choice)</strong>The&nbsp;compiler&nbsp;allocates
+ memory storage for statically allocated variables during which of the following phases? <br>
+ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>A.</strong>&nbsp;&nbsp;&nbsp;&nbsp;execution&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>B.</strong>&nbsp;&nbsp;&nbsp;&nbsp;loading&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;<strong>C.</strong>&nbsp;&nbsp;&nbsp;&nbsp;linking&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>
+D.</strong>&nbsp;&nbsp;&nbsp;&nbsp;compilation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>E.&nbsp;</strong>
+&nbsp;&nbsp;&nbsp;none of the above </span></p>
+<br>
+<br>
+<textarea name="exercise8" rows=1 cols=20></textarea><br>
+<h3>
+<a NAME="Exercise9"></a>Exercise 9.P</h3>
+  
+
+ <strong>  (True/False) </strong>Variables that are of the fundamental or the structured data types are statically allocated. </span><br>
+<br>
+<textarea name="exercise9" rows=1 cols=20></textarea><br>
+  <h3>
+<a NAME="Exercise10"></a>Exercise 10.P</h3> <strong>True/False) </strong>If the following declaration has been made: <br>
+  <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="style4"> int&nbsp;grade_array[30][5]; </span><br>
+<br>
+when the program is compiled and loaded, only 1 location is set aside for grade_array with the understanding that if the program
+needs to use more locations, it can use up to 150. 
+The locations the program uses will be allocated as needed. </span>
+<br>
+<br>
+<textarea name="exercise10" rows=1 cols=20></textarea><br>
+<h3>
+<a NAME="Exercise11"></a>Exercise 11</h3><strong> (True/False)</strong> Pointer variables can contain any type of data except the file data type.</p>
+<br>
+<br>
+<textarea name="exercise11" rows=1 cols=20></textarea><br>
+<h3>
+<a NAME="Exercise12"></a>Exercise 12</h3><strong> (True/False) </strong>The following statement correctly declares a structure type ClientRec. <br>
+ &nbsp;&nbsp;&nbsp;&nbsp; <span class="style4">&nbsp;&nbsp;&nbsp;struct&nbsp;&nbsp;ClientRec <br>
+&nbsp;&nbsp;&nbsp;&nbsp; {&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; double&nbsp;&nbsp;&nbsp;balance; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; double&nbsp;&nbsp;&nbsp;credit; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ClientRec*&nbsp;nextRec; <br>
+&nbsp;&nbsp;&nbsp;&nbsp; }; </span></p>
+<br>
+<br>
+<textarea name="exercise12" rows=1 cols=20></textarea><br>
+<h3>
+<a NAME="Exercise13"></a>Exercise 13</h3><strong> 
+
+
+ (Multiple Choice) </strong>Which of the following declaration statements will statically allocate memory locations? <br>
+ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>A.</strong>&nbsp;&nbsp;&nbsp;&nbsp;<span class="style4">int *onevar; </span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>B.&nbsp;</strong>&nbsp;&nbsp;&nbsp;<span class="style4">char twovar; </span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong> C.&nbsp;</strong>&nbsp;&nbsp;&nbsp;<span class="style4">struct onestruct <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; { <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; float xvar; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int intvar; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }; </span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="style4">onestruct *ystruct; </span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>D.&nbsp;</strong>&nbsp;&nbsp;&nbsp;<span class="style4">float *threevar; </span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>E.&nbsp;&nbsp;</strong>&nbsp;&nbsp;All of the above </p>
+<br>
+<br>
+<textarea name="exercise13" rows=1 cols=20></textarea><br>
+<h3>
+<a NAME="Exercise14"></a>Exercise 14.P</h3><strong>
+
+
+ (True/False)</strong> The following declaration:  &nbsp;<span class="style4">&nbsp;int&nbsp;*&nbsp;&nbsp;p,&nbsp;
+q&nbsp;;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+creates two pointer variables that can be used to reference integer variables.<br> 
+</p>
+<br>
+<textarea name="exercise14" rows=1 cols=20></textarea><br>
+<h3>
+<a NAME="Exercise15"></a>Exercise 15.P</h3><strong>
+(Short Answer) </strong>Show a C++ statement to declare <strong>charPtr </strong>to be a pointer to a char.</p>
+<br>
+<br>
+<textarea name="exercise15" rows=2 cols=40></textarea><br>
+<h3>
+<a NAME="Exercise16"></a>Exercise 16</h3>
+  <span class="style2"><strong>(True/False) </strong>The following statement renames the type "pointer to unsigned integer" to be "myAgePointer": <br>
+<span class="style4">&nbsp;&nbsp;&nbsp;typedef&nbsp;unsigned&nbsp;int*&nbsp;&nbsp;&nbsp;myAgePointer;&nbsp;</span></span>
+</p>
+<br><br>
+<textarea name="exercise16" rows=1 cols=20></textarea><br>
+<h3>
+<a NAME="Exercise17"></a>Exercise 17</h3><strong>(True/False)</strong> The following is a correct way of 
+renaming a pointer to a <strong>book</strong> struct: <br>
+ <br>
+ <span class="style4">&nbsp;&nbsp;&nbsp;&nbsp; typedef&nbsp;&nbsp;&nbsp;book*&nbsp;&nbsp;&nbsp;BookPointer; <br>
+&nbsp;&nbsp;&nbsp;&nbsp; struct&nbsp;&nbsp;&nbsp;&nbsp;book <br>
+&nbsp;&nbsp;&nbsp;&nbsp; { <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned&nbsp;int&nbsp;&nbsp;&nbsp;&nbsp;isbn; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; float&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cost; <br>
+&nbsp;&nbsp;&nbsp;&nbsp; }; </span></span></p>
+<br><br>
+<textarea name="exercise17" rows=1 cols=20></textarea><br>
+<h3>
+<a NAME="Exercise18"></a>Exercise 18</h3><strong>(Multiple Choice)</strong> Which of the following is <strong>NOT</strong> a 
+valid usage of typedef <br>
+ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>A. </strong>&nbsp;&nbsp;<span class="style4">typedef int** ppInt; </span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&nbsp;B.</strong> &nbsp;&nbsp;<span class="style4">struct time <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; { <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int hour, <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; minute, <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; second; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }; </span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="style4">typedef time* pTime; </span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong> C. </strong>&nbsp;<span class="style4">typedef character* pChar; </span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong> D. &nbsp;</strong>all of the above are valid </span></p>
+<br><br>
+<textarea name="exercise18" rows=1 cols=20></textarea><br>
+
+
+
+
+
+
+
+
+<h3>
+<a NAME="Exercise19"></a>Exercise 19</h3><strong> (True/False) </strong>Assume we have defined p1 and p2 to be integer pointer variables and we have dynamically allocated memory for each variable. A snapshot of memory is shown below:</span></p>
+<p><span class="style2"><blockquote><pre>
+<b>Address     Memory Contents     Variable Allocations</b>
+  2000         4040                p1
+  2004         3020                p2
+   ...          ...               ...
+  3020         1004
+   ...          ...
+  4040         8040
+</pre></blockquote>
+ </span>
+<p><span class="style2">The value stored in <span class="style4">*p1</span> is 4040.</span></p>
+<textarea name="exercise19" rows=1 cols=20></textarea><br>
+<h3>
+<a NAME="Exercise20"></a>Exercise 20</h3><strong> (Multiple Choice) </strong>Assume we have defined p1 and p2 to be integer pointer variables. Also assume we have the picture of memory shown below</p>
+
+<blockquote class="style2">
+  <pre>
+<b>Address     Memory Contents     Variable Allocations</b>
+  2000         2020                p1
+  2004         2024                p2
+   ...          ...               ...
+  2020          100
+  2024           55</pre>
+</blockquote>
+<span class="style2">Given the following code, what would be printed?
+</span>
+<blockquote class="style2">
+  <pre>
+     *p1 = 42;
+	     p1 = p2;
+	     cout << *p1 << " " << *p2;
+</pre>
+</blockquote>
+<p><span class="style2"><strong>A.&nbsp;</strong>&nbsp;100&nbsp;55&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>B.</strong>&nbsp;&nbsp;
+  42&nbsp;42&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>C.</strong>&nbsp;&nbsp;42&nbsp;55</span>
+    <span class="style2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>D.</strong>&nbsp;&nbsp; 55&nbsp;55</span>
+</p>
+<textarea name="exercise20" rows=1 cols=20></textarea><br>
+<h3>
+<a NAME="Exercise21"></a>Exercise 21</h3><strong> (Multiple Choice) </strong>Given that p1 and p2 are integer pointer variables and that the beginning picture of memory is shown below:</p>
+<blockquote class="style2">
+  <pre><b>Address     Memory Contents     Variable Allocations</b>
+  2000          ?                  p1
+  2004          ?                  p2
+   ...          ...                ...
+  2016          ?
+   ...          ...                ...
+  3020          ?</pre>
+</blockquote>
+<span class="style2">If we assume that memory locations and then 3020 are the next locations to be allocated, which of the colde segments below would cause memory to be changed as shown below:
+</span>
+<blockquote class="style2">
+  <pre>
+<b>Address     Memory Contents     Variable Allocations</b>
+  2000          3020                  p1
+  2004          2016                  p2
+   ...          ...                   ...
+  2016          2
+   ...          ...                   ...
+  3020          2
+  <strong>A.</strong>  p1 = new int;
+      p2 = new int;
+      *p1 = 2;
+      *p2 = *p1;
+
+  <strong>B.</strong>  *p1 = new int;
+      *p2 = new int; 
+      p1 = 2;
+      p2 = 2;
+
+  <strong>C.</strong>  p2 = new int;
+      p1 = new int;
+      *p1 = 2;
+      *p2 = 2; 
+ 
+  <strong>D.</strong>  *p1 = new int;
+      *p2 = new int;
+      p1 = 2;
+      p2 = p1;
+</pre>
+</blockquote>
+<textarea name="exercise21" rows=1 cols=20></textarea><br>
+<h3>
+<a NAME="Exercise22"></a>Exercise 22.P</h3><strong>  (Short Answer) </strong>Given the following code, what would be stored in *p1 after the code is executed?
+</span>
+<blockquote class="style2">
+  <pre>
+int *p1, *p2;
+int x = 42;
+p1 = & x;
+</pre>
+</blockquote>
+<textarea name="exercise22" rows=1 cols=20></textarea><br>
+<h3>
+<a NAME="Exercise23"></a>Exercise 23.P</h3><strong>  (Multiple Choice)</strong> What is printed by the following code?
+</span>
+<blockquote class="style2">
+  <pre>
+int *ptr1, *ptr2;
+ptr1 = new int;
+ptr2 = new int;
+*ptr1 = 100;
+ptr2 = ptr1;
+*ptr2 = 55;
+cout << *ptr1 << " " << *ptr2;
+	 <strong>A.</strong>     100 55
+	 <strong>B.</strong>     55 100
+	 <strong>C.</strong>     55 55
+	 <strong>D.</strong>     100 100
+	 </pre>
+</blockquote>
+<textarea name="exercise23" rows=1 cols=20></textarea><br>
+<h3>
+<a NAME="Exercise24"></a>Exercise 24</h3>(True/False) Given:
+
+<blockquote><pre>
+struct BankRec
+{
+	int acctNum;
+	int balance;
+};
+BankRec *bankPtr;
+bankPtr = new BankRec;
+ </pre></blockquote>
+<p>
+  The field <b>"balance"</b> in the structure pointed at by <b>"bankPtr"</b> can be referenced using <span class="style6">bankPtr->balance</span>.</font>
+</p>
+<textarea name="exercise24" rows=1 cols=20></textarea><br>
+</p>
+<h3>
+<a NAME="Exercise25"></a>Exercise 25.P</h3> Given:</p>
+<blockquote class="style2"><pre>
+struct PersonRec
+{
+     string name;
+     int age;
+};
+typedef PersonRec* PersonRecType;
+PersonRecType personPtr;
+</pre></blockquote>
+<span class="style2">The following statement dynamically creates memory referenced by "personPtr": </span>
+<blockquote>
+  <pre class="style2">
+<b>A.</b> personPtr = new PersonRec();                   <b>B.</b> new personPtr;
+<b>C.</b> personPtr = new (PersonRec);                   <b>D.</b> personPtr = new PersonRec;
+	</pre>
+</blockquote>
+<textarea name="exercise25" rows=1 cols=20></textarea><br>
+<h3>
+<a NAME="Exercise26"></a>Exercise 26</h3> Given:
+
+<blockquote><pre>
+struct PersonRec
+{
+     string name;
+     int age;
+};
+typedef PersonRec* PersonRecType;
+PersonRecType personPtr;
+
+</pre></blockquote>
+Which one of the following statements correctly de-allocates the memory space referenced by 
+personPtr?
+<blockquote><pre>
+<b>A.</b>  personPtr.delete();                          <b>B.</b> personPtr = delete(personPtr);
+<b>C.</b>  delete personPtr();                          <b>D.</b> delete personPtr;
+</pre></blockquote>
+<textarea name="exercise26" rows=1 cols=20></textarea><br>
+<h3>
+<a NAME="Exercise27"></a>Exercise 27</h3> Given:</span
+><blockquote><pre class="style2">
+struct PersonRec
+{
+     string name;
+     int age;
+};
+typedef PersonRec* PersonRecType;
+PersonRecType personPtr;
+personPtr = new PersonRec;
+</pre></blockquote>
+which one of the following statements is incorrect in assigning the value "John Smith"
+to field "name" of the dynamically created memory, referenced by personPtr?
+
+<blockquote><pre>
+<b>A.</b>  personPtr.name = "John Smith";
+<b>B.</b>  string newName = "John Smith";
+           personPtr->name = newName;
+<b>C.</b>  personPtr->name = "John Smith";
+<b>D.</b>  (*personPtr).name = "John Smith";
+</pre></blockquote>
+<textarea name="exercise27" rows=1 cols=20></textarea><br>
+ 
+<h2>
+<a NAME="Exercise28"></a></h2>
+<h3>Exercise 28 </h3>
+<p><i><b>{ Script }</b> </i>
+<h3>
+<a NAME="Exercise29"></a>Exercise 29 </h3>
+<p><i><b>{ Script }</b></i>
+<h3>
+<a NAME="Exercise30"></a>Exercise 30 </h3>
+<p><i><b>{ Script }</b></i></p>
+<h3>
+<a NAME="Exercise31"></a>Exercise 31.P </h3><b>(Multiple Choice)</b>Suppose we have a linked list of integers. Each node in the list is of 
+<b>Node</b> type and contains an integer and a pointer to the next item in the list. The variable <b>first</b> points to the first node 
+in the list. Which of the code segments below will add a new node containing the value 55 to the beginning of the list? </p>
+<blockquote>
+  <pre>
+<b>A.</b>  first = new Node;
+    first->value = 55;
+    first->next = first;
+<b>B.</b>  Node* temp = new Node;
+    first->value = 55;
+    temp->next = first;
+<b>C.</b>  Node* temp = new Node;
+    temp->value = 55;
+    temp->next = first->next;
+    first = temp;
+<b>D.</b>  Node* temp = new Node;
+    temp->value = 55;
+    temp->next = first;
+    first = temp;
+</font></pre>
+</blockquote> 
+<textarea name="exercise31" rows=1 cols=20></textarea><br>
+<h3>
+<a NAME="Exercise32"></a>Exercise 32.P </h3> <strong>(Multiple Choice) </strong>Suppose we have a linked list of integers.  Each node in the list is of Node type and 
+contains an integer and a pointer to the next item in the list.  The variable <strong>first</strong>
+points to the first node in the list.  Which of the code segments below will properly delete the last node
+in the list?
+</span>
+<blockquote><pre class="style2">
+<strong>A.</strong>  Node*cur=first;
+    while(cur != NULL)
+    {
+        cur = cur->next;
+    }
+    delete cur;
+    cur = NULL;
+<strong>B.</strong>  Node* cur = first;
+    while(cur->next != NULL)
+    {
+        cur = cur->next;
+    }
+    delete cur->next;
+    cur->next = NULL;
+<strong>C.</strong>  Node * cur = first->next;
+    while (cur != NULL)
+    {
+        cur = cur->next;
+    }
+    delete cur;
+    cur = NULL;
+<strong>D.</strong>  None of the above.
+</pre>
+</blockquote>
+<textarea name="exercise32" rows=1 cols=20></textarea><br>
+<p><center>
+<h5>
+----- End of Lab 8 -  Pointers and Linked Lists -----<br>
+Complete the Exercises on the Answer Sheet. <br>Turn in the Answer Sheet 
+and the printouts required by the exercises.</h5></center>
+<center>
+<input type=submit name="submit" value="Final Answer Sheet">
+<input type=submit name="submit" value="Click to Save Answers: Only if you must quit now">
+</center>
+</form>
+</body>
+</html>

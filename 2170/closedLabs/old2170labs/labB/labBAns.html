@@ -1,0 +1,332 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Brad Rudnik">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win95; I) [Netscape]">
+   <meta name="Description" content="CSCI 217 - Closed Lab 3 - Answer Sheet.">
+   <title>Lab 3 - Answer Sheet</title>
+
+<!-- load the style sheet -->
+<link rel="stylesheet" type="text/css" href="http://www.cs.mtsu.edu/~cs2170/manual/styles.css" title="styles">
+
+</head>
+<body background="http://www.cs.mtsu.edu/~cs2170/manual/labB/labB.gif">
+
+<form method="post">
+<input type=hidden name=lab value="labB">
+<input type=hidden name=name value="">
+<input type=hidden name=uname value="">
+<input type=hidden name=partner value="">
+<input type=hidden name=instructor value="">
+<center>
+<h1>
+Lab B -- Analysis of Algorithms</h1></center>
+
+<center>
+<h3>
+Answer Sheet</h3></center>
+
+<center>
+<input type=submit name="submit" value="Final Answer Sheet">
+<input type=submit name="submit" value="Click to Save Answers: Only if you must quit now">
+</center>
+
+<a NAME="Exercise1"></a>
+<h2>
+Exercise 1</h2>
+<blockquote>
+<blockquote><b>
+<pre>
+<font size=3>
+found = false
+k = 0
+while not found and k &lt; n - 1
+{
+      k = k + 1
+      for (i = 0; i &lt; k; i++)
+          if (a[i] == s) found = true
+}
+</font>
+</pre>
+</b></blockquote>
+</blockquote>
+
+<p>In what way is the above algorithm inefficient?<br>
+<p><b>
+<textarea name="exercise1" rows=4 cols=35></textarea>
+</b>
+
+<a NAME="Exercise2"></a>
+<h2>
+Exercise 2</h2>
+<blockquote>
+<blockquote>
+<pre>
+<font size=3>
+<b><font color="#3333FF">
+//Reverse 1:</font>
+for (i = 0; i &lt; (n/2); i++)    // go through half the elements
+{
+      save = a[i]              // swap 1st with nth, 2nd with n-1st
+      a[i] = a[n - i - 1]      //{etc...}
+      a[n - i - 1] = save
+}
+<font color="#3333FF">//Reverse 2:</font>
+//Copy the 1st array to a 2nd array but in reverse order.
+j = n - 1;                     // j runs backward through b[0..n-1]
+for (i = 0; i &lt; n; i++)
+{
+     b[j] = a[i]
+     j = j - 1
+}
+// Copy b[0..n-1] into a[0..n-1].
+for (i = 0; i &lt; n; i++)
+      a[i] = b[i]
+</b>
+</font>
+</pre>
+</blockquote>
+</blockquote>
+<p>Examine Reverse1 and Reverse 2.  Which algorithm is more efficient in its use of space?&nbsp; Why?<p>
+<b>
+<textarea name="exercise2" rows=4 cols=35></textarea>
+</b>
+
+<a NAME="Exercise3"></a>
+<h2>
+Exercise 3</h2>
+<p>Consider the
+following algorithm which determines the sum of the first n positive integers.&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp; 1.&nbsp; sum = 0<br>
+&nbsp;&nbsp;&nbsp;&nbsp; 2.&nbsp; for (int j = n; j > 0; j--)<br>
+&nbsp;&nbsp;&nbsp;&nbsp; 3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sum = sum + j<br>
+&nbsp;&nbsp;&nbsp;&nbsp; 4.&nbsp; print sum<br>
+Analyze this algorithm and determine the number of steps executed in each
+line of the algorithm.&nbsp; Determine the Big-O of the algorithm.
+<center><table>
+<tr><td>Line 1 <td><b>
+<textarea name="exercise3a" rows=1 cols=10></textarea>
+</b><tr><td>Line 2 <td><b>
+<textarea name="exercise3b" rows=1 cols=10></textarea>
+</b><tr><td>Line 3 <td><b>
+<textarea name="exercise3c" rows=1 cols=10></textarea>
+</b><tr><td>Line 4 <td><b>
+<textarea name="exercise3d" rows=1 cols=10></textarea>
+</b><tr><td>Total &nbsp;<td><b>
+<textarea name="exercise3e" rows=1 cols=10></textarea>
+</b><tr><td>The Big-O of the algorithm <td><b>
+<textarea name="exercise3f" rows=1 cols=10></textarea>
+</b></table></center>
+
+<a NAME="Exercise4"></a>
+<h2>
+Exercise 4</h2>
+<p>Determine a O(1) algorithm to calculate the sum of the first n positive integers.  If you 
+can't figure it out ask the lab assistant.  Hint: This sum is called the Gauss sum.  There is 
+a one line equation in math to compute this sum.<p><b>
+<textarea name="exercise4" rows=4 cols=35></textarea>
+</b>
+
+
+<a NAME="Exercise5"></a>
+<h2>
+Exercise 5</h2>
+<ol>
+<li>
+sum = 1</li>
+
+<li>
+powerTwo = 2</li>
+
+<li>
+while powerTwo &lt; n</li>
+
+<li>
+&nbsp;&nbsp;&nbsp;&nbsp; sum = sum + powerTwo</li>
+
+<li>
+&nbsp;&nbsp;&nbsp;&nbsp; powerTwo = 2 * powerTwo</li>
+
+<li>
+print sum</li>
+</ol>
+<p>Let k be the number of times the while loop executes in the above algorithm.  The number of 
+steps executed is 4 + 3 * k.  To see that this is true, determine how many times each of the 
+lines (1 - 6) is executed and find the total.
+<center><table>
+<tr><td>Line 1 <td><b>
+<textarea name="exercise5a" rows=1 cols=10></textarea>
+</b><tr><td>Line 2 <td><b>
+<textarea name="exercise5b" rows=1 cols=10></textarea>
+</b><tr><td>Line 3 <td><b>
+<textarea name="exercise5c" rows=1 cols=10></textarea>
+</b><tr><td>Line 4 <td><b>
+<textarea name="exercise5d" rows=1 cols=10></textarea>
+</b><tr><td>Line 5 <td><b>
+<textarea name="exercise5e" rows=1 cols=10></textarea>
+</b><tr><td>Line 6 <td><b>
+<textarea name="exercise5f" rows=1 cols=10></textarea>
+</b><tr><td>Total <td><b>
+<textarea name="exercise5g" rows=1 cols=10></textarea>
+</b></table></center>
+
+
+<a NAME="Exercise6"></a>
+<h2>
+Exercise 6</h2>
+<p>If n = 1000, approximately how many steps will be executed in the last algorithm?<p><b>
+<textarea name="exercise6" rows=1 cols=20></textarea>
+</b>
+
+<a NAME="Exercise7"></a>
+<h2>
+Exercise 7</h2>
+<p>We have implemented
+three search functions in C++:&nbsp; binarySearch, sequentialSearch, and awfulSearch.<br>
+In this exercise, you will experiment with these three algorithms (contained
+in the source file inlabB.cc)
+for different values of n. Copy the source file to your
+account. Look at the code then execute it to see what it does.
+Remove the statements that print the array (save trees!) and add code to
+each function so it will calculate (and print) the number, <i>f(n)</i>,
+of times the comparison statement<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (sArray[??] == item) ....<br>
+is executed.&nbsp; This value will essentially give the BIG-O for the function.&nbsp;&nbsp;
+Why?&nbsp; Do a worst-case analysis (that is, search for a value that is
+not in the array).&nbsp; Create a table containing the number of times
+the comparison statement is execute for n = 100, 200, 300, 400, and 500
+for all three searches.&nbsp; Use the table to guess the Big-O of each
+algorithm.
+<center><table BORDER WIDTH="80%" >
+<tr>
+<td BGCOLOR="#C0C0C0"><b>n</b></td>
+
+<td BGCOLOR="#C0C0C0"><b>Binary Search</b></td>
+
+<td BGCOLOR="#C0C0C0"><b>Sequential Search</b></td>
+
+<td BGCOLOR="#C0C0C0"><b>Awful Search</b></td>
+</tr>
+
+<tr>
+<td BGCOLOR="#C0C0C0"><b>100</b></td>
+
+<td><b>
+<textarea name="exercise7a1" rows=1 cols=10></textarea>
+</b></td>
+
+<td><b>
+<textarea name="exercise7b1" rows=1 cols=10></textarea>
+</b></td>
+
+<td><b>
+<textarea name="exercise7c1" rows=1 cols=10></textarea>
+</b></td>
+</tr>
+
+<tr>
+<td BGCOLOR="#C0C0C0"><b>200</b></td>
+
+<td><b>
+<textarea name="exercise7a2" rows=1 cols=10></textarea>
+</b></td>
+
+<td><b>
+<textarea name="exercise7b2" rows=1 cols=10></textarea>
+</b></td>
+
+<td><b>
+<textarea name="exercise7c2" rows=1 cols=10></textarea>
+</b></td>
+</tr>
+
+<tr>
+<td BGCOLOR="#C0C0C0"><b>300</b></td>
+
+<td><b>
+<textarea name="exercise7a3" rows=1 cols=10></textarea>
+</b></td>
+
+<td><b>
+<textarea name="exercise7b3" rows=1 cols=10></textarea>
+</b></td>
+
+<td><b>
+<textarea name="exercise7c3" rows=1 cols=10></textarea>
+</b></td>
+</tr>
+
+<tr>
+<td BGCOLOR="#C0C0C0"><b>400</b></td>
+
+<td><b>
+<textarea name="exercise7a4" rows=1 cols=10></textarea>
+</b></td>
+
+<td><b>
+<textarea name="exercise7b4" rows=1 cols=10></textarea>
+</b></td>
+
+<td><b>
+<textarea name="exercise7c4" rows=1 cols=10></textarea>
+</b></td>
+</tr>
+
+<tr>
+<td BGCOLOR="#C0C0C0"><b>500</b></td>
+
+<td><b>
+<textarea name="exercise7a5" rows=1 cols=10></textarea>
+</b></td>
+
+<td><b>
+<textarea name="exercise7b5" rows=1 cols=10></textarea>
+</b></td>
+
+<td><b>
+<textarea name="exercise7c5" rows=1 cols=10></textarea>
+</b></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td BGCOLOR="#C0C0C0"><b>Big O</b></td>
+
+<td><b>
+<textarea name="exercise7a6" rows=1 cols=10></textarea>
+</b></td>
+
+<td><b>
+<textarea name="exercise7b6" rows=1 cols=10></textarea>
+</b></td>
+
+<td><b>
+<textarea name="exercise7c6" rows=1 cols=10></textarea>
+</b></td>
+</tr>
+</table></center>
+
+
+<center>
+<h5>
+----- End of LabB - Analysis of Algorithms  -----<br>
+Complete the Exercises on the Answer Sheet. <br>Turn in the Answer Sheet 
+and the printouts required by the exercises.</h5></center>
+<center>
+<input type=submit name="submit" value="Final Answer Sheet">
+<input type=submit name="submit" value="Click to Save Answers: Only if you must quit now">
+</center>
+</form>
+</body>
+</html>

@@ -1,0 +1,8 @@
+convert: convert.o 
+	c++ convert.o -o convert
+
+convert.o: convert.cpp
+	c++ -c convert.cpp
+
+clean:
+	rm *.o 

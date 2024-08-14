@@ -1,0 +1,880 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 18 36 594 756
+%%Title: Enscript Output
+%%Creator: GNU Enscript 1.6.5.90
+%%CreationDate: Wed Apr  4 15:33:41 2018
+%%Orientation: Landscape
+%%Pages: (atend)
+%%DocumentMedia: Letter 612 792 0 () ()
+%%DocumentNeededResources: (atend)
+%%EndComments
+%%BeginProlog
+%%BeginResource: procset Enscript-Prolog 1.6.5 90
+%
+% Procedures.
+%
+
+/_S {	% save current state
+  /_s save def
+} def
+/_R {	% restore from saved state
+  _s restore
+} def
+
+/S {	% showpage protecting gstate
+  gsave
+  showpage
+  grestore
+} bind def
+
+/MF {	% fontname newfontname -> -	make a new encoded font
+  /newfontname exch def
+  /fontname exch def
+
+  /fontdict fontname findfont def
+  /newfont fontdict maxlength dict def
+
+  fontdict {
+    exch
+    dup /FID eq {
+      % skip FID pair
+      pop pop
+    } {
+      % copy to the new font dictionary
+      exch newfont 3 1 roll put
+    } ifelse
+  } forall
+
+  newfont /FontName newfontname put
+
+  % insert only valid encoding vectors
+  encoding_vector length 256 eq {
+    newfont /Encoding encoding_vector put
+  } if
+
+  newfontname newfont definefont pop
+} def
+
+/MF_PS { % fontname newfontname -> -	make a new font preserving its enc
+  /newfontname exch def
+  /fontname exch def
+
+  /fontdict fontname findfont def
+  /newfont fontdict maxlength dict def
+
+  fontdict {
+    exch
+    dup /FID eq {
+      % skip FID pair
+      pop pop
+    } {
+      % copy to the new font dictionary
+      exch newfont 3 1 roll put
+    } ifelse
+  } forall
+
+  newfont /FontName newfontname put
+
+  newfontname newfont definefont pop
+} def
+
+/SF { % fontname width height -> -	set a new font
+  /height exch def
+  /width exch def
+
+  findfont
+  [width 0 0 height 0 0] makefont setfont
+} def
+
+/SUF { % fontname width height -> -	set a new user font
+  /height exch def
+  /width exch def
+
+  /F-gs-user-font MF
+  /F-gs-user-font width height SF
+} def
+
+/SUF_PS { % fontname width height -> -	set a new user font preserving its enc
+  /height exch def
+  /width exch def
+
+  /F-gs-user-font MF_PS
+  /F-gs-user-font width height SF
+} def
+
+/M {moveto} bind def
+/s {show} bind def
+
+/Box {	% x y w h -> -			define box path
+  /d_h exch def /d_w exch def /d_y exch def /d_x exch def
+  d_x d_y  moveto
+  d_w 0 rlineto
+  0 d_h rlineto
+  d_w neg 0 rlineto
+  closepath
+} def
+
+/bgs {	% x y height blskip gray str -> -	show string with bg color
+  /str exch def
+  /gray exch def
+  /blskip exch def
+  /height exch def
+  /y exch def
+  /x exch def
+
+  gsave
+    x y blskip sub str stringwidth pop height Box
+    gray setgray
+    fill
+  grestore
+  x y M str s
+} def
+
+/bgcs { % x y height blskip red green blue str -> -  show string with bg color
+  /str exch def
+  /blue exch def
+  /green exch def
+  /red exch def
+  /blskip exch def
+  /height exch def
+  /y exch def
+  /x exch def
+
+  gsave
+    x y blskip sub str stringwidth pop height Box
+    red green blue setrgbcolor
+    fill
+  grestore
+  x y M str s
+} def
+
+% Highlight bars.
+/highlight_bars {	% nlines lineheight output_y_margin gray -> -
+  gsave
+    setgray
+    /ymarg exch def
+    /lineheight exch def
+    /nlines exch def
+
+    % This 2 is just a magic number to sync highlight lines to text.
+    0 d_header_y ymarg sub 2 sub translate
+
+    /cw d_output_w cols div def
+    /nrows d_output_h ymarg 2 mul sub lineheight div cvi def
+
+    % for each column
+    0 1 cols 1 sub {
+      cw mul /xp exch def
+
+      % for each rows
+      0 1 nrows 1 sub {
+        /rn exch def
+        rn lineheight mul neg /yp exch def
+        rn nlines idiv 2 mod 0 eq {
+	  % Draw highlight bar.  4 is just a magic indentation.
+	  xp 4 add yp cw 8 sub lineheight neg Box fill
+	} if
+      } for
+    } for
+
+  grestore
+} def
+
+% Line highlight bar.
+/line_highlight {	% x y width height gray -> -
+  gsave
+    /gray exch def
+    Box gray setgray fill
+  grestore
+} def
+
+% Column separator lines.
+/column_lines {
+  gsave
+    .1 setlinewidth
+    0 d_footer_h translate
+    /cw d_output_w cols div def
+    1 1 cols 1 sub {
+      cw mul 0 moveto
+      0 d_output_h rlineto stroke
+    } for
+  grestore
+} def
+
+% Column borders.
+/column_borders {
+  gsave
+    .1 setlinewidth
+    0 d_footer_h moveto
+    0 d_output_h rlineto
+    d_output_w 0 rlineto
+    0 d_output_h neg rlineto
+    closepath stroke
+  grestore
+} def
+
+% Do the actual underlay drawing
+/draw_underlay {
+  ul_style 0 eq {
+    ul_str true charpath stroke
+  } {
+    ul_str show
+  } ifelse
+} def
+
+% Underlay
+/underlay {	% - -> -
+  gsave
+    0 d_page_h translate
+    d_page_h neg d_page_w atan rotate
+
+    ul_gray setgray
+    ul_font setfont
+    /dw d_page_h dup mul d_page_w dup mul add sqrt def
+    ul_str stringwidth pop dw exch sub 2 div ul_h_ptsize -2 div moveto
+    draw_underlay
+  grestore
+} def
+
+/user_underlay {	% - -> -
+  gsave
+    ul_x ul_y translate
+    ul_angle rotate
+    ul_gray setgray
+    ul_font setfont
+    0 0 ul_h_ptsize 2 div sub moveto
+    draw_underlay
+  grestore
+} def
+
+% Page prefeed
+/page_prefeed {		% bool -> -
+  statusdict /prefeed known {
+    statusdict exch /prefeed exch put
+  } {
+    pop
+  } ifelse
+} def
+
+% Wrapped line markers
+/wrapped_line_mark {	% x y charwith charheight type -> -
+  /type exch def
+  /h exch def
+  /w exch def
+  /y exch def
+  /x exch def
+
+  type 2 eq {
+    % Black boxes (like TeX does)
+    gsave
+      0 setlinewidth
+      x w 4 div add y M
+      0 h rlineto w 2 div 0 rlineto 0 h neg rlineto
+      closepath fill
+    grestore
+  } {
+    type 3 eq {
+      % Small arrows
+      gsave
+        .2 setlinewidth
+        x w 2 div add y h 2 div add M
+        w 4 div 0 rlineto
+        x w 4 div add y lineto stroke
+
+        x w 4 div add w 8 div add y h 4 div add M
+        x w 4 div add y lineto
+	w 4 div h 8 div rlineto stroke
+      grestore
+    } {
+      % do nothing
+    } ifelse
+  } ifelse
+} def
+
+% EPSF import.
+
+/BeginEPSF {
+  /b4_Inc_state save def    		% Save state for cleanup
+  /dict_count countdictstack def	% Count objects on dict stack
+  /op_count count 1 sub def		% Count objects on operand stack
+  userdict begin
+  /showpage { } def
+  0 setgray 0 setlinecap
+  1 setlinewidth 0 setlinejoin
+  10 setmiterlimit [ ] 0 setdash newpath
+  /languagelevel where {
+    pop languagelevel
+    1 ne {
+      false setstrokeadjust false setoverprint
+    } if
+  } if
+} bind def
+
+/EndEPSF {
+  count op_count sub { pos } repeat	% Clean up stacks
+  countdictstack dict_count sub { end } repeat
+  b4_Inc_state restore
+} bind def
+
+% Check PostScript language level.
+/languagelevel where {
+  pop /gs_languagelevel languagelevel def
+} {
+  /gs_languagelevel 1 def
+} ifelse
+%%EndResource
+%%BeginResource: procset Enscript-Encoding-88591 1.6.5 90
+/encoding_vector [
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/space        	/exclam       	/quotedbl     	/numbersign   	
+/dollar       	/percent      	/ampersand    	/quoteright   	
+/parenleft    	/parenright   	/asterisk     	/plus         	
+/comma        	/hyphen       	/period       	/slash        	
+/zero         	/one          	/two          	/three        	
+/four         	/five         	/six          	/seven        	
+/eight        	/nine         	/colon        	/semicolon    	
+/less         	/equal        	/greater      	/question     	
+/at           	/A            	/B            	/C            	
+/D            	/E            	/F            	/G            	
+/H            	/I            	/J            	/K            	
+/L            	/M            	/N            	/O            	
+/P            	/Q            	/R            	/S            	
+/T            	/U            	/V            	/W            	
+/X            	/Y            	/Z            	/bracketleft  	
+/backslash    	/bracketright 	/asciicircum  	/underscore   	
+/quoteleft    	/a            	/b            	/c            	
+/d            	/e            	/f            	/g            	
+/h            	/i            	/j            	/k            	
+/l            	/m            	/n            	/o            	
+/p            	/q            	/r            	/s            	
+/t            	/u            	/v            	/w            	
+/x            	/y            	/z            	/braceleft    	
+/bar          	/braceright   	/tilde        	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/space        	/exclamdown   	/cent         	/sterling     	
+/currency     	/yen          	/brokenbar    	/section      	
+/dieresis     	/copyright    	/ordfeminine  	/guillemotleft	
+/logicalnot   	/hyphen       	/registered   	/macron       	
+/degree       	/plusminus    	/twosuperior  	/threesuperior	
+/acute        	/mu           	/paragraph    	/bullet       	
+/cedilla      	/onesuperior  	/ordmasculine 	/guillemotright	
+/onequarter   	/onehalf      	/threequarters	/questiondown 	
+/Agrave       	/Aacute       	/Acircumflex  	/Atilde       	
+/Adieresis    	/Aring        	/AE           	/Ccedilla     	
+/Egrave       	/Eacute       	/Ecircumflex  	/Edieresis    	
+/Igrave       	/Iacute       	/Icircumflex  	/Idieresis    	
+/Eth          	/Ntilde       	/Ograve       	/Oacute       	
+/Ocircumflex  	/Otilde       	/Odieresis    	/multiply     	
+/Oslash       	/Ugrave       	/Uacute       	/Ucircumflex  	
+/Udieresis    	/Yacute       	/Thorn        	/germandbls   	
+/agrave       	/aacute       	/acircumflex  	/atilde       	
+/adieresis    	/aring        	/ae           	/ccedilla     	
+/egrave       	/eacute       	/ecircumflex  	/edieresis    	
+/igrave       	/iacute       	/icircumflex  	/idieresis    	
+/eth          	/ntilde       	/ograve       	/oacute       	
+/ocircumflex  	/otilde       	/odieresis    	/divide       	
+/oslash       	/ugrave       	/uacute       	/ucircumflex  	
+/udieresis    	/yacute       	/thorn        	/ydieresis    	
+] def
+%%EndResource
+%%EndProlog
+%%BeginSetup
+%%IncludeResource: font Courier-Bold
+%%IncludeResource: font Courier
+/HFpt_w 10 def
+/HFpt_h 10 def
+/Courier-Bold /HF-gs-font MF
+/HF /HF-gs-font findfont [HFpt_w 0 0 HFpt_h 0 0] makefont def
+/Courier /F-gs-font MF
+/F-gs-font 7 7 SF
+/#copies 1 def
+% Pagedevice definitions:
+gs_languagelevel 1 gt {
+  <<
+    /PageSize [612 792] 
+  >> setpagedevice
+} if
+%%BeginResource: procset Enscript-Header-simple 1.6.5 90
+
+/do_header {	% print default simple header
+  gsave
+    d_header_x d_header_y HFpt_h 3 div add translate
+
+    HF setfont
+    user_header_p {
+      5 0 moveto user_header_left_str show
+
+      d_header_w user_header_center_str stringwidth pop sub 2 div
+      0 moveto user_header_center_str show
+
+      d_header_w user_header_right_str stringwidth pop sub 5 sub
+      0 moveto user_header_right_str show
+    } {
+      5 0 moveto fname show
+      45 0 rmoveto fmodstr show
+      45 0 rmoveto pagenumstr show
+    } ifelse
+
+  grestore
+} def
+%%EndResource
+/d_page_w 720 def
+/d_page_h 576 def
+/d_header_x 0 def
+/d_header_y 561 def
+/d_header_w 720 def
+/d_header_h 15 def
+/d_footer_x 0 def
+/d_footer_y 0 def
+/d_footer_w 720 def
+/d_footer_h 0 def
+/d_output_w 720 def
+/d_output_h 561 def
+/cols 2 def
+%%EndSetup
+%%Page: (1) 1
+%%BeginPageSetup
+_S
+90 rotate
+36 -594 translate
+/pagenum 1 def
+/fname (unsorted.cpp) def
+/fdir (.) def
+/ftail (unsorted.cpp) def
+% User defined strings:
+/fmodstr (Wed Apr 04 15:19:03 2018) def
+/pagenumstr (1) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+do_header
+5 551 M
+(// This program implements an unsorted linked list) s
+5 543 M
+(#include <fstream>) s
+5 535 M
+(#include <iostream>) s
+5 527 M
+(#include <string>) s
+5 519 M
+(#include <cstddef> // for NULL) s
+5 511 M
+(#include <cassert> // for assert\(\)) s
+5 503 M
+(using namespace std;) s
+5 487 M
+(typedef string ListItemType;) s
+5 479 M
+(struct Node) s
+5 471 M
+({) s
+5 463 M
+(   ListItemType data;) s
+5 455 M
+(   Node * next;) s
+5 447 M
+(};) s
+5 439 M
+(typedef Node* NodePtr;) s
+5 423 M
+(bool IsEmpty\(NodePtr head\);) s
+5 415 M
+(int GetLength\(NodePtr head\);) s
+5 407 M
+(NodePtr Find\(NodePtr head, int location\);) s
+5 399 M
+(ListItemType Retrieve\(NodePtr head, int location\);) s
+5 391 M
+(void Insert\(NodePtr & head, ListItemType newItem, int location\);) s
+5 383 M
+(void Delete\(NodePtr & head, int location\);) s
+5 375 M
+(void ListCopy\(const NodePtr& oldHead, NodePtr& newHead\);) s
+5 367 M
+(void DestroyList\(NodePtr& head\);) s
+5 359 M
+(void DisplayList\(NodePtr head\);) s
+5 343 M
+(int main\(\)) s
+5 335 M
+({) s
+5 327 M
+(   ifstream myIn;) s
+5 319 M
+(   ListItemType value;  ) s
+5 311 M
+(   int location;   // location of insertion or deletion) s
+5 303 M
+(   NodePtr head = NULL;   // head of the list) s
+5 295 M
+(   NodePtr cur;) s
+5 287 M
+(   int length = 0;  // length of the list) s
+5 271 M
+(   // open the data file) s
+5 263 M
+(   myIn.open\("names2.dat"\);) s
+5 255 M
+(   assert\(myIn\);) s
+5 239 M
+(   // Read \(value, location\) pairs til the end of input,) s
+5 231 M
+(   // Insert the values into the list at location specified) s
+5 223 M
+(   while \(myIn >> value >> location\)) s
+5 215 M
+(   {) s
+5 207 M
+(       Insert\(head, value, location\);) s
+5 199 M
+(       length ++;) s
+5 191 M
+(   }) s
+5 183 M
+(   myIn.close\(\);) s
+5 175 M
+(  ) s
+5 167 M
+(   // Print all the values stored in the list) s
+5 159 M
+(   DisplayList\(head\);) s
+5 143 M
+(   // Find a value) s
+5 135 M
+(   cout << "Which value are you looking for? \(specify location\): ";) s
+5 127 M
+(   cin >> location; ) s
+5 119 M
+(   if \(location >=1 && location <=length\)) s
+5 111 M
+(   {) s
+5 103 M
+(      cur = Find\(head, location\);) s
+5 95 M
+(      cout << "Value stored at node \(" << location << "\) is " << cur->data << endl;) s
+5 79 M
+(   ) s
+5 71 M
+(      // Delete the node at the specified location) s
+5 63 M
+(      Delete\(head, location\);) s
+5 47 M
+(      cout << "After the deletion..." << endl;) s
+5 39 M
+(      // Print all the values stored in the list) s
+5 31 M
+(      DisplayList\(head\);) s
+5 23 M
+(   }) s
+5 15 M
+(   else) s
+5 7 M
+(   {) s
+365 551 M
+(      cout << "Wrong location specified." << endl;) s
+365 543 M
+(   }) s
+365 527 M
+(   // delete list, free memory) s
+365 519 M
+(   DestroyList\(head\);) s
+365 511 M
+(   ) s
+365 503 M
+(   return 0;) s
+365 495 M
+(}) s
+365 479 M
+(// Print out the values stored in the list) s
+365 471 M
+(void DisplayList\(NodePtr head\)) s
+365 463 M
+({) s
+365 455 M
+( ) s
+365 447 M
+(   NodePtr cur=head;) s
+365 431 M
+(   cout << endl << endl << "Here is the list:" << endl;) s
+365 423 M
+(   cout << "===============" << endl;) s
+365 415 M
+(   // print values in the entire list) s
+365 407 M
+(   while \(cur != NULL\)) s
+365 399 M
+(   {) s
+365 391 M
+(      cout << cur->data << endl;) s
+365 383 M
+(      cur = cur->next;      ) s
+365 375 M
+(   }) s
+365 367 M
+(   cout << endl << endl;) s
+365 359 M
+(}) s
+365 343 M
+(// Compute the length of the list) s
+365 335 M
+(int GetLength\(NodePtr head\)) s
+365 327 M
+({) s
+365 319 M
+(   int size=0; ) s
+365 311 M
+(   NodePtr cur=head;) s
+365 303 M
+(   ) s
+365 295 M
+(   while \(cur != NULL\)) s
+365 287 M
+(   {) s
+365 279 M
+(      size++;) s
+365 271 M
+(      cur = cur->next;) s
+365 263 M
+(   }) s
+365 255 M
+(   ) s
+365 247 M
+(   return size;) s
+365 239 M
+(} ) s
+365 223 M
+(// Return a pointer to the node at location "location") s
+365 215 M
+(// The location should have been checked to be ) s
+365 207 M
+(// valid \(i.e., 1 <= location <= length of the list\)) s
+365 199 M
+(NodePtr Find\(NodePtr head, int location\) ) s
+365 191 M
+({) s
+365 183 M
+(   NodePtr cur= head;) s
+365 175 M
+(   for \(int skip = 1; skip < location; skip++\)) s
+365 167 M
+(      cur = cur->next;) s
+365 151 M
+(   return cur;) s
+365 143 M
+(} // end Find) s
+365 119 M
+(// Returns the data stored in the "location"-th node of the list) s
+365 111 M
+(ListItemType Retrieve\(NodePtr head, int location\)) s
+365 103 M
+({) s
+365 95 M
+(   ListItemType dataItem;) s
+365 79 M
+(   // get pointer to node, then data in node) s
+365 71 M
+(   NodePtr cur = Find\(head, location\);) s
+365 63 M
+(   dataItem = cur->data;) s
+365 47 M
+(   return dataItem;) s
+365 39 M
+(} ) s
+365 15 M
+(// Insert a new node \(with data "newItem"\) into the list at location "location") s
+365 7 M
+(void Insert\(NodePtr & head, ListItemType newItem, int location\)) s
+_R
+S
+%%Page: (2) 2
+%%BeginPageSetup
+_S
+90 rotate
+36 -594 translate
+/pagenum 2 def
+/fname (unsorted.cpp) def
+/fdir (.) def
+/ftail (unsorted.cpp) def
+% User defined strings:
+/fmodstr (Wed Apr 04 15:19:03 2018) def
+/pagenumstr (2) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+do_header
+5 551 M
+({) s
+5 543 M
+(   // create new node and place newItem in it) s
+5 535 M
+(   NodePtr newPtr = new Node;) s
+5 527 M
+(   assert\(newPtr != NULL\);) s
+5 519 M
+(   newPtr->data = newItem;) s
+5 511 M
+(   newPtr->next= NULL;) s
+5 495 M
+(   // attach new node to list) s
+5 487 M
+(   if \(location == 1\)) s
+5 479 M
+(   {  // insert new node at beginning of list) s
+5 471 M
+(      newPtr->next = head;) s
+5 463 M
+(      head = newPtr;) s
+5 455 M
+(   }) s
+5 447 M
+(   else) s
+5 439 M
+(   { ) s
+5 431 M
+(      NodePtr prev = Find\(head, location-1\);) s
+5 423 M
+(      // insert new node after node to which prev points) s
+5 415 M
+(      newPtr->next = prev->next;) s
+5 407 M
+(      prev->next = newPtr;) s
+5 399 M
+(   } // end if) s
+5 391 M
+(} // end insert) s
+5 367 M
+(// Delete the node at location "location") s
+5 359 M
+(void Delete\(NodePtr & head, int location\)) s
+5 351 M
+({) s
+5 343 M
+(  NodePtr cur;) s
+5 327 M
+(  if \(location == 1\)) s
+5 319 M
+(  {  // delete the first node from the list) s
+5 311 M
+(     cur = head; // save pointer to node) s
+5 303 M
+(     head = head->next;) s
+5 295 M
+(  }) s
+5 287 M
+(  else) s
+5 279 M
+(  { ) s
+5 271 M
+(      NodePtr prev = Find\(head, location - 1\);) s
+5 263 M
+(     // delete the node after the) s
+5 255 M
+(     // node to which prev points) s
+5 247 M
+(     cur = prev->next; // save pointer to node) s
+5 239 M
+(     prev->next = cur->next;) s
+5 231 M
+(  } // end if) s
+5 215 M
+(  // return node to system) s
+5 207 M
+(  cur->next = NULL;) s
+5 199 M
+(  delete cur;) s
+5 191 M
+(  cur = NULL;) s
+5 183 M
+(} // end remove) s
+5 159 M
+(// Make a deep copy of an existing list) s
+5 151 M
+(void ListCopy\(const NodePtr& oldHead, NodePtr& newHead\)) s
+5 143 M
+({) s
+5 135 M
+(   if \(oldHead == NULL\)) s
+5 127 M
+(      newHead = NULL; // original list is empty) s
+5 119 M
+(   else) s
+5 111 M
+(   {  // copy first node) s
+5 103 M
+(      newHead = new Node;) s
+5 95 M
+(      assert\(newHead != NULL\); // check allocation) s
+5 87 M
+(      newHead->data = oldHead->data;) s
+5 71 M
+(      // copy rest of list) s
+5 63 M
+(      NodePtr newPtr = oldHead; // new list pointer) s
+5 55 M
+(      // newPtr points to last node in new list) s
+5 47 M
+(      // origPtr points to nodes in original list) s
+5 39 M
+(      for \(NodePtr origPtr = oldHead->next;) s
+5 31 M
+(                   origPtr != NULL;) s
+5 23 M
+(                   origPtr = origPtr->next\)) s
+5 15 M
+(      {  newPtr->next = new Node;) s
+5 7 M
+(         assert\(newPtr->next != NULL\);) s
+365 551 M
+(         newPtr = newPtr->next;) s
+365 543 M
+(         newPtr->data = origPtr->data;) s
+365 535 M
+(      } // end for) s
+365 519 M
+(      newPtr->next = NULL;) s
+365 511 M
+(   } // end if) s
+365 503 M
+(} // end copy constructor) s
+365 479 M
+(// Release the memory of all the nodes back to the memory) s
+365 471 M
+(void DestroyList\(NodePtr& head\)) s
+365 463 M
+({) s
+365 455 M
+(   while \(!IsEmpty\(head\)\)) s
+365 447 M
+(      Delete\(head, 1\);) s
+365 439 M
+(}) s
+365 423 M
+(// Check to see if the list is empty) s
+365 415 M
+(bool IsEmpty\(NodePtr head\)) s
+365 407 M
+({) s
+365 399 M
+(   return \(head == NULL\);) s
+365 391 M
+(} ) s
+_R
+S
+%%Trailer
+%%Pages: 2
+%%DocumentNeededResources: font Courier-Bold Courier 
+%%EOF

@@ -1,0 +1,342 @@
+1) 
+int ReadInfo(restaurantStruct allRes[], ifstream & myIn)
+{
+    int i=0;
+
+    myIn.open("restaurants.dat");
+    assert(myIn);
+
+    while (i<SIZE&&((getline(myIn, allRes[i].name)))) {
+    	getline(myIn, allRes[i].phone);
+    	getline(myIn, allRes[i].type);  // myIn >> allRes[i].type;
+	myIn >> allRes[i].price;
+	myIn.ignore(100, '\n');
+
+	i++;
+     }
+
+     return i;
+}
+
+
+3) 
+
+void List::InsertAfter(ItemType value, ItemType newValue) {
+
+    int i;
+
+    if (!IsFull())  {
+
+    	// first, locate the value to insert after 
+    	for (i=0; i<length; i++) {
+        	if (data[i] == value)
+	    		break;
+    	}
+
+        // found the value
+    	if (i < length) {
+    		// put the item after the location to the end of the list
+      		data[length] = data[i+1];
+	    
+	    	// insert the new item after the first value found
+		data[i+1] = newValue;
+	
+		length++;
+	}
+   }
+
+5)
+
+NodePtr newPtr, prev, cur;;
+for (int i=0; i<100; i++)  {
+
+    cout << "Enter a value:";
+    cin >> value;
+
+    // 1. Create a new node with the new value
+    newPtr = new Node;
+    newPtr->data = value;
+    newPtr->next = NULL;
+
+    // 2. empty list case
+    if (head == NULL) {
+       head = newPtr;
+    }
+    else  {
+
+       // insertion at the beginning of the list case
+       if (head->data  > value) {
+          newPtr->next = head;
+	  head = newPtr;
+       }
+       else 
+       // insertion in the middle or end of list case
+       {
+          prev=NULL;
+	  cur = head;
+	  while (cur!=NULL && cur->data < value) {
+	      prev=cur;
+	      cur=cur->next;
+	  }
+	  newPtr->next = cur;
+	  prev->next = newPtr;
+        }  //end else
+   }  // end else
+}  // end for
+	  
+
+
+
+cout << "enter a value to delete:";
+cin >> value;
+
+//empty list case
+if (head == NULL) 
+  cout << "list is empty, can't delete" << endl;
+
+// delete from beginning of list case
+else if (head->data == value) {
+  cur = head;
+  head = head->next;
+
+  cur->next=NULL;
+  delete cur;
+}
+else {   // delete from the middle or end of list case
+  prev= NULL;
+  cur = head;
+  while (cur != NULL && cur->data != value) {
+  	prev=cur;
+	cur=cur->next;
+  }
+  prev->next = cur->next;
+  cur->next = NULL;
+  delete cur;
+}
+cur=NULL;
+
+
+
+
+7)  complex.h
+#ifndef COMPLEX_H
+#define COMPLEX_H
+#include <iostream>
+using namespace std;
+
+class ComplexClass
+{
+public:
+  ComplexClass();
+  ComplexClass(float r, float i);
+  ComplexClass(const ComplexClass & c);
+
+  void SetValues(float r, float i);
+  float GetReal() const;
+  float GetImaginary() const;
+  void Display() const;
+  bool EqualTo (const ComplexClass& rhs) const;
+  bool operator == (const ComplexClass & rhs);
+  friend  ostream & operator << (ostream & os, const ComplexClass & rhs);
+  friend  istream & operator >> (istream & is, ComplexClass & rhs);
+
+private:
+  float real, imag;
+};
+#endif
+
+
+complex.cpp
+
+#include "complex.h"
+ComplexClass::ComplexClass()
+{
+   real=0;
+   imag=0;
+}
+
+ComplexClass::ComplexClass(float r, float i)
+{
+   real = r;
+   imag = i;
+}
+
+ComplexClass::ComplexClass(const ComplexClass& c)
+{
+   real = c.real;
+   imag = c.imag;
+}
+
+void ComplexClass::SetValues(float r, float i)
+{
+   real = r;
+   imag = i;
+}
+
+float ComplexClass::GetReal () const
+{
+   return real;
+}
+
+float ComplexClass::GetImaginary () const
+{
+   return imag;
+}
+
+void ComplexClass::Dislay() const
+{
+   cout << real << " + " << imag << "i" <<endl;
+}
+
+bool ComplexClass::EqualTo(const ComplexClass & rhs) const
+{
+  return (real == rhs.real && imag == rhs.imag);
+}
+
+
+bool ComplexClass::operator == (const ComplexClass & rhs) 
+{
+  return (real == rhs.real && imag == rhs.imag);
+}
+
+ostream & operator << (ostream & os, const ComplexClass & rhs)
+{
+   os << rhs.real << " + " << rhs.imag << "i" <<endl;
+   return os;
+}
+
+istream & operator >> (istream & is, ComplexClass & rhs)
+{
+   is >> rhs.real >> rhs.imag;
+   return is;
+}
+   
+main.cpp
+
+#include "complex.h"
+ComplexClass Add(ComplexClass c1, ComplexClass c2);
+void DisplayAllNumbers(ComplexClass values[], int size);
+
+int main() 
+{
+
+   ComplexClass complex1;  // default constructor
+   ComplexClass complex2(2.5, 3.5); // value constructor
+
+   cin >> complex1;  // using overloaded >> operator
+   complex1.Display();
+
+   cout << complex2; // overloaded << operator
+
+   if (complex1.EqualTo(complex2))
+      cout << "Same complex number" << endl;
+   else
+      cout << "Different complex number" << endl;
+
+   ComplexClass complex3(complex2);
+
+   complex3 = Add(complex1, complex2);
+
+   ComplexClass values[20];
+
+   DisplayAllNumbers(values, 20);
+
+   return 0;
+}
+
+ComplexClass Add(ComplexClass c1, ComplexClass c2)
+{
+   ComplexClass result(c1.GetReal()+c2.GetReal(), c1.GetImaginary()+c2.GetImaginary());
+   return result;
+}
+
+void DisplayAllNumbers(ComplexClass values[], int size)
+{
+   for (int i=0; i<size; i++) 
+       values[i].Display();
+}
+
+8) 
+
+void List::Merge(const List & list1, const List & list2)
+{
+    // remove the existing nodes in the merged list
+    NodePtr  cur = head;
+    while (cur != NULL) {
+       head = head->next;
+       cur->next = NULL;
+       delete cur;
+       cur=head;
+    }
+
+    cur = list1.head;
+    while (cur != NULL) {
+        insert(cur->data);
+	cur=cur->next;
+    }
+
+    cur = list2.head;
+    while (cur != NULL) {
+        insert(cur->data);
+	cur=cur->next;
+    }
+}
+
+
+void List::Merge(const List & list1, const List & list2)
+{
+    // remove the existing nodes in the merged list
+    NodePtr  cur = head;
+    while (cur != NULL) {
+       head = head->next;
+       cur->next = NULL;
+       delete cur;
+       cur=head;
+    }
+
+    NodePtr cur1 = list1.head;
+    NodePtr cur2 = list2.head;
+    if (cur1 != NULL && cur2 != NULL) {
+         if (cur1->data < cur2->data)  {
+	     head = new Node;
+	     head->data = cur1->data;
+	     head->next = NULL;
+	     cur1 = cur1->next;
+	 }
+	 else {
+	     head = new Node;
+	     head->data = cur2->data;
+	     head->next = NULL;
+	     cur2 = cur2->next;
+	 }
+
+	 cur = head;
+	 while (cur1!=NULL && cur2 != NULL) {
+	        cur->next = new Node;
+		cur = cur->next;
+		if (cur1->data < cur2->data)  {
+		   cur->data = cur1->data;
+		   cur1 = cur1->next;
+		}
+		else  {
+		   cur->data = cur2->data;
+		   cur2 = cur2->next;
+		}
+         }
+	 cur->next = NULL;
+     }  // end if
+
+     while (cur1 != NULL) {
+	      cur->next = new Node;
+	      cur=cur->next;
+	      cur->data = cur1->data;
+	      cur1 = cur1->next;
+     }
+
+     while (cur2 != NULL) {
+	      cur->next = new Node;
+	      cur=cur->next;
+	      cur->data = cur2->data;
+	      cur2 = cur2->next;
+     }
+}

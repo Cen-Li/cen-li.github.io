@@ -1,0 +1,66 @@
+////Programmer:			Chris Vogel
+//	Assignment:			OLA4B
+//	Class:				CSCI 2170-002
+//	Course instructor:	Dr. Cen Li
+//	Due date:			Sunday, 03/20/2011
+//
+//	Descrition: This is the specification file for CreatureClass.
+
+#ifndef CREATURECLASS_H
+#define CREATURECLASS_H
+using namespace std;
+
+// I feel that this should be in a separate file, but PeerSpace
+// doesn't have a field for another file. The preprocessor instructions
+// keep the Coordinate struct from being defined twice.
+#ifndef COORDINATE
+#define COORDINATE
+// This struct defines a location within the maze
+// The top-left corner of the maze is (0, 0)
+struct Coordinate
+{
+	// The horizontal location
+	int x;
+	
+	// The vertical location
+	int y;
+};
+#endif
+class CreatureClass
+{
+	private:
+		// The current location of the creature
+		Coordinate location;
+		
+	public:
+		// Constructor CreatureClass()
+		// Description: Initializes the location
+		// Precondition: Location uninitialized
+		// Postcondition: Location initialized (0,0)
+		CreatureClass();
+		
+		// Constructor CreatureClass
+		// Description: Initializes the location to a custom point
+		//	by passing it to SetLocation(point)
+		// Arguments:
+		//	Coordinate point: the desired starting location
+		// Precondition: Location uninitialized
+		// Postcondition: Location initialized with custom value
+		CreatureClass(Coordinate point);
+		
+		// void SetLocation
+		// Description: Moves the creature to a custom point
+		// Arguments:
+		//	Coordinate point: the desired destination for the creature
+		// Precondition: the creature was at another location
+		// Postcondition: the creature is at "point"
+		void SetLocation(Coordinate point);
+		
+		// Coordinate GetLocation
+		// Description: Return the current coordinate of the creature
+		// Precondition: None
+		// Postcondition: Returns coordinate
+		Coordinate GetLocation();
+};
+
+#endif

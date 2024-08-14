@@ -1,0 +1,19 @@
+# File "Makefile" used to build "run" executable for ola4B
+# Lines beginning with # are comments.
+#
+
+CC = aCC -g -ansi -pedantic -pipe
+
+run:	CreatureClass.o MazeClass.o main.o
+		$(CC) CreatureClass.o MazeClass.o main.o -o run
+
+MazeClass.o: MazeClass.cpp
+		$(CC) -c MazeClass.cpp
+
+CreatureClass.o: CreatureClass.cpp
+		$(CC) -c CreatureClass.cpp
+
+main.o:	main.cc
+		$(CC) -c  main.cc
+clean:	
+		rm -rf *.o

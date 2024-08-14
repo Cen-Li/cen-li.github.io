@@ -1,0 +1,372 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Brad Rudnik">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win95; I) [Netscape]">
+   <title>Lab 13 - Answer Sheet</title>
+
+<!-- load the style sheet ------------------------------------------->
+<LINK rel="stylesheet" type="text/css" href="http://www.cs.mtsu.edu/~cs2170/manual/styles.css" title="styles">
+
+</head>
+<body background="http://www.cs.mtsu.edu/~cs2170/manual/lab13/lab13.gif">
+
+<form method="post">
+<input type=hidden name=lab value="lab13">
+<input type=hidden name=name value="">
+<input type=hidden name=uname value="">
+<input type=hidden name=partner value="">
+<input type=hidden name=instructor value="">
+<center>
+<h1>
+Lab 13 -- Queues</h1></center>
+
+<center>
+<h3>
+Answer Sheet</h3></center>
+
+<center>
+<input type=submit name="submit" value="Final Answer Sheet">
+<input type=submit name="submit" value="Click to Save Answers: Only if you must quit now">
+</center>
+
+<a NAME="Exercise1"></a>
+<h2>
+Exercise 1</h2>
+<p>Determine whether each of the following characteristics apply to a stack, a queue, 
+both, or none.
+  
+<blockquote>
+A. An element is inserted at a special place called the top.<b><br>
+<textarea name="exercise1a" rows=1 cols=35></textarea>
+</b><br>
+B. An element is inserted at a special place called the rear.<b><br>
+<textarea name="exercise1b" rows=1 cols=35></textarea>
+</b><br>
+C. The structure can hold only one type of data element.<b><br>
+<textarea name="exercise1c" rows=1 cols=35></textarea>
+</b><br>
+D. An element is deleted at the front.<b><br>
+<textarea name="exercise1d" rows=1 cols=35></textarea>
+</b><br>
+E. The ith position may be deleted.<b><br>
+<textarea name="exercise1e" rows=1 cols=35></textarea>
+</b><br>
+F. An element is deleted at the top.<b><br>
+<textarea name="exercise1f" rows=1 cols=35></textarea>
+</b><br>
+G. The structure is a LIFO structure.<b><br>
+<textarea name="exercise1g" rows=1 cols=35></textarea>
+</b><br>
+H. The structure is a FIFO structure.<b><br>
+<textarea name="exercise1h" rows=1 cols=35></textarea>
+</b><br>
+I. The structure is a restricted access structure.<b><br>
+<textarea name="exercise1i" rows=1 cols=35></textarea>
+</b></blockquote>
+
+<a NAME="Exercise2"></a>
+<h2>
+Exercise 2</h2>
+Suppose <b>q</b> is
+an instance of the Queue class and assume that the previous array implementation is used.&nbsp;
+Also, assume that the size of the array is 5 and that it is initially empty. Show <b>q</b> 
+<span style="font-size: 12.0pt; font-family: Arial,sans-serif">(<b>nbrElts</b>,
+<b>frontIndx</b>, <b>rearIndx</b> and contents of the array <b>elements)</b>
+</span>after all of the following
+operations have been completed. assuming the queue is empty to start with.&nbsp; <br>
+<pre><b>
+     q.enqueue(39);
+     q.enqueue(22);
+     item1 = q.dequeue();
+     q.enqueue(59);
+     item2 = q.dequeue();
+     item3 = q.dequeue();
+</pre></b>
+
+
+<center><table BORDER COLS=4 WIDTH="80%">
+<tr>
+<font size=2>
+<th></th>
+<th BGCOLOR="#C0C0C0">Array Holding Queue</th>
+<th></th>
+<th BGCOLOR="#C0C0C0">Information about Queue</th>
+</font>
+</tr>
+<tr>
+<td ALIGN=RIGHT>0</td>
+
+<td ALIGN=CENTER><b>
+<textarea name="exercise2a" rows=1 cols=20></textarea>
+</b>
+</td>
+
+<td ALIGN=RIGHT>frontIndx =&nbsp;</td>
+
+<td ALIGN=CENTER><b>
+<textarea name="exercise2b" rows=1 cols=20></textarea>
+</b></td>
+</tr>
+
+<tr>
+<td ALIGN=RIGHT>1</td>
+
+<td ALIGN=CENTER><b>
+<textarea name="exercise2c" rows=1 cols=20></textarea>
+</b></td>
+
+<td ALIGN=RIGHT>rearIndx =&nbsp;</td>
+
+<td ALIGN=CENTER><b>
+<textarea name="exercise2d" rows=1 cols=20></textarea>
+</b></td>
+</tr>
+
+<tr>
+<td ALIGN=RIGHT>2</td>
+
+<td ALIGN=CENTER><b>
+<textarea name="exercise2e" rows=1 cols=20></textarea>
+</b></td>
+
+<td ALIGN=RIGHT>item 1 =&nbsp;</td>
+
+<td ALIGN=CENTER><b>
+<textarea name="exercise2f" rows=1 cols=20></textarea>
+</b></td>
+</tr>
+
+<tr>
+<td ALIGN=RIGHT>3</td>
+
+<td ALIGN=CENTER><b>
+<textarea name="exercise2g" rows=1 cols=20></textarea>
+</b></td>
+
+<td ALIGN=RIGHT>item 2 =&nbsp;</td>
+
+<td ALIGN=CENTER><b>
+<textarea name="exercise2h" rows=1 cols=20></textarea>
+</b></td>
+</tr>
+
+<tr>
+<td ALIGN=RIGHT>4</td>
+
+<td ALIGN=CENTER><b>
+<textarea name="exercise2i" rows=1 cols=20></textarea>
+</b></td>
+
+<td ALIGN=RIGHT>item 3 =&nbsp;</td>
+
+<td ALIGN=CENTER><b>
+<textarea name="exercise2j" rows=1 cols=20></textarea>
+</b></td>
+</tr>
+<tr>
+<td ALIGN=RIGHT> </td>
+
+<td ALIGN=CENTER><b>
+</b></td>
+
+<td ALIGN=RIGHT>nbrElts =&nbsp;</td>
+
+<td ALIGN=CENTER><b>
+<textarea name="exercise2k" rows=1 cols=20></textarea>
+</b></td>
+</tr>
+
+</table></center>
+
+
+<a NAME="Exercise3"></a>
+<h2>
+Exercise 3</h2>
+Redraw the circular queue after all of the following operations have been completed:
+<blockquote>
+	<pre><b>q.enqueue(17);
+q.enqueue(35);
+item = q.dequeue()
+q.enqueue(61);
+q.enqueue(42);
+item = q.dequeue();
+q.enqueue(96);
+item = q.dequeue()
+</b></pre>
+</blockquote>
+
+
+<center><table BORDER COLS=4 WIDTH="80%">
+<tr>
+<font size=2>
+<th></th>
+<th BGCOLOR="#C0C0C0">Array Holding Queue</th>
+<th></th>
+<th BGCOLOR="#C0C0C0">Information about Queue</th>
+</font></tr>
+<tr>
+<td ALIGN=RIGHT>0</td>
+
+<td ALIGN=CENTER><b>
+<textarea name="exercise3a" rows=1 cols=20></textarea>
+</b>
+</td>
+
+<td ALIGN=RIGHT>frontIndx =&nbsp;</td>
+
+<td ALIGN=CENTER><b>
+<textarea name="exercise3b" rows=1 cols=20></textarea>
+</b></td>
+</tr>
+
+<tr>
+<td ALIGN=RIGHT>1</td>
+
+<td ALIGN=CENTER><b>
+<textarea name="exercise3c" rows=1 cols=20></textarea>
+</b></td>
+
+<td ALIGN=RIGHT>rearIndx =&nbsp;</td>
+
+<td ALIGN=CENTER><b>
+<textarea name="exercise3d" rows=1 cols=20></textarea>
+</b></td>
+</tr>
+
+<tr>
+<td ALIGN=RIGHT>2</td>
+
+<td ALIGN=CENTER><b>
+<textarea name="exercise3e" rows=1 cols=20></textarea>
+</b></td>
+
+<td ALIGN=RIGHT>mbrElts =&nbsp;</td>
+
+<td ALIGN=CENTER><b>
+<textarea name="exercise3f" rows=1 cols=20></textarea>
+</b></td>
+</tr>
+
+<tr>
+<td ALIGN=RIGHT>3</td>
+
+<td ALIGN=CENTER><b>
+<textarea name="exercise3g" rows=1 cols=20></textarea>
+</b></td>
+
+<td ALIGN=RIGHT>item =&nbsp;</td>
+
+<td ALIGN=CENTER><b>
+<textarea name="exercise3h" rows=1 cols=20></textarea>
+</b></td>
+</tr>
+
+
+</table></center>
+
+
+<a NAME="Exercise4"></a>
+<h2>
+Exercise 4</h2>
+<p>Give the algorithm for dequeue.<br><b>
+<textarea name="exercise4" rows=4 cols=35></textarea>
+</b>
+
+<a NAME="Exercise5"></a>
+<h2>
+Exercise 5</h2>
+<p>Suppose we are using a linked list implementation of the queue which was used in Exercise 3.  
+After the statements in Exercise 3 are executed, draw the picture of the resulting queue 
+using this pointer implementation.
+<center><table BORDER COLS=11 WIDTH="95%" >
+<tr>
+<td BGCOLOR="#C0C0C0">
+<center><b>frontPtr
+<br>|</b></center>
+</td>
+
+
+<td></td>
+
+<td WIDTH="10"></td>
+
+<td></td>
+
+<td WIDTH="10"></td>
+
+<td></td>
+<td BGCOLOR="#C0C0C0">
+<center><b>rearPtr
+<br>|</b></center>
+</td>
+<td></td>
+
+
+
+<td WIDTH="10"></td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER><b>
+<textarea name="exercise5a" rows=1 cols=10></textarea>
+</b></td>
+
+<td align=right WIDTH="10">
+<img src="lab13/arrow.gif"></td>
+
+<td ALIGN=CENTER><b>
+<textarea name="exercise5b" rows=1 cols=10></textarea>
+</b></td>
+
+<td align=right WIDTH="10">
+<img src="lab13/arrow.gif"></td>
+
+<td ALIGN=CENTER><b>
+<textarea name="exercise5c" rows=1 cols=10></textarea>
+</b></td>
+
+<td align=right WIDTH="10">
+<img src="lab13/arrow.gif"></td>
+
+<td ALIGN=CENTER><b>
+<textarea name="exercise5d" rows=1 cols=10></textarea>
+</b></td>
+<td>
+<center><b>\</b></center>
+</td>
+</tr>
+</table></center>
+
+<a NAME="Exercise6"></a>
+<h2>
+Exercise 6</h2>
+<p><i><b>{ Script }</i></b>
+<a NAME="Exercise7"></a>
+<h2>
+Exercise 7</h2>
+<p><i><b>{ Script }</i></b>
+<a NAME="Exercise8"></a>
+<h2>
+Exercise 8</h2>
+<p>Modify main13.cc to "generate 100 random real numbers ....." 25 times. 
+Display the maximum length for each of the 25 runs, and calculate and print the 
+average of the maximum lengths for the 25 times. If you were implementing the 
+queue as an array, what size array would you feel comfortable using? <br><b>
+<textarea name="exercise8" rows=1 cols=35></textarea>
+</b>
+<p>Turn in a script file showing the new code and a run.
+
+<center>
+<h5>
+----- End of Lab 13 - Queues  -----<br>
+Complete the Exercises on the Answer Sheet. <br>Turn in the Answer Sheet 
+and the printouts required by the exercises.</h5></center>
+<center>
+<input type=submit name="submit" value="Final Answer Sheet">
+<input type=submit name="submit" value="Click to Save Answers: Only if you must quit now">
+</center>
+</form>
+</body>
+</html>

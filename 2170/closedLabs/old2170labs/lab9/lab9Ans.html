@@ -1,0 +1,332 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Brad Rudnik">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win95; I) [Netscape]">
+   <title>Lab 9 - Answer Sheet</title>
+
+<!-- load the style sheet ------------------------------------------->
+<LINK rel="stylesheet" type="text/css" href="http://www.cs.mtsu.edu/~cs2170/manual/styles.css" title="styles">
+
+</head>
+<body background="http://www.cs.mtsu.edu/~cs2170/manual/lab9/lab9.gif">
+
+<form method="post">
+<input type=hidden name=lab value="lab9">
+<input type=hidden name=name value="">
+<input type=hidden name=uname value="">
+<input type=hidden name=partner value="">
+<input type=hidden name=instructor value="">
+<center>
+<h1>
+Lab 9 -- Recursion</h1></center>
+
+<center>
+<h3>
+Answer Sheet</h3></center>
+
+<center>
+<input type=submit name="submit" value="Final Answer Sheet">
+<input type=submit name="submit" value="Click to Save Answers: Only if you must quit now">
+</center>
+
+<a NAME="Exercise1"></a>
+<h3> Exercise 1</h3>
+<pre>
+A.	Functions which call themselves are said to be 
+	<input type=text name="exercise1a"  cols=20 rows = 1></input> functions.
+</pre>
+
+<p>
+<pre>
+B.	What would be the output that would result from
+			cout << f(2);
+		given the function 
+			int f(int n)
+			{
+				if (n == 1)
+					return 2;
+				else if (n == 2)
+					return 3;
+				else
+					return (f(n-1)*f(n-2));
+			}
+
+	<textarea name="exercise1b"  cols=20 rows = 2></textarea>
+
+
+C.	What does the following calculate?
+		int f(int n)
+		{
+			if (n==1)
+				return 4;
+			else
+				return (4*f(n-1));
+		}
+	a.	4n
+	b.	4n
+	c.	n4
+	d.	4 + n
+	<textarea name="exercise1c"  cols=10 rows = 1></textarea>
+
+D.P	A recursive definition has a 
+<textarea name="exercise1d" cols=10 rows=1></textarea> 
+step that defines the beginning elements in the set.
+
+E.P	How many times would f be called recursively if initially
+		main called f(4)?
+		int f(int n)
+		{
+			if (n==1)
+				return 4;
+			else
+				return (4*f(n-1));
+		}
+	<input type=text name="exercise1e"  size=10 ></input>
+</pre>
+
+<a NAME="Exercise2"></a>
+<h3> Exercise 2</h3>
+<pre>
+A.	What is the next number in the Fibonacci sequence that begins 
+		1,1,2,3,5,8
+	<textarea name="exercise2a"  cols=10 rows = 1></textarea>
+
+
+B.	Complete the recursive definition of the Fibonacci sequence.
+		f(n) = 1		for n = 1
+		f(n) = 1		for n = 2
+		f(n) = f(n-1) + <input type=text name="exercise2b"  size=10></input> for n > 2
+
+
+C.	What does the following calculate?
+		int f(int n)
+		{
+			if (n==1)
+				return 1;
+			else
+				return (n + f(n-1));
+		}
+	a.	n!
+	b.	n2
+	c.	nn
+	d.	the sum of the numbers from 1 to n inclusive
+	<textarea name="exercise2c"  cols=10 rows = 1></textarea>
+
+</pre>
+
+<a NAME="Exercise3"></a>
+<h3> Exercise 3</h3>
+Turn in the script file.
+
+<a NAME="Exercise4"></a>
+<h3> Exercise 4</h3>
+<pre>
+A.P	What is the base case in the following definition?
+		f(n) = 2		for n = 1
+		f(n) = 2*f(n-1)		for n > 1
+
+	a.	f(1) = 2*f(n-1)
+	b.	f(n) = 2*f(n-1)
+	c.	f(n) = 2
+	d.	f(1) = 2
+	<textarea name="exercise4a" rows=1 cols=10></textarea>
+
+
+B.P	How many times would the function f be called recursively
+	if initially main called f(5)?
+	  int f(int n)
+	  {
+		if (n == 1)
+			return 2;
+		else if (n == 2)
+			return 3;
+		else
+			return f(n-1) * f(n-2);
+	  }
+	<textarea name="exercise4b" rows=1 cols=10></textarea>
+</pre>
+
+<a NAME="Exercise5"></a>
+<h3> Exercise 5</h3>
+<pre>
+A.	(T/F) A stack is a data structure in which the first item 
+	      entered is always the first item removed.
+	<textarea name="exercise5a" rows=1 cols=10></textarea>
+
+
+B.	Given the following recursive function procA, what output would
+	result from the execution of
+			cout << procA(3);
+		int procA(int n)
+		{
+			int x;
+			x = 5 + n;
+			if (n==1)
+				return x;
+			else
+				return(n*procA(n-1));
+		}
+	<textarea name="exercise5b" rows=1 cols=10></textarea>
+
+
+C.	Given the following recursive function, what is output by the execution of
+			cout << procA(3);
+
+		void procA(int n)
+		{
+			int x;
+			x = 20;
+			if (n==2)
+			{
+				x = x%2;
+				procA(n-1);
+				cout <<"x= " << x << "\tn = " << n << endl;
+			}
+			else if (n==1)
+				cout << "n = " << n << endl;
+			else
+				procA(n-1);
+			cout << "End of procA, n = " << n << endl;
+		}
+
+	a.	n = 1
+		End of procA n = 1
+		x = 0	n = 2
+		End of procA n = 2
+		End of procA n = 3
+
+	b.	End of procA n = 3
+		x = 0	n = 2
+		End of procA n = 2
+		n = 1
+		End of procA n = 1
+
+	c.	n = 1
+		x = 0	n = 2
+		End of procA n = 3
+
+	d.	none of the above
+	<textarea name="exercise5c" rows=1 cols=10></textarea>
+
+
+D.P	(T/F) A recursive call must place all global variables on
+		the stack so they can be reset upon return.
+	<textarea name="exercise5d" rows=1 cols=10></textarea>
+
+
+E.P	Given a recursive call to the function procB, name 
+	everything that would have to be put on the stack?
+		void procB(int n)
+		{
+			int m;
+			float p;
+			m = 2n;
+			p = n-4;
+			if ((n==1)||(n++2))
+				return (n+1);
+			else
+				return(m+p*procB(n-1));
+		}
+	a.	m and p
+	b.	m, p, and the instruction pointer
+	c.	m, n, p, and the instruction pointer
+	d.	the instruction pointer
+	<textarea name="exercise5e" rows=1 cols=10></textarea>
+</pre>
+
+<a NAME="Exercise6"></a>
+<h3> Exercise 6</h3>
+<pre>
+A.	Which of the following DO NOT support recursion?
+	a.	C++
+	b.	FORTRAN
+	c.	LISP
+	d.	All of the above support recursion
+	<textarea name="exercise6a" rows=1 cols=10></textarea>
+
+
+B.	(T/F)  The following would correctly print the nodes
+		in a linked list.
+	void ListClass::printNodes(Node* p)
+	{
+		p = head;
+		while (p != NULL)
+		{
+			cout << p->data;
+			printNodes(p->next);
+		}
+	}	
+	<textarea name="exercise6b" rows=1 cols=10></textarea>
+
+
+C.	Which of the following would be the correct recursive 
+	function for counting the nodes in a linked list?
+
+	a.	int f(node* p)
+		{
+			if (p != NULL)
+				return (1+f(p->next));
+			else
+				return 0;
+		}
+
+	b.	int f(node* p)
+		{
+			return (1+f(p->next));
+		}
+
+	c.	int f(node* p)
+		{
+			if (p->next == NULL)
+				return 0;
+			else
+				return (1+f(p->next));
+		}
+
+	d.	  None of the above
+	<textarea name="exercise6c" rows=1 cols=10></textarea>
+</pre>
+
+<a NAME="Exercise7"></a>
+<h3> Exercise 7</h3>
+Turn in the script file.
+
+<a NAME="Exercise8"></a>
+<h3> Exercise 8</h3>
+<pre>
+A.P	(T/F) It is common practice to place a recursive call inside a loop.
+	<textarea name="exercise8a" rows=1 cols=10></textarea>
+
+
+B.P	(T/F)  The following recursive function calculates the same
+		   thing as the iterative function below it.
+		int recurse(int n)
+		{
+			if (n==1)
+				return 2;
+			else
+				return (2*recurse(n-1));
+		}
+
+		int iterate(int n)
+		{
+			int s = 2;
+			for(int i=2;i<=n;i++)
+				s = 2*s;
+			return s;
+		}
+	<textarea name="exercise8b" rows=1 cols=10></textarea>
+</pre>
+
+<br>----- End of Lab 9 - Recursion  -----<br>
+Complete the Exercises on the Answer Sheet. <br>Turn in the Answer Sheet 
+and the printouts required by the exercises.</h5></center>
+<center>
+<input type=submit name="submit" value="Final Answer Sheet">
+<input type=submit name="submit" value="Click to Save Answers: Only if you must quit now">
+</center>
+</form>
+</body>
+</html>

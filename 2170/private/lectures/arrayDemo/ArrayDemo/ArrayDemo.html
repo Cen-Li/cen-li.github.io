@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<title>Array Demo</title>
+<style>
+    .container {
+    position: relative;
+}
+
+#text-canvas {
+    background-color: transparent;  /* needed because webgl-tutoraisl.css sets canvas bg color to white */
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 10;
+}
+</style>
+
+
+<body>
+<H1>Array Demo</H1>
+    <div class="container">
+        <canvas id="gl-canvas" style="background-color:#FFFFDD" width="1024" height="512">>
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+
+        <canvas id="text-canvas" fillStyle='rgba(255, 255, 255, 0)' width="1024" height="512">>
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+
+    </div>
+
+    <script type="text/javascript" src="../Common/webgl-utils.js"></script>
+    <script type="text/javascript" src="../Common/initShaders.js"></script>
+    <script type="text/javascript" src="../Common/MV.js"></script>
+    <script type="text/javascript" src="ArrayDemo.js"></script>
+    <!--
+    <script src="selection_sort.txt"></script>
+    <script src="linear_search.txt"></script>
+    <script src="binary_search.txt"></script>
+    <script src="insert.txt"></script>
+    <script src="delete_by_location.txt"></script>
+    <script src="delete_by_value.txt"></script>
+    -->
+    <script id="vertex-shader" type="x-shader/x-vertex">
+
+        attribute vec4 vPosition; attribute vec4 vColor; varying vec4 fColor; void main() { gl_Position = vPosition; fColor = vColor; }
+    </script>
+
+    <script id="fragment-shader" type="x-shader/x-fragment">
+        precision mediump float; varying vec4 fColor; void main() { gl_FragColor = fColor; }
+    </script>
+</body>
+
+<!--
+<h3>Input Data in Array (numbers are splitted by ,)</h3>
+-->
+<p>
+<h3>Enter numbers here in this way: 1,2,3,4,5,6</h3>
+<textarea rows="1" cols="100" id="array"> </textarea >
+
+<div>
+    <h3 style="display: inline-block">Operations</h3>
+    <button id = "ShowArray">Show Array</button>
+    <button id = "InitialOrder">Initial Order</button>
+    <button id = "PreviousStep">Previous Step</button>
+    <button id = "Play">Play</button>
+    <button id = "NextStep">Next Step</button>
+    <button id = "FinalOrder">Final Order</button>
+    <button id = "SpeedUp">Speed Up</button>
+    <button id = "SlowDown">Slow Down</button>
+</div>
+
+
+
+<div>
+    <h3 style="display: inline-block">Select Algorithms</h3>
+	<br>
+    <button id = "SelectionSort">Selection Sort</button>
+	<p>
+    <button id = "LinearSearch">Linear Search</button>
+    <button id = "BinarySearch">Binary Search</button>
+    <h5 style="display: inline-block">Number</h5>
+    <textarea rows="1" cols="5" id="num2find"> </textarea >
+    <h5 style="display: inline-block">Location</h5>
+    <textarea rows="1" cols="5" id="index2find"> </textarea >
+	<p>
+    <button id = "Insert">Insert</button>
+    <button id = "DeletebyLocation">Delete by Location</button>
+    <button id = "DeletebyValue">Delete by Number</button>
+</div>
+<p>
+<a href="ArrayDemoTutorial.html">Tutorial</a><br>
+</p>
+
+
+
+
+
+
+</html>

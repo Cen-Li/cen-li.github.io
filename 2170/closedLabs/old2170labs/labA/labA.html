@@ -1,0 +1,737 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="Author" content="Brad Rudnik">
+  <meta name="GENERATOR" content="Mozilla/4.5 [en]C-AtHome0405  (Win95; U) [Netscape]">
+  <meta name="Description" content="CSCI 2170 - Closed Lab 2 - Lesson Page.">
+  <title>CSCI 2170 Lab A - Debugging (with NetBeans)</title>
+
+<!-- load the Javascript source file -------------------------------->
+<script src="../windows.js">
+document.write("Included JS file not found");
+</script>
+
+<!-- load the style sheet ------------------------------------------->
+<link rel="stylesheet" type="text/css" href="../styles.css" title="styles">
+
+</head>
+<body background="labA.gif"> <a name="top"></a>
+
+<center>
+<h1> CSCI 2170 LAB A<br>
+Debugging using NetBeans</h1> </center>
+
+<table cols="2" width="100%">
+<tr>
+<td width="70%">
+<dl>
+<dt> 
+<b>Objectives:&nbsp;</dt> 
+<dd>
+To become familiar with "bug" and "debugging" concepts 
+<br>To learn debugging techniques 
+<br>To learn NetBeans debugger&nbsp; 
+</b></dd></dl>
+</td>
+
+<td>
+<center><font size="+1"><a href="javascript:AnswerWindow('labA/labA')">CREATE ANSWER SHEET for
+LAB A</a></font></center>
+</td>
+</tr>
+</table>
+
+<!--File access for browsers without javascript capabilities-->
+<noscript> 
+<blockquote>
+<blockquote><b>For those of you without Javascript capabilities these links 
+will provide access to the additional files needed
+to complete this lab. They are set to open a new browser window if your browser
+supports this feature.</b> 
+<center> <b><a href="labAAns.html"
+target="_new">Answer
+Sheet</a> </b></center></blockquote></blockquote> </noscript>
+<blockquote>A.&nbsp; <a href="#A">Buggy Problems</a> <br>
+B.&nbsp; <a href="#B">Debugging Techniques</a> <br>
+C.&nbsp; <a href="#C">Using the NetBeans Debugger</a></blockquote>
+<!-- Blank Space --> <br>
+You have solved a problem, designed a solution, and implemented the
+solution
+in C++.&nbsp; Assume you compile the source and the compiler finds no
+errors.
+Next you start execution of your program but it does not work
+correctly.&nbsp;
+Maybe it gives the wrong answer or goes into an infinite loop.&nbsp;
+Maybe
+it "aborts" and a message similar to the following is printed:
+<blockquote><b>"segmentation fault: core dumped"</b></blockquote>
+<p>For whatever reason, the outcome of executing the program does not
+produce the expected results.&nbsp; There is an error in your
+program.&nbsp; Historically these errors have been called "<b>bugs</b>."&nbsp;
+The term bug was first coined by Grace Hopper, the inventor of COBOL
+and the first assembly language.&nbsp; In 1945, the famous Mark I
+computer came to a halt.&nbsp; Workers found a
+moth inside the computer, removed the offending beast and the computer
+was
+fine!&nbsp; From then on, all mysterious problems with computing were
+called
+bugs.&nbsp; All programmers run into problems related to bugs.&nbsp;
+Therefore,
+let's now address how to avoid and deal with "bugs".<!-- Blank Space --> <br>
+&nbsp; <br>
+&nbsp; <br>
+&nbsp;<!-- PART A ------> </p>
+<center>
+<h3> <a name="A"></a>A. Buggy Problems</h3>
+</center>
+<p>There are numerous famous bugs in computing.&nbsp; For example, the
+Russians lost a space ship in mid-flight when an erroneous command
+transmitted from mission control sent the space ship into a test
+routine from which it never recovered.&nbsp; There should have been
+some safety "switch" that prevented the accidental execution of such a
+test sequence. </p>
+<p>A multi-million dollar X-ray machine killed at least two people by
+administering
+excessive doses of radiation.&nbsp;&nbsp; The cause of the error was
+traced
+to a certain sequence of editing commands.&nbsp; One day programmers
+may
+need "malpractice insurance" like physicians do today to protect
+themselves
+in such situations. </p>
+<p>Can bugs be avoided?&nbsp; Yes and no.&nbsp; Software Engineering is
+dedicated
+to developing techniques for building better software.&nbsp; Our goal
+is
+to be as good at building software as an engineer is at building a
+bridge.&nbsp;
+Bridges rarely fail just as software should rarely fail.&nbsp; To help
+reduce
+errors in software we have developed <b>paradigms</b> of software
+development.&nbsp;
+A paradigm is a method with all its related steps and techniques (i.e.,
+an
+approach).&nbsp; In the 1970's, a software development paradigm called
+the
+<b>Waterfall</b> paradigm was developed.&nbsp; It was so named because
+each
+step or phase supplies information to the next like water flows over a
+waterfall.&nbsp;
+The phases are as follows: <br>
+&nbsp; </p>
+<center>
+<table cols="5" width="80%">
+  <tbody>
+    <tr>
+      <td align="center"><b>Analysis</b></td>
+      <td><br>
+      </td>
+      <td><br>
+      </td>
+      <td><br>
+      </td>
+      <td><br>
+      </td>
+    </tr>
+    <tr>
+      <td align="right"><img src="arrow.gif"> </td>
+      <td align="center"><b>Design</b></td>
+      <td><br>
+      </td>
+      <td><br>
+      </td>
+      <td><br>
+      </td>
+    </tr>
+    <tr>
+      <td><br>
+      </td>
+      <td align="right"><img src="arrow.gif"> </td>
+      <td align="center"><b>Implementation</b></td>
+      <td><br>
+      </td>
+      <td><br>
+      </td>
+    </tr>
+    <tr>
+      <td><br>
+      </td>
+      <td><br>
+      </td>
+      <td align="right"><img src="arrow.gif"> </td>
+      <td align="center"><b>Testing</b></td>
+      <td><br>
+      </td>
+    </tr>
+    <tr>
+      <td><br>
+      </td>
+      <td><br>
+      </td>
+      <td><br>
+      </td>
+      <td align="right"><img src="arrow.gif"> </td>
+      <td align="center"><b>Maintenance</b></td>
+    </tr>
+  </tbody>
+</table>
+</center>
+<p>In the <b>analysis phase</b>, requirements describing what the
+software product is to do are determined by interviewing the
+client.&nbsp; The requirements are analyzed and a specifications
+document is produced.&nbsp; In the <b>design phase</b>, the
+specifications document is turned into an architectural design
+in which the software is broken down into modules.&nbsp; The modules
+are
+designed in a more detailed fashion that focuses on procedural
+detail.&nbsp; The data structures are defined at this point.&nbsp;
+During the <b>implementation phase</b>, the modules are coded and
+tested.&nbsp; The modules are integrated and tested as a whole in the <b>testing
+phase</b>.&nbsp; The <b>maintenance phase</b> includes making changes
+to the software including corrections and
+enhancements.&nbsp;&nbsp; Many methods such as step-wise refinement and
+structured
+programming have been developed to improve the process of software
+development.&nbsp;
+We will focus in this lab (and in this course) on the Waterfall
+paradigm
+for software development.&nbsp; The object oriented paradigm is another
+popular
+method in use today. </p>
+<p>Errors can occur at any phase of software development.&nbsp; Any of
+these
+errors can lead to serious problems and result in software that does
+not
+function as desired.&nbsp; Given the disastrous results with the
+software in the X-ray machine, we must take every precaution possible
+to be sure there
+are no errors in our systems.&nbsp; Several things have been done. </p>
+<p>"Formal languages" have been developed in which requirements can be
+expressed
+instead of expressing them in ambiguous and imprecise English.&nbsp;
+The
+design can be reviewed by a team of professionals for potential
+problems.&nbsp; Prototypes can be used to clarify requirements or
+difficult design algorithms.&nbsp; An appropriate high-level language
+choice will reduce errors.&nbsp; Code walkthroughs
+help the developer locate many errors.&nbsp; A code walkthrough is a
+line-by-line
+reading of a unit of code by a team of professionals.&nbsp; The purpose
+of
+each line in the given program is explained.&nbsp; Good documentation
+habits
+and good naming conventions decrease errors too.&nbsp; A good design
+and
+a good programmer are the best way to avoid coding errors. </p>
+<p>Finally, careful testing must be done before software is
+released.&nbsp; A <a href="javascript:Display('../labD/labD.html')">later
+lab</a> will address
+testing.&nbsp; <b>Testing</b> is the process of showing that errors
+exist
+and <b>debugging</b> is the process of localizing, analyzing, and
+removing
+suspected errors in the code. </p>
+<p>If an instruction is written incorrectly it is called a <b>syntax
+error</b> and will be caught by the compiler.&nbsp; If an incorrect
+formula or algorithm is used it is called a <b>logic error</b> and
+must be caught by the programmer or tester.&nbsp; Errors that are
+exposed at run time are called <b>run time
+errors</b> (i.e., dividing by zero or array index out of range).<!-- Blank Space --> <br>
+&nbsp; <br>
+&nbsp; <br>
+&nbsp;<!--PART B --------> </p>
+<center>
+<h3> <a name="B"></a>B. Debugging Techniques</h3>
+</center>
+<p>A theory of debugging was developed by Poston that is based on <b>Most
+Probable Errors (MPEs)</b>.&nbsp; MPEs are the most frequent mistakes
+made by programmers.&nbsp; The most likely place to contain an error is
+in an IF
+- THEN - ELSE conditional expression. The second most likely place for
+errors
+is in input/output statements and the third is in loops.&nbsp;
+According to
+this theory, you should check the conditional expression in any If
+statement first.&nbsp; Then I/O statements should be checked and
+finally loops should be examined. </p>
+<p>How does one localize and analyze an error? There are standard
+debugging techniques that can be used.&nbsp; You will practice these in
+this lab.&nbsp; They are as follows: </p>
+<ol>
+  <li> Get a hard copy of your program.<br>
+Read the code and think about what it does. (Desk check)</li>
+  <li> Use print statements to pinpoint the source of an error.</li>
+  <li> Use a debugger to help locate an error.</li>
+</ol>
+<p>A program is written only once but is read many times.&nbsp; Donald
+Knuth has developed a system, called <a
+ href="http://www-cs-faculty.stanford.edu/%7Eknuth/cweb.html">CWEB</a>
+,
+that helps one develop software as a work of literature.&nbsp;
+Explaining
+CWEB is beyond the scope of this lab exercise but we must learn <i>to
+read
+our programs for debugging purposes</i> and <i>write programs that are
+readable</i>.&nbsp;
+If we read our code to ourselves we often read over our errors.&nbsp;
+It
+is a good idea to read our code to another knowledgeable person
+explaining
+how each line contributes to the solution. </p>
+<hr>
+<hr>
+<p>When reading through program code, often just looking at the code  d
+oes not help us identify the 
+logic error(s).  To help us locate logic errors, we can insert
+output (<b>cout &lt;&lt;</b>) statements at strategic places in the
+code to
+localize errors.&nbsp; These output statements allow us to trace the
+path
+of execution or to trace the value of certain variables as the program
+is
+executed to determine what part of the code is not functioning
+correctly.&nbsp; There are 3 types of traces that can be implemented by
+placing output statements in the code - subprogram trace, statement
+trace, and variable trace.&nbsp; A <b>subprogram trace</b> is used to
+determine the order in which subprograms are called.&nbsp; An output
+statement that outputs the name of the subprogram is placed at the
+start of every subprogram to implement a subprogram trace.&nbsp; A <b>statement
+level trace</b> is used to determine where the execution of
+the program halts.&nbsp; An output statement can be placed after
+different statements in the code to determine which instructions are
+executed before the program halts. </p>
+<p>If an answer produced by the program is wrong, we look at variables
+used
+to calculate this answer.&nbsp; To implement a <b>variable trace</b>,
+we
+print the value of variables involved in the calculation at different
+places
+to see where one or more of them became incorrect. When a variable of
+interest
+is changed, the new value should be printed with the name of the
+enclosing
+block and a line number to help identify where the change
+occurred.&nbsp;
+All input to the program as well as input to all subprograms should be
+checked
+to make sure the values are valid. </p>
+<p>Once we locate and fix the problem, the output statements are no
+longer needed.&nbsp; They can be removed with the editor and the code
+recompiled. In some languages such as "C++" there is a mechanism by
+which the output statements
+can physically be left in the source code but directions can be given
+to
+the compiler to omit them when the last compile is done.&nbsp; If the
+statements
+are needed later they do not have to be retyped.
+<hr>
+<p><b>NOTE: For each of the following exercises, indicate answers on
+the <a href="javascript:AnswerWindow('labA/labA')">answer sheet.</a></b>
+<hr>
+<p>The program used in Exercise 1 makes use of command line
+arguments. If
+you are unfamiliar with command line arguments, after looking at the program code referenced in Excerice 1, you should read 
+<a href="argc-argv.html"> Getting Command Line Arguments in C++</a>
+</p>
+<hr>
+<!--EXERCISE 1 -----> </p>
+<hr> <a href="javascript:Answer('Exercise1')"><font color="#bb2222"><b>Exercise
+1:</b></font></a> 
+<font color="#bb2222">Copy <a
+ href="javascript:Display('$CLA/inlabAa.cc')">inlabAa.cc</a> to 
+ your account. 
+If you haven't already, bring up your 
+Answer sheet for this lab---to do this, click on the link at the very top of
+this web page.  For this exercise you will copy a program to your account, 
+add cout statements to help you debug the logic of the program and correct 
+the logic errors contained in the program. A description of three different 
+types of program traces can be found immediately above this Exercise.  
+You will need to use <b><i>statement trace </i></b> and <b><i>variable trace</i></b>
+ cout statements.  
+
+When you finish correcting the program, you are asked to give the lab assistant 
+a hardcopy of the corrected program which includes your cout statements.
+</font>
+<hr>
+
+
+<!--EXERCISE 2 -----> </p>
+<hr> <a href="javascript:Answer('Exercise2')"><font color="#bb2222"><b>Exercise
+2:</b></font></a> 
+<font color="#bb2222">
+Continue to test the program given in Exercise 1. Be sure
+to test the program with different numbers (including zero, no numbers) to
+make sure you realize there is more than one logic error.&nbsp; Use cout output
+statements to locate the errors in the program.&nbsp; You and your
+partner should turn
+in  to the lab assistant a printout of the corrected program (inlabAa.cc) containing the "cout's" you added for
+debugging.&nbsp;
+Put your names in the heading of the debugged code.&nbsp; List/identify the bugs
+that
+you found on the printout using pen or pencil.</font>
+<hr><!--PART C -------->
+<center>
+<h3> <a name="C"></a>C. Using NetBeans -- Integrated
+Development
+Environment (IDE)</h3>
+</center>
+<p>NetBeans is an integrated developement environment that
+allows a developer to edit, compile/build, debug, and run projects with
+components written in multiple languages. It provides simplified code
+reuse and has good debugging support. A <i>debugger</i> is a program that controls the
+execution of another program for the purpose of locating (and/or
+repairing) errors.<br>
+</p>
+<p> NetBeans documentation beyond what is found in this lab can be found at
+<a href="http://www.netbeans.org/kb/index.html">http://www.netbeans.org/kb/index.html</a>
+</p>
+<p> In this lab, we will learn to develop a project written in C++
+using NetBeans. In particular, we will learn to use the
+built-in debugger. With the debugger, you can:</p>
+<ul>
+  <li> set a <b>breakpoint</b> to halt execution at a certain line or
+function</li>
+  <li><b>display </b>values of variables and expressions</li>
+  <li><b>step</b> through the code one instruction at a time</li>
+  <li><b>run</b> the program from the start or <b>continue</b> after a
+break in the execution</li>
+  <li>do a <b>backtrace</b> to see who has called whom to get to where
+you are</li>
+  <li><b>quit</b> debugging.. <br>
+  </li>
+</ul>
+<p><b>To practice using the NetBeans debugger, we must first
+create a new C++ project in NetBeans<br>
+</b></p>
+<p>Start by logging into <i>ranger</i> using an NX client. See the previous lab if you
+need to review this process.
+<p>Next from the command window, enter/type <b>"netbeans&"</b> </p>
+<p>A window similar to the following should appear
+<br>
+<br>
+<center>
+<img src="2c-start.jpg" ></font></p>
+</center>
+<font style="font-weight: bold; "
+ color="#ff0000">Exercise 3:
+Follow the steps 1 through 3f   as given below so as to create an empty
+C++ project:<br>
+</font> 
+</>
+<ol>
+  <li>Click on&nbsp;<b> File </b>from the top menu bar</li>
+  <li>Click on <b>New Project</b> from the pull down menu
+    <center>
+    <div style="text-align: center;"> </div>
+    <p style="text-align: center;"><font size="3">
+<img src="2c-start2.jpg" ></font></p>
+    </center>
+  </li>
+</ol>
+<ol start="3">
+  <li>From the pop up window:
+    <ol start="1" style="list-style-type: lower-alpha;">
+      <li> select <b>C/C++ projects </b>from the left hand side
+list</li>
+      <li> select <b>C/C++ Application</b> from the right hand side list and click <i>Next</i></li>
+  <center>
+  <p><font size="3"><img src="2c-project.jpg"></font></p>
+  </center>
+      <li>fill in the <b>project name </b>in the upper part of the
+window (this will also serve as the name of &nbsp;folder containing all
+files of your new project). </li>
+      <li>Take a look at the line showing the directory of where the
+project directory will be located in your computer. IF you want your project to be located in your CLA directory, then you need to change the path..use the browse button</li>
+	  <li><b>Note:</b> If your see <b>"Create Main F<u>i</u>le"</b> with a checkbox
+	above "Set as <u>M</u>ain Project", uncheck the box for Main File by clicking on it.</li>
+	  <li>Now, click <b>Finish</b>.</li>
+    </ol>
+  </li>
+  <center>
+  <p><font size="3"><img src="2c-project2.jpg"></font></p>
+  </center>
+</ol>
+<p><font color="#ff0000" size="3"><span
+ style="font-weight: bold; text-decoration: underline;">Exercise 4:</span>
+</font> Now, create a new C++ file to be part of this project. Follow
+the instructions below to create a new C++ file.</p>
+<ol>
+  <li> Click on <b>Source Files </b>for your project</li>
+  <li>Click on <b>New</b> from the pull down menu</li>
+  <li>Select <b>Main C++ File...</b>. </li>
+    <center>
+    <p><font size="3"><img src="2c-file.jpg"></font></p>
+    </center>
+  </li>
+  <li>For this project main C++ file, just choose the defaults,i.e., main.cpp </li>
+  <li>Next we want to use a program found in the $CLA folder, inlabAc.cc. 
+    <ol start="1" style="list-style-type: lower-alpha;">
+    <li>First bring up a new terminal window in your NX 
+         session--locate the terminal icon near the top of 
+your NX window and click on the icon. </li>
+    <li> In this terminal window, <i>cd</i> to 
+where your NetBeans project was created... possibly in ./NetBeansProjects 
+or ./CLA/NetBeansProjects.</li>
+    <li>Now in your NX terminal window, locate the project name, i.e., <br>
+      enter the command: <i>ls </i>    <br> you should see the project folder such as CppApplication_1.  
+    <li>Now <i>cd </i> to that folder
+and enter the command: <i>ls</i>   <br>You should see the main.cpp file -- if you don't, then you need to locate the main.cpp file before proceeding </li>
+   <li>We are now ready to copy the program file: inlabAc.cc. <br>
+     <i>cp $CLA/inlabAc.cc main.cpp </i>
+  </li>
+</li>
+ </ol>
+  <li>After you have copied  the program inlabAc.cc, in the NetBeans session double click on 
+"main" in the project listing under the folder "Source Files". The newly copied file should 
+appear in your window listing.
+  </li>
+</ol>
+<p><font style="font-weight: bold; text-decoration: underline;"
+ color="#ff0000">&nbsp;Exercise 5</font><span
+ style="font-weight: bold; text-decoration: underline;">: </span>Read
+the main program code to get an idea of what the program should do. Compile and run
+this program by:<br>
+</p>
+<ol>
+  <li>Click <b>Build</b> from the top menu bar</li>
+  <li>Click on "<b>Build Main Project</b>". The program should compile
+properly and display the message "Build Successful ..." in the bottom window labeled "Output".&nbsp;
+    <p></p>
+  </li>
+  <center>
+  <p><font size="3"><img src="2c-build-succ.jpg"> </font></p>
+  </center>
+  <li> Run the program by clicking "Run" followed by "Debug Main Project" from the top menu.
+A new window should appear that prompts for you to
+enter the number of values and the values to use. At the prompts enter
+indicate there are <b>2</b> numbers in the list both with a value of <b>22</b>.
+The window will remain open with the program output.&nbsp;</li>
+  <center>
+  <p><font size="3"><img src="2c-run1.jpg"> </font></p>
+  </center>
+</ol>
+<hr>
+Look at the results. Are they correct?
+Which results are wrong? Once you realize a program has errors, you may use
+the debugger to find out where the errors are in your program.</p>
+<center> </center>
+<center> </center>
+<center> </center>
+<p></p>
+<center> </center>
+<font size="3"> </font>
+<p><font size="3">Let's practice debugging this program. First we need
+to
+set a <i>breakpoint</i> on a line of code that could potentially show
+us
+what the problem is. It should be a line of executable code. Scroll
+through
+the code and find the line in main</font></p>
+<pre><font size="5">	<b>total = sum(listOfNumbers, howMany);</b></font></pre>
+<p><font size="3">Set a breakpoint at this line by clicking on the gray
+area to the left of the line. A red dot should appear as shown below.
+(If you
+wish to delete a breakpoint, click on it again. Do not delete the
+breakpoint
+you just set. If you accidentally deleted it, then simply reset it.)</font></p>
+<center>
+<p><font size="3"><img src="2c-break2.jpg"></font></p>
+</center>
+<p><font size="3">Let's run the program and see what happens. Click on
+the<b>
+Start the debugger</b> shortcut button across the top of the window (or again do a build and start the debugger from the previous menu choices). 
+Use the same input as you did when you ran the program before.</font></p>
+<center>
+<p><font size="3"><img src="2c-run2.jpg"></font></p>
+</center>
+<p><font size="3">&nbsp;</font></p>
+<p><font size="3">&nbsp;</font></p>
+<p><font size="3">After you enter the input, the debugger will execute
+the
+program up to the breakpoint. It places a green arrowi/line on the break
+code line.</font></p>
+<p><font size="3">The current values of different variables are
+displayed
+in the right bottom "Output" window under the tab <i>Local Variables View</i>. For example, variable <i>howMany</i>
+currently
+has large value (indicating it has not been initialized).
+</font></p>
+<center>
+<p><font size="3"><img src="2c-show-values.jpg"></font></p>
+</center>
+<!--EXERCISE 3 ----->
+<hr> <font size="3"><a href="javascript:Answer('Exercise3')"><font
+ color="#bb2222"><b>Exercise 6:</b></font></a> <font color="#bb2222">Write
+the answers to the following questions on the <a
+ href="javascript:AnswerWindow('labA/labA')">answer sheet</a> .&nbsp;
+The
+blank lines are there to remind you that an answer is expected.
+<p><font color="#cc0000">A. What is the current value of the variable <i>total</i>?___</font><br>
+</p>
+<p>B. What are the current values of the first 4 elements of array <span
+ style="font-style: italic;">listOfNumbers</span>?
+________<br>
+</p>
+</font></font>
+<p><font size="3"><font color="#bb2222">C.&nbsp;&nbsp;Look at the <i>cout
+&lt;&lt;</i> statement which is two lines below the current program
+statement
+(breakpoint). This statement will output the average. Given the current
+value of the variables, what is the problem with this statement?___ </font></font></p>
+<p><font size="3"><font color="#bb2222">D.&nbsp;&nbsp; From reading the
+comment
+before the call to <i>readNumbers(listOfNumber, howMany)</i> in <i>main()</i>,
+and from reading the header comments in the function <i>readNumbers()</i>,
+what did the programmer intend for <i>readNumbers()</i> to do to the
+variable <i>howMany</i>?___ </font></font></p>
+<font size="3"><font color="#bb2222"> </font> </font>
+<hr>
+<center><font size="2"> </font> </center>
+<center><font size="2"> </font></center>
+<p><font size="3">&nbsp;&nbsp;&nbsp; Now let's continue to determine
+the cause of the error using the debugger: The value of the variables <span
+ style="font-style: italic;">howmany</span>, <span
+ style="font-style: italic;">total</span> and <span
+ style="font-style: italic;">listOfNumbers</span> are not what you have
+expected, right? This suggests that error(s) occurred before the
+current line in the program. So lets back up and put a break next to
+the previous statement :<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; readNumbers(listOfNumbers, howMany);<br>
+Run the debugger again. (You need to stop the debugger from the
+previous run, and start again). This time, when the debugger stops, try
+step into the function being called (e.g., readNumbers) by clicking on
+the <span style="font-weight: bold;">Step Into </span>debugging short
+cut button.<br>
+<center>
+<p><font size="3"><img src="2c-stepinto.jpg"></font></p>
+</center>
+<br>
+</font></p>
+<p><font size="3">&nbsp;&nbsp;&nbsp; The debugger should move to the
+first executable statement in function <span style="font-weight: bold;">readNumbers</span>.
+Step throught the first two statements by clicking <span
+ style="font-weight: bold;">Step Over</span> short cut button <span
+ style="font-weight: bold;">twice</span>. (add short cut here). 
+Enter the same information in the input window when prompted as before.<br>
+</font></p>
+<hr> <font size="3"><a href="javascript:Answer('Exercise3')"><font
+ color="#bb2222"><b>Exercise 6 Continued</b></font></a></font>
+<p><font size="3"><font color="#bb2222">E.&nbsp;&nbsp; What is the
+current value of <span style="font-style: italic;">howMany</span>?___<br>
+</font></font><span style="color: rgb(204, 0, 0);">F.&nbsp;&nbsp; Why
+is the value of <span style="font-style: italic;">howMany</span> in
+function "readNumber" differ from its value in the main function right
+after the call to function "readNumber"? How would you fix
+it?___</span> </p>
+<font color="#bb2222"></font>
+<p><font size="3"> </font></p>
+<hr>
+<p><font size="3">&nbsp;&nbsp;&nbsp; Click on the <b>"Step Over</b>"
+short cut button until the debugger moves back to the main function. <br>
+</font></p>
+<p><font size="3"><a href="javascript:Answer('Exercise3')"><font
+ color="#bb2222"><b>Exercise 6 Continued</b></font></a></font><font
+ size="3"><font color="#bb2222"><br>
+</font></font></p>
+<font size="3"><font color="#bb2222">G. How many times is the body of
+the <span style="font-style: italic;">for </span>loop executed?____
+How would you fix it?___<br>
+</font></font>
+<hr style="width: 100%; height: 2px;">&nbsp;&nbsp;&nbsp; Click on the "<span
+ style="font-weight: bold;">Start/Continue</span>" short cut button. <font
+ size="3">This
+will continue execution of the program from the breakpoint. You should
+see <b>Program exited normally</b> in the "Output" window. Save the
+changes, build and execute the program again to make sure that the
+program is free of run time errors. You should enter different data to
+test the program. </font>
+<hr> <font size="3"><a href="javascript:Answer('Exercise3')"><font
+ color="#bb2222"><b>Exercise 6 Continued</b></font></a> <font
+ color="#bb2222"> </font></font>
+<p><font size="3"><font color="#bb2222">H.&nbsp; How do you set a
+breakpoint
+in NetBeans?___ </font></font></p>
+<p><font size="3"><font color="#bb2222">I.&nbsp; Once all the
+breakpoints
+are set, how do you begin execution of the program?___ </font></font></p>
+<p><font size="3"><font color="#bb2222">J.&nbsp; How do you inspect
+the value of a variable during debugging?___ </font></font></p>
+<p><font size="3"><font color="#bb2222">K. How do you continue
+the execution of the program after a breakpoint has been reached?___<br>
+
+<p><font size="3"><font color="#bb2222">L.
+This part of the lab requires you to print out the program from NetBeans.
+To print the program from NetBeans :
+<ul>
+<ol>
+<li> First in NetBeans, double click on the file to be printed such as <i>main</i> so that the source appears in the source window of NetBeans. </li>
+<li>
+Select "<b>File</b>" from the top menu, 
+</li>
+<li>
+Select "Print to HTML" from the pull down menu--if this option is not available, then make sure you have pre-selected a source file such as <i>main</i>
+</li>
+<li>
+In the pop up window that appears next, <i>check</i> the option: <b>Open generated HTML to browser</b>
+</li>
+<li>
+In the pop up window, click <i>OK</i> <br> A browser with the source file should appear in a few seconds. From the browser,  print the file.
+</li>
+</ol>
+</ul>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+Your program should be printed from the lab laser printer.  Collect the print
+out and write down your name on the front page.
+<br>
+</font>
+</font>
+&nbsp; &nbsp; 
+
+
+<hr> <font size="3"><a href="javascript:Answer('Exercise3')"><font
+ color="#bb2222"><b>Exercise 6 Continued</b></font></a></font><br>
+<font size="3"><font color="#bb2222">
+<p>
+M.&nbsp; In a terminal window (not NetBeans) on <i>ranger</i> change to the directory that contains your copy of the inlabAc.cpp that was used in NetBeans. 
+Create a script file that contains a listing
+of the program, a compile of the program, and the run of the program.
+Print
+the script file on the printer. Turn in this print out.<br>
+<pre>
+	  This can be done by using the following commands in a terminal session
+
+	   ranger $ cd ---location of your main.cpp file----
+	   ranger $ script claA.log      # for starting script with name claA.log
+	   $ ls -l                       # for showing the list of the current directory
+	   $ aCC newmain.cpp             # if the name of the program is newmain.cpp
+	   $ a.out                       # to compile the program
+	   $ exit                        # to exit from script
+	   ranger $ lph claA.log         # to send the script file to the printer
+</pre>
+</font> </font>
+<hr>
+<center>
+<div align="left"> </div>
+</center>
+<center>
+<p><font size="5"><b>Turn in your answer sheet and the printouts from exercises 1, 2, 6L, and 6M. 
+Be sure to mark the errors on the printout from Exercise 1 and the new "couts" on the printout of exercise 2.</b> </font></p>
+</center>
+<!-- Blank Space --> <font size="3"><br>
+&nbsp; </font>
+<h5>
+<center> <font size="3">----- End of Lab A - Debugging&nbsp; -----<br>
+Complete the Exercises on the <a
+ href="javascript:AnswerWindow('labA/labA')">Answer Sheet</a>.&nbsp;<br>
+Turn in the Answer Sheet and the printouts required by the exercises.</font></center>
+</h5>
+<!-- Blank Space --> <font size="3"><br>
+&nbsp; <br>
+&nbsp;<!--RETURN LINK ---> </font>
+<center><font size="3"><a href="#top">Return to the top of this lab</a>
+<br>
+<a href="../index.html">Return to the link page for all 2170 labs</a></font></center>
+<br>
+</body>
+</html>

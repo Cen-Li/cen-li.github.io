@@ -1,0 +1,304 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Brad Rudnik">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en]C-AtHome0405  (Win95; U) [Netscape]">
+   <meta name="Description" content="CSCI 2170 - Closed Lab 13 - Lesson Page.">
+   <title>CSCI 2170 Lab 13 - Queues </title>
+
+<!-- load the Javascript source file -->
+<script type="text/javascript" src="../windows.js">
+document.write("Included JS file not found");
+</script>
+
+<!-- load the style sheet -->
+<link rel="stylesheet" type="text/css" href="../styles.css" title="styles">
+
+</head>
+<body background="lab13.gif"><a NAME="top"></a>
+
+<center>
+<h1>
+CSCI 2170 LAB 13<br>
+Queues</h1></center>
+
+<table width="100%" >
+<tr>
+<td width="70%">
+<dl>
+<dt>
+<b>Objectives:</b></dt>
+<dd>
+<b>
+Introduce the queue abstract data type. <br>
+Discuss implementation of the queue ADT using an array. <br>
+Implement the queue ADT using C++ pointers.</b></dd></dl>
+</td>
+
+<td>
+<font size=4>
+<center><a href="javascript:AnswerWindow('lab13/lab13')">CREATE ANSWER SHEET for 
+LAB 13</a></center>
+</font>
+</td>
+</tr>
+</table>
+
+<!--File access for browsers without javascript capabilities-->
+<noscript>
+<blockquote>
+<blockquote><b>For those of you without Javascript capabilities these links
+will provide access to the additional files needed to complete this lab.
+They are set to open a new browser window if your browser supports this
+feature.</b>
+<center><b><a href="lab13Ans.html" target="_new">Answer Sheet</a></b></center>
+</blockquote>
+</blockquote>
+</noscript>
+
+<p>In this lab session we will study a data structure called a queue. This 
+structure has many applications in computing such as holding files awaiting 
+printer access.<blockquote>A.&nbsp; <a href="#A">Definition of Queue</a>
+<br>
+B.&nbsp; <a href="#B">Array Implementation of a Queue</a>
+<br>
+C.&nbsp; <a href="#C">&quot;Circular Array&quot; Implementation of a Queue</a>
+<br>
+D.&nbsp; <a href="#D">Linked List Implementation of a Queue</a>
+<br>
+
+<!-- PART A ------>
+<center>
+<h3>
+<a NAME="A"></a>A.&nbsp;&nbsp; Definition of Queue</h3></center>
+</blockquote>
+<p>A <b>queue</b> is an abstract data type in which insertion occurs at one end (the rear) 
+and deletion occurs at the other end (the front). A queue is defined to hold one 
+type of data element. Only the elements indicated by front and rear can be 
+accessed. Thus a queue is a restricted access data structure similar to the 
+stack. Like a stack, the elements are related to each other by the order in 
+which they are placed on the queue. <br>
+
+<p>An example of a queue is a line of people waiting at a ticket counter to buy a 
+ticket. Whoever gets in line first gets a ticket first. A queue is a <b>First In, 
+First Out (FIFO) </b>data storage mechanism. The storage structure that holds jobs 
+for printing on a printer is typically a queue. When an operating system (OS) 
+runs in batch mode (i.e. non-interactive), jobs to be processed are usually 
+placed in a queue awaiting execution. However, sometimes the OS gives priority 
+to smaller jobs in the queue, and if so, it becomes a &quot;priority queue.&quot; </p>
+<p><b>Insertion</b> and <b>deletion</b> operations have special names in queues - insertion is 
+called <b>enqueue</b> and deletion is called <b>dequeue</b>. A queue often serves as a 
+&quot;waiting line.&quot; Items put onto the queue (enqueued) come off (dequeued) in the 
+same order. A queue, like a cafeteria line, has a <b>front</b> and a <b>rear</b>. Items are 
+inserted at the rear of the queue and removed from the front of the queue.</p>
+
+<h5>
+NOTE: For each of the following exercises, indicate answers on the <a href="javascript:AnswerWindow('lab13/lab13')">answer
+sheet.</a></h5>
+
+
+<!-- EXERCISE 1 -->
+<hr>
+<b><a href="javascript:Answer('Exercise1')"><font color="BB2222">Exercise 1:</font></a></b>
+<font color="BB2222">Determine whether each of the following characteristics apply to a stack, a 
+queue, both, or neither.</font></a></p>
+<font color="BB2222">A.&nbsp;&nbsp;&nbsp; An element is inserted at a special place called the top.<br>B.&nbsp;&nbsp;&nbsp; An element is inserted at a special place called the rear.<br>C.&nbsp;&nbsp;&nbsp; The structure can hold only one type of data element.<br>D.&nbsp;&nbsp;&nbsp; An element is deleted at the front.<br>E.&nbsp;&nbsp;&nbsp; The ith position may be deleted.<br>F.&nbsp;&nbsp;&nbsp;&nbsp; An element is deleted at the top.<br>G.&nbsp;&nbsp;&nbsp; The structure is a LIFO structure.<br>H.&nbsp;&nbsp;&nbsp; The structure is a FIFO structure.<br>I.&nbsp;&nbsp;&nbsp;&nbsp; The structure is a restricted access structure. </b>
+</font>
+<hr>
+We define a queue using a <b>Queue</b> class. As in the case of a stack, there 
+are several ways to implement the <b>Queue</b> class. We will illustrate two both array 
+and pointer implementations and discuss the merits of each. <br><b>
+<!-- PART B -->
+<p align="center">
+<a NAME="B"></a><font size="4">B.&nbsp; Array 
+Implementation of a Queue</font></b> </p>
+<P>First we demonstrate how the data in a Queue class can be implemented with an 
+array, say elements[0..n-1], a counter nbrElts, and a pair of array indexes, 
+frontIndx and rearIndx. The array could hold any type of data, even a record or 
+a class type. In an array implementation of a queue <b>nbrElts = 0</b> will mean the 
+queue is empty. The data members <b>nbrElts</b>, <b>frontIndx</b> and <b>rearIndx</b> would each be 
+initialized to <b>0</b> by a class constructor. To enqueue an element we store the new 
+element at position rearIndx in the array and increment rearIndx unless the 
+array is full. Thus code in the enqueue method might appear as:<blockquote>
+	<P><b><font size="2">//enqueue:<br>if (! full())&nbsp;&nbsp;&nbsp; //full checks for nbrElts = n<br>{<br>&nbsp;&nbsp;&nbsp; elements[rearIndx] = newElement;<br>&nbsp;&nbsp;&nbsp; rearIndx++;<br>&nbsp;&nbsp;&nbsp; nbrElts++;<br>}</font></b>
+</blockquote>
+<p>To dequeue an element we must first determine if the queue is empty. If the 
+queue is not empty, we save the item at frontIndx and then increment frontIndx. 
+Finally, we return the saved item to the calling function. The code in the 
+dequeue method might appear as follows: 
+<blockquote>
+	<p><b><font size="2">//dequeue: <br>if (!empty())&nbsp;&nbsp;&nbsp; //empty checks for nbrElts = 0<br>{<br>&nbsp;&nbsp;&nbsp; frontElt = elements[frontIndx];<br>&nbsp;&nbsp;&nbsp; frontIndx++;<br>&nbsp;&nbsp;&nbsp; nbrElts--;<br>&nbsp;&nbsp;&nbsp; return frontElt;<br>}</font></b></blockquote>
+
+
+<p>
+<!-- EXERCISE 2 -->
+<hr>
+<b><a href="javascript:Answer('Exercise2')"><font color="BB2222">Exercise 2:</font></a></b><font color="BB2222">
+Suppose q is an instance of the Queue class and assume that the previous 
+array implementation is used. Also, assume that the size of the array is 5, and 
+that it is initially empty. Show <b>q</b> (<b>nbrElts</b>,<b> frontIndx</b>, <b>rearIndx</b> and contents of 
+the array <b>elements</b>) after all of the following operations have been completed.<br>
+<br>&nbsp;&nbsp;&nbsp;
+q.enqueue(39);<br>&nbsp;&nbsp;&nbsp;
+q.enqueue(22);<br>&nbsp;&nbsp;&nbsp;
+item1 = q.dequeue();<br>&nbsp;&nbsp;&nbsp;
+q.enqueue(59);<br>&nbsp;&nbsp;&nbsp;
+item2 = q.dequeue();<br>&nbsp;&nbsp;&nbsp;
+item3 = q.dequeue();</font></a><hr>
+<p>As you can see, each enqueue operation 
+advances rearIndx and nothing ever decreases it. Matters get worse as the queue 
+is used. For instance, suppose n elements are enqueued and all are dequeued. We 
+will have frontIndx = n , rearIndx = n and nbrElts = 0. Since nbrElts = 0 says 
+the queue is empty, we could try to store something at elements[rearIndx] (that 
+is elements[n]) but this slot does not exist in an array indexed from 0 to 
+MAX_QUEUE_SIZE-1. 
+To avoid this problem, we could copy each element in the queue to the next lower 
+position each time a dequeue occurs, but this has a high cost of data movement 
+and is not practical. We need a better solution. 
+<!-- PART C ------>
+<p align="center"><a NAME="C"></a>
+<b><font size="4">C. &quot;Circular&quot; Array implementation of a Queue<p>
+</font></b>We can think of the array of elements as a circular list by &quot;gluing&quot; the end of 
+the array elements[0..MAX_QUEUE_SIZE-1] to its front as in the following picture. 
+<p align="center">
+<img border="0" src="lab13C.gif" width="350" height="350"><p>
+&nbsp;<p>
+In this situation, the queue indexes front and rear advance by moving them 
+clockwise around the array. To achieve this, addition modulo n is used in the 
+enqueue and dequeue operations described above. Thus, when <b>rearIndx = 
+MAX_QUEUE_SIZE - 1</b>, the 
+last position in the array, rearIndx is incremented by 1 as follows: <p>
+<b>rearIndx = (rearIndx + 1) % n = (MAX_QUEUE_SIZE - 1 + 1 ) % MAX_QUEUE_SIZE = 
+MAX_QUEUE_SIZE % MAX_QUEUE_SIZE = 0</b><p>
+A similar formula is used for frontIndx when dequeueing. The new enqueue and 
+dequeue algorithms are as follows: <p>
+<b><font size="2">//(Circular array) enqueue:<br>
+if (! full()) //full checks for nbrElts = MAX_QUEUE_SIZE<br>
+{<br>
+elements[rearIndx] = newElement;<br>
+rearIndx = (rearIndx + 1) % MAX_QUEUE_SIZE<br>
+nbrElts++;  // update the number of elements<br>
+}<br>
+<br>
+<br>
+//(Circular array) dequeue:<br>
+if (!empty()) //empty checks for nbrElts = 0<br>
+{<br>
+frontElt = elements[frontIndx];<br>
+frontIndx = (frontIndx + 1) % MAX_QUEUE_SIZE<br>
+nbrElts--;  // update the number of elements<br>
+return frontElt;<br>
+}</font></b>
+
+
+<font size="3">
+<!-- EXERCISE 3 -->
+<hr>
+<b>
+<a href="javascript:Answer('Exercise3')"><font color="BB2222">Exercise 3:</font></a></b><font color="#BB2222">
+Suppose n=4, and you have a circular queue defined as above. Show 
+the array elements, the value of frontIndx, the value of rearIndx, the value 
+of nbrElts, and the value of item variable after all of the following operations have been completed: </font>
+<font color="BB2222">
+<br>&nbsp;&nbsp;&nbsp;&nbsp;q.enqueue(17);<br>
+&nbsp;&nbsp;&nbsp;
+q.enqueue(35);<br>
+&nbsp;&nbsp;&nbsp;
+item = q.dequeue()<br>
+&nbsp;&nbsp;&nbsp;
+q.enqueue(61);<br>
+&nbsp;&nbsp;&nbsp;
+q.enqueue(42);<br>
+&nbsp;&nbsp;&nbsp;
+item = q.dequeue();<br>
+&nbsp;&nbsp;&nbsp;
+q.enqueue(96);<br>
+&nbsp;&nbsp;&nbsp;
+item = q.dequeue();</font>
+<hr>
+<!-- PART D -->
+<p align="center">
+<a NAME="D"></a>
+<b><font size="4">&nbsp;D. Linked List Implementation of a Queue </font></b>
+</p>
+
+
+<p align="left">Using a circular array implementation is physically limiting. As 
+was the case in a stack, it is sometimes difficult to determine the maximum 
+number of elements which a queue may need to contain. Thus we now consider the 
+linked list implementation of a queue. Assume that frontPtr and rearPtr are 
+pointers to the front and rear nodes in a linked representation of a queue. The 
+queue can now be visualized as in the following picture: </p>
+<center><img border="0" src="linkedlist.gif" width="600" height="157"></center>
+<p align="left">Enqueueing means inserting a new node at the &quot;end&quot; of the list 
+(where rearPtr points) and making rearPtr point at this new node, while 
+dequeueing means deleting the node pointed to by frontPtr and resetting frontPtr. 
+Both operations are straightforward. Here is the algorithm for the enqueue: </p>
+<p align="left" style="line-height: 150%"><b><font size="2">//(linked list) 
+enqueue:<br>
+Make p point at a new node<br>
+Copy new data into node p<br>
+Set p's pointer field to NULL<br>
+Set the link in the rear node to point to p<br>
+Set rearPtr = p</font></b></p>
+<p align="left">&nbsp;</p>
+<hr><!--EXERCISE 4 -->
+<a href="javascript:Answer('Exercise4')"><b><font color="BB2222">Exercise 4:</font></b></a><span style="font-size: 12.0pt; font-family: Arial,sans-serif; color: #BB2222">Give 
+the algorithm for dequeue.</span>
+<!-- EXERCISE 5 --><hr>
+<a href="javascript:Answer('Exercise5')"><b><font color="BB2222">Exercise 5:</font></b></a><span style="font-size: 12.0pt; font-family: Arial,sans-serif; color: #BB2222">Suppose 
+we are using a linked list implementation of the queue which was used in 
+Exercise 3. After the statements in Exercise 3 are executed, draw the picture of 
+the resulting queue using this pointer implementation.</span><span style="font-size: 12.0pt; font-family: Arial,sans-serif; color: black">
+</span>&nbsp;<hr>
+<p>The definition for a queue implemented as a linked list is contained in 
+the file inlab13.h and the implementation is contained in inlab13.cc. It uses a 
+pointer to the first node (front) and the last node (rear) of the queue for 
+dequeueing and enqueueing. </p>
+<hr>
+<p>
+<!-- EXERCISE 6 -->
+<a href="javascript:Answer('Exercise6')"><b><font color="BB2222">Exercise 6:</font></b></a><font color="BB2222"> Copy <a href="javascript:Display('$CLA/inlab13.h')">inlab13.h</a>
+and <a href="javascript:Display('$CLA/inlab13.cc')">inlab13.cc</a> to your
+account.&nbsp; The code for the dequeue is missing from the implementation
+section of the queue.&nbsp;&nbsp; Complete the dequeue function.</font>
+</p>
+<hr>
+<p><a href="javascript:Answer('Exercise7')"><b><font color="BB2222">Exercise 7:</font></b></a><font color="BB2222"> The code
+in <a href="javascript:Display('$CLA/main13.cc')">main13.cc</a> generates
+100 random real numbers and enqueues some of them while using the others
+to request a dequeue.&nbsp;&nbsp; Add code to the program so you can determine
+the maximum size (length) the queue becomes in the process of generating
+the 100 random numbers.&nbsp;&nbsp; Display the maximum length. Turn in a 
+listing of the modified source file, a compile and a run. </font></p>
+<hr>
+<p>
+
+<!-- EXERCISE 8 -->
+<a href="javascript:Answer('Exercise8')"><b><font color="BB2222">Exercise 8:</font></b></a><font color="BB2222"> Modify <a href="javascript:Display('$CLA/main13.cc')">main13.cc</a>
+to "generate 100 random real numbers ....." 25 times. Display the maximum length 
+for each of the 25 runs, and calculate and print the average of the maximum 
+lengths for the 25 times. If you were implementing the queue as an array, what 
+size array would you feel comfortable using? Turn in a script file showing the 
+new code and a run. </font></p>
+<p>
+<br>&nbsp;</p>
+&nbsp;<center>
+<h5>
+----- End of Lab 13 - Queues -----<br>
+Complete the Exercises on the <a href="javascript:AnswerWindow('lab13/lab13')">Answer Sheet</a>.&nbsp;<br>
+Turn in the Answer Sheet and the printouts required by the exercises.</h5></center>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<!-- RETURN LINK -->
+<center><a href="#top">Return to the top of this lab</a>
+<br><a href="../index.html">Return to the link page for all 2170 labs</a></center>
+
+</body>
+</html>

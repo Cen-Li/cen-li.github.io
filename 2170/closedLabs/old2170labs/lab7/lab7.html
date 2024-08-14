@@ -1,0 +1,1002 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0056)http://www.cs.mtsu.edu/~cs2170/manual/lab7/lab7.html#top -->
+<HTML><HEAD><TITLE>CSCI 2170 Lab 7 - C++ Classes Continued</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META content="Brad Rudnik" name=Author>
+<META content="MSHTML 6.00.6001.18248" name=GENERATOR>
+<META content="CSCI 2170 - Closed Lab 7 - Lesson Page." name=Description><!-- load the Javascript source file -------------------------------->
+<SCRIPT 
+src="../windows.js">
+document.write("Included JS file not found");
+</SCRIPT>
+<!-- load the style sheet -------------------------------------------><LINK 
+title=styles 
+href="../styles.css" 
+type=text/css rel=stylesheet>
+<style type="text/css">
+.style1 {
+	color: green;
+}
+</style>
+</HEAD>
+<BODY 
+background=lab7.gif><A 
+name=top></A>
+<CENTER>
+<H1>CSCI 2170 LAB 7<BR>C++ Classes Continued</H1></CENTER>
+<TABLE cols=2 width="95%">
+  <TBODY>
+  <TR>
+    <TD width="70%">
+      <DL>
+        <DT><B>Objectives:</B> 
+        <DD><B>To introduce additional features of the C++ class <BR>To 
+        introduce overloading of C++ functions <BR>To introduce overloaded 
+        functions <BR>To introduce overloaded operators</B></DD></DL></TD>
+    <TD><FONT size=4>
+      <CENTER><A href="javascript:AnswerWindow('lab7/lab7')">CREATE ANSWER SHEET 
+      for LAB 7</A></CENTER></FONT></TD></TR></TBODY></TABLE><!--File access for browsers without javascript capabilities--><NOSCRIPT>
+<BLOCKQUOTE>
+  <BLOCKQUOTE><B>For those of you without Javascript capabilities these links 
+    will provide access to the additional files needed to complete this lab. 
+    They are set to open a new browser window if your browser supports this 
+    feature.</B> 
+    <CENTER><B><A href="http://www.cs.mtsu.edu/~cs2170/manual/lab7/lab7Ans.html" 
+    target=_new>Answer Sheet</A></B></CENTER></BLOCKQUOTE></BLOCKQUOTE></NOSCRIPT>
+<P>In this laboratory assignment we will consider the following: 
+<BLOCKQUOTE>A.&nbsp; <A 
+  href="http://www.cs.mtsu.edu/~cs2170/manual/lab7/lab7.html#A">Review of C++ 
+  Class Construct</A> <BR>B.&nbsp; <A 
+  href="http://www.cs.mtsu.edu/~cs2170/manual/lab7/lab7.html#B">Using C++ 
+  Constructors</A> <BR>C.&nbsp; <A 
+  href="http://www.cs.mtsu.edu/~cs2170/manual/lab7/lab7.html#C">Overloaded 
+  Functions</A> <BR>D.&nbsp; <A 
+  href="http://www.cs.mtsu.edu/~cs2170/manual/lab7/lab7.html#D">Overloading 
+  Constructors in a C++ Class</A> <BR>E.&nbsp; <A 
+  href="http://www.cs.mtsu.edu/~cs2170/manual/lab7/lab7.html#E">Overloaded 
+  Operators</A><br>
+  F.&nbsp;&nbsp;<a href="http://www.cs.mtsu.edu/~cs2170/manual/lab7/lab7.html#F">Accessors and Mutators</a><br>
+  G.&nbsp;&nbsp;<a href="http://www.cs.mtsu.edu/~cs2170/manual/lab7/lab7.html#G">Array of Objects</a> <br></BLOCKQUOTE><!-- Blank Space --><BR>&nbsp; <!-- PART A ------>
+<CENTER>
+<H3><A name=A></A>A. Review</H3></CENTER>
+<P>In Lab 6, we introduced the <A 
+href="javascript:Display('../lab6/lab6.html#C')">C++ class</A> construct which 
+is used to define an object.&nbsp; The general form of the <B>class 
+specification section</B> could be set up as follows: 
+<BLOCKQUOTE>
+  <BLOCKQUOTE id=box><B><FONT size=3><PRE>class SomeClass
+{
+public:
+       //Data members and methods (function prototypes) are
+       //included in this section to provide the public interface
+       //of the object (the data and operations
+       //which are needed to use the object effectively)
+       .
+       .
+       .
+private:
+       //This section contains data members and methods
+       //which can only be accessed by members of the class.
+       .
+       .
+};
+<PRE></FONT>
+</B></PRE></PRE></BLOCKQUOTE></BLOCKQUOTE>
+<P>We also saw that the <B>implementation section</B> for the class contains 
+implementations for methods of the class.&nbsp; Short methods can be 
+completely defined&nbsp; in the class specification.&nbsp; However, it is 
+usually considered better if the class specification is precisely that -- the 
+specification of the class.&nbsp; The actual implementation of the class should 
+be contained in a separate implementation file.&nbsp; We learned in Lab 6 to 
+declare an instance of the class as follows: 
+<BLOCKQUOTE><B><FONT size=3><PRE>SomeClass object1;</PRE></FONT></B></BLOCKQUOTE>
+<H5>NOTE: For each of the following exercises, indicate answers on the <A 
+href="javascript:AnswerWindow('lab7/lab7')">answer sheet.</A></H5><!--EXERCISE 1 ----->
+<HR>
+
+<DL>
+  <DT><A href="javascript:Answer('Exercise1')"><FONT color=#bb2222><B>Exercise 
+  1:</B></FONT></A><FONT color=#bb2222> <BR>A. The public section of the class 
+  specification contains the data members and methods that provide the 
+  ________________ of the object. <BR>B. Given the following specification: <PRE><B>
+     class LoanClass
+     {
+          1:
+               void printRate();
+               float payoff();
+               void schedule();
+               void LoanSettings (char t, float r, int m);
+          2:
+               char type;
+               float rate;
+               int months;
+               float simplePayment();
+               float compoundPayment();
+     };
+</B></PRE><BR>the numbers 1 and 2 are place holders. What should they be 
+  replaced by if the main program cannot access the data member months? 
+  <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A. specification and 
+  implementation <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B. object and 
+  declaration <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C. public and 
+  private <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D. declaration and 
+  prototype <BR><BR>C. Given a variable <B>loan</B> of type <B>LoanClass</B>, 
+	write a call to the method <B>printRate()</B>. <BR><BR><BR>D. The private section of the class definition contains the data 
+	members 
+  and methods which can only be accessed by _________________ of the 
+  class. <BR><BR><BR>E.&nbsp;&nbsp;&nbsp; (T/F) Given the following class 
+  specification: 
+  </FONT><FONT color=#bb2222>
+	<BLOCKQUOTE>
+		<B>
+		<PRE>class LoanClass
+{
+ public:
+        void printRate();
+        float payoff();
+        void schedule();
+        void LoanSettings(char t, float r, int m);
+ private:
+        char type;
+        float rate;
+        int months;
+        float simplePayment();
+        float compoundPayment();
+};
+</PRE>
+		</B>
+	</BLOCKQUOTE>
+	the main function of the program can make a call to 
+  simplePayment() for any LoanClass instance. </FONT><HR>
+<!--PART B -------->
+  <CENTER>
+	<H3><A name=B></A>B. Constructors</H3>
+	</CENTER>
+	<P>With that brief review, we will introduce some addititonal features of the 
+  C++ class.&nbsp; Consider the <I>Clock</I> class which we discussed in Lab 
+  6.&nbsp; If we wished to declare a <I>Clock</I> object and then initialize the 
+  data members in the object, we would first have to declare the object: 
+  <BLOCKQUOTE>
+	<BLOCKQUOTE>
+		<B><FONT size=3>
+		<PRE>Clock yourClock;</PRE>
+		</FONT></B>
+	</BLOCKQUOTE>
+	</BLOCKQUOTE>
+	The 
+  <B>Clock</B> object, <B>yourClock</B>,&nbsp; could now be initialized by 
+  calling the <B>setClock() </B>member function.&nbsp; Initializing 
+  <B>yourClock</B>&nbsp; to the time 10:15:00 am could be accomplished as 
+  follows: 
+  <BLOCKQUOTE>
+	<BLOCKQUOTE>
+		<B><FONT size=3>
+		<PRE>yourClock.setClock (10,15,0,&quot;AM&quot;);</PRE>
+		</FONT></B>
+	</BLOCKQUOTE>
+	</BLOCKQUOTE>
+	<P>There is nothing wrong with this method of declaring and initializing an 
+  object.&nbsp; However, there is a more convenient way to initialize the data 
+  members of an object when defining the object.&nbsp; C++ includes special 
+  provisions for such initializations.&nbsp; When a class is defined, a special 
+  member function called a <B>constructor</B> can be used.&nbsp; A 
+  <B><I>constructor</I></B> is a member function that is automatically called 
+  when an object of that class is declared.&nbsp; A constructor may be used to 
+  initialize the values of data members and to do any other initialization that 
+  may be needed. 
+  <P>For example, consider the <I>ifstream</I> class.&nbsp; When we declare an 
+  input file stream as: 
+  <BLOCKQUOTE>
+	<BLOCKQUOTE>
+		<B><FONT size=3>
+		<PRE>ifstream ins;</PRE>
+		</FONT></B>
+	</BLOCKQUOTE>
+	</BLOCKQUOTE>
+	an instance of 
+  the <I>ifstream</I> class is created.&nbsp; The statement 
+  <BLOCKQUOTE>
+	<BLOCKQUOTE>
+		<B><FONT size=3>
+		<PRE>ins.open ("myfile.dat");</PRE>
+		</FONT></B>
+	</BLOCKQUOTE>
+	</BLOCKQUOTE>
+	is a 
+  call to the member function "open" which connects the input file stream <B>ins</B> 
+  to the file "myfile.dat".&nbsp; The following shows an alternate way to 
+  declare an input file stream <B><I>and</I></B> to open the stream at declaration 
+  time: 
+  <BLOCKQUOTE>
+	<B><FONT size=3>
+	<PRE>ifstream ins("myfile.dat");</PRE>
+	</FONT></B>
+	</BLOCKQUOTE>
+	<BLOCKQUOTE>
+	</BLOCKQUOTE>
+	This second form of declaration and initialization 
+  uses a "constructor" of the class <I>ifstream</I>. 
+  <P>Suppose we wish to declare an instance of a Clock <B><I>and</I></B> 
+  initialize the Clock to the time 10:15:00 am at declaration time.&nbsp; If we 
+  had an appropriate constructor, we could type: 
+  <BLOCKQUOTE>
+	<BLOCKQUOTE>
+		<B><FONT size=3>
+		<PRE>Clock yourClock (10,15,0,&quot;AM&quot;);</PRE>
+		</FONT></B>
+	</BLOCKQUOTE>
+	</BLOCKQUOTE>
+	<P>We now need to learn how to define a constructor (a special method) to allow us to use the above statement.&nbsp; A constructor is 
+  defined the same way as other member functions, except for two rules: 
+  <OL>
+	<LI>A constructor must have the same name as the class.&nbsp; For example, 
+    for the Clock class, any constructor for this class must be named 
+    Clock().&nbsp; Similarly for the Loan class, any constructor must be named 
+    Loan(). 
+    <LI>A constructor is a function which cannot return a value.&nbsp; Thus no 
+    type, not even void, can be given at the start of the method or 
+    in the function header. </LI>
+	</OL>
+	<P>Let us consider a modified version of the Clock class declaration: 
+  <BLOCKQUOTE>
+	<BLOCKQUOTE id=box>
+		<B><FONT size=3>
+		<PRE>class Clock
+{
+public:
+     //function prototypes of member functions (methods)
+     //in the public interface
+     
+     //class constructor which initializes the clock to
+     //h hours, m minutes, s seconds and meridian (am or pm).
+     <span class="style1">Clock(int h, int m, int s, atring mer);</span>
+
+     //Set the clock to the specified time
+     void setClock (int h, int m, int s, string mer);
+
+     //Display the time in standard notation
+     void displayStandard();
+
+     //Display the time in military notation
+     void displayMilitary();
+
+private:
+     //declarations of data members that are private
+     int hr,           //an hour in the range 1 - 12
+         min,          //a minute in the range 0 - 59
+         sec,          //a second in the range 0 - 59
+     string meridian;  //is the time&nbsp; AM (0) or PM (1)
+};
+</PRE>
+		</FONT></B>
+	</BLOCKQUOTE>
+	</BLOCKQUOTE>
+	<P>Note that the name of the constructor is <B><I>Clock()</I></B>, the same as 
+  the name of the class.&nbsp; Also note that the prototype for the constructor 
+  	<B>Clock</B> does not start with void or with any other type.&nbsp; Finally 
+  note that the constructor is placed in the public section of the class 
+  specification.&nbsp; Normally, you should make your constructors public methods so all clients may access the constructor. 
+  <P>With the redefined Clock class, two objects of type Clock can be declared 
+  <B>and</B> initialized as follows: 
+  <BLOCKQUOTE>
+	<BLOCKQUOTE>
+		<B><FONT size=3>
+		<PRE>Clock yourClock (10, 15, 0, &quot;AM&quot;);</PRE>
+		</FONT></B><BR>
+		<B><FONT size=3>
+		<PRE>Clock myClock (1, 30, 45, &quot;PM&quot;);</PRE>
+		</FONT></B>
+	</BLOCKQUOTE>
+	</BLOCKQUOTE>
+	Assuming 
+  that the implementation of the constructor performs the initializing actions 
+  promised, the declaration above would declare <I>yourClock</I> to have the 
+  time 10:15:00 am and <I>myClock</I> to have the time 1:30:45 pm. 
+  <P>The implementation of a constructor is given in the same way as any other 
+  method.&nbsp; The implementation of the Clock constructor would 
+  appear as follows: 
+  <BLOCKQUOTE>
+	<BLOCKQUOTE id=box>
+		<B><FONT size=3>
+		<PRE>//Class constructor which initializes the clock to
+//h hours, m minutes, s seconds and am or pm.
+Clock::Clock(int h, int m, int s, string mer)
+{
+     //hr, min, sec, and ampm are declared in the private 
+     //section of the class
+     hr = h;
+     min = m;
+     sec = s;
+     meridian = mer;
+}
+</PRE>
+		</FONT></B>
+	</BLOCKQUOTE>
+	</BLOCKQUOTE>
+	<P>Since the class and the constructor have the same name, the name 
+  	<B>Clock</B> occurs twice in the function heading.&nbsp; The <I>Clock 
+  </I><B>before</B> the scope resolution operator<B> ::</B> is the <B>name of 
+  the class</B> and
+	<I>Clock</I> <B>after</B> the scope resolution operator 
+  is the <B>name of the constructor function</B>.&nbsp; Note that there is no 
+  return type specified in the function heading. 
+  <p>In our clock example, the constructor has parameters to allow the hours, minutes, seconds,
+  and meridian to be set.  A constructor does not have to have any parameters.  If the constructor
+  has no parameters, it is called the <b>default constructor</b>. Often a default constructor is provided
+  to set the data members to default values.  The implementation for a default constructor for the clock class might look like:</p>
+  <BLOCKQUOTE>
+	<BLOCKQUOTE id=box>
+		<B><FONT size=3>
+		<PRE>
+		//The default  constructor sets the time on the clock
+		//to 12:00:00 am
+		Clock::Clock()
+		{
+			hr = 12;
+			min = 0;
+			sec = 0;
+			meridian = "AM"
+		}
+		</PRE>
+		</FONT></B>
+	</BLOCKQUOTE>
+	</BLOCKQUOTE>
+
+<p>To create an instance of the Clock class using the default constructor, the following statement might appear
+in a main program:</p>
+<BLOCKQUOTE>
+	<BLOCKQUOTE>
+		<B><FONT size=3>
+		<PRE>Clock myClock;
+				</PRE>
+		</FONT></B>
+	</BLOCKQUOTE>
+	</BLOCKQUOTE>
+
+<p>Notice that there are no parenthesis after myClock to indicate that a function with no arguments is
+being called.&nbsp;&nbsp; Just remember that this is how the default constructor 
+is activated.&nbsp; </p>		
+
+		 <!--EXERCISE 2 ----->
+  <HR><A href="javascript:Answer('Exercise2')"><FONT color=#bb2222><B>Exercise 
+  2:</B></FONT></A> <FONT color=#bb2222><BR>
+	A.  A constructor must have the same 
+  name as the ___________. <BR>
+	B.  What is the type of a constructor? 
+  <BLOCKQUOTE>
+	<BR>
+	A. There is no type <BR>
+	B. void <BR>
+	C. Bool because it 
+    returns true or false based on whether or not the initialization was 
+    successful. <BR>
+	D. The type is dependent upon the actual class. 
+  </BLOCKQUOTE>
+	<BR>
+	C. Given the following class specification, write the code 
+  necessary to declare and initialize an object "loan" of LoanClass such that 
+  "loan" is a simple loan ('S') with a .0675 rate and 36 months. 
+	<PRE><B>
+     class LoanClass
+     {
+          public:
+              LoanClass(char t, float r, int m);
+              void printRate();
+              float payoff();
+              void schedule();
+          private:
+              char type;
+              float rate;
+              int months;
+              float simplePayment();
+              float compoundPayment();
+     };
+</B></PRE>
+  <DT><A href="javascript:Answer('Exercise3')"><FONT color=#bb2222><B>Exercise 
+  3:</B></FONT></A>
+<br>
+	Load the files <A 
+  href="javascript:Display('$CLA/storeClassa.h')">storeClassa.h</A>, 
+	<A 
+  href="javascript:Display('$CLA/storeClassa.cc')">storeClassa.cc</A>, and 
+	<A 
+  href="javascript:Display('$CLA/inlab7a.cc')">inlab7a.cc</A> to your account. 
+  These files contain the specification and implementation of a class containing 
+  information about a store. Examine each of the files carefully to make sure 
+  you understand the code. Add a function prototype to storeClassa.h for the 
+  default constructor (remember, the default constructor receives no parameters). The
+  default constructor should set the number of tables and chairs to 0 and the store's name
+  to the empty string. 
+  To inlab7a.cc, add a declaration for an object 
+  <B>store1</B> of type StoreClass. Turn in a script containing a cat of 
+  storeClassa.h, a cat of inlab7a.cc, a compile, and three runs of the programs 
+  using <A href="javascript:Display('$CLA/ex3_data.0')">ex3_data.0</A>, 
+	<A 
+  href="javascript:Display('$CLA/ex3_data.1')">ex3_data.1</A>, and 
+	<A 
+  href="javascript:Display('$CLA/ex3.data.2')">ex3_data.2</A> as data files 
+  containing store data. You will need to copy these data files to your account. 
+
+  <HR><A href="javascript:Answer('Exercise4')"><FONT color=#b2222><B>Exercise 
+  4:</B></FONT></A> <FONT color=#b2222><BR>
+	A.&nbsp;&nbsp;&nbsp; The constructor 
+  is normally a __________________. 
+  <BLOCKQUOTE>
+	A. public member function <BR>
+	B. private member function <BR>
+	C. 
+    public data member <BR>
+	D. private data member 
+  </BLOCKQUOTE>
+	<BR>
+	B.&nbsp;&nbsp;&nbsp;&nbsp; A constructor is used to 
+  ____________________ an object when the object is declared. </FONT></FONT><HR>
+	<P>Constructors will be considered again after we discuss a feature of C++ 
+  which allows a function to have multiple definitions. 
+  <!-- Blank Space --><BR>
+	&nbsp; <BR>
+	&nbsp; <BR>
+	&nbsp; <!--PART C -------->
+  <CENTER>
+	<H3><A name=C></A>C. Overloaded Functions</H3>
+	</CENTER>
+	<P>In the English language, a word may have more than one meaning.&nbsp; We 
+  determine the meaning of a word by considering the context in which the word 
+  appears.&nbsp; For example, the word <B>string</B> has two meanings -- an 
+  object possibly made from twine which might be used to tie around another 
+  object or (in computer science) just a sequence of characters.&nbsp; We have 
+  no problem determining which meaning is intended when we consider the 
+  following sentences: 
+  <DL>
+	<DD>Tie the <B><I>string</I></B> around the package so it can be 
+    mailed.<BR>
+	A <B><I>string</I></B> would be used to represent a word in a 
+    dictionary. </DD>
+	</DL>
+	<P>Similarly, functions may have more than one meaning in C++.&nbsp; When this 
+  is the case, we say we have an <B>overloaded</B> function.&nbsp; Thus, the 
+  same function name may be defined more than once with different formal 
+  parameters. 
+  <P>In C++, we can overload functions and operators by providing multiple 
+  definitions for the function or operator. The compiler determines which 
+  definition is intended by the context in which the function or operator 
+  occurs.&nbsp; Suppose we wished to have two meanings for a function called 
+  <B>ave () </B>which would average numbers and we provide the following 
+  definitions: 
+  <BLOCKQUOTE>
+	<BLOCKQUOTE>
+		<B><FONT size=3>
+		<PRE>//Find the average of two integers
+float ave (int a, int b)
+{
+     return float (a+b)/2.0;
+}
+</PRE>
+		</FONT></B>
+	</BLOCKQUOTE>
+	</BLOCKQUOTE>
+	and 
+  <BLOCKQUOTE>
+	<BLOCKQUOTE>
+		<B><FONT size=3>
+		<PRE>//Find the average of an array of n integers
+float ave (int a[], int n)
+{
+     int sum = 0;
+     for (int i = 0; i &lt; n; i++)
+          sum += a[i];
+     return float (sum) / n;
+}
+</PRE>
+		</FONT></B>
+	</BLOCKQUOTE>
+	</BLOCKQUOTE>
+	The main function might have the 
+  following statements 
+  <BLOCKQUOTE>
+	<BLOCKQUOTE>
+		<B><FONT size=3>
+		<PRE>int a = 2, b = 3;
+int x[5] = {10, 20, 30, 40, 50};
+cout &lt;&lt; "The average of 2 and 3 is " &lt;&lt; <I>ave (a, b)</I>
+     &lt;&lt; endl;
+cout &lt;&lt; "The average of the integers 10, 20, 30, 40,"
+     &lt;&lt; " 50 is" &lt;&lt; <I>ave (x, 5)</I> &lt;&lt; endl;
+</PRE>
+		</FONT></B>
+	</BLOCKQUOTE>
+	</BLOCKQUOTE>
+	<P>As you can see the meaning of the function <B><I>ave()</I></B> is 
+  completely determined by the context (what arguments are sent to the 
+  function).&nbsp; This property of functions with multiple meanings is called 
+  	<B>overloading</B>.&nbsp; Overloading is an example of <B>polymorphism</B>, a 
+  term derived from a Greek word meaning <I>"many forms"</I>.&nbsp; The use of 
+  the same function name to mean different things is called polymorphism.&nbsp; 
+  We will see that polymorphism is very important in defining objects. <!--EXERCISE 5 ---->
+  <HR><A href="javascript:Answer('Exercise5')"><FONT color=#bb2222><B>Exercise 
+  5:</B></FONT></A> <FONT color=#bb2222><BR>
+	A. (T/F) The following is an example 
+  of the use of an overloaded function. 
+	<PRE><B>
+        int a = 10, b = 6;
+        int x[4] = {5, 6, 7, 8};
+        cout &lt;&lt; sum(a, b) &lt;&lt; endl;
+        cout &lt;&lt; sum(x, 4) &lt;&lt; endl;
+</B></PRE>
+	B. Which of the following determines which definition of an 
+  overloaded function is intended based on the context? 
+  <BLOCKQUOTE>
+	A. The user <BR>
+	B. The compiler <BR>
+	C. The linker <BR>
+	D. The 
+    processor 
+	</BLOCKQUOTE>
+	<BR>
+	C. Which of the following represent situations 
+  where function overloading could be used? 
+  <BLOCKQUOTE>
+	A. The program must add 3 numbers. It must also add 3 arrays. 
+    <BR>
+	B. The program must multiply two arrays. It must also add two arrays. 
+    <BR>
+	C. A and B <BR>
+	D. None of the above 
+	</BLOCKQUOTE>
+  <DT><A href="javascript:Answer('Exercise6')"><FONT color=#bb2222><B>Exercise 
+  6:</B></FONT></A>
+<br>
+	Load the files <A 
+  href="javascript:Display('$CLA/storeClassb.h')">storeClassb.h</A>, 
+	<A 
+  href="javascript:Display('$CLA/storeClassb.cc')">storeClassb.cc</A>, and 
+	<A 
+  href="javascript:Display('$CLA/inlab7b.cc')">inlab7b.cc</A> to your account. 
+  These files contain essentially the same definition for the store class as was 
+  used in Exercise 3. The implementation file contains overloaded 
+  implementations of the printStore() method. Add function prototypes to the 
+  storeClassb.h file for each of these overloaded methods. In inlab7b.cc, read 
+  the comments and add activations for each of these methods as described in the 
+  comments. Turn in a script containing a cat of storeClassb.h, inlab7b.cc, a 
+  compile, and a run. Note: For this program to compile and run, you should have 
+  copied the data file ex3_data.0 to your account. 
+  <HR><A href="javascript:Answer('Exercise7')"><FONT color=#bb2222><B>Exercise 
+  7:</B></FONT></A> <FONT color=#b2222><BR>
+	A.&nbsp;&nbsp;&nbsp; Overloading is 
+  an example of ___________________, a term derived from a Greek work meaning 
+  "many forms". <BR>
+	B.&nbsp;&nbsp;&nbsp; (T/F) The meaning of a function that 
+  is overloaded is completely determined by the context (i.e., what statements 
+  are around the function call). </FONT></FONT><HR>
+<!-- Blank Space --><BR>
+	&nbsp; <BR>
+	&nbsp; <BR>
+	&nbsp; 
+  <CENTER>
+	<H3><A name=D></A>D.&nbsp; Overloading Constructors in a C++ 
+  Class</H3>
+	</CENTER>
+	<P>A constructor is called automatically when an object is declared.&nbsp; In 
+  Lab 6, the Clock class and the Date class did not include a constructor.&nbsp; 
+  When a class does not include a constructor, the compiler automatically 
+  creates a default constructor for the class and leaves the data members 
+	uninitialized.&nbsp; Thus when the statement 
+  <BLOCKQUOTE>
+	<BLOCKQUOTE>
+		<B><FONT size=3>
+		<PRE>Date christmas;</PRE>
+		</FONT></B>
+	</BLOCKQUOTE>
+	</BLOCKQUOTE>
+	was used, the compiler provided a default constructor. 
+  <P>Using constructors is an all or nothing situation.&nbsp; If the class 
+  contains a constructor, then every time an object of that type is declared, 
+  C++ looks for an appropriate constructor definition in the class.&nbsp; Thus 
+  the following declaration would be illegal for the modified Clock class that 
+	did not contain the default constructor but did contain a different 
+	constructor: 
+  <BLOCKQUOTE>
+	<BLOCKQUOTE>
+		<FONT color=#ff0000 size=3>
+		<PRE><strong>Clock newClock;     //ILLEGAL declaration</strong><B>
+</PRE>
+		</B>
+		</FONT>
+	</BLOCKQUOTE>
+	</BLOCKQUOTE>
+	<P>The reason this statement is illegal is that since&nbsp; the Clock class 
+  contains a constructor, the compiler will not create a default 
+  constructor.&nbsp; Instead the Clock class is searched for a constructor which 
+  requires no arguments.&nbsp; Since the class only has one constructor which 
+  requires four arguments, this is an illegal declaration.&nbsp;&nbsp; To allow 
+  a statement such as the one above, a constructor must be added (an overloaded 
+  function) which requires no arguments. 
+  <P>A constructor with no arguments is called a <B>default</B> constructor 
+  because it applies in the default case when an object is declared without 
+  specifying any arguments.&nbsp; Since it is likely that an object will be 
+  declared without giving any arguments, a default constructor should <B>almost 
+  always</B> be included with the class.&nbsp; The default constructor for the 
+  Clock class might be: 
+  <BLOCKQUOTE>
+	<BLOCKQUOTE>
+		<B><FONT size=3>
+		<PRE>Clock::Clock ()
+{}
+</PRE>
+		</FONT></B>
+	</BLOCKQUOTE>
+	</BLOCKQUOTE>
+	<P>Notice that this default constructor does nothing.&nbsp;&nbsp; All data 
+  values are left uninitialized.&nbsp; In some cases, the default constructor 
+  would be used to initialize appropriate data members to default values.&nbsp; 
+  If the overloaded constructor above were added to the Clock class and the 
+  statement: 
+  <BLOCKQUOTE>
+	<BLOCKQUOTE>
+		<B><FONT size=3>
+		<PRE>Clock newClock;</PRE>
+		</FONT></B>
+	</BLOCKQUOTE>
+	</BLOCKQUOTE>
+	appeared in a 
+  C++ program, it would be a legal statement and the default constructor would 
+  be called.&nbsp; In summary, two points can be made about supplying default 
+  constructors: 
+  <OL>
+	<LI>If a class defines no constructor at all, then a default constructor 
+    that does nothing is automatically supplied. 
+    <LI>If a class defines any constructor, then the default constructor is not 
+    automatically supplied.&nbsp; If a default constructor is needed, an 
+    appropriate one <B>must</B> be given explicitly. </LI>
+	</OL>
+	<P>As a second example of using overloaded constructors in a class definition, 
+  suppose we wished to have a default constructor to set the time of a 
+  <I>Clock</I> object to 12:00 am so that any of the following declarations 
+  would work. 
+  <BLOCKQUOTE>
+	<PRE><B>
+Clock myClock(10, 15, 0, &quot;PM&quot;);
+Clock yourClock;
+</B></PRE>
+	</BLOCKQUOTE>
+	<P>The default constructor would now be: 
+  <BLOCKQUOTE>
+	<PRE><B>
+//Class constructor which initializes the clock to
+//12:00 am.
+Clock::Clock()
+{
+    hr = 12;
+    min = 0;
+    sec = 0;
+    meridian = &quot;am&quot;;
+}
+</B></PRE>
+	</BLOCKQUOTE>
+	<P>It should be noted that you <B>cannot</B> have two default constructors. <!--EXERCISE 8 ----->
+  <HR><A href="javascript:Answer('Exercise8')"><FONT color=#bb2222><B>Exercise 
+  8:</B></FONT></A><FONT color=#bb2222> <BR>
+	A.&nbsp;&nbsp;&nbsp;A constructor 
+  with no arguments is called a __________________ constructor. 
+  <BR>
+	<BR>
+	B.&nbsp;&nbsp;&nbsp;(T/F) A class must explicitly define a constructor 
+  in order for objects of that type to be declared. 
+  <BR>
+	<BR>
+	C.&nbsp;&nbsp;&nbsp;Write the function <B>heading</B> for a default 
+  constructor for the "Book" class. 
+  <DT><A href="javascript:Answer('Exercise9')"><FONT color=#bb2222><B>Exercise 
+  9:</B></FONT></A>
+<br>
+	Load the files <A 
+  href="javascript:Display('$CLA/storeClassc.h')">storeClassc.h</A>, 
+	<A 
+  href="javascript:Display('$CLA/storeClassc.cc')">storeClassc.cc</A>, and 
+	<A 
+  href="javascript:Display('$CLA/inlab7c.cc')">inlab7c.cc</A> to your account. 
+  These files contain essentially the same definition for the store class as was 
+  used in Exercise 3. Add a new constructor to the class. The constructor should 
+  receive a string containing the name of the file with the store data. Add this 
+  constructor to the header file and to the implementation file. Note: This 
+  constructor can just call the method readFile() to read data from the file. 
+  Turn in a script containing a cat of storeClassc.h, storeClassc.cc, a compile, 
+  and a run. 
+  <HR><A href="javascript:Answer('Exercise10')"><FONT color=#bb2222><B>Exercise 
+  10:</B></FONT></A><FONT color=#bb2222> <BR>
+	A. &nbsp;&nbsp;&nbsp;(T/F) It is 
+  possible to have two default constructors in a class definition. <BR>
+	<BR>
+	B. 
+  &nbsp;&nbsp;&nbsp;Define a default constructor for the "Book" class (as it 
+  appears in the implementation file) that leaves all data values uninitialized. 
+  </FONT></FONT><HR>
+<!-- Blank Space --><BR>
+	&nbsp; <BR>
+	&nbsp; <BR>
+	&nbsp; 
+  <CENTER>
+	<H3><A name=E></A>E.&nbsp; Overloaded Operators</H3>
+	</CENTER>
+	<P>Not only can functions be overloaded but operators, such as <B>==</B>, 
+  <B>!=</B>, <B>+</B>, etc., can also be overloaded.&nbsp; In fact this feature 
+  has been used anytime the <B>same</B> operator is used for 
+  <B><I>different</I></B> types.&nbsp; For example: 
+  <BLOCKQUOTE>
+	<BLOCKQUOTE>
+		<B><FONT size=3>
+		<PRE>int num1, num2;
+Clock clock1, clock2;
+
+//assume that the integer num2 and the Clock clock2 have
+//been initialized
+
+//first use of the operator "=" between integer operands
+num1 = num2;
+
+//second use of the operator "=" between Clock operands
+clock1 = clock2;
+</PRE>
+		</FONT></B>
+	</BLOCKQUOTE>
+	</BLOCKQUOTE>
+	<P>The operator "=" is used twice -- once between two integers and once 
+  between two Clock objects.&nbsp; The operator is used to replace the integer 
+  	<I>num1</I> by the integer <I>num2</I> in the first instance.&nbsp; In the 
+  second instance, the <I>hr</I>, <I>min</I>, <I>sec</I>, and <I>meridian</I> data 
+  in <I>clock1</I> is replaced by the <I>hr</I>, <I>min</I>, <I>sec</I> and 
+  <I>meridian</I> data of&nbsp; <I>clock2</I>. 
+  <P>We might also wish to overload other operators such as <B>!=</B>, 
+  <B>&lt;</B>, <B>&gt;</B> so that we could do the following for example: 
+  <BLOCKQUOTE>
+	<BLOCKQUOTE>
+		<B><FONT size=3>
+		<PRE>Clock yourClock, myClock;
+.
+.
+.
+if (yourClock != myClock)
+     cout &lt;&lt; "Your clock is wrong.\n";
+</PRE>
+		</FONT></B>
+	</BLOCKQUOTE>
+	</BLOCKQUOTE>
+	<P>We cannot use the operator <B>!=</B> between two Clock objects without 
+  first defining what this would mean.&nbsp; C++ does provide a default 
+  definition of the operator <B>=</B> but does not provide a definition for 
+  other operators.&nbsp; When the operator = is used between two objects of a 
+  class, C++ copies the data members of the class on the right of the = to the 
+  class on the left. 
+  <P>C++ considers an operator to be a function, so an operator can be 
+  overloaded also.&nbsp; Overloading an operator, such as !=, is very similar to 
+  overloading a function.&nbsp; To overload the != operator, the following 
+  function prototype would be included in the Clock specification section. 
+  <BLOCKQUOTE>
+	<BLOCKQUOTE>
+		<B><FONT size=3>
+		<PRE>bool operator != (Clock rhs);</PRE>
+		</FONT></B>
+	</BLOCKQUOTE>
+	</BLOCKQUOTE>
+	<P>As can be seen, an operator function named "<B><I>operator</I></B> <I>op</I>" overloads the operator 
+	<I>op</I>.&nbsp; Thus the function 
+  <B><I>operator !=(&nbsp;)</I></B> overloads the operator <B><I>!=</I></B>, the 
+  function <B><I>operator &lt; (&nbsp;)</I></B> would overload the operator 
+  <B><I>&lt;</I></B> and so on.&nbsp; There are some restrictions: 
+  <UL>
+	<LI>At least one argument which is used as an operand must be of a 
+    user-defined type because the meaning of an operator for built-in types 
+    cannot be changed. 
+    <LI>The number of arguments (used as operands) for an operator cannot be 
+    changed.&nbsp; When we consider the operator &lt;, it has two arguments used 
+    as operands because the usage is "lhs &lt; rhs". </LI>
+	</UL>
+	<P>The implementation of the function operator != for the Clock class follows 
+  below: 
+  <BLOCKQUOTE>
+	<BLOCKQUOTE id=box>
+		<B><FONT size=3>
+		<PRE>bool Clock::operator != (Clock rhs)
+{
+     bool notequal = false;
+
+     //hr, min, sec, meridian are private data members of the lhs clock
+     if ((hr != rhs.hr)||(min != rhs.min)||(sec != rhs.sec)||(meridian != rhs.meridian))
+          notequal = true;
+     return notequal;
+}
+</PRE>
+		</FONT></B>
+	</BLOCKQUOTE>
+	</BLOCKQUOTE>
+	<p>Now if this overloaded operator were used to compare two instances
+	of the clock class as below, myClock would be passed to the method above as an actual argument
+	to the method.  The object yourClock would be passed the message to compare itself with the 
+	argument to the right of the !=.  </p>
+	  <BLOCKQUOTE>
+	<BLOCKQUOTE>
+		<B><FONT size=3>
+		<PRE>Clock yourClock, myClock;
+.
+.
+.
+if (yourClock != myClock)
+     cout &lt;&lt; "Your clock is wrong.\n";
+</PRE>
+		</FONT></B>
+	</BLOCKQUOTE>
+	</BLOCKQUOTE>
+
+	<!--EXERCISE 11 ----->
+  <HR><A href="javascript:Answer('Exercise11')"><FONT color=#bb2222><B>Exercise 
+  11:</B></FONT></A> <FONT color=#bb2222><BR>
+	A.&nbsp;&nbsp;&nbsp;(T/F) The C++ compiler automatically  
+  provides overloaded definitions for the = operator. 
+  <BR>
+	B.&nbsp;&nbsp;&nbsp;(T/F) It is possible to change the meaning of the + 
+  operator for variables of type float. <BR>
+	C.&nbsp;&nbsp;&nbsp;Write the 
+  function heading of an overloaded * operator that multiplies two objects of 
+  the myArray class (the usage would be lhs * rhs) and returns a value of type 
+  myArray. <!--EXERCISE 12 ------>
+  <HR><A href="javascript:Answer('Exercise12')"><FONT color=#bb2222><B>Exercise 
+  12:</B></FONT></A> <BR>
+	Load the files <A 
+  href="javascript:Display('$CLA/storeClassd.h')">storeClassd.h</A>, 
+	<A 
+  href="javascript:Display('$CLA/storeClassd.cc')">storeClassd.cc</A>, and 
+	<A 
+  href="javascript:Display('$CLA/inlab7d.cc')">inlab7d.cc</A> to your account. 
+  These files contain essentially the same definition for the store class as was 
+  used in Exercise 3. Add an overloaded == method to the class. This overloaded 
+  operator should return true if the names of the stores are the same and false 
+  otherwise. Copy the data files 
+	<A 
+  href="javascript:Display('$CLA/ex12_data.0')">ex12_data.0</A>, 
+	<A 
+  href="javascript:Display('$CLA/ex12_data.1')">ex12_data.1</A>, and 
+	<A 
+  href="javascript:Display('$CLA/ex12_data.2')">ex12_data.2</A> to your account. 
+  Turn in a script containing a cat of storeClassd.h, storeClassd.cc, a compile, 
+  and a run. 
+  <HR><A href="javascript:Answer('Exercise13')"><FONT color=#bb2222><B>Exercise 
+  13:</B></FONT></A> <BR>
+	A. &nbsp;&nbsp;&nbsp;Write the heading of 
+  the function operator == for the Clock class (the usage is lhs == rhs). 
+<BR>
+	B. 
+  &nbsp;&nbsp;&nbsp;(T/F) We can overload the + operator to add three user 
+  defined matrices. </FONT><HR>
+<!-- Blank Space --><BR>
+  <CENTER>
+	<H3><A name=F></A>F.&nbsp; Accessors and Mutators</H3>
+	</CENTER>
+
+<p>Suppose we have a Book class defined
+as follows:</p>
+	  <BLOCKQUOTE>
+	<BLOCKQUOTE>
+		<B><FONT size=3>
+		<PRE>
+class Book
+{
+private:
+	string title;       //the title of the book
+	string author;      //the author of the book
+	string ISBN;        //the ISBN number for the book
+public:
+    //the default constructor
+    Book();
+    
+    //an overloaded constructor receiving all data members as arguments
+    Book(string title, string author, string ISBN);
+    
+    //gets (accessors) and sets (mutators) to allow a client to
+    //have access to each data member and to allow the client to
+    //modify each data member.
+    void setAuthor(string a);
+    string getAuthor();
+    void setTitle(string t);
+    string getTitle();
+    void setISBN (string i);
+    string getISBN ();
+    
+    //prints all of the data members of a book
+    void print();
+};
+    </PRE>
+		</FONT></B>
+	</BLOCKQUOTE>
+	</BLOCKQUOTE>
+
+<p>We have introduced two new types of methods in the book class above.  The first is a 
+<strong>get</strong> or <strong>accessor </strong>method.
+An accessor method allows the client access to an individual data member.
+The second is a <strong>set</strong> or <strong>mutator </strong>method.  A mutator allows the client to change a data member within reason.
+The Book class has ultimate control over what is placed into a data member.  For example, in the mutator for the
+ISBN number, the Book class 
+might check to see if the ISBN number is a valid number before assigning it to
+the data member.  </p>
+
+<HR><A href="javascript:Answer('Exercise14')"><FONT color=#bb2222><B>Exercise 
+  14:</B></FONT></A> <BR>
+<FONT color=#bb2222>A. Write the function prototype for a mutator for the Clock class that would set the hours
+in a clock object to the value of the parameter passed to the method.<br>
+B. Write the function implementation for the mutator defined in A.  The mutator should contain code to determine
+whether the value of the parameter is an acceptable value.  Otherwise, set the clock's hour to 12.<br>
+C.  Write the function prototype for an accessor for the clock Class that would return the data member for
+hours to the calling program.<br></font><hr>
+  <CENTER>
+	<H3><A name=G></A>G.&nbsp; Array of Objects</H3>
+	</CENTER>
+
+	<p>A client must often work with an array of objects.&nbsp; For example suppose that a client is working with an array of books as follows:</p>
+	  <BLOCKQUOTE>
+	<BLOCKQUOTE>
+		<B><FONT size=3>
+		<PRE>
+Book arrayOfBooks[10];
+    </PRE>
+		</FONT></B>
+	</BLOCKQUOTE>
+	</BLOCKQUOTE>
+<p>When this array of books is created, the default constructor is activated for all 10 Book objects that are
+in the array.  Thus the class must have a default constructor or the compiler must provide one.</p>
+<p>If the client wished to read the array of books, it might be read using the code below:</p>
+	  <BLOCKQUOTE>
+	<BLOCKQUOTE>
+		<B><FONT size=3>
+		<PRE>
+string author, title, ISBN;
+
+//read the data for 10 books
+for (int i = 0; i &lt; 10; i++)
+{
+	cout &lt;&lt; &quot;Please enter the author, title, and ISBN for book &quot; &lt;&lt; i  &lt;&lt; endl;
+	
+	//read the author, title, and ISBN -- these might contain spaces so use getline
+	getline (cout, author);
+	getline (cout, title);
+	getline (cout, ISBN);
+	
+	//put the author, title, and ISBN into the ith book object
+	arrayOfBooks[i].setAuthor(author);
+	arrayOfBooks[i].setTitle(title);
+	arrayOfBooks[i].setISBN(ISBN);
+}
+	 
+    </PRE>
+		</FONT></B>
+	</BLOCKQUOTE>
+	</BLOCKQUOTE>
+
+<p>Notice in the code above that using an array of objects is similar to using an array of structs.  The
+index in the array appears first so that the compiler can determine which object is to be used.  Next
+the method that is being used with that object appears.  If we wanted to set the title of the 0th book in
+the array to "The Firm"  then we would use the notation <pre>arrayOfBooks[0].setTitle("The Firm");</pre></P>
+
+<HR><A href="javascript:Answer('Exercise15')"><FONT color=#bb2222><B>Exercise 
+  15:</B></FONT></A> <BR>
+  <FONT color=#bb2222>Write code that might be placed in a client to print all of the books in 
+  the array, arrayOfBooks.</font>
+	&nbsp; <BR><hr>
+	&nbsp; 
+  <CENTER>
+	<H5>----- End of Lab 7 - C++ Classes Continued -----<BR>
+	Complete the Exercises 
+  on the <A href="javascript:AnswerWindow('lab7/lab7')">Answer Sheet</A>. 
+  <BR>
+	Turn in the Answer Sheet and the printouts required by the 
+  exercises.</H5>
+	</CENTER><!-- Blank Space --><BR>
+	&nbsp; <BR>
+	&nbsp; <BR>
+	&nbsp; <!--RETURN LINK --->
+  <CENTER>
+	<A 
+  href="http://www.cs.mtsu.edu/~cs2170/manual/lab7/lab7.html#top">Return to the 
+  top of this lab</A> <BR>
+	<A 
+  href="http://www.cs.mtsu.edu/~cs2170/manual/index.html">Return to the link 
+  page for all 2170 labs</A></CENTER><!--counter -->
+
+</BODY></HTML>

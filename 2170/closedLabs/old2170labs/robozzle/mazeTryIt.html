@@ -1,0 +1,78 @@
+To familiarize yourself with executing a Karel program,
+try running the <B>maze</B> executable located in <B>$PUB</B>.
+Issue the command
+&nbsp; &nbsp; 
+%&nbsp;<FONT FACE=Verdana COLOR=blue><B>$PUB/maze&nbsp;$PUB/maze.wor</B></FONT>
+<BR>
+(Remember, do NOT enter the percent sign as part of your command.
+It is meant to represent the prompt provided by the system.)
+If all went well, you should have a screen that looks
+something like the following:
+<CENTER>
+<IMG SRC="/~untch/karel/images/MazeExample.jpg"             ALT ="maze">
+</CENTER>
+
+When a Karel program executes successfully, it creates a report file.
+Assuming the <B>maze</B> program execution was successful above,
+issuing the following command
+&nbsp; &nbsp; 
+%&nbsp;<FONT FACE=Verdana COLOR=blue><B>cat&nbsp;maze.wor.rpt</B></FONT>
+&nbsp; &nbsp; 
+will display the report file on your monitor.  It should look like this:
+<FONT SIZE="-1" COLOR="brown">
+<PRE>
+>> maze.wor.rpt: Run Maze (Classroom Example)
+ (File: /users/faculty7/untch/public_html/1170/public/maze.wor)
+
+>>Initial Situation:
+ CORNER  FACING  BEEP-BAG
+ (1, 1)  EAST        0
+>>Final Situation:  
+ CORNER  FACING  BEEP-BAG  BEEP-CORNER  [Run Maze (Classroom Example)         ]
+ (7, 6)  WEST        0         1
+ST.+-----------------------------------------------------------------------+
+ 9 | .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   . |
+   |       +-------------------+-------+                                   |
+ 8 | .   . | .   .   >   >   V | .   . | .   .   .   .   .   .   .   .   . |
+   +-------+           +----   |       |                                   |
+ 7 | .   . | .   >   ^ | <   <   .   . | .   .   .   .   .   .   .   .   . |
+   +-------+       +---+---+-----------+                                   |
+ 6 | >   V   >   ^ | V   < | V   <   < | .   .   .   .   .   .   .   .   . |
+   |   |       +---+       |           |                                   |
+ 5 | ^ | V   ^ | V   >   V | >   V   ^ | .   .   .   .   .   .   .   .   . |
+   |   |       |       |   |   |       |                                   |
+ 4 | ^ | >   ^ | >   ^ | V   ^ | V   ^ | .   .   .   .   .   .   .   .   . |
+   |   +-------+---+   |       |       |                                   |
+ 3 | ^ | V   <   < | ^ | >   ^ | >   V | .   .   .   .   .   .   .   .   . |
+   |   |           |   +-------+----   |                                   |
+ 2 | ^   <   >   ^ | ^ | V   <   <   < | .   .   .   .   .   .   .   .   . |
+   +--------   ----+---+           ----+                                   |
+ 1 | >   >   ^   <   <   <   >   ^   < | .   .   .   .   .   .   .   .   . |
+   +-----------------------------------+-----------------------------------+
+     1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18 AVE.
+
+>>Primitive Execution Counts:
+ TurnOn:       1
+ TurnOff:      1
+ Move:        75
+ TurnLeft:    94
+ PickBeeper:   0
+ PutBeeper:    0
+ TOTAL:      171
+
+>>Trace/Debug &lt;Version 6.0.5/UNIX (Build $Revision: 6.5 $/vt100)&gt; Data:
+ @EEEEEEEET TWTTTNTTTE TNNNNTWWTS STTTWTTTNN TWTSTTTWTS TETTTSSTTN NNTTTETTTS
+ STETNNTTTE TTTSSTETTT STTTWWWTST TTWWWTTTNT TTETNTWWTS TTTWTTTNNN NTTTETTTSS
+ TETNNTTTET NTTTETNTTT EETTTSTTTW $
+
+ TC = 9417  11 140 120 60 0 20  7009475.117  (7,6,W) [B0,C1], -0 +0 (1)
+
+</PRE>
+</FONT>
+
+<P>
+Don't worry about interpreting this report for now.
+Although you can probably figure out some of it on your own,
+the report format will be described to you later.
+For now, the important thing is that you are able to access the report.
+

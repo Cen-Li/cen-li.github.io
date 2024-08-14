@@ -1,0 +1,60 @@
+
+void PlayGame(string word) 
+{
+    ItemType item;
+    List gameBoard;
+    List lettersGuessed;
+
+    for (int i=0; i<word.length(); i++)  {
+        item.value  = word[i];
+        item.show = false;
+
+        gameBoard.Insert(item);
+    }
+
+    for (int i=0; i<26; i++)  {
+        item.value = char('a' + i);
+        item.show = false;
+
+        lettersGuessed.Insert(item);
+    }
+
+
+    ...
+}
+
+// data in gameBoard object is modified by the function
+// gameBoard should be passed by reference
+bool ModifyLetter(char guess, List& gameBoard)
+{
+    ...
+}
+
+bool DuplicateCheck(char guess, List lettersGuessed)
+{
+    ItemType item;
+
+    lettersGuessed.ResetList();
+    int count = 0;
+    while (count < lettersGuessed.GetLength())  {
+        item = letters.GetNextItem();
+        if (item.value == guess && item.show)
+            return true;
+        count ++;
+    }
+
+    return false;
+}
+
+
+// The following is to be in list.cpp
+
+void List::Modify(ItemType item)
+{
+    for (int i=0; i<length; i++)
+    {
+        if (data[i].value == item.value)
+            data[i].show = true;
+    }
+}
+

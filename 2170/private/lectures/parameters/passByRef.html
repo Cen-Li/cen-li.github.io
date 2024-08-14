@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Parameter passing by reference</title>
+    <link rel="stylesheet" type="text/css" href="passbyRef.css">
+    <link href="prism.css" rel="stylesheet"/>
+    <script src="prism.js"></script>
+</head>
+<script id="vertex-shader" type="x-shader/x-vertex">
+//Declare a attribut variable of vec4
+attribute vec4 vPosition;
+void main() {
+    gl_Position = vPosition;
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+//Declare a uniform variable of vec4
+precision mediump float;
+uniform vec4 u_FragColor;
+void main() {
+    gl_FragColor = u_FragColor;    
+}
+</script>
+
+<script type="text/javascript" src="webgl-utils.js"></script>
+<script type="text/javascript" src="initShaders.js"></script>
+<script type="text/javascript" src="MV.js"></script>
+<script type="text/javascript" src="passByRef.js"></script>
+</head>
+
+<body onload="main()">
+	<div class="Row">
+		<div class="container">
+			<canvas id="gl-canvas" width="512" height="512">Parameter passing by reference--Xi Chen</canvas>
+			<canvas id="text" width="512" height="512"></canvas>
+		</div>
+		<div class="codeBody">
+			<pre class="line-numbers">
+				<code class="language-cpp">
+void Exchange(int &amp;, int &amp;);
+
+int main()
+{
+	int  num1=3, num2=5;
+
+	count&lt;&lt;num1&lt;&lt;"\t"&lt;&lt;num2&lt;&lt;endl;
+
+	Exchange(num1, num2);
+
+	count&lt;&lt;num1&lt;&lt;"\t"&lt;&lt;num2&lt;&lt;endl;
+
+	return 0;
+}
+
+void Exchange(int &amp; number1, int &amp; number2)
+{
+	int temp;
+
+	temp = number1;
+	number1 = number2;
+	number2 = temp;
+
+	return;
+}
+		</code>
+		</pre>
+		</div>
+	</div>
+	<div class="info">
+		<ul>
+			<li>Please submit two numbers first.</li>
+			<li>Use 'n' or 'N' to continue</li>
+		</ul>
+		<form id="paraForm" name="paraForm">
+			<div>
+				Num1: <input type="text" id="num1Val" name="num1Val" value=3><br><br>
+				Num2: <input type="text" id="num2Val" name="num2Val" value=5><br><br>
+				<input type="button" id="cmdSubmit" value="Submit">
+			</div>
+		</form>
+	</div>
+</body>
+</html>

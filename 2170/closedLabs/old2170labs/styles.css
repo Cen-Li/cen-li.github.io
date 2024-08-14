@@ -1,0 +1,63 @@
+/*   file name: styles.css
+
+     purpose: style sheet for the 217 Lab Manual 
+
+     by: Brad Rudnik   May 1999
+
+  This sheet only adds minor elements to standard HTML tags. If it
+  fails to load the default browser settings will be used and
+  the page display will not be disrupted in any other way. 
+
+  To use this style this line should be included in the head of the page:
+
+  <LINK rel="stylesheet" type="text/css" href="../styles.css" title="styles">
+
+*/
+
+
+
+body {  /* set bgcolor close to that of .gif used */
+        background-color: #E4E4E4; 
+	font-family: Arial, Helvetica, sans-serif; /* main text font */
+	color: black;                              /* main text color */
+	
+	
+     }
+
+p {	line-height: 120%; /* slightly over single spaced */
+	text-indent: 20pt; /* indent 1st line of each new paragraph */
+
+  }
+
+/* used on answer sheet exercise headings */
+h2 {	font-family: Arial Black, Helvetica, sans-serif;
+	font-variant: small-caps;
+	color: red;
+   }
+
+/* used on lesson section headings */
+h3 {	font-family: Arial Black, Helvetica, sans-serif;
+	font-style: italic;
+	color: #919191;
+   }
+
+/* used for lesson exercises */
+h5 {
+	font-size: 10pt;
+   }
+
+/* place box around lesson source code samples */
+#box {	padding: 10pt;
+	border: 2pt;
+	border-style: solid;
+	border-color: silver;
+     }
+
+/* set link colors */
+A:link { color: blue } 
+A:visited { color: purple }
+A:active { color: red } 
+A:hover { color: red }
+
+
+/* END of FILE */

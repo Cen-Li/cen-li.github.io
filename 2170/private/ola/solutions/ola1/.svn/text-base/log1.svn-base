@@ -1,0 +1,383 @@
+Script started on Wed 02 Feb 2011 07:03:35 PM CST
+$ pr -n -t -e4 hangman.cpp
+    1	//// PROGRAMMER:    Joo Kim
+    2	// Assignment:      Open Lab Assignment 1
+    3	// Class:           CSCI 2170-003
+    4	// Course Instructor: Dr. Cen Li
+    5	// Due Date:        Wednesday, 2/2/2011
+    6	// Description:     This program plays the game hangman
+    7	//                  Input is in the form of data file and it contains
+    8	//                  and it contains the word bank.
+    9	//                  Program output is the record of the game play.
+   10	
+   11	#include<iostream>
+   12	#include<fstream>
+   13	#include<cassert>
+   14	#include<cstdlib>
+   15	#include<string.h>
+   16	using namespace std;
+   17	
+   18	const int MAX_NUM_OF_WORDS = 200;       //maximum number of words
+   19	const int MAX_WORD_SIZE = 80;           //maximum size of a word
+   20	
+   21	//Function Read_Text to read the words from a file into the words[][] array
+   22	void ReadText(ifstream &, char[][MAX_WORD_SIZE], int&);
+   23	//This function randomly select one word from the list
+   24	void SelectWord(char[][MAX_WORD_SIZE], char[MAX_WORD_SIZE], int );
+   25	//This function plays the game, input is the randomly selected word
+   26	void PlayGame(char[]);
+   27	//This function prompts the player for a guess
+   28	char GetGuess();
+   29	//This function looks to see if the player has made a duplicate guess
+   30	bool DupGuess(char, bool[]);
+   31	//This function displays the player's guesses so far.
+   32	bool CorrectGuess(char[], char[], char);
+   33	//This function displays the content of the word.
+   34	void DisplayWord(const char[]);
+   35	//This function displays the player's guesses so far.
+   36	void DisplayGuesses(const bool[]);
+   37	//This function determines whether or not the player has won the gam
+   38	bool CheckWon(const char[], const char[]);
+   39	
+   40	int main()
+   41	{
+   42	   // declare 2 -dimensional array for the words in the data file
+   43	   char words[MAX_NUM_OF_WORDS][MAX_WORD_SIZE];
+   44	
+   45	   int  numOfWords;                     // counts the number of words
+   46	   char selectedWord[MAX_WORD_SIZE];    // holds the randomly selected word
+   47	   char again;                          // gets y/n depending if the player wants to play again
+   48	
+   49	   // open external file
+   50	   ifstream infile;
+   51	   infile.open("words.dat");
+   52	
+   53	   assert(infile);
+   54	
+   55	   ReadText(infile, words, numOfWords);
+   56	
+   57	   // close external file
+   58	   infile.close();
+   59	
+   60	   //This do-while loop executes the game at least once
+   61	   //and then plays again if the player's answer is y(es).
+   62	   do
+   63	   {
+   64	       SelectWord(words, selectedWord, numOfWords);
+   65	       PlayGame(selectedWord);
+   66	       cout << "Would you like to play again? (y/n)" << endl;
+   67	       cin >> again;
+   68	       cout << endl;
+   69	   }while(again=='y');
+   70	
+   71	   return 0;
+   72	}
+   73	
+   74	//Function Read_Text to read the words from a file into the words[][] array
+   75	void ReadText(ifstream & infile,
+   76	               char words[][MAX_WORD_SIZE],
+   77	               int& numOfLines)
+   78	{
+   79	   int position;        //position
+   80	
+   81	   numOfLines = 0;
+   82	
+   83	   //This while loop reads the words from a data file
+   84	   while(infile.peek() != EOF)
+   85	   {
+   86	      position = 0;
+   87	      while((infile.peek() != '\n') && (infile.peek() != EOF))
+   88	      {
+   89	         infile.get(words[numOfLines][position++]);
+   90	      }
+   91	      infile.ignore(100, '\n');
+   92	      words[numOfLines][position]='\0';
+   93	      numOfLines++;
+   94	   }
+   95	}
+   96	
+   97	//This function randomly select one word from the list
+   98	void SelectWord(char words[][MAX_WORD_SIZE], char selectedWord[], int numOfWords)
+   99	{
+  100	    int randomChoice;       //holds the random number
+  101	
+  102	    srand(time(0));
+  103	    randomChoice = rand() % numOfWords;
+  104	
+  105	    strcpy(selectedWord, words[randomChoice]);
+  106	}
+  107	
+  108	//This function plays the game, input is the randomly selected word
+  109	void PlayGame(char selectedWord[])
+  110	{
+  111	    bool win=false;             //stores the value true(has won) or false(has not won yet)
+  112	    int badGuess=6;             //bad guess counter
+  113	    char guess;                 //char variable stores a player's guess
+  114	    bool alphabets[26]={false}; //boolean array for checking the duplicate guess
+  115	    int i;                      //for loop initializer
+  116	    //char array stores the player's game board
+  117	    char gameBoard[MAX_WORD_SIZE];
+  118	
+  119	    cout << "H A N G M A N" << endl << "-------------" << endl;
+  120	
+  121	    //This for loop initalizes all of the elements in gameBoard array to *
+  122	    for(i=0; i<strlen(selectedWord); i++)
+  123	        gameBoard[i]='*';
+  124	
+  125	    //This while loop gets the guess, check if the guess is correct or not.
+  126	    //loop continues as long as the player has not lost or win
+  127	    while(!win && badGuess>0)
+  128	    {
+  129	        //This for loop displays the content of the game board
+  130	        //after each guess.
+  131	        for(i=0; i<strlen(selectedWord); i++)
+  132	            cout << gameBoard[i] << " ";
+  133	        cout << endl;
+  134	        
+  135	        guess=GetGuess();
+  136	
+  137	        //This while loop prints the error message if the guess is duplicated
+  138	        while(DupGuess(guess, alphabets))
+  139	        {
+  140	            cerr << "You have already guessed that letter. Please try another." << endl << endl;
+  141	            guess=GetGuess();
+  142	        }
+  143	
+  144	        //This conditional statements checks if the guess is correct or not
+  145	        if(CorrectGuess(gameBoard, selectedWord, guess))
+  146	        {
+  147	            for(i=0; i<strlen(selectedWord); i++)
+  148	            {
+  149	                cout << gameBoard[i] << " ";
+  150	            }
+  151	            cout << endl << endl;
+  152	            cout << "Good Guess! KeepGoing" << endl;
+  153	        }
+  154	        else
+  155	        {
+  156	            badGuess--;
+  157	            cout << "Sorry, bad guess! You have " << badGuess
+  158	                    << " bad guesses left." << endl;
+  159	        }
+  160	        DisplayGuesses(alphabets);
+  161	        win=CheckWon(selectedWord, gameBoard);
+  162	    }
+  163	
+  164	    //This branch checks and prints either the player has won or lsot
+  165	    if(win)
+  166	    {
+  167	        cout << "Congratulations! You won." << endl;
+  168	    }
+  169	    else
+  170	    {
+  171	        cout << "Sorry, you lose." << endl << "The word was "; 
+  172	        DisplayWord(selectedWord);
+  173	        cout << "." << endl;
+  174	    }
+  175	}
+  176	
+  177	//This function prompts the player for a guess
+  178	char GetGuess()
+  179	{
+  180	    char input;         //stores the player's guess
+  181	
+  182	    cout << "You may guess any letter from a to z." << endl;
+  183	    cout << "Please enter your guess: ";
+  184	    cin >> input;
+  185	    cout << endl;
+  186	
+  187	    //This while loop checks if the guess is a lower-case letter
+  188	    while(input<'a' || input>'z')
+  189	    {
+  190	        cerr << "Your guess is invalid. Please try another." << endl;
+  191	        cout << "Please enter your guess: ";
+  192	        cin >> input;
+  193	    }
+  194	
+  195	    return input;
+  196	}
+  197	
+  198	//This function looks to see if the player has made a duplicate guess
+  199	bool DupGuess(char guess, bool alphabets[])
+  200	{
+  201	    //if the array element is true, then it is a duplicate guess
+  202	    if(alphabets[guess-'a'])
+  203	        return true;
+  204	    //if the array element is false, then it is a valid guess
+  205	    else
+  206	    {
+  207	        alphabets[guess-'a']=true;
+  208	        return false;
+  209	    }
+  210	}
+  211	
+  212	//This function checks whether the player's guess is correct
+  213	bool CorrectGuess(char gameBoard[], char selectedWord[], char guessedLetter)
+  214	{
+  215	    int index;          //for loop initializer
+  216	    bool check=false;   //stores the value true(correct) or false(incorrect)
+  217	
+  218	    //This for loop checks if the guessed letter is correct or not
+  219	    //boolean variable is to check if there are two or more guess letters
+  220	    //in the word
+  221	    for(index=0; index<strlen(selectedWord); index++)
+  222	    {
+  223	        //Find if any element matches the guess letter
+  224	        if(selectedWord[index]==guessedLetter)
+  225	        {
+  226	            gameBoard[index]=guessedLetter;
+  227	            check=true;
+  228	        }
+  229	    }
+  230	
+  231	    //if check is true, it means the guess is correct
+  232	    if(check)
+  233	        return true;
+  234	    else
+  235	        return false;
+  236	}
+  237	
+  238	//This function displays the content of the word.
+  239	void DisplayWord(const char word[])
+  240	{
+  241	    int i;          //for loop initializer
+  242	
+  243	    //This for loop prints the elements in the word
+  244	    for(i=0; i<strlen(word); i++)
+  245	        cout << word[i];
+  246	}
+  247	
+  248	//This function displays the player's guesses so far.
+  249	void DisplayGuesses(const bool letters[])
+  250	{
+  251	    int i;          //for loop initializer
+  252	    char letter;    //stores the guessed letter
+  253	
+  254	    cout << "Letters guessed so far" << endl;
+  255	
+  256	    //This for loop checks and prints the guessed letters so far
+  257	    for(i=0; i<26; i++)
+  258	    {
+  259	        //if the letter has been guessed, then it prints that letter
+  260	        if(letters[i])
+  261	        {
+  262	            letter=i+'a';
+  263	            cout << letter << " ";
+  264	        }
+  265	    }
+  266	
+  267	    cout << endl << endl;
+  268	}
+  269	
+  270	//This function determines whether or not the player has won the game
+  271	bool CheckWon(const char word[], const char board[])
+  272	{
+  273	    int i;      //for loop initializer
+  274	
+  275	    //This for loop checks if every elements in the selected word and
+  276	    //the player's game board matches
+  277	    //If every elements match, then the player has won.
+  278	    for(i=0; i<strlen(word); i++)
+  279	    {
+  280	        //if at least one element does not match, then the player has not won yet.
+  281	        if(word[i]!=board[i])
+  282	            return false;
+  283	    }
+  284	    return true;
+  285	}
+$ aCC hangman.cpp
+$ a.out
+H A N G M A N
+-------------
+* * * * * * * * * 
+You may guess any letter from a to z.
+Please enter your guess: a
+
+* a * * * * a * * 
+
+Good Guess! KeepGoing
+Letters guessed so far
+a 
+
+* a * * * * a * * 
+You may guess any letter from a to z.
+Please enter your guess: e
+
+* a * * * * a * e 
+
+Good Guess! KeepGoing
+Letters guessed so far
+a e 
+
+* a * * * * a * e 
+You may guess any letter from a to z.
+Please enter your guess: i
+
+Sorry, bad guess! You have 5 bad guesses left.
+Letters guessed so far
+a e i 
+
+* a * * * * a * e 
+You may guess any letter from a to z.
+Please enter your guess: o
+
+Sorry, bad guess! You have 4 bad guesses left.
+Letters guessed so far
+a e i o 
+
+* a * * * * a * e 
+You may guess any letter from a to z.
+Please enter your guess: a
+
+You have already guessed that letter. Please try another.
+
+You may guess any letter from a to z.
+Please enter your guess: m
+
+Sorry, bad guess! You have 3 bad guesses left.
+Letters guessed so far
+a e i m o 
+
+* a * * * * a * e 
+You may guess any letter from a to z.
+Please enter your guess: n
+
+Sorry, bad guess! You have 2 bad guesses left.
+Letters guessed so far
+a e i m n o 
+
+* a * * * * a * e 
+You may guess any letter from a to z.
+Please enter your guess: t
+
+* a * * * * a t e 
+
+Good Guess! KeepGoing
+Letters guessed so far
+a e i m n o t 
+
+* a * * * * a t e 
+You may guess any letter from a to z.
+Please enter your guess: f
+
+Sorry, bad guess! You have 1 bad guesses left.
+Letters guessed so far
+a e f i m n o t 
+
+* a * * * * a t e 
+You may guess any letter from a to z.
+Please enter your guess: p
+
+Sorry, bad guess! You have 0 bad guesses left.
+Letters guessed so far
+a e f i m n o p t 
+
+Sorry, you lose.
+The word was calculate.
+Would you like to play again? (y/n)
+n
+
+$ exit
+exit
+
+Script done on Wed 02 Feb 2011 07:04:06 PM CST

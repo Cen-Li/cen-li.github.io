@@ -1,0 +1,371 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="Author" content="Tom Cheatham">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en]C-AtHome0405  (Win95; U) [Netscape]">
+   <title>CSCI 2170 Lab D - Software Testing</title>
+
+<!-- load the Javascript source file -->
+<script type="text/javascript" src="../windows.js">
+document.write("Included JS file not found");
+</script>
+
+<!-- load the style sheet -->
+<link rel="stylesheet" type="text/css" href="../styles.css" title="styles">
+
+</head>
+<body background="labD.gif"><a NAME="top"></a>
+
+<center>
+<h1>
+CSCI 2170 LAB D<br>
+Software Testing</h1></center>
+
+<table width="95%" >
+<tr>
+<td width="70%">
+<dl>
+<dt><b>Objectives:</b></dt>
+<dd><b>
+To define/describe software testing<br>
+To learn about unit testing - structural testing<br>
+To learn about unit testing - black box testing
+</b></dd></dl>
+</td>
+
+<td>
+<center><font size="+1"><a href="javascript:AnswerWindow('labD/labD')">CREATE
+ANSWER SHEET for LAB D</a></font></center>
+</td>
+</tr>
+</table>
+
+<!--File access for browsers without javascript capabilities-->
+<noscript>
+<blockquote>
+<blockquote><b>The lab requires Javascript capabilities.
+You may continue without it, but some features may be missing.
+</b>
+</blockquote></blockquote>
+</noscript>
+
+<p>In this laboratory assignment we will consider the following:
+<blockquote>A.&nbsp; <a href="#A">What is software testing?</a>
+<br>B.&nbsp; <a href="#B">Unit Testing: Structural Testing</a>
+<br>C.&nbsp; <a href="#C">Unit Testing: Black Box Testing</a>
+</blockquote>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<!-- PART A ------>
+<center>
+<h3>
+<a NAME="A"></a>A. Introduction</h3></center>
+<p>A <a href="javascript:Display('../labA/labA.html')">previous lab</a> dealt
+with debugging, the process of "localizing, analyzing, and removing" errors
+in a program. In this lab, we will again examine errors, but we will examine
+them from a different perspective. We will not be concerned with removing
+errors but with attempting to show that errors exist. <i>Software Testing</i>
+is the process of showing that there are errors in a software system. But,
+as Professor Edsger Dijkstra says, "Testing can never show the absence of
+errors, only that there are errors. Software testing should span the entire
+life-cycle of a software system from analysis through maintenance." The
+focus in this lab will be on the formal testing methods that are used after
+implementation to show that the system has errors (bugs).
+<p>Testing is a critical part of quality software development. Inadequate
+testing embarrassed NASA when the Hubble Space Telescope and Mars Observer
+failed to operate properly. Unfortunately, examples of poor testing are
+abundant.
+<p>There are several reasons for inadequate testing but NO EXCUSES.
+Often by the time the software is running, the project is so far behind
+schedule that there is little time for testing. Additionally, it is often
+the developer (programmer) who does the testing. No one wants to find errors
+in his or her own work. Besides, the programmer knows it works since he
+or she wrote it. Companies like Microsoft and NASA's Jet Propulsion Laboratory
+have separate independent <i>test groups</i>. The job of a group of testers
+is to show that software has errors. If they don't find errors, they fail.
+This attitude characterizes a good tester but this attitude is rarely found
+in a programmer testing his or her own code.
+<p>In the testing phase, there are several levels of testing: unit
+testing, subsystem testing, system testing, regression testing. We will
+emphasize unit testing in this lab.
+
+<br>&nbsp;
+<br>&nbsp;
+
+<!-- PART B -->
+<center>
+<h3>
+<a NAME="B"></a>B. Unit Testing: Structural Testing</h3></center>
+<p><b>Unit testing</b> (testing one function or procedure) is at the lowest
+level of the testing phase. Unit testing is usually done by the programmer
+who wrote the unit or module and makes use of the structure of the code.
+For example, consider the following example:
+<pre>
+        if (grossPay &lt; 30000.00)
+           action 1;
+        else
+           action 2;
+</pre>
+
+<p>To test this statement, the tester would input test data for grossPay less
+than 30000 and other test data for grossPay greater than 30000 and the
+boundary case grossPay = 30000. Because the tester can see the internal
+structure, such testing is called <b>structural testing</b>. It is also
+referred to as <b>white-box</b> (or <b>glass-box</b>) testing since the
+tester can see inside the unit (i.e., see the code). There are three types
+of structural or glass box testing: <b>statement</b>, <b>branch</b>, and
+<b>path coverage</b>.
+
+<p>In <b>statement coverage</b>, test cases are input that cause the execution
+of each statement in the unit. If some statement is not executed during
+testing, its reliability must be suspect. <b>Branch testing</b> is implemented
+by running test cases that exercise each branch of an "if" statement. Branch
+coverage is a stronger testing technique than statement coverage. In a
+procedure with one entry and one exit, branch coverage guarantees statement
+coverage.
+
+<p><b>Path testing</b> insures that all paths through the code are executed.
+A path is a list of instructions necessary to go from the entry to the
+exit statement in the unit. The main disadvantage of path testing is that
+a unit that contains loops may have an "infinite" number of paths. For
+example, once through the loop and out or twice through the loop and out,
+etc.
+<h5>
+NOTE: For each of the following exercises, indicate answers on the 
+<a href="javascript:AnswerWindow('labD/labD')">answer sheet.</a></h5>
+
+<!-- EXERCISE 1 -->
+<h5>
+<a href="javascript:Answer('Exercise1')">Exercise 1</a> : We want to decide
+what tests to run to test the following function using path coverage. In
+this example, branch and path testing are the same. First we should list
+the paths through this function. One path, for someone who had an ACT of
+17, for example would be:
+<p>lines 1-2-8
+<p>List the other two paths through the function on your answer sheet.</h5>
+<a NAME="function"></a>
+<pre>
+//Calculate and return the appropriate csci course to recommend
+//based on a student's ACT and math background. An ACT of less
+//than 18 or lack of Algebra II keeps a student from taking a csci
+//course and 0 is returned.
+
+int csci(int act,           // Student ACT score
+         int math)          // HS Math: 0 = noAlg, 1 = algl, 2 = alg2
+                            // Return csci course to take
+{
+     int take;
+
+     if ((act &lt; 18) &amp;&amp; (0 &lt; act))                   //line 1
+          take = 9;                                 //line 2
+     else                                           //line 3
+          if (math &lt; alg2)                          //line 4
+               take = 0;                            //line 5
+          else                                      //line 6
+               take = 117;                          //line 7
+
+     return take;                                   //line 8
+}
+</pre>
+
+<!-- EXERCISE 2 -->
+<h5>
+<a href="javascript:Answer('Exercise2')">Exercise 2</a> : Now determine
+values of ACT and math that would cause each of the 3 paths to be executed
+once. Fill in test case input and the expected "output" resulting from
+the input in the table on the answer sheet.</h5>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<p>Look at the previous <a href="#function">csci( ) function</a> and note that the input data
+ACT = 12 and math = 2 causes the execution of one PATH in the function
+(lines 1,2, and 8). The number of paths through a unit is determined by
+the control statements such as "if', "while", "do", "switch", and so on.
+To test a unit usually requires a test driver program. For example, to
+input the test data to the csci() function above would require another
+procedure or function (probably a small main program) to call the function
+and pass it the different values of the arguments. The output should be
+printed for the tester to inspect. The following is a simple test driver
+for the csci( ) function:&nbsp;
+<a NAME="driver"></a>
+<pre>
+// testCsci.cc : Test driver for csci function.
+
+#include &lt;iostream&gt;
+using namespace std;
+
+const int noalg=0;
+const int alg1=1;
+const int alg2=2;
+
+int csci(...) // code for csci function goes here
+{
+...
+}
+
+int main(void)
+{
+    int answer;
+    // First test case
+        cout &lt;&lt; "Test 1: act= " &lt;&lt; 18 &lt;&lt; " math = " &lt;&lt; 2;
+        answer = csci(18,2);
+        cout &lt;&lt; " csci = " &lt;&lt; answer;
+
+    // Second test case
+
+}
+</pre>
+
+<!-- EXERCISE 3 -->
+<h5>
+<a href="javascript:Answer('Exercise3')">Exercise 3</a> : What is 
+the output of the above program?
+</h5>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<p>As mentioned in the lab on debugging, many programming errors occur in
+conditional expressions. Values at the boundaries of conditionals should
+be tested. The boundary value of the conditional ACT &lt; 18 is 18. The
+boundary values for the loop "<i>for( i=0; i &lt; NumberStudents; i++)</i>"
+are <i>i = 0</i> and <i>i = NumberStudents</i>.
+
+<!-- EXERCISE 4 -->
+<h5>
+<a href="javascript:Answer('Exercise4')">Exercise 4</a> : In the 
+<a href="#function">csci( ) function</a>, give values for 3 boundary tests.
+<p>Boundary values may also include very small or very large values for the
+inputs. For example, in testing a program that reads a file, you should
+try a file with no data in it, a file with one item, and a very large file.
+</h5>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<!-- PART C -->
+<center>
+<h3>
+<a NAME="C"></a>C. Unit Testing: Black Box</h3></center>
+<p>Another type of testing is called black box testing. The tester cannot
+examine the structure of the code. The requirements of the program, input,
+and expected output are used to make the test cases. Black box testing
+focuses on functionality, or what the system should do. One type of black
+box testing is <b>input partitioning</b> or equivalence partitioning. Information
+about the input is used to divide the input domain into valid and invalid
+groups of input values. In the <a href="#function">csci( ) function</a>, 
+we could divide the <b>ACT</b> input values into: less than 0, the value 0, between 0 and 18, 
+the value 18, and greater than 18. We could divide the <b>math</b> input values into:
+less than 0, 0, 1, 2, and greater than 2.
+
+<p><b>InlabD</b> is a run-unit which is designed to calculate and
+print the two roots of a quadratic equation of the form
+<p>a x<sup>2</sup> + b x + c = 0
+<br><br>where a, b, and c are integers. The program will prompt for the
+values for a, b, and c. As you remember from mathematics, a formula called
+the quadratic equation calculates the two roots, if a is not 0:
+<dir>x1 = (-b + sqrt(b<sup>2</sup> - 4*a*c))/(2*a)
+<br>x2 = (-b - sqrt(b<sup>2</sup> - 4*a*c))/(2*a)</dir>
+
+<p>Let's test this run-unit using black-box techniques, but first think about
+values of a, b, and c that should be valid and invalid and values that
+yield different types of roots: repeated real, distinct real, and non-real(complex).
+
+<!-- EXERCISE 5 -->
+<h5>
+<a href="javascript:Answer('Exercise5')">Exercise 5</a>: Copy inlabD to
+your account and run this run-unit by typing
+&nbsp;
+<dir><i>ranger%</i> inlabD</dir>
+Please note that you are not given the source code so do not attempt to
+display this file on the screen. Enter values for a, b, and c during the
+run.<b>WARNING:</b>Input small values for a, b, and c so that you will be able to determine what the correct output should be!</h5>
+
+<!-- EXERCISE 6 -->
+<h5>
+<a href="javascript:Answer('Exercise6')">Exercise 6</a>: Use input partitioning
+to design 4 test cases. You are to choose valid and invalid values of a,
+b, and c. Be sure to use small values for a, b, and c.  Write your choices in the table on the answer sheet. Predict
+what the values of x1 and x2 will be and then fill in the "Expected Results".
+If you give values of a, b, and c that cause a runtime error you should
+write that under "Error Messages." The rest of the table will be filled
+in in Exercise 7.</h5>
+
+<!-- EXERCISE 7 -->
+<h5>
+<a href="javascript:Answer('Exercise6')">Exercise 7</a>: Run the program
+using the above test data and place the actual results in the table from
+<a href="javascript:Answer('Exercise6')">Exercise
+6</a>. Turn in a script file of your testing.</h5>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<p>When testing uncovers an error, someone, usually the programmer, must debug
+the software. Then, the system must be tested again. Research has shown
+that correcting an error introduces additional errors into the program
+20-40% of the time. That is, while fixing one error we create another error
+(or perhaps we don't fix the one already identified). Testing is never
+finished. Test drivers and test data should be kept so they can be rerun
+after debugging. This type of testing is called <b>regression testing</b>.
+
+<p>Imagine you wrote the software for an X-Ray machine that would administer
+radiation treatment to you. When would you stop testing? If a company tests
+too long, its competitors could announce a similar product and capture
+the market (you could lose your job). Determining how much testing is enough
+is a difficult task. Currently, much research is being conducted in this
+area of computing which is called <b>software reliability</b>.
+
+<!-- EXERCISE 8 -->
+<h5>
+<a href="javascript:Answer('Exercise8')">Exercise 8</a>: In the last part
+of this lab on testing, you should gain experience in testing a unit (actually
+a function). Copy the source file <a href="javascript:Display('$CLA/inlabDb.cc')">inlabDb.cc</a>
+to your account and after studying the code for the function which it contains,
+decide on the tests that should be run to adequately test 5 paths in the
+given function. Place your choices for test data and your expected results
+in the table in the answer sheet. Run the program using the test data chosen
+and record the actual results in the table. Turn in a script file containing
+the source file and the results from your test runs. If your actual results
+are different from the expected results then you found errors
+in the code.</h5>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<center>
+<h5>
+----- End of Lab D - Software Testing -----<br>
+Complete the Exercises on the <a href="javascript:AnswerWindow('labD/labD')">Answer Sheet</a>.&nbsp;<br>
+Turn in the Answer Sheet and the printouts required by the exercises.</h5></center>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<!-- RETURN LINK -->
+<center><a href="#top">Return to the top of this lab</a>
+<br><a href="../index.html">Return to the link page for all 2170 labs</a>
+</center>
+
+
+</body>
+</html>

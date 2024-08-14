@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+
+This closed lab will help you with your OLA 3 program. Write a list class client program "main.cc" as described below:
+<p>
+Part 1: Read in the list of words from the data file: words.dat. Then, randomly pick and display one word from the list of words.
+Make sure this part of the program works correctly before moving onto the second part.
+
+<p>
+Part 2:  Create a list of letters using the unsorted list ADT(list.h and list.cpp) from the course page.  The list of letters correspond to the letters appeared in the word randomly selected in part 1 of the lab. Each item in the list is a struct containing: <ol><li> the letter, and <li> a bool value indicating whether to display the letter or not. It should be initialized to false. </ol>
+Once the list is created, add code to allow the user to input two characters, one character actually appears in the selected word and the other does not appear in the word. 
+
+Write additional functions to: <ol><li> Display the content of the list, and <li> Determine whether the character entered by the user is in the word or not. Output messages accordingly. </ol>
+
+<p>
+The output of your program should be like the following:
+<br>
+<code>
+<pre>
+You have selected the word: stone
+
+Enter two characters: s a
+
+s is in the list
+a is not in the list
+</pre>
+</code>
+<p>
+
+To turn in your closed lab program, first create a script file by following the steps below:
+<code>
+<pre>
+script log
+cat main.cc
+aCC list.cpp main.cc
+a.out
+ -- the output of your program will appear here --
+exit
+
+ -- this will create the script log, then print the log file and turn in the printout. --
+<pre>
+<code>
+ 
+
+
+</body>
+</html>

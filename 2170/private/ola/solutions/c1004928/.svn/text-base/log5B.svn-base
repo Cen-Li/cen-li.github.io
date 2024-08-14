@@ -1,0 +1,646 @@
+Script started on Wed 06 Apr 2011 01:38:40 AM CDT
+$ pr -n -t -e4 sorted[KdListCk[Klass.h
+    1	#ifndef sortedListClass_h
+    2	#define sortedListClass_h
+    3	
+    4	#include <fstream>
+    5	#include <iostream>
+    6	using namespace std;
+    7	
+    8	//Struct that contains a flight record
+    9	struct flightRec
+   10	{
+   11	    string origCity;
+   12	    int flightNum;
+   13	    int cost;
+   14	    string destCity;
+   15	
+   16	    //Comparative operators
+   17	    bool operator < (const flightRec & rhs) const;
+   18	    bool operator == (const flightRec & rhs) const;
+   19	};
+   20	
+   21	//the Node's struct
+   22	struct Node
+   23	{
+   24	    flightRec info;
+   25	    Node* next;
+   26	};
+   27	
+   28	typedef Node* nodePtr;
+   29	
+   30	typedef flightRec listItemType;
+   31	
+   32	class sortedListClass
+   33	{
+   34	    public:
+   35	        sortedListClass();  //Default constructor
+   36	        sortedListClass(const sortedListClass& F);  //Copy Constructor
+   37	        ~sortedListClass(); //Destructor
+   38	    
+   39	        // overloaded operators:
+   40	        listItemType & operator [] (int);   // subscript operator
+   41	        sortedListClass& operator = (const sortedListClass& rhs);  // assignment operator
+   42	        bool operator == (const sortedListClass & rhs); // equal to operator
+   43	    
+   44	        //Inserts a flight record in ascending order by DESTINATION CITY
+   45	        void ListInsert(const listItemType& newItem, bool& success);
+   46	
+   47	        //Deletes a flight record with the same origin and destination cities
+   48	        void ListDelete(const listItemType& delItem, bool& success);
+   49	
+   50	        //Returns flight record with the provided origin and destination cities
+   51	        void ListRetrieve(listItemType& retinfo, bool& success);
+   52	
+   53	        //Print the entire list
+   54	        friend ostream& operator <<(ostream& os, const sortedListClass &  rhs);
+   55	
+   56	        //Returns the length of the list
+   57	        int getLength();
+   58	
+   59	        //returns whether the list is empty
+   60	        bool isEmpty();
+   61	    
+   62	    private:
+   63	        nodePtr Head;   //The beginning of the DLL
+   64	        int Size;   //Number of links
+   65	}; //end Class
+   66	
+   67	#endif
+$ pr -n -t -e4 sortedListClass.h[Kcpp
+    1	#include "sortedListClass.h"
+    2	
+    3	#include <cstddef>  //NULL
+    4	#include <cassert>  //assert()
+    5	#include <iomanip>
+    6	using namespace std;
+    7	
+    8	//Default constructor
+    9	sortedListClass::sortedListClass()
+   10	{
+   11	    Size = 0;
+   12	    Head = NULL;
+   13	}
+   14	
+   15	//Copy constructor
+   16	sortedListClass::sortedListClass(const sortedListClass& L)
+   17	{
+   18	   Size = L.Size;
+   19	   if (L.Head == NULL)
+   20	      Head = NULL;  // original list is empty
+   21	
+   22	   else
+   23	   {  // copy first node
+   24	      Head = new Node;
+   25	      assert(Head != NULL);  // check allocation
+   26	      Head->info = L.Head->info;
+   27	
+   28	      // copy rest of list
+   29	      nodePtr NewPtr = Head;  // new list pointer
+   30	      // NewPtr points to last node in new list 
+   31	      // OrigPtr points to nodes in original list
+   32	      for (nodePtr OrigPtr = L.Head->next;
+   33	                   OrigPtr != NULL; 
+   34	                   OrigPtr = OrigPtr->next)
+   35	      {  NewPtr->next = new Node;
+   36	         assert(NewPtr->next != NULL);
+   37	         NewPtr = NewPtr->next;
+   38	         NewPtr->info = OrigPtr->info;
+   39	      }  // end for
+   40	
+   41	      NewPtr->next = NULL;
+   42	   }  // end if
+   43	}
+   44	
+   45	//Destructor
+   46	sortedListClass::~sortedListClass()
+   47	{
+   48	    nodePtr curr;
+   49	    //Cyces through and deletes the entire list
+   50	    while (Head != NULL)
+   51	    {
+   52	        curr = Head;
+   53	        Head = Head -> next;
+   54	        curr -> next = NULL;
+   55	        delete curr;
+   56	        curr = NULL;
+   57	    }
+   58	}
+   59	
+   60	//Retries the information based on the index
+   61	listItemType& sortedListClass::operator[] (int index)
+   62	{
+   63	    nodePtr cur=Head;
+   64	    int count=0;
+   65	    while (cur!=NULL && count < index)
+   66	    {
+   67	        cur=cur->next;
+   68	        count++;
+   69	    }
+   70	    return cur->info;
+   71	}
+   72	
+   73	//Similar to the copy cnstructor
+   74	sortedListClass& sortedListClass::operator = (const sortedListClass&rhs)
+   75	{
+   76	    nodePtr Cur;
+   77	
+   78	    Size = rhs.Size;
+   79	
+   80	    // if the current list is not empty, deallocate its memory space
+   81	    // by freeing all its nodes
+   82	    while (Head!=NULL)
+   83	    {
+   84	        Cur=Head;
+   85	        Head=Head->next;
+   86	        Cur->next = NULL;
+   87	        delete Cur;
+   88	        Cur=NULL;
+   89	    }
+   90	
+   91	    // now, copy the list over with deep copy
+   92	    if (rhs.Head==NULL)
+   93	        Head = NULL;
+   94	    else
+   95	    {
+   96	        // make a copy of the first node in the list
+   97	        Head = new Node;
+   98	        assert(Head!=NULL);
+   99	        Head-> info = rhs.Head-> info;
+  100	        
+  101	        // make copies of the rest of the nodes in the list
+  102	        Cur=Head;
+  103	        for (nodePtr origPtr=rhs.Head->next; origPtr!=NULL; origPtr=origPtr->next)
+  104	        {
+  105	            Cur->next = new Node;
+  106	            Cur = Cur->next;
+  107	            Cur-> info = origPtr-> info;
+  108	            Cur->next=NULL;
+  109	        }
+  110	    }
+  111	
+  112	    return *this;  // send back the current object by reference
+  113	}
+  114	
+  115	//
+  116	bool sortedListClass::operator == (const sortedListClass & rhs)
+  117	{
+  118	    if (Size != rhs.Size)
+  119	        return false;
+  120	    else
+  121	    {
+  122	        for (nodePtr lhsPtr=Head, rhsPtr=rhs.Head; 
+  123	                (lhsPtr!=NULL)&&(rhsPtr!=NULL); 
+  124	            lhsPtr=lhsPtr->next, rhsPtr=rhsPtr->next)
+  125	        {
+  126	            if  (!(lhsPtr->info == rhsPtr-> info))
+  127	                return false;
+  128	        }
+  129	        
+  130	        return true;
+  131	    }
+  132	}
+  133	
+  134	
+  135	//Inserts a link into the list in ascending order of destination city
+  136	//Pre-Condition: define newinfo of type flightRec
+  137	//Post-Condition: newinfo is inserted, Size++
+  138	void sortedListClass::ListInsert(const listItemType& newinfo, bool& success)
+  139	{
+  140	    nodePtr newPtr, curr, prev; //Used to trace the list
+  141	    newPtr = new Node;
+  142	    assert(newPtr);
+  143	    success = bool(newPtr != NULL);
+  144	    newPtr -> info = newinfo;
+  145	    newPtr -> next = NULL;
+  146	    
+  147	        //If the list is empty or the new info is smaller than the list
+  148	        if((Head==NULL)||(Head!=NULL && (newinfo < Head->info)))
+  149	        {
+  150	            //place the new info in front of the list
+  151	            newPtr -> next = Head;
+  152	            Head = newPtr;
+  153	            Size++;
+  154	        }
+  155	        else
+  156	        {
+  157	            prev = Head;
+  158	            curr = Head;
+  159	            //move curr and prev to the desired place to insert the info
+  160	            while(curr != NULL && curr -> info < newinfo)
+  161	            {
+  162	                prev = curr;
+  163	                curr = curr -> next;
+  164	            }
+  165	
+  166	    //if (curr==NULL)
+  167	    //cerr << "insert, find NULL" << endl;
+  168	            //make the new pointer part of the DLL
+  169	            newPtr -> next = curr;
+  170	            prev -> next = newPtr;
+  171	
+  172	            //increment size
+  173	            Size++;
+  174	        }
+  175	}
+  176	
+  177	//Deletes a flight record with the same origin and destination cities
+  178	//Pre-Condition: delinfo must be defined
+  179	//Post-Condition: an info is deleted and size-- or nothing happens
+  180	void sortedListClass::ListDelete(const listItemType & item, bool& Success)
+  181	{
+  182	   nodePtr Cur, Prev;
+  183	
+  184	    if (Head==NULL)
+  185	    {
+  186	        cout << "list empty, deletion failed." << endl;
+  187	        Success=false;
+  188	    }
+  189	    else if (Head->info== item)
+  190	    {
+  191	        Cur = Head;
+  192	        Head=Head->next;
+  193	        Success=true;
+  194	    }
+  195	    else
+  196	    {
+  197	        Cur = Prev = Head;
+  198	        while ((Cur != NULL)&&(!(Cur->info== item)))
+  199	        {
+  200	            Prev=Cur;
+  201	            Cur = Cur->next;
+  202	        }
+  203	
+  204	        if (Cur == NULL)
+  205	        {
+  206	            cout << "item not in the list, delete failed." << endl;
+  207	            Success = false;
+  208	        }
+  209	        else
+  210	        {
+  211	            Prev->next = Cur->next;
+  212	            Success=true;
+  213	        }
+  214	    }
+  215	    if (Success)
+  216	    {
+  217	        Cur->next = NULL;
+  218	        delete Cur;
+  219	        Cur = NULL;
+  220	
+  221	        Size--;
+  222	    }
+  223	}  // end ListDelete
+  224	
+  225	//Returns flight record with the provided origin and destination cities
+  226	//Pre-Condition:retinfo must be declared
+  227	//Post-Condition: the link with the desired info is sent back pass-by-reference
+  228	void sortedListClass::ListRetrieve(listItemType& retinfo, bool& success)
+  229	{
+  230	    success = false;
+  231	    nodePtr curr = Head;
+  232	    //Traverse the entire list
+  233	    //for(int i =0; i < Size; i++)
+  234	    while (curr!=NULL)  // changed
+  235	    {
+  236	        //if any link matches the desired cities
+  237	        if(retinfo == curr -> info)
+  238	        {   
+  239	            //assign the retrieved info to be the link's info
+  240	            retinfo = curr -> info;
+  241	            success = true;
+  242	            break;
+  243	        }
+  244	        //move down the list one more link
+  245	        curr = curr -> next;
+  246	    }
+  247	    //if a match was not found
+  248	    if(!success)
+  249	        cout << "No flights available." << endl;
+  250	}
+  251	        
+  252	//Print the entire list
+  253	//Pre-Condition: none
+  254	//Post-Condition: none
+  255	ostream& operator << (ostream& os, const sortedListClass &  rhs)
+  256	{
+  257	    nodePtr curr = rhs.Head;    //to traverse the list
+  258	    
+  259	    //Print the table heading
+  260	    os << "Flight    Origin         Destination    Price" << endl;
+  261	    os << "======================================================" << endl;
+  262	    
+  263	    //Cycle through the entire list
+  264	    //for( int i = 0; i < rhs.Size; i++)
+  265	    while (curr != NULL)
+  266	    {
+  267	        //print each piece of information
+  268	        //os << left << setw(10) << curr ;
+  269	        os << left << setw(10) << curr -> info.flightNum;
+  270	        os << left << setw(15) << curr -> info.origCity;
+  271	        os << left << setw(15) << curr -> info.destCity;
+  272	        os << left << setw(15) << curr -> info.cost << endl;
+  273	        
+  274	        //move another link down the list
+  275	        curr = curr -> next;
+  276	    }
+  277	    //print the size
+  278	    os << endl << "There are " << rhs.Size << " items in the list" << endl;
+  279	
+  280	    return os;  // changed
+  281	}
+  282	
+  283	//compare the two destination cites
+  284	//Pre-Condition: none
+  285	//Post-Condition: true/false
+  286	bool flightRec::operator < (const flightRec & rhs) const
+  287	{
+  288	    return(destCity < rhs.destCity);
+  289	}
+  290	
+  291	//compare the origin city and the destination city
+  292	//Pre-Condition: none
+  293	//Post-Condition: true/false
+  294	bool flightRec::operator == (const flightRec & rhs) const
+  295	{
+  296	    return((origCity == rhs.origCity)&&(destCity == rhs.destCity));
+  297	}
+  298	
+  299	//Returns the length of the list
+  300	//Pre-Condition: Size must have a value
+  301	//Post-Condition: none
+  302	int sortedListClass::getLength()
+  303	{
+  304	    return Size;
+  305	}
+  306	
+  307	//returns whether the list is empty
+  308	//Pre-Condition: none
+  309	//Post-Condition: true/false
+  310	bool sortedListClass::isEmpty()
+  311	{
+  312	    //if the head contains nothing
+  313	    if(Head == NULL)
+  314	        return true;
+  315	    else 
+  316	        return true;
+  317	}
+$ pr -n -t -e4 sortedListClass.cpp[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[KflightMap.h
+    1	#ifndef flightMap_h
+    2	#define flightMap_h
+    3	
+    4	#include "sortedListClass.h"
+    5	
+    6	#include <fstream>
+    7	#include <iostream>
+    8	using namespace std;
+    9	
+   10	
+   11	class flightMap
+   12	{
+   13	    public:
+   14	        //Default Constructor
+   15	        flightMap();
+   16	        //Copy constructor
+   17	        flightMap(const flightMap& rhs);
+   18	        //Destructor
+   19	        ~flightMap();
+   20	        
+   21	        //Reads in the cities and flight lists from two input files
+   22	        void ReadCities(ifstream& CitiesIn, ifstream& FlightsIn);
+   23	        //Displays the entire map
+   24	        void DisplayMap();
+   25	    
+   26	    
+   27	    private:
+   28	        
+   29	        int citNum; //The number of cities
+   30	        string *Cities; //Array that holds the cities
+   31	        sortedListClass *Fmap;  //Array of objects
+   32	};
+   33	
+   34	#endif
+$ pr -n -t -e4 flightMap.h[Kcpp
+    1	#include "flightMap.h"
+    2	
+    3	#include <cstddef>  //NULL
+    4	#include <cassert>  //assert()
+    5	#include <iomanip>
+    6	using namespace std;
+    7	
+    8	//Default constructor
+    9	flightMap::flightMap()
+   10	{
+   11	    citNum = 0;
+   12	    Cities = new string[citNum];
+   13	}
+   14	
+   15	//Copy constructor
+   16	flightMap::flightMap(const flightMap& rhs)
+   17	{
+   18	    citNum = rhs.citNum;
+   19	    
+   20	    //Copy all of the cities
+   21	    for(int i = 0; i < citNum; i++)
+   22	        Cities[i] = rhs.Cities[i];
+   23	        
+   24	    bool success;
+   25	    int tsize;  //hold the size of the DLL
+   26	    //Copy all of the lists
+   27	    for(int j = 0; j < citNum; j++)
+   28	    {
+   29	        tsize = rhs.Fmap[j].getLength();
+   30	        //deep copy the DLL
+   31	        for(int q = 0; q < tsize; q++)
+   32	            Fmap[j].ListInsert(rhs.Fmap[j][q], success);
+   33	    }
+   34	}
+   35	
+   36	//Destructor
+   37	flightMap::~flightMap()
+   38	{   
+   39	    //Delete all information
+   40	    delete [] Cities;
+   41	    
+   42	    delete [] Fmap;
+   43	
+   44	    citNum = 0;
+   45	}
+   46	
+   47	//Read cities and flightmap
+   48	//Pre-Condition:CitiesIn and FlightsIn
+   49	//Post-Condition: Cities[] and Fmap[] and citNum
+   50	void flightMap::ReadCities(ifstream& CitiesIn, ifstream& FlightsIn)
+   51	{       
+   52	    CitiesIn >> citNum;
+   53	    //cout << "CitNum: " << citNum << endl;
+   54	    
+   55	    //Dynamically allocate memory
+   56	    Cities = new string[citNum];
+   57	    Fmap = new sortedListClass[citNum];
+   58	    
+   59	    //Read in all the cities
+   60	    int count = 0;
+   61	    while(CitiesIn >>Cities[count])
+   62	        count++;
+   63	    
+   64	    //BUBBLE SORT THE CITIES
+   65	    int i, j;
+   66	    string temp;             // holding variable
+   67	    int numLength = citNum; 
+   68	    //Traverse the entire array
+   69	    for(i = 1; (i <= numLength); i++)
+   70	    {
+   71	        for (j=0; j < (numLength -1); j++)
+   72	        {
+   73	            //If the current city greater than the next city name
+   74	            if (Cities[j+1] < Cities[j])
+   75	            {
+   76	                // swap elements
+   77	                temp = Cities[j];
+   78	                Cities[j] = Cities[j+1];
+   79	                Cities[j+1] = temp;
+   80	            }
+   81	        }
+   82	    }
+   83	    
+   84	    bool success;
+   85	    listItemType tempInfo;
+   86	    //Look through the entire cities array
+   87	    for(int index= 0; index < citNum; index++)
+   88	    {
+   89	        FlightsIn.close();  //Close the file
+   90	        FlightsIn.open("flights.dat");  //Reopen the file to traverse again
+   91	        assert(FlightsIn);  //Verify success
+   92	        
+   93	        //While there is still data in the file, read
+   94	        while(FlightsIn>>tempInfo.flightNum)
+   95	        {
+   96	            //Read in parts of flightRec to insert
+   97	            FlightsIn >> tempInfo.origCity;
+   98	            FlightsIn >> tempInfo.destCity;
+   99	            FlightsIn >> tempInfo.cost;
+  100	        
+  101	            //Insert the new information
+  102	            if(tempInfo.origCity == Cities[index])
+  103	                Fmap[index].ListInsert(tempInfo ,success);
+  104	        }
+  105	    }
+  106	}
+  107	
+  108	//Display the map in order of origin city and it's destinations
+  109	//Pre-Condition:Cities[] and Flights[] and citNum
+  110	//Post-Condition:None
+  111	void flightMap::DisplayMap()
+  112	{
+  113	    listItemType tempInfo;  //Holds temporary information
+  114	    int tempSize;   //Holds temporary list sizes
+  115	    string tempName;
+  116	    bool succ;
+  117	    
+  118	    //Print the table heading
+  119	    cout << "     Origin    " << "Destination    "<< "Flight         " << "Price" << endl;
+  120	    cout << "==================================================================" << endl;
+  121	    
+  122	    //Cycle through every city
+  123	    for(int i = 0; i < citNum;i++)
+  124	    {
+  125	        tempSize = Fmap[i].getLength(); //Assign the temporary size
+  126	        
+  127	        //Traverse the entire list for each city
+  128	        for(int j = 0; j < tempSize; j++)
+  129	        {
+  130	            //Retrieve the info
+  131	            tempInfo = Fmap[i][j];
+  132	            
+  133	            //If the origin city is first used, print it
+  134	            if(j == 0)
+  135	                cout << left << setw(14) << Cities[i] << ": ";
+  136	            else
+  137	                cout << setw(16) << " ";
+  138	            
+  139	            //print the rest of the flight information
+  140	            cout << left << setw(16) << tempInfo.destCity
+  141	            << left << setw(15) << tempInfo.flightNum
+  142	            << "$" << tempInfo.cost << endl;;
+  143	        }
+  144	    }
+  145	}
+$ pr -n -t -e4 flightMap.cpp[K[K[K[K[K[K[K[K[K[K[K[K[Kola5B.cc
+    1	/**********************************************************************************/
+    2	////    PROGRAMMER:     Louae Tyoan
+    3	//  Assignment:     ola5B.cc: Flight Map
+    4	//  Class:          CSCI 2170
+    5	//  Course Instructor:  Dr. Cen Li
+    6	//  Due Date:       Wednesday, 4/6/2011
+    7	//  Description:    Reads the cities and flightplans from a file and
+    8	//                  dsplays them in an alphabetical order of origin city
+    9	//                  along with the available flights
+   10	/**********************************************************************************/
+   11	
+   12	#include "sortedListClass.h"
+   13	#include "flightMap.h"
+   14	
+   15	#include <cstddef>  //NULL
+   16	#include <cassert>  //assert()
+   17	#include <iostream>
+   18	#include <fstream>
+   19	#include <iomanip>
+   20	using namespace std;
+   21	
+   22	int main()
+   23	{
+   24	    //create the object
+   25	    flightMap TheMap;
+   26	    
+   27	    //filestream for the city names
+   28	    ifstream CitiesIn;
+   29	    //filestream for the flight list
+   30	    ifstream FlightsIn;
+   31	    
+   32	    //open the files
+   33	    CitiesIn.open("cities.dat");
+   34	    FlightsIn.open("flights.dat");
+   35	    
+   36	    //check for correct input
+   37	    assert(CitiesIn);
+   38	    assert(FlightsIn);
+   39	    
+   40	    //Read the information inside of the files
+   41	    TheMap.ReadCities(CitiesIn, FlightsIn);
+   42	    
+   43	    //Display the map in order of origin city
+   44	    TheMap.DisplayMap();
+   45	    
+   46	    return 0;
+   47	}
+$ pr -n -t -e4 ola5B.ccflightMap.cpp[2PhsortedListClass.cpp[2Ph[C[Ca.out[KCC sortedListClass.cpp flightMap.cpp ola5B.cc[C[C[C.out[KCC sortedListClass.cpp flightMap.cpp ola5B.cc -o run
+$ run
+     Origin    Destination    Flight         Price
+==================================================================
+Atlanta       : Memphis         1172           $47
+                Orlando         920            $270
+Boston        : New-York-City   112            $140
+Chicago       : Albuquerque     380            $400
+                Miami           2843           $500
+                Orlando         3940           $430
+Dallas        : Chicago         1114           $320
+                Miami           103            $350
+                San-Francisco   829            $250
+Las-Vegas     : Nashville       290            $59
+Los-Angelas   : Seattle         3746           $230
+Memphis       : Dallas          891            $140
+Nashville     : Atlanta         339            $83
+                LaS-Vegas       920            $59
+                New-York-City   983            $260
+New-York-City : Atlanta         888            $430
+                Boston          211            $140
+Orlando       : Miami           722            $80
+San-Francisco : Los-Angelas     772            $89
+                San-Diego       8322           $120
+Washington-DC : Boston          3345           $440
+                Orlando         233            $195
+$ exit
+exit
+
+Script done on Wed 06 Apr 2011 01:40:02 AM CDT

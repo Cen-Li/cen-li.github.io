@@ -1,0 +1,1579 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Brad Rudnik">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en]C-AtHome0405  (Win95; U) [Netscape]">
+   <meta name="Description" content="CSCI 2170 - Closed Lab 8 - Lesson Page.">
+   <title>CSCI 2170 Lab 8x - Pointers and Linked Lists</title>
+
+<!-- load the Javascript source file -------------------------------->
+<script SRC="../windows.js">
+document.write("Included JS file not found");
+</script>
+
+<!-- load the style sheet ------------------------------------------->
+<link rel="stylesheet" type="text/css" href="../styles.css" title="styles">
+<style type="text/css">
+<!--
+.style2 {color: #bb2222}
+.style4 {
+	font-family: "Courier New", Courier, mono;
+	font-size: 14px;
+}
+.style5 {
+	color: #BD2021;
+	font-weight: bold;
+}
+.style6 {
+	font-family: "Courier New", Courier, mono;
+	font-weight: bold;
+	font-size: 14px;
+}
+.style7 {
+	color: #bb2222;
+	font-weight: bold;
+}
+.style8 {
+	font-size: 14;
+	color: #bb2222;
+}
+.style9 {font-family: "Courier New", Courier, mono}
+.style10 {font-size: 12px}
+-->
+</style>
+</head>
+<body background="lab8.gif"><a NAME="top"></a>
+
+<center>
+<h1>
+CSCI 2170 LAB 8<br>
+Pointers and Linked Lists</h1></center>
+
+<table COLS=2 WIDTH="95%" >
+  <tr> 
+    <td width=70%> <dl>
+        <dt> <b>Objectives:</b></dt>
+      </dl>
+      <ul>
+        <li><b>To review the List ADT</b></li>
+        <li><b>To introduce static and dynamic memory allocation</b></li>
+        <li><b>To introduce the C++ pointer type </b></li>
+        <li><b>To provide experience in using pointer types</b></li>
+        <li><strong>To introduce the Linked List</strong></li>
+        <li><b> To learn how to manipulate linked lists </b></li>
+        <li><b>To introduce the concept of the C++ class destructor</b></li>
+      </ul></td>
+<td>
+<font size=4>
+<center><a href="javascript:AnswerWindow('lab8/lab8')">CREATE ANSWER SHEET for LAB 8</a></center>
+</font>
+</td>
+</tr>
+</table>
+<!--File access for browsers without javascript capabilities-->
+<noscript>
+<blockquote>
+<blockquote><b>For those of you without Javascript capabilities these links
+will provide access to the additional files needed to complete this lab.
+They are set to open a new browser window if your browser supports this
+feature.</b>
+<center><b><a href="lab8Ans.html" target="_new">Answer Sheet</a></b></center>
+</blockquote>
+</blockquote>
+</noscript>
+<p>In this laboratory assignment we will consider the following:
+<blockquote> 
+    <a href="#A">The List ADT</a><br>
+    <a href="#B">Static and Dynamic Memory Allocation</a><br>
+	<a href="#C">C++ Pointers</a> <br>
+    <a href="#D">Linked Lists</a> <br>
+    <a href="#E">List Operations</a><br>
+    <a href="#F">The C++ Class Destructor</a> </p>
+</blockquote>
+<!-- Blank Space -->
+<h3 align="center"><a NAME="A"></a><br>
+  &nbsp; A. The List ADT</h3>
+<p>We have used the concept of a <strong><em>list</em></strong> in many applications 
+  in both Computer Science 1 and Computer Science 2. We often use lists in everyday 
+  life. We might keep a &quot;to do&quot; list of jobs that we need to complete. 
+  We might have a grocery list when we go to the store. If we have a party, we 
+  probably have a list of people that we are inviting to the party. In computer 
+  science, a <em><strong>list</strong></em> is considered to be an ADT (abstract 
+  data type). It is a collection of data together with a set of operations on 
+  that data. Some common operations on a list include:
+<ul>
+  <li>creating an empty list, 
+  <li>inserting a data item into the list, 
+  <li>removing a data item from the list, 
+  <li>searching for an item, and 
+  <li>determining how many items are in the list. 
+</ul>
+<p>Often lists are maintained in some particular order. For example, the &quot;to 
+  do&quot; list might be maintained by keeping items at the top of the list for 
+  which completion is more important. A list of people invited to a party might 
+  be kept in alphabetical order. To maintain such an ordered list requires more 
+  than just sorting the data. It is often the case that new items need to be inserted 
+  into the list after it has been sorted. Similarly, items may need to be deleted 
+  after the data has been placed into sorted order.</p>
+<p>To date, when we wished to implement a list, we have used an array. If the 
+  list is not maintained in order, then inserting an item is accomplished by placing 
+  the item at the end of the array. The <a href="http://www.mtsu.edu/~csci117/manual/lab12/lab12.html#linsearch">linear 
+  search</a> can be used to find an item in the list. Removing an item presents 
+  more difficulty. First the index of the item to be removed must be determined. 
+  Then the item must be deleted. Now there is an empty array location that is 
+  available. Since all of the available array locations are kept at the end of 
+  the array, one solution might be to shift all items below the deleted item up 
+  one array position. </p>
+<p>When an ordered list is maintained, insertion of an item involves moving items 
+  down one array position until the correct position (based on the order of the 
+  list) is detemined. Then the item is inserted. When a list contains a large 
+  number of items, such shifting of items to insert or delete may be impractical.</p>
+<p><strong>NOTE:</strong> For each of the following exercises, indicate answers 
+  on the <a href="javascript:AnswerWindow('lab8/lab8')">answer sheet.</a></p>
+<p>&nbsp;</p><hr>
+<p></p>
+<a href="javascript:Answer('Exercise1')"><font color="bb2222"><b>Exercise 1:</b></font></a>
+    <span class="style2"><strong>(Multiple Choice) </strong>Given&nbsp;a&nbsp;<strong>non-sorted&nbsp;</strong>array&nbsp;with&nbsp;6&nbsp;locations&nbsp;containing&nbsp;the&nbsp;following&nbsp;items
+  (note&nbsp;location&nbsp;5&nbsp;in&nbsp;the&nbsp;array&nbsp;is&nbsp;empty)&nbsp;and&nbsp;with&nbsp;<strong>next_available_location&nbsp;=&nbsp;5</strong>: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; index&nbsp;&nbsp;&nbsp;&nbsp;array&nbsp;value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;40 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp; What&nbsp;would&nbsp;be&nbsp;the&nbsp;value&nbsp;of&nbsp;<strong>next_available_location</strong>&nbsp;if&nbsp;10&nbsp;were&nbsp;deleted? <br>
+  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>A.&nbsp;</strong>&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&nbsp;B.</strong>&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>C.</strong>&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>D.&nbsp;</strong>&nbsp;&nbsp;&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>E.&nbsp;</strong>&nbsp;&nbsp;&nbsp;5 </span></p>
+<br><span class="style2"><a href="javascript:Answer('Exercise2')"><font color="BB2222"><b>Exercise 2:</b></font></a> <strong>(Multiple Choice) </strong>Given&nbsp;an&nbsp;array&nbsp;with&nbsp;5&nbsp;locations&nbsp;containing&nbsp;the&nbsp;following&nbsp;items&nbsp;and&nbsp;<strong>next_available_location&nbsp;=&nbsp;0</strong>: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; index&nbsp;&nbsp;&nbsp;&nbsp;array&nbsp;value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;40 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;<span class="style2">&nbsp; <strong>What&nbsp;would&nbsp;be&nbsp;the&nbsp;result&nbsp;of&nbsp;adding&nbsp;the&nbsp;value&nbsp;5?</strong> <br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong> A.&nbsp;&nbsp;</strong>&nbsp;&nbsp;index&nbsp;&nbsp;&nbsp;&nbsp;array value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;40 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;5 <br>
+&nbsp;&nbsp;&nbsp;&nbsp; <strong>B.&nbsp;&nbsp;</strong>&nbsp;&nbsp;index&nbsp;&nbsp;&nbsp;&nbsp;array value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;5 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;40 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp; <strong>C.&nbsp;&nbsp;</strong>&nbsp;&nbsp;index&nbsp;&nbsp;&nbsp;&nbsp;array value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;5 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;40 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;100&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong> D.&nbsp;</strong>&nbsp;&nbsp;&nbsp;index&nbsp;&nbsp;&nbsp;&nbsp;array value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;5 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;40 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;100 <br>
+&nbsp;&nbsp;&nbsp;&nbsp; <strong>E.</strong>&nbsp;&nbsp;&nbsp;&nbsp;can not add 5 because the list is full </span><br>
+</p>
+<p class="style2"><a href="javascript:Answer('Exercise3')"><font color="BB2222"><b>Exercise 3:</b></font></a><strong>(Multiple Choice)</strong>Given&nbsp;a&nbsp;<strong>non-sorted</strong>&nbsp;array&nbsp;with&nbsp;6&nbsp;locations&nbsp;containing&nbsp;the&nbsp;following&nbsp;items&nbsp;(note&nbsp;location&nbsp;5&nbsp;in&nbsp;the&nbsp;array&nbsp;is&nbsp;empty): <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; index&nbsp;&nbsp;&nbsp;&nbsp;array&nbsp;value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;40 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp; What&nbsp;would&nbsp;be&nbsp;the&nbsp;result&nbsp;of&nbsp;<strong>deleting&nbsp;the&nbsp;value&nbsp;40</strong>&nbsp;and&nbsp;<strong>inserting&nbsp;the&nbsp;value&nbsp;50</strong>? <br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>A.&nbsp;&nbsp;</strong>&nbsp;&nbsp;index&nbsp;&nbsp;&nbsp;&nbsp;array value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;50 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;100 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>B.&nbsp;&nbsp;</strong>&nbsp;&nbsp;index&nbsp;&nbsp;&nbsp;&nbsp;array value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;50 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;100 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>C.</strong>&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;&nbsp;&nbsp;&nbsp;array value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;100 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;50 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>D.</strong>&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;&nbsp;&nbsp;&nbsp;array value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;100 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;100 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;50&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong> E.&nbsp;</strong>&nbsp;&nbsp;&nbsp;index&nbsp;&nbsp;&nbsp;&nbsp;array value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;100 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;50&nbsp;&nbsp;&nbsp;&nbsp; <br>
+</p>
+<p><span class="style2"><a href="javascript:Answer('Exercise4')"><font color="BB2222"><b>Exercise 4.P: (This is a pretest Question)</b></font></a><strong>&nbsp;&nbsp;(Multiple Choice)</strong>Given&nbsp;a&nbsp;<strong>sorted</strong>&nbsp;array&nbsp;with&nbsp;6&nbsp;locations&nbsp;containing&nbsp;the&nbsp;following&nbsp;items&nbsp;(note&nbsp;location&nbsp;5&nbsp;in&nbsp;the&nbsp;array&nbsp;is&nbsp;empty): <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; index&nbsp;&nbsp;&nbsp;&nbsp;array&nbsp;value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;40 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp; <strong>What&nbsp;would&nbsp;be&nbsp;the&nbsp;result&nbsp;of&nbsp;adding&nbsp;the&nbsp;value&nbsp;50</strong>? <br>
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>A.</strong> index&nbsp;&nbsp;&nbsp;&nbsp;array value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;40 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;50 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;100 <br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>B.</strong> index&nbsp;&nbsp;&nbsp;&nbsp;array value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;40 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;50 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;100 <br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>C. </strong>index&nbsp;&nbsp;&nbsp;&nbsp;array value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;40 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;100 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;50 <br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>D. </strong>index&nbsp;&nbsp;&nbsp;&nbsp;array value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;50 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;10 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;22 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;40 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;80 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;100 <br>
+</span></span><br>
+</p>
+<p class="style2"><a href="javascript:Answer('Exercise5')"><font color="BB2222"><b>Exercise 5.P:</b></font></a></strong>&nbsp;&nbsp;(True/False)</strong>If&nbsp;the&nbsp;following&nbsp;declarations&nbsp;have&nbsp;been&nbsp;made: 
+<blockquote>
+<pre class="style2">
+     int xarr[5]; 
+     int next_available_location; 
+	 </pre></blockquote>
+<p><span class="style2">and the current value of <strong>next_available_location</strong> is 5, it&nbsp;is&nbsp;possible&nbsp;to&nbsp;insert&nbsp;one&nbsp;more&nbsp;item&nbsp;into&nbsp;the&nbsp;list</span></p>
+</p>
+<hr>
+<p>A second drawback of using an array implementation for a list is that an array 
+  with 1000 elements is always allocated space for 1000 elements whether or not 
+  all of these memory locations are required when the program is executed.&nbsp; If during a run of the program only 100 items are added to the array, then 900 
+  spaces are unused. If during another run of the program we wish to add 1500 
+  items to the array, we will be out of luck because the array can only hold 1000 
+  items. The array is an example of a data type that has memory allocation that 
+  is <em><strong>static</strong></em>. In the next section, we discuss a second 
+  type of data for which memory is allocated on demand. &nbsp; <br>
+  &nbsp; 
+  <!-- PART A ------>
+</p>
+<center>
+  <h3> <a NAME="B"></a>B. Static and Dynamic Memory Allocation</h3>
+</center>
+
+<h4> Static Memory Allocation</h4>
+<p>C++ data types may be divided into 3 groups - fundamental, structured, and 
+  pointer data types.&nbsp; We learned in <a href="javascript:Display('../lab2/lab2.html')">Lab 
+  2</a> that the <a href="javascript:Display('../lab2/lab2.html#A')">fundamental 
+  data types</a> consist of the ordinal types int, char, short [int], long [int], 
+  unsigned char, unsigned short [int], unsigned int, unsigned long [int], and 
+  the float and double data types.&nbsp; The structured data types are the array, 
+  <a href="javascript:Display('../lab2/lab2.html#B')">structure (struct)</a>, 
+  <a href="javascript:Display('../lab4/lab4.html#C')">class</a> and file data 
+  types.&nbsp; Variables of the fundamental and structured data types have <b>static 
+  memory allocation </b>and are called<b> statically allocated variables</b>.&nbsp; 
+  This means that the programmer decides on the number and structure of the variables 
+  when the program is written.&nbsp; When the program is compiled and loaded, 
+  the compiler will allocate the corresponding number and type of memory locations.&nbsp; 
+  Execution of the program cannot change the number, size, or structure of&nbsp; 
+  memory locations when static memory allocation is used.&nbsp; As we noted in 
+  the previous section, a drawback of static memory allocation is that the size 
+  of memory allocated can not be changed. For instance when an array with 1000 
+  elements is allocated space, exactly 1000 elements are allocated whether or 
+  not all of these memory locations are required when the program is executed.&nbsp; 
+  This may not be an efficient use of memory. 
+<h5>&nbsp; </h5>
+<hr>
+<!--EXERCISE 1 ----->
+<br><a href="javascript:Answer('Exercise6')"><font color="bb2222"><b>Exercise 6</b></font></a><font color="bb2222"> 
+  : </font> <span class="style2"><strong>(Multiple Choice)</strong>Which&nbsp;of&nbsp;the&nbsp;following&nbsp;is&nbsp;
+<strong>not</strong>&nbsp;one&nbsp;of&nbsp;the&nbsp;fundamental&nbsp;data&nbsp;types? <br>
+  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>A.</strong>&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>B.</strong>&nbsp;&nbsp;&nbsp;&nbsp;pointer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;<strong>C.&nbsp;</strong>&nbsp;&nbsp;&nbsp;char&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>D.</strong>
+&nbsp;&nbsp;&nbsp;&nbsp;short&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>E.&nbsp;</strong>&nbsp;&nbsp;&nbsp;
+none of the above </span></p>
+<br><span class="style2"><a href="javascript:Answer('Exercise7')"><font color="BB2222"><b>Exercise 7:</b></font></a> Write&nbsp;a&nbsp;declaration&nbsp;statement&nbsp;that&nbsp;will
+&nbsp;statically&nbsp;allocate&nbsp;an&nbsp;integer&nbsp;variable&nbsp;x. </span></p>
+<br><span class="style2"><a href="javascript:Answer('Exercise8')"><font color="BB2222"><b>Exercise 8:</b></font></a><strong> (Multiple Choice)</strong>The&nbsp;compiler&nbsp;allocates
+ memory storage for statically allocated variables during which of the following phases? <br>
+ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>A.</strong>&nbsp;&nbsp;&nbsp;&nbsp;execution&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>B.</strong>&nbsp;&nbsp;&nbsp;&nbsp;loading&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;<strong>C.</strong>&nbsp;&nbsp;&nbsp;&nbsp;linking&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>
+D.</strong>&nbsp;&nbsp;&nbsp;&nbsp;compilation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>E.&nbsp;</strong>
+&nbsp;&nbsp;&nbsp;none of the above </span></p>
+<br>  <span class="style2"><a href="javascript:Answer('Exercise9')"><font color="BB2222"><b>Exercise 9.P:</b></font></a>
+  
+
+ <strong>&nbsp;&nbsp;  (True/False) </strong>Variables that are of the fundamental or the structured data types are statically allocated. </span>
+
+<br><br>  <span class="style2"><a href="javascript:Answer('Exercise10')"><font color="BB2222"><b>Exercise 10.P:</b></font></a> <strong>&nbsp;&nbsp;(True/False) </strong>If the following declaration has been made: <br>
+  <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="style4"> int&nbsp;grade_array[30][5]; </span><br>
+<br>
+when the program is compiled and loaded, only 1 location is set aside for grade_array with the understanding that if the program
+needs to use more locations, it can use up to 150. 
+The locations the program uses will be allocated as needed. </span><br>
+</p>
+<hr>
+  <br>
+  <strong>Dynamic Memory Allocation
+  </strong>
+<p>The pointer data type is used in connection with dynamic memory allocation. 
+  <b><strong>Dynamic memory allocation </strong></b>(and deallocation) occurs 
+  during the execution of a program.&nbsp; A variable allocated then is called 
+  a <strong>dynamically allocated variable </strong>or simply<strong> </strong>a<strong> 
+  dynamic variable</strong>.&nbsp; Dynamically allocated variables are not declared 
+  in the program, but variables that "point to" or refer to the dynamically allocated 
+  variables are declared in the program. 
+  <!--EXERCISE 3 ----->
+<p><br>
+  &nbsp; <br>
+  &nbsp; 
+  <!--PART B -------->
+<center>
+  <h3> <a NAME="C"></a>C. C++ Pointers</h3>
+</center>
+<p><strong>Pointer variables</strong> are variables that point to (contain the 
+  address of) a memory location. Pointers can reference any type of data except 
+  the file data type. An example of variable declarations containing pointers 
+  to integers, double, char, struct, and class data types follows: 
+<blockquote>
+<pre>
+    1     int* pNum1,*pNum2;        //pNum1 and pNum2 are integer pointers 
+    2     double* pNum3;            //pNum3 is a pointer to a double 
+    3     char* pWord;              //pWord is a pointer to a char
+    4     struct BankRec 
+    5     { 
+    6          double balance; 
+    7          double credit; 
+    8     }; 
+    9     BankRec* pBank;           //pBank is a pointer to a BankRec struct
+   10     class Node
+   11     { 
+   12          BankRec data; 
+   13          Node* next;          // a pointer to a class  
+   14     };
+
+    </font></p></pre></blockquote>
+  <p>Notice that in C++ the asterisk "<font size="2" face="Courier New, Courier, mono"><strong>*</strong></font>" is used to indicate a pointer. Each of the pointer variables above can contain 
+  the <em><strong>address</strong></em> of a memory location. The placement of 
+  the * does not have to be as shown above. All of the following are valid C++ 
+  statements to declare an integer pointer:</p>
+
+<blockquote><pre>
+  int* intPtr;
+  int * intPtr;
+  int *intPtr;
+  </pre></blockquote>
+  <p>In this lab, we prefer to place the * immediately before the variable as in the 
+third example above. Our reasoning is to avoid the confusion if additional variables are 
+declared on the same line, i.e., in both cases below, intValue is of data type int.
+<blockquote><pre>
+  int*  intPtr, intValue;
+  int  *intPtr, intValue;
+  </pre></blockquote>
+</p>
+<p>
+<hr>
+<p class="style2"><a href="javascript:Answer('Exercise11')"><font color="BB2222"><b>Exercise 11:</b></font></a><strong> (True/False)</strong> Pointer variables can contain any type of data except the file data type.</p>
+<p class="style2"><a href="javascript:Answer('Exercise12')"><font color="BB2222"><b>Exercise 12:</b></font></a><strong> (True/False) </strong>The following statement correctly declares a structure type ClientRec. <br>
+ &nbsp;&nbsp;&nbsp;&nbsp; <span class="style4">&nbsp;&nbsp;&nbsp;struct&nbsp;&nbsp;ClientRec <br>
+&nbsp;&nbsp;&nbsp;&nbsp; {&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; double&nbsp;&nbsp;&nbsp;balance; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; double&nbsp;&nbsp;&nbsp;credit; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ClientRec*&nbsp;nextRec; <br>
+&nbsp;&nbsp;&nbsp;&nbsp; }; </span></p>
+<p class="style2"><a href="javascript:Answer('Exercise13')"><font color="BB2222"><b>Exercise 13:</b></font></a><strong> 
+
+
+ (Multiple Choice) </strong>Which of the following declaration statements will statically allocate memory locations? <br>
+ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>A.</strong>&nbsp;&nbsp;&nbsp;&nbsp;<span class="style4">int *onevar; </span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>B.&nbsp;</strong>&nbsp;&nbsp;&nbsp;<span class="style4">char twovar; </span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong> C.&nbsp;</strong>&nbsp;&nbsp;&nbsp;<span class="style4">struct onestruct <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; { <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; float xvar; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int intvar; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }; </span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="style4">onestruct *ystruct; </span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>D.&nbsp;</strong>&nbsp;&nbsp;&nbsp;<span class="style4">float *threevar; </span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>E.&nbsp;&nbsp;</strong>&nbsp;&nbsp;All of the above </p>
+<p class="style2">  <a href="javascript:Answer('Exercise14')"><font color="BB2222"><b>Exercise 14.P:</b></font></a><strong>
+
+
+&nbsp;&nbsp; (True/False)</strong> The following declaration:  &nbsp;<span class="style4">&nbsp;int&nbsp;*&nbsp;&nbsp;p,&nbsp;
+q&nbsp;;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+creates two pointer variables that can be used to reference integer variables. </p>
+<p class="style2">  <a href="javascript:Answer('Exercise15')"><font color="BB2222"><b>Exercise 15.P:</b></font></a><strong>
+&nbsp;&nbsp;(Short Answer) </strong>Show a C++ statement to declare <strong>charPtr </strong>to be a pointer to a char.</p>
+
+<hr>
+<p>Ina previous lab we learned that the <a href="javascript:Display('../lab5/lab5.html#TD')">typedef 
+  statement</a> can be used to make a program easier to modify and to read.&nbsp; 
+  Consider now a new and improved method for declaring the same above variables. 
+  First we set up an appropriate type definition section: 
+<blockquote>
+  <blockquote><font size="2" face="Courier New, Courier, mono">1&nbsp;&nbsp;&nbsp;&nbsp; 
+    typedef int* IntPointer;</font> <font size="2" face="Courier New, Courier, mono"><br>
+    2&nbsp;&nbsp;&nbsp;&nbsp; typedef double* DoublePointer; <br>
+    3&nbsp;&nbsp;&nbsp;&nbsp; typedef char* CharPointer; <br>
+    4&nbsp;&nbsp;&nbsp;&nbsp; struct BankRec <br>
+    5&nbsp;&nbsp;&nbsp;&nbsp; { <br>
+    6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; double balance; <br>
+    7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; double credit; <br>
+    8&nbsp;&nbsp;&nbsp;&nbsp; }; <br>
+    9&nbsp;&nbsp;&nbsp;&nbsp; typedef BankRec* BankPointer;</font></blockquote>
+</blockquote>
+Additional code is now needed in order to declare variables of the indicated
+types:
+<blockquote>
+  <blockquote><font size="2" face="Courier New, Courier, mono">10&nbsp;&nbsp;&nbsp;&nbsp; 
+    IntPointer pNum1, pNum2;</font> <font size="2" face="Courier New, Courier, mono"><br>
+    11&nbsp;&nbsp;&nbsp;&nbsp; DoublePointer pNum3; <br>
+    12&nbsp;&nbsp;&nbsp;&nbsp; CharPointer pWord; <br>
+    13&nbsp;&nbsp;&nbsp;&nbsp; BankPointer pBank; <br>
+    14&nbsp;&nbsp;&nbsp;&nbsp; int num;</font></blockquote>
+</blockquote>
+<hr>
+<p><a href="javascript:Answer('Exercise16')"><font color="bb2222"><b>Exercise 16:</b></font></a> 
+  <span class="style2"><strong>(True/False) </strong>The following statement renames the type "pointer to unsigned integer" to be "myAgePointer": <br>
+<span class="style4">&nbsp;&nbsp;&nbsp;typedef&nbsp;unsigned&nbsp;int*&nbsp;&nbsp;&nbsp;myAgePointer;&nbsp;</span></span>
+</p>
+<p><span class="style2"><a href="javascript:Answer('Exercise17')"><font color="BB2222"><b>Exercise 17:</b></font></a><strong>(True/False)</strong> The following is a correct way of 
+renaming a pointer to a <strong>book</strong> struct: <br>
+ <br>
+ <span class="style4">&nbsp;&nbsp;&nbsp;&nbsp; typedef&nbsp;&nbsp;&nbsp;book*&nbsp;&nbsp;&nbsp;BookPointer; <br>
+&nbsp;&nbsp;&nbsp;&nbsp; struct&nbsp;&nbsp;&nbsp;&nbsp;book <br>
+&nbsp;&nbsp;&nbsp;&nbsp; { <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned&nbsp;int&nbsp;&nbsp;&nbsp;&nbsp;isbn; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; float&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cost; <br>
+&nbsp;&nbsp;&nbsp;&nbsp; }; </span></span></p>
+<p><span class="style2"><a href="javascript:Answer('Exercise18')"><font color="BB2222"><b>Exercise 18:</b></font></a><strong>(Multiple Choice)</strong> Which of the following is <strong>NOT</strong> a 
+valid usage of typedef <br>
+ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>A. </strong>&nbsp;&nbsp;<span class="style4">typedef int** ppInt; </span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&nbsp;B.</strong> &nbsp;&nbsp;<span class="style4">struct time <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; { <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int hour, <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; minute, <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; second; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }; </span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="style4">typedef time* pTime; </span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong> C. </strong>&nbsp;<span class="style4">typedef character* pChar; </span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong> D. &nbsp;</strong>all of the above are valid </span></p>
+<hr>
+<p>As a result of the declarations in lines 10 and 14 above, we will have memory 
+  set aside for two pointers (to integers) and one integer.&nbsp; Assume memory 
+  for these variables is provided at the following addresses: <br>
+  &nbsp; </p>
+<center><table COLS=3 WIDTH="100%" >
+<tr>
+<td>
+<center><b>ADDRESS</b></center>
+</td>
+
+<td>
+<center><b>MEMORY CONTENTS</b></center>
+</td>
+
+<td>
+<center><b>VARIABLE ALLOCATIONS</b></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>1000</center>
+</td>
+
+<td>
+<center>?</center>
+</td>
+
+<td>
+<center>pNum1</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>1004</center>
+</td>
+
+<td>
+<center>?</center>
+</td>
+
+<td>
+<center>pNum2</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>1008</center>
+</td>
+
+<td>
+<center>?</center>
+</td>
+
+<td>
+<center>num</center>
+</td>
+</tr>
+</table></center>
+
+<p><b>pNum1</b> is a pointer to an integer memory location.&nbsp; It is not yet 
+  assigned to point to any particular memory location.&nbsp; This can be done 
+  by using the C++ operator <b><i>new</i></b>.&nbsp; The <strong>new</strong> 
+  operator creates a new dynamic variable of a specified type and returns a pointer 
+  to this variable. For example, the instructions: 
+<blockquote>
+  <blockquote><b><font size="2" face="Courier New, Courier, mono">pNum1 = new 
+    int;</font></b> <font size="2" face="Courier New, Courier, mono"><br>
+    <b>pNum2 = new int;</b></font></blockquote>
+</blockquote>
+<p>dynamically assign a memory location (say 2644) for pNum1 to reference and 
+  a memory location (say 2400) for pNum2 to reference.&nbsp; In each of these 
+  cases, the pointer variable contains the address of the memory location associated 
+  with a dynamic variable.&nbsp;&nbsp; Now we have a picture similar to the following: 
+</p>
+<center>
+  <table COLS=3 WIDTH="100%" >
+<tr>
+<td>
+<center><b>ADDRESS</b></center>
+</td>
+
+<td>
+<center><b>MEMORY CONTENTS</b></center>
+</td>
+
+<td>
+<center><b>VARIABLE ALLOCATIONS</b></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>1000</center>
+</td>
+
+<td>
+<center>2644</center>
+</td>
+
+<td>
+<center>pNum1</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>1004</center>
+</td>
+
+<td>
+<center>2400</center>
+</td>
+
+<td>
+<center>pNum2</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>1008</center>
+</td>
+
+<td>
+<center>?</center>
+</td>
+
+<td>
+<center>num</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>.</center>
+</td>
+
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>
+<center>2400</center>
+</td>
+
+<td>
+<center>?</center>
+</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>
+<center>.</center>
+</td>
+
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>
+<center>2644</center>
+</td>
+
+<td>
+<center>?</center>
+</td>
+
+<td></td>
+</tr>
+</table></center>
+
+<p><b>pNum1</b> and <b>pNum2</b> each point to a location in memory (a dynamic 
+  variable) that is capable of storing an integer.&nbsp; No values have been stored 
+  in the memory locations to which they point.&nbsp; To access the value of a 
+  variable pointed to by a pointer variable, a special operator is used.&nbsp; 
+  In C++ this is done by using <strong> <font size="2" face="Courier New, Courier, mono">*</font></strong> 
+  in front of the pointer variable name as in the following (that is, <font size="2" face="Courier New, Courier, mono">*pNum1</font> 
+  refers to (names) the memory that <font size="2" face="Courier New, Courier, mono">pNum1</font> 
+  points to): 
+<blockquote>
+  <blockquote><b><font size="2" face="Courier New, Courier, mono">*pNum1&nbsp; 
+    = 31;</font></b> <font size="2" face="Courier New, Courier, mono"><br>
+    <b>*pNum2&nbsp; = 20;</b></font></blockquote>
+</blockquote>
+<p>Now the picture is as follows: </p>
+<center><table COLS=3 WIDTH="100%" >
+<tr>
+<td>
+<center><b>ADDRESS</b></center>
+</td>
+
+<td>
+<center><b>MEMORY CONTENTS</b></center>
+</td>
+
+<td>
+<center><b>VARIABLE ALLOCATIONS</b></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>1000</center>
+</td>
+
+<td>
+<center>2644</center>
+</td>
+
+<td>
+<center>pNum1</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>1004</center>
+</td>
+
+<td>
+<center>2400</center>
+</td>
+
+<td>
+<center>pNum2</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>1008</center>
+</td>
+
+<td>
+<center>?</center>
+</td>
+
+<td>
+<center>num</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>.</center>
+</td>
+
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>
+<center>2400</center>
+</td>
+
+<td>
+<center>20</center>
+</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>
+<center>.</center>
+</td>
+
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>
+<center>2644</center>
+</td>
+
+<td>
+<center>31</center>
+</td>
+
+<td></td>
+</tr>
+</table></center>
+<p>The contents of the memory location associated with the pointer variable is 
+  the address of the memory location associated with the dynamic variable pointed 
+  to by the pointer.&nbsp; The value associated with <b><font size="2" face="Courier New, Courier, mono">pNum1</font></b> 
+  is an address&nbsp; 2644.&nbsp; The value associated with <b><font size="2" face="Courier New, Courier, mono">*pNum1</font></b> 
+  is 31 (the contents of address 2644).&nbsp; The data type of a pointer variable 
+  must be the same as the data type of the dynamic variable to which it points. 
+<p>Suppose we want to exchange the values pointed to by<font size="2" face="Courier New, Courier, mono"> 
+  <b>pNum1</b></font> and <b><font size="2" face="Courier New, Courier, mono">pNum2</font></b>.&nbsp; 
+  There are two ways we can proceed.&nbsp; First, we could exchange the contents 
+  of memory locations 2400 and 2644 as follows: 
+<blockquote>
+  <blockquote id="box"><b><font size="2" face="Courier New, Courier, mono">num 
+    = *pNum1 ;</font></b> <font size="2" face="Courier New, Courier, mono"><br>
+    <b>*pNum1 = *pNum2 ;</b> <br>
+    <b>*pNum2 = num;</b></font></blockquote>
+</blockquote>
+
+Alternately, we could exchange the addresses stored in the memory locations associated 
+with the pointers as follows: 
+<blockquote>
+  <blockquote id="box"><b><font size="2" face="Courier New, Courier, mono">intPointer 
+    pNum;</font></b> <font size="2" face="Courier New, Courier, mono"><br>
+    <b>pNum = pNum1;</b> <br>
+    <b>pNum1 = pNum2;</b> <br>
+    <b>pNum2 = pNum;</b></font></blockquote>
+</blockquote>
+
+A pointer can also point to a variable that has been statically allocated. The 
+<strong><font face="Courier New, Courier, mono">&amp;</font></strong> operator 
+(or address operator) is used to accomplish this. If we wished for <strong><font size="-1" face="Courier New, Courier, mono">pNum1</font></strong> 
+to point to the statically allocated variable <strong><font size="-1" face="Courier New, Courier, mono">num</font></strong>, 
+this could be accomplished by typing 
+<p><blockquote>
+  <pre>pNum1 = &amp;num;   //this places num's address into pNum</pre>
+</blockquote>
+<p><br>
+  After this statement, <strong><font size="-1" face="Courier New, Courier, mono">pNum1</font></strong> 
+  would contain <strong><font size="-1" face="Courier New, Courier, mono">num's</font></strong> 
+  address. In the memory example above, <font size="-1" face="Courier New, Courier, mono"><strong>pNum1</strong></font> 
+would contain <strong>1008</strong>. &nbsp; </p>
+<p><span class="style2"><a href="javascript:Answer('Exercise19')"><font color="BB2222"><b>Exercise 19:</b></font></a><strong> (True/False) </strong>Assume we have defined p1 and p2 to be integer pointer variables and we have dynamically allocated memory for each variable. A snapshot of memory is shown below:</span></p>
+<p><span class="style2"><blockquote><pre>
+<b>Address     Memory Contents     Variable Allocations</b>
+  2000         4040                p1
+  2004         3020                p2
+   ...          ...               ...
+  3020         1004
+   ...          ...
+  4040         8040
+</pre></blockquote>
+ </span>
+<p><span class="style2">The value stored in <span class="style4">*p1</span> is 4040.</span></p>
+<p class="style2"><a href="javascript:Answer('Exercise20')"><font color="BB2222"><b>Exercise 20:</b></font></a><strong> (Multiple Choice) </strong>Assume we have defined p1 and p2 to be integer pointer variables. Also assume we have the picture of memory shown below</p>
+
+<blockquote class="style2">
+  <pre>
+<b>Address     Memory Contents     Variable Allocations</b>
+  2000         2020                p1
+  2004         2024                p2
+   ...          ...               ...
+  2020          100
+  2024           55</pre>
+</blockquote>
+<span class="style2">Given the following code, what would be printed?
+</span>
+<blockquote class="style2">
+  <pre>
+     *p1 = 42;
+	     p1 = p2;
+	     cout << *p1 << " " << *p2;
+</pre>
+</blockquote>
+<p><span class="style2"><strong>A.&nbsp;</strong>&nbsp;100&nbsp;55&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>B.</strong>&nbsp;&nbsp;
+  42&nbsp;42&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>C.</strong>&nbsp;&nbsp;42&nbsp;55</span>
+    <span class="style2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>D.</strong>&nbsp;&nbsp; 55&nbsp;55</span>
+</p>
+<p class="style2"><a href="javascript:Answer('Exercise21')"><font color="BB2222"><b>Exercise 21:</b></font></a><strong> (Multiple Choice) </strong>Given that p1 and p2 are integer pointer variables and that the beginning picture of memory is shown below:</p>
+<blockquote class="style2">
+  <pre><b>Address     Memory Contents     Variable Allocations</b>
+  2000          ?                  p1
+  2004          ?                  p2
+   ...          ...                ...
+  2016          ?
+   ...          ...                ...
+  3020          ?</pre>
+</blockquote>
+<span class="style2">If we assume that memory locations 2016 and then 3020 are the next locations to be allocated, which of the colde segments below would cause memory to be changed as shown below:
+</span>
+<blockquote class="style2">
+  <pre>
+<b>Address     Memory Contents     Variable Allocations</b>
+  2000          3020                  p1
+  2004          2016                  p2
+   ...          ...                   ...
+  2016          2
+   ...          ...                   ...
+  3020          2
+  <strong>A.</strong>  p1 = new int;
+      p2 = new int;
+      *p1 = 2;
+      *p2 = *p1;
+
+  <strong>B.</strong>  *p1 = new int;
+      *p2 = new int; 
+      *p1 = 2;
+      *p2 = 2;
+
+  <strong>C.</strong>  p2 = new int;
+      p1 = new int;
+      *p1 = 2;
+      *p2 = 2; 
+ 
+  <strong>D.</strong>  *p1 = new int;
+      *p2 = new int;
+      *p1 = 2;
+      *p2 = p1;
+</pre>
+</blockquote>
+<span class="style2">
+<a href="javascript:Answer('Exercise22')"><font color="BB2222"><b>Exercise 22.P:</b></font></a><strong> &nbsp;&nbsp; (Short Answer) </strong>Given the following code, what would be stored in *p1 after the code is executed?
+</span>
+<blockquote class="style2">
+  <pre>
+int *p1, *p2;
+int x = 42;
+p1 = &x;
+</pre>
+</blockquote>
+<span class="style2"><a href="javascript:Answer('Exercise23')"><font color="BB2222"><b>Exercise 23.P:</b></font></a><strong>&nbsp;&nbsp;  (Multiple Choice)</strong> What is printed by the following code?
+</span>
+<blockquote class="style2">
+  <pre>
+int *ptr1, *ptr2;
+ptr1 = new int;
+ptr2 = new int;
+*ptr1 = 100;
+ptr2 = ptr1;
+*ptr2 = 55;
+cout << *ptr1 << " " << *ptr2;
+	 <strong>A.</strong>     100 55
+	 <strong>B.</strong>     55 100
+	 <strong>C.</strong>     55 55
+	 <strong>D.</strong>     100 100
+	 </pre>
+</blockquote>
+
+Most of our work will involve pointers to structures.&nbsp; We need some C++ 
+  notation to reference the elements of a structure pointed to by a pointer.&nbsp; 
+  Assume the following definitions and declaration: 
+<blockquote>
+  <blockquote id="box"><b><font size="2" face="Courier New, Courier, mono">struct 
+    BankRec</font></b> <font size="2" face="Courier New, Courier, mono"><br>
+    <b>{</b> <br>
+    <b>&nbsp;&nbsp;&nbsp;&nbsp; int acctNum;</b> <br>
+    <b>&nbsp;&nbsp;&nbsp;&nbsp; int balance;</b> <br>
+    <b>};</b> <br>
+    <b>BankRec *bankPtr;</b></font></blockquote>
+</blockquote>
+<p>Assume <b>bankPtr</b> is associated with memory location 796.&nbsp;&nbsp;&nbsp;
+To allocate memory for a BankRec structure, we use the C++ statement:
+<blockquote>
+  <blockquote><b><font size="2" face="Courier New, Courier, mono">bankPtr = new 
+    BankRec;&nbsp;&nbsp;&nbsp;&nbsp; //Assume this makes bankPtr point to location 
+    2160</font></b></blockquote>
+</blockquote>
+Here is the picture:
+
+<center><table COLS=3 WIDTH="100%" >
+<tr>
+<td>
+<center><b>ADDRESS</b></center>
+</td>
+
+<td>
+<center><b>MEMORY CONTENTS</b></center>
+</td>
+
+<td>
+<center><b>VARIABLE ALLOCATIONS</b></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>796</center>
+</td>
+
+<td>
+<center>2160</center>
+</td>
+
+<td>
+<center>bankPtr</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>.</center>
+</td>
+
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>
+<center>2160</center>
+</td>
+
+<td>
+<center>?</center>
+</td>
+
+<td>
+<center>
+          (Memory for one structure <br>
+          starting at 2160)</center>
+</td>
+</tr>
+</table></center>
+
+<p>In C++, to reference a field in a structure pointed to by the pointer, <b>bankPtr</b>, 
+  we use the <strong>arrow operator (<font size="2" face="Courier New, Courier, mono">-&gt;</font>)</strong>: 
+<blockquote>
+  <blockquote><b><font size="2" face="Courier New, Courier, mono">bankPtr->fieldname</font></b></blockquote>
+</blockquote>
+For instance, the following statements assign values to the 2 fields in
+the structure referenced by bankPtr:
+<blockquote>
+  <blockquote><b><font size="2" face="Courier New, Courier, mono">bankPtr->acctNum 
+    = 12345;</font></b> <font size="2" face="Courier New, Courier, mono"><br>
+    <b>bankPtr->balance = 123.45;</b></font></blockquote>
+</blockquote>
+<p>A pointer value is a memory address except when the pointer value is <b><font size="2" face="Courier New, Courier, mono">NULL</font></b>. 
+  <b><font size="2" face="Courier New, Courier, mono">NULL</font></b> is a special 
+  C++ constant pointer value that is used to give a value to a pointer variable 
+  that would not otherwise have a value. It means "this pointer does not point 
+  anywhere."&nbsp;&nbsp; <font size="2" face="Courier New, Courier, mono">NULL</font> 
+  can be assigned to a pointer variable of any type. The <font size="2" face="Courier New, Courier, mono">NULL</font> 
+  identifier is defined in a number of libraries, including <font size="2" face="Courier New, Courier, mono"><strong>&lt;iostream&gt;</strong></font> 
+  . In C++ the constant <font size="2" face="Courier New, Courier, mono">NULL</font> actually 
+  contains the value 0. 
+<p>A dynamically allocated memory location referenced by a pointer should be released 
+  when it is no longer needed. This can be accomplished by using the C++ <strong><font size="2" face="Courier New, Courier, mono">delete</font></strong> 
+  operator. This operator eliminates a dynamic variable and returns the memory 
+  that the dynamic variable occupied so that the memory can be reused. 
+<blockquote>
+  <blockquote><b><font size="2" face="Courier New, Courier, mono">delete pointerName;</font></b></blockquote>
+</blockquote>
+<p>After the call to <font size="2" face="Courier New, Courier, mono">delete</font>, 
+  the value of the pointer variable, like <font size="2" face="Courier New, Courier, mono">pointerName</font> 
+  above, is undefined. <br>
+  &nbsp; </p><hr>
+<p><a href="javascript:Answer('Exercise24')"><font color="bb2222"><b>Exercise 24:</b></font> </a><span class="style5">(True/False) </span><font color="bb2222">Given:
+</font>
+<blockquote><pre><font color="bb2222">
+struct BankRec
+{
+	int acctNum;
+	int balance;
+};
+BankRec* bankPtr;
+bankPtr = new BankRec;
+</font> </pre></blockquote>
+<p><font color="bb2222">
+  The field <b>"balance"</b> in the structure pointed at by <b>"bankPtr"</b> can be referenced using <span class="style6">bankPtr->balance</span>.</font>
+</p>
+</p>
+<p class="style2"><a href="javascript:Answer('Exercise25')"><font color="BB2222"><b>Exercise 25.P:</b></font></a> &nbsp;&nbsp;Given:</p>
+<blockquote class="style2"><pre>
+struct PersonRec
+{
+     string name;
+     int age;
+};
+typedef PersonRec* PersonRecType;
+PersonRecType personPtr;
+</pre></blockquote>
+<span class="style2">The following statement dynamically creates memory referenced by "personPtr": </span>
+<blockquote>
+  <pre class="style2">
+<b>A.</b> personPtr = new PersonRec();                   <b>B.</b> new personPtr;
+<b>C.</b> personPtr = new (PersonRec);                   <b>D.</b> personPtr = new PersonRec;
+	</pre>
+</blockquote>
+<span class="style2"><a href="javascript:Answer('Exercise26')"><font color="BB2222"><b>Exercise 26:</b></font></a> Given:
+</span>
+<blockquote><pre class="style2">
+struct PersonRec
+{
+     string name;
+     int age;
+};
+typedef PersonRec* PersonRecType;
+PersonRecType personPtr;
+
+</pre></blockquote>
+<font color="bb2222">Which one of the following statements correctly de-allocates the memory space referenced by 
+personPtr?</font></font>
+<blockquote><pre><font color="bb2222">
+<b>A.</b>  personPtr.delete();                          <b>B.</b> personPtr = delete(personPtr);
+<b>C.</b>  delete personPtr();                          <b>D.</b> delete personPtr;
+</font></pre></blockquote>
+<span class="style2"><a href="javascript:Answer('Exercise27')"><font color="BB2222"><b>Exercise 27:</b></font></a> Given:</span
+><blockquote><pre class="style2">
+struct PersonRec
+{
+     string name;
+     int age;
+};
+typedef PersonRec* PersonRecType;
+PersonRecType personPtr;
+personPtr = new PersonRec;
+</pre></blockquote>
+<font color="bb2222">which one of the following statements is incorrect in assigning the value "John Smith"
+to field "name" of the dynamically created memory, referenced by personPtr?
+</font>
+<blockquote><pre class="style2">
+<b>A.</b>  personPtr.name = "John Smith";
+<b>B.</b>  string newName = "John Smith";
+     personPtr->name = newName;
+<b>C.</b>  personPtr->name = "John Smith";
+<b>D.</b>  (*personPtr).name = "John Smith";
+</pre></blockquote>
+ 
+<p>In the following sections, we will discuss one of the many uses of pointers. 
+  We start this discussion with an introduction to a linked list. &nbsp; <br>
+  &nbsp; 
+  <!--PART C -------->
+</p>
+<h3 align="center"><strong><a NAME="D"></a>D. Linked Lists</strong></h3>
+<p align="left">Have you ever engaged in a treasure hunt in which you are handed 
+  a clue that leads you to another clue and so on until you find the treasure? 
+  The first clue links (or points) to the next clue. The second clue links to 
+  the third, etc. The picture below is a graphical representation of this treasure 
+  hunt.</p>
+<p align="center"><br>
+  <img src="treasure.jpg" width="539" height="154"> </p>
+<p align="left">The treasure hunt example, portrays the idea of a linked list. 
+  A <strong>linked list</strong> is a list implemented using pointers. A linked 
+  list is not fixed in size but can grow and shrink while your program is running. 
+  The linked list contains a set of items and pointers (or links). The first link 
+  <em>points to</em> the first item. The second link <em>points to</em> the second 
+  item and so on. Finally, the last link is an indication that there are no more 
+  items in the list.</p>
+<p align="left">A linked list, such as the one depicted in the treasure hunt, 
+  is a simple example of a dynamic data structure. It is called a <strong>dynamic 
+  data structure</strong> because each of the boxes is a variable of a <font size="3" face="Courier New, Courier, mono">struct</font> 
+  type (or <font size="3" face="Courier New, Courier, mono">class </font>type) 
+  that has been dynamically allocated with the <font size="3" face="Courier New, Courier, mono">new</font> 
+  operator. In a dynamic data structure, these boxes, known as <strong>nodes,</strong> 
+  contain pointers in addition to the data. The pointers in the treasure hunt 
+  have been diagrammed as arrows. </p>
+<p align="left">Pointers can refer to any data type (except a file type) but they 
+  are commonly used to reference a structure data type where one field of the 
+  structure is a pointer.&nbsp; The pointer field can be used to connect or link 
+  similar structures together thereby forming a linked list.&nbsp; A <b>linked 
+  list</b> is usually thought of as a dynamic data structure consisting of
+  nodes linked together by pointers.&nbsp; One field 
+  of each list item contains a pointer that points to the next node in the linked 
+  list. </p>
+<p>For example, consider the following class definition for Node: 
+<blockquote> 
+  <blockquote id="box"> 
+    <pre> <font size=+1><b>class Node
+{
+  public:
+    int acctNum;
+    float balance;
+    Node* next;
+};<font size=+1>
+</font></b></pre>
+  </blockquote>
+</blockquote>
+<p>We note that <b>Node</b> is a <i>class</i> type with two fields in which we 
+  can store a banking customer's account number and also his/her current account 
+  balance plus another field that is a  
+  pointer to another <b>Node</b>. Graphically, 
+  it can be represented by the box containing acctNum, balance, and next. 
+<p> 
+  <center>
+    <img src="Node.gif"> 
+  </center>
+<p>Using the declarations above and using additional C++ dynamic operators, a 
+  dynamically allocated ordered (in order by ascending account numbers) list of 
+  these nodes may be created at run time.&nbsp; For example, the following list 
+  could be created: 
+<p> 
+  <center>
+    <img src="List1.gif"> 
+  </center>
+<p>Notice that there must be a special pointer that points to the first node in 
+  the list <strong>(head)</strong> and that <strong><font size="2" face="Courier New, Courier, mono">NULL</font></strong> 
+  is used to indicate that there are no more nodes in the list.
+<p>There are generally many operations that are performed on ordered lists. Creating 
+  an ordered list, inserting nodes in the list in the correct position, deleting 
+  nodes from the list, searching the list for a given value, and counting the 
+  number of nodes in the list are some of the most common.&nbsp; You will recall 
+  that ordered lists can also be created and manipulated using an array implementation.&nbsp; 
+  <b>What would be the advantage of creating and manipulating the list using pointers 
+  instead of arrays?</b> 
+<ol>
+  <li> By using a pointer implementation, memory space will be allocated only 
+    when needed.&nbsp; Arrays are statically allocated and a pointer list is dynamically 
+    allocated.&nbsp; Therefore, there will be a more efficient use of memory since 
+    memory for a struct of type Node will be allocated only when it is determined 
+    that a new customer record should be created.</li>
+  <li> A pointer implementation would result in huge improvements in efficiency 
+    with some operations.&nbsp; For, example, inserting and deleting nodes in 
+    the list is more time efficient (conserves CPU time) than using arrays.&nbsp; 
+    For example,&nbsp; suppose your job as a directory service technician requires 
+    that you maintain an ordered list of 50,000 customers.&nbsp; Suppose an array 
+    is used to maintain this list. Given a name, you should be able to locate 
+    the phone number quickly, delete a customer from the list and insert new customers 
+    in the list.&nbsp; To delete a customer from the list maintaining the list 
+    in order, for example, requires that you move all customers "up" one position 
+    in the array (if an array implementation is used).&nbsp; If a pointer implementation 
+    is used, there is absolutely <b>NO</b> data movement required.</li>
+</ol>
+
+<p>Note that when a record is deleted from an ordered list, only the value of 
+  the previous pointer must be changed.&nbsp; This record will no longer appear 
+  in the ordered list.&nbsp; However, we now have a problem.&nbsp; Note that the 
+  record still resides in memory and that this is a waste of computer memory since 
+  this information is no longer needed.&nbsp; Remember that C++ provides the special 
+  operator <i><font size="2" face="Courier New, Courier, mono">delete</font></i> 
+  which will return the indicated memory cell back to the system. This is called 
+  deallocation of memory. We say that the statement, <i><font size="2" face="Courier New, Courier, mono">delete 
+  p</font></i>, will "free up" this memory location so that it can be used by 
+  other dynamically allocated variables. 
+  <!-- Blank Space -->
+  <br>
+  &nbsp; <br>
+  &nbsp; 
+  <!--PART D -------->
+<center>
+  <h3><a NAME="E"></a>E.&nbsp; Linked List Operations</h3>
+  <div align="left"> 
+    <p><br>
+      When the list ADT was discussed, we mentioned that common operations on 
+      a list include creating an empty list, inserting a data item into a list, 
+      removing a data item from the list, searching for an item, and determining 
+      how many items are in the list. In this section, we will discuss how these 
+      operations are implemented when a linked list is used to implement the list. 
+      In this section, we will consider snippets of code to introduce each of 
+      the operations. In the next section, we will encapsulate the definition 
+      of the list ADT in a C++ class.</p>
+    <p><strong>Creating an empty list</strong></p>
+    <p>Suppose we have defined nodes in our list as follows:</p>
+    
+  </div>
+</center>
+<blockquote> 
+  <center>
+    <div align="left"> 
+      <pre><b>
+	class Node 
+	{ 
+      public:
+		int acctNum; 
+	  	float balance; 
+		Node *next; 
+	};
+	typedef Node* NodePtrtype;</b></pre>
+    </div>
+  </center>
+</blockquote>
+<center>
+  <div align="left"></p> 
+    <p>The statement</p>
+  </div>
+</center>
+<blockquote>
+  <center>
+    <div align="left">
+      <pre> <strong>NodePtrType head;</strong></pre>
+    </div>
+  </center>
+</blockquote>
+<center>
+  <div align="left">
+    <p><strong> </strong>creates the variable <font size="2" face="Courier New, Courier, mono"><strong>head</strong></font>, 
+      that can be used to point to the first node in the list. Like other uninitialized 
+      variables, it is undefined. To what value should you initialize head to 
+      indicated that the list is empty? It should be set to <strong><font size="2" face="Courier New, Courier, mono">NULL</font></strong> 
+      to indicate that it does not point to any node.<strong><br>
+      <br>
+      </strong> <strong>Adding a node to the list<br>
+      <br>
+      </strong> To insert a node into the list, first memory has to be dynamically 
+      allocated, data has to be inserted into the node, and a pointer must be 
+      changed to add the node. For example, the following code will add a new 
+      node to the beginning of the list.</p>
+    <strong> 
+    
+<pre>
+			head = new Node;             //dynamically allocate a new node
+			head->acctNum = 1112;   //place a value in the acctNum
+			head->balance = 450;    //place a value in the balance
+			head->next = NULL;           //place NULL in the next field</pre>
+    </strong>
+    <p>Graphically, the list would now look like:</p>
+    
+<p align="center"><img src="List4.gif" width="174" height="150"><br>
+<p>To add a second node at the beginning of the list, the following code might 
+  be used: </p>
+        
+<pre><b>
+		Node *p;                  //create a node pointer
+		p = new Node;             //dynamically allocate space for a new node
+		p->acctNum = 1113;   //place a value into the acctNum field
+		p->balance = 380.00; //place a value into the balance field
+		p->next = head;           //make p point to the node that head points to
+		head = p;                 //update head to point to the new node  
+		</b></pre>  
+		
+<p>Graphically, the list would now appear as: 
+<p align="center"><img src="List5.gif" width="415" height="150"> 
+<p>Make sure you understand each statement in the code above before continuing 
+  with this section. 
+<p>
+<blockquote>&nbsp;</blockquote>
+ 
+<h4>Examining each node in the list</h4>
+<p>Now that we know how to add nodes to a list, we need to learn how to move from the 
+head pointer to each node in the list and examine each node.  For example, we might wish
+to search for a particular node, or count the nodes in the list, or print all the nodes
+in the list.  Consider the following code that prints all the nodes in the list.</p>
+<strong><b>
+<pre>
+	Node *cur = head;                 //start a pointer at the beginning of the list
+	while (cur != NULL)               //as long as we haven't reached the list's end
+	{
+		//print the account number and balance
+		cout &lt;&lt; &quot;Account # = &quot; &lt;&lt; cur->acctNum &lt;&lt; endl;
+		cout &lt;&lt; &quot;Balance = &quot; &lt;&lt; cur->balance &lt;&lt; endl;
+
+		//move to the next node
+		cur = cur-&gt;next;
+	}
+	</pre></b></strong>
+	<hr>
+<font color="bb2222"><a href="javascript:Answer('Exercise28')"><font color="BB2222"><b>Exercise 28:</b></font></a></font> <span class="style8">
+Load the files <a href="javascript:Display('$CLA/Node.h')">
+Node.h</a>,
+<a href="javascript:Display('$CLA/List.h')">
+List.h</a>, 
+<a href="javascript:Display('$CLA/List.cc')">
+List.cc</a>, and 
+<a href="javascript:Display('$CLA/ListMaina.cc')">
+ListMaina.cc</a> to your account.  Modify <strong>List.cc</strong>
+to implement the print method to print out the items
+in the list.  Each node is printed on a line with the account number then a tab then the balance.  To output a tab
+character, use <span class="style9">cout &lt;&lt; "\t"; </span>Do not output any labels.  Just put the contents of the node. For instance
+</span>
+<blockquote><pre class="style8 style10">1114    395.67</pre>
+</blockquote>
+<font color="bb2222">Turn in a script log with a cat of <strong>ListMaina.cc</strong>, a compile, and four runs with the data files 
+<a href="javascript:Display('$CLA/Ex28_data.0')">
+Ex28_data.0</a>, 
+<a href="javascript:Display('$CLA/Ex28_data.1')">
+Ex28_data.1</a>, 
+<a href="javascript:Display('$CLA/Ex28_data.2')">
+Ex28_data.2</a>, and 
+<a href="javascript:Display('$CLA/Ex28_data.3')">
+Ex28_data.3</a>. Of course, you will need to copy these files to your account 
+prior to the runs. When you run your program use redirection to read from
+the various file (i.e. a.out < Ex29_data.0). </font><br>
+
+ <hr>
+<p><strong>Deleting a node from the list</strong></p>
+<p>Often, it is necessary to delete an item from the list. For example, consider 
+  the list below:</p>
+<p><img src="List2.gif" width="650" height="150"></p>
+<p>Suppose we wish to delete the node pointed to by p and we know that q is pointing 
+  to the node previous to p. The following code will accomplish the necessary 
+  delete. </p>
+  
+<pre><b>
+  		q->next = p-&gt;next;     //take p out of the linked list
+		delete p;              //deallocate p's memory </b></pre>
+		
+<p>&nbsp;</p>
+<center>
+  <h3> <a NAME="F"></a>F.&nbsp; The C++ Class Destructor</h3>
+</center>
+<p>In C++ normally a class type is used to encapsulate the data and functions
+which are associated with a linked list.&nbsp; Member functions which are
+normally provided include constructors, a function which allows one to
+print all of the nodes in a list, one or more functions to insert nodes
+into the list and functions which allow nodes to be removed from the list.&nbsp;
+In Lab 5 we learned that the C++ class has special member functions (methods)
+called <a href="javascript:Display('../lab5/lab5.html#B')">constructors</a>.&nbsp;
+Constructors are methods which can be used to initialize data members as
+discussed previously.&nbsp; We say that constructors are used for the creation
+of objects.&nbsp; In the preceding exercise you should have realized&nbsp;
+the need for the deallocation of memory when records are no longer needed
+in a linked list. Noting this need for deallocation will help you to recognize
+the need for another special method called a&nbsp; <b><i>destructor</i></b>.&nbsp;
+A <b><i>destructor</i></b> is a special member function (method) which
+"frees" up or deallocates memory and we say that it is used for the destruction
+of objects.&nbsp; It can do other tasks as well such as close a file.
+<p>Let's say that we have a class called <i>ListClass</i> which contains
+data members and methods to allow us to create and maintain an ordered
+linked list of banking customers.&nbsp; Then a destructor for the <i>ListClass</i>
+object would be used to deallocate all records found in the list.&nbsp;
+The following comments regarding destructors are appropriate at this time:
+<ol>
+  <li> A class may have many constructors but only one destructor.</li>
+  <li> Destructors are called (activated) when the function that created the desired 
+    object is terminated or explicitly when the delete operator is invoked.</li>
+  <li> Destructors do not have arguments.</li>
+  <li> The prototype for a destructor is always denoted as:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<b> <font size="2" face="Courier New, Courier, mono">~NameOfClass();</font><br>
+    </b>For example, if we have a class called <i>ListClass</i>, then the prototype 
+    for the class destructor would be denoted as:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp; <b><font size="2" face="Courier New, Courier, mono">~ListClass();</font></b></li>
+  <li> The implementation for the destructor should deallocate dynamically allocated 
+    data members. In general, if you dynamically alocated memory for any portion of an object, you should have also written a destructor for the class.  The destructor definition for the<i> ListClass</i> 
+    object may appear as:<br>
+    <b>&nbsp;&nbsp;&nbsp;&nbsp; </b> 
+    <blockquote>
+      <blockquote><b>
+        <pre> 
+    ListClass::~ListClass()
+    {
+    	//head is a private data member of ListClass which
+    	//points to the first node in the list
+    	Node *q = head;
+    	while (q != NULL)
+    	{
+			//delete the node pointed to by head
+    		head = head->next;          //move head to the next node
+     		delete q;                   //deallocate memory
+    		q = head;                   //make q point to the new head
+    	}
+    }</pre>
+        </b></blockquote>
+    </blockquote>
+  </li>
+</ol>
+<br>
+&nbsp; 
+<!--EXERCISE 11 ------>
+<br>
+<br>
+<hr>
+<p><a href="javascript:Answer('Exercise29')"><font color="BB2222"><b>Exercise 29:</b></font></a>  <font color="bb2222">Use the files <strong>List.h</strong> and <strong>List.cc
+</strong> from <strong>Exercise 28</strong>.  Copy the files 
+<a href="javascript:Display('$CLA/ListMainb.cc')">
+ListMainb.cc</a> and  
+<a href="javascript:Display('$CLA/ListInsertInOrder.cc')">
+ListInsertInOrder.cc</a> to your account.
+  Modify the file ListInsertInOrder.cc so that it finishes the implementation of the method <strong>insertInOrder</strong>.  This method appends the 
+  node 'newData' into sorted position in the linked list. If the list is empty, the new node is the new head of the list.  When you compile,
+<br>To compile the program, type:
+<blockquote><pre>aCC List.cc ListInsertInOrder.cc ListMainb.cc</pre></blockquote>
+  you will need to include this file on the compile line as well as List.cc.  Turn in a script log with a cat of <strong>ListInsertInOrder.cc
+  </strong>, a compile, and six runs with the data files 
+<a href="javascript:Display('$CLA/Ex29_data.0')">
+Ex29_data.0</a>,
+<a href="javascript:Display('$CLA/Ex29_data.1')">
+Ex29_data.1</a>, 
+<a href="javascript:Display('$CLA/Ex29_data.2')">
+Ex29_data.2</a>,
+<a href="javascript:Display('$CLA/Ex29_data.3')">
+Ex29_data.3</a>, 
+<a href="javascript:Display('$CLA/Ex29_data.4')">
+Ex29_data.4</a>,
+   and 
+<a href="javascript:Display('$CLA/Ex29_data.5')">
+Ex29_data.5</a>.  Of course, you will need to copy these files to your account prior
+   to the runs.  Use file redirection to read from each file.
+  </font> </p>
+<p><a href="javascript:Answer('Exercise30')"><font color="BB2222"><b>Exercise 30:</b></font></a> <span class="style2">Use the files <strong>List.h</strong> and<strong> List.cc </strong>from 
+<strong>Exercise 28</strong>. Copy the files 
+<a href="javascript:Display('$CLA/ListMainc.cc')">
+ListMainc.cc</a> and 
+<a href="javascript:Display('$CLA/ListDeleteIthNode.cc')">
+ListDeleteIthNode.cc</a>
+to your account.  Modify the file ListDeleteIthNode.cc so that it finishes the implementation of the method deleteIthNode. This method deletes 
+the ith item from a list of items.  When you compile, you will need to include 
+this file on the compile line as well as List.cc.
+<br>The compile line should be:
+<blockquote><pre>aCC List.cc ListDeleteIthNode.cc ListMainc.cc</pre></blockquote>
+</span> <font color="bb2222">
+Turn in a script log with a cat of <strong>ListDeleteIthNode.cc </strong>, a compile
+, and four runs with the data files 
+<a href="javascript:Display('$CLA/Ex30_data.0')">
+Ex30_data.0</a>, 
+<a href="javascript:Display('$CLA/Ex30_data.1')">
+Ex30_data.1</a>, 
+<a href="javascript:Display('$CLA/Ex30_data.2')">
+Ex30_data.2</a>, 
+<a href="javascript:Display('$CLA/Ex30_data.3')">
+Ex30_data.3</a>. Of course, you will need to copy these files to your account 
+prior to the runs. Use file redirection to read from each file.</font><br>
+<br>
+<a href="javascript:Answer('Exercise31')"><font color="BB2222"><b>Exercise 31.P:</b></font></a> <span class="style2"><b>&nbsp;&nbsp;(Multiple Choice)</b>Suppose we have a linked list of integers. Each node in the list is of <b>Node</b> type and contains an integer and a pointer to the next item in the list. The variable <b>first</b> points to the first node in the list. Which of the code segments below will add a new node containing the value 55 to the beginning of the list? </span></p>
+<blockquote>
+  <pre><font color="bb2222">
+<b>A.</b>  first = new Node;
+    first->value = 55;
+    first->next = first;
+<b>B.</b>  Node* temp = new Node;
+    first->value = 55;
+    temp->next = first;
+<b>C.</b>  Node* temp = new Node;
+    temp->value = 55;
+    temp->next = first->next;
+    first = temp;
+<b>D.</b>  Node* temp = new Node;
+    temp->value = 55;
+    temp->next = first;
+    first = temp;
+</font></pre>
+</blockquote> 
+<a href="javascript:Answer('Exercise32')"><font color="BB2222"><b>Exercise 32.P:</b></font></a><span class="style2"> <strong>&nbsp;&nbsp;(Multiple Choice) </strong>Suppose we have a linked list of integers.  Each node in the list is of Node type and 
+contains an integer and a pointer to the next item in the list.  The variable <strong>first</strong>
+points to the first node in the list.  Which of the code segments below will properly delete the last node
+in the list?
+</span>
+<blockquote><pre class="style2">
+<strong>A.</strong>  Node* cur=first;
+    while(cur != NULL)
+    {
+        cur = cur->next;
+    }
+    delete cur;
+    cur = NULL;
+<strong>B.</strong>  Node* cur = first;
+    while(cur->next != NULL)
+    {
+        cur = cur->next;
+    }
+    delete cur->next;
+    cur->next = NULL;
+<strong>C.</strong>  Node * cur = first->next;
+    while (cur != NULL)
+    {
+        cur = cur->next;
+    }
+    delete cur;
+    cur = NULL;
+<strong>D.</strong>  None of the above.
+</pre>
+</blockquote>
+<HR>
+<p>
+<font size=4>
+<center><b>
+You have reached the end of Lab 8!!
+<br>
+<br>
+ 
+<hr>
+
+<center>
+<h5>
+----- End of Lab 8x - Pointers and Linked Lists -----<br>
+Complete the Exercises on the <a href="javascript:AnswerWindow('lab8/lab8')">Answer
+Sheet</a>.<br>
+Turn in the Answer Sheet and the printouts required by the exercises.</h5></center>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<!--RETURN LINK --->
+<center><a href="#top">Return to the top of this lab</a>
+<br><a href="../index.html">Return to the link page for all 2170 labs</a></center>
+
+<!--counter -->
+<center>
+<img SRC="http://www.mtsu.edu/cgi-bin/users/csdept/217man/counter.pl?count_lab8">
+</center>
+</body>
+</html>

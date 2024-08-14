@@ -1,0 +1,45 @@
+const int MAX_PLAYERS=4;
+const int MAX_CARDS_PER_PLAYERS=13;
+
+int main()
+{
+	CardType players[MAX_PLAYERS][MAX_CARDS_PER_PLAYER];
+
+	... // code there to create deck of cards, shuffle cards to distribute cards to each player
+
+	for (int i=0; i<MAX_PLAYERS; i++) {
+	    SelectionSort(players[i], MAX_CARDS_PER_PLAYERS);
+	    DisplayCards(players[i], MAX_CARDS_PER_PLAYERS);
+	}
+
+	return 0;
+}
+
+// This function sorts an array of integer values using the selection sort algorithm
+// data (IN/OUT): the unsorted array of values are passed in 
+//                and the sorted array of values are returned back
+// number (IN): The number of books in the array of struct "library"
+void SelectionSort(CardType arr[], int n) { // NOTICE the type of the array
+
+      int i, j, minIndex;
+      CardType tmp;   // NOTICE the type of local variable "tmp
+
+      // repeat pair-wise comparison across the elements n-1 times
+      for (i = 0; i < n - 1; i++) {
+
+        // find the index of the element with the smallest value in the remaining elements
+        minIndex = i;
+        for (j = i + 1; j < n; j++)  {
+           if (arr[j].suit < arr[minIndex].suie)  // NOTICE the change in this line
+               minIndex = j;
+	}
+
+        if (minIndex != i) {
+
+ 	   // swap arr[i] and arr[minIndex]
+           tmp = arr[i];
+           arr[i] = arr[minIndex];
+           arr[minIndex] = tmp;
+        }
+     }
+}

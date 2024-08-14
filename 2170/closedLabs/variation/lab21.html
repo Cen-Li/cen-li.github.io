@@ -1,0 +1,410 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Brad Rudnik">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en]C-AtHome0405  (Win95; U) [Netscape]">
+   <meta name="Description" content="CSCI 2170 - Closed Lab 21- Lesson Page.">
+   <title>CSCI 2170 Lab 21- Linked Lists Variations</title>
+<!-- load the Javascript source file -------------------------------->
+<script SRC="../windows.js">
+document.write("Included JS file not found");
+</script>
+<!-- load the style sheet ------------------------------------------->
+<link rel="stylesheet" type="text/css" href="../styles.css" title="styles">
+</head>
+<a NAME="top"></a>
+
+<center>
+<h1>
+CSCI 2170 LAB 21<br>
+Linked Lists Variations</h1></center>
+
+<table COLS=2 WIDTH="99%" >
+<tr>
+<td width=70%>
+<dl>
+<dt>
+<b>Objectives:</dt>
+<dd>
+To introduce the concept of doubly linked lists<br>
+To discover advantages of circular linked lists<br>
+To become aware of the use of dummy head nodes<br>
+To introduce other multi-linked structures</b></dd>
+</dl></td>
+
+<td>
+<font size=4>
+<!--<center><a href="javascript:AnswerWindow('lab10/lab10')">CREATE ANSWER SHEET for LAB 10</a></center>-->
+</font>
+</td>
+</tr>
+</table>
+<!--File access for browsers without javascript capabilities-->
+<noscript>
+<blockquote>
+<blockquote><b>For those of you without Javascript capabilities these links
+will provide access to the additional files needed to complete this lab.
+They are set to open a new browser window if your browser supports this
+feature.</b>
+<center><b>
+<!--<a href="lab10Ans.html" target="_new">Answer Sheet</a>-->
+</b></center></blockquote></blockquote>
+</noscript>
+
+<p>In this laboratory assignment we will consider the following:
+<blockquote>A.&nbsp; <a href="#A">Doubly Linked Lists</a>
+<br>B.&nbsp; <a href="#B">Circular Linked Lists</a>
+<br>C.&nbsp; <a href="#C">Dummy head Nodes</a>
+<br>D.&nbsp; <a href="#D">Multi-Linked Lists</a></blockquote>
+
+<p>In this lab session we will study some of the more common variations of
+linked list structures including lists with more than one pointer field
+and the usage of "dummy" nodes in the implementation of linked list structures.&nbsp;
+There are many linked list problems which can be&nbsp; "easily" solved
+by using one or more of these variations of linked structures.&nbsp; For
+example, consider the set of problems in which we must start at the head
+and traverse the list until we get one node short of a specified place:
+"delete the last node" or "insert before the node pointed to by p."&nbsp;
+For many problems, for example,&nbsp; the inefficiency of list traversal
+can be removed at the expense of a "backward pointer" or using a doubly
+linked list structure rather than a singly linked list.
+
+<!-- PART A ------>
+<center><h3>
+<a NAME="A"></a>A. Doubly Linked Lists</h3></center>
+<p>A linked list in which each node has 2 pointers: a forward pointer (a pointer
+to the next node in the list) and a backward pointer (a pointer to the
+node preceding the current node in the list) is called a doubly linked
+list.&nbsp; Here is a picture:
+<center><img SRC="image001.jpg"  alt="image001.jpg"></center>
+<p>This list has two special pointers called <b>head1</b> and <b>head2</b> so that the list
+may be traversed beginning at either end of the list.
+<br>&nbsp;
+<h5>
+NOTE: For each of the following exercises, indicate answers on the 
+<!--<a href="javascript:AnswerWindow('lab10/lab10')">answer sheet.</a>--></h5>
+
+<!--EXERCISE 1 ----->
+<hr>
+<a href="javascript:Answer('Exercise1')"><b><font color="BB2222">Exercise 1:</font></b></a>
+<font color="BB2222">Assume the data
+field in the list above is a float number.&nbsp; Write a struct declaration,
+called Node for a node in this list.&nbsp; Use "prev" (for previous)
+and "next" as the names of the pointer fields.&nbsp; Call the data
+field "data".</font>
+
+<hr>
+
+
+
+<p>Before we look at some sample uses, let's learn to manipulate these
+doubly linked lists. Imagine we want to insert a new node after (to the
+right of) the node pointed to by p. Here is a code segment:
+<blockquote>
+<blockquote id="box"><b>
+<pre>
+Node * q;
+q = new Node;
+q->data = newData;
+q->next = p->next;      // make q point where p did to right
+q->next->prev = q;      // make node to right of q point back at q
+q->prev = p;            // make q point at p on left
+p->next = q;            // make p point at q on right
+</pre>
+</b></blockquote>
+</blockquote>
+Note that this algorithm will have problems if p points at the last node
+in the list.
+
+<!--EXERCISE 2 ----->
+<hr>
+<a href="javascript:Answer('Exercise2')"><b><font color="BB2222">Exercise 2:</font></b></a>
+<font color="BB2222">Redraw the picture
+of the doubly linked list after inserting a node containing 46.92 into
+the list after the node pointed to by p.  Draw the picture on your final answer sheet.</font>
+<hr>
+
+
+<p>Here is a picture showing how to delete the node pointed to by p (from
+the original list given above).
+<center><img SRC="image002.jpg" alt="image002.jpg"></center>
+
+<!--EXERCISE 3 ----->
+<hr>
+<a href="javascript:Answer('Exercise3')"><b><font color="BB2222">Exercise 3:</font></b></a>
+<font color="BB2222">Write the code
+segment to remove the node pointed to by p.&nbsp; Don't forget to free
+the space occupied by the node and don't forget to test if p is the first
+node in the list.&nbsp; Leave the data from the deleted node in the variable
+<b>saveData</b>.</font>
+<hr>
+
+
+<p>The increased efficiency of certain operations from a doubly linked
+list should be obvious as should the increase in space required for the
+extra pointers.&nbsp; Is it worth the extra space?&nbsp; That depends.
+If you have plenty of space and must have efficient insertion and deletion,
+the answer is yes.&nbsp; If you need to move in both directions in
+the list, then you have little choice.&nbsp; Take, for example, a doubly
+linked list of lines in a document that may be kept by a text editor.&nbsp;
+The following denotes how each node should appear:
+<br>&nbsp;
+<center><img src="image005.jpg" alt="image005.jpg"></center>
+
+<p>To move backward and forward through the document (as it appears on
+the screen ) and insert or delete lines, a doubly linked list is ideal.&nbsp; 
+With the cursor on the current line (stored in a pointer "current"),it is easy 
+to move up one line (current = current->prev) or down one line 
+(current = current->next).&nbsp; With a singly linked list this is possible
+but probably too slow.
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<!--PART B -------->
+<center>
+<h3>
+<a NAME="B"></a>B. Circular Linked Lists</h3></center>
+<p>All of our examples so far have required that a linked list have a beginning
+node and an ending node: the beginning node was a node pointed to by a
+special pointer called <i>head</i> and the end of the list was denoted
+by a special node which had a NULL pointer in its <i>next</i> pointer field.&nbsp; 
+If a problem requires that operations need to be performed on nodes in
+a linked list <b>and</b> it is not important that the list have special
+nodes indicating the front and rear of the list, then this problem should
+be solved using a <b>circular linked list</b>.&nbsp; A <b>singly
+linked circular list</b> is a linked list where the last node in
+the list points to the first node in the list.&nbsp; A circular list does
+not contain NULL pointers.&nbsp; Note the example of a singly linked circular
+list below:
+<center><img SRC="image003.jpg" alt="image003.jpg"></center>
+<p>A good example of an application where a singly linked circular list
+should be used is a timesharing problem solved by the operating system.&nbsp; 
+In a timesharing environment, the operating system must maintain a list
+of present users and must alternately allow each user to use a small slice
+of CPU time, one user at a time.&nbsp; The operating system will pick a
+user, let him/her use a small amount of CPU time and then move on to the
+next user, etc.&nbsp; For this application, there should be no NULL pointers
+unless there is absolutely no one requesting CPU time.
+
+<!--EXERCISE 4 ---->
+<hr>
+<a href="javascript:Answer('Exercise4')"><b><font color="BB2222">Exercise 4</font></b></a>
+<font color="BB2222">Assuming that
+it has been determined that we need to manipulate a linked list in such
+a fashion that there is no ending node or no beginning node, explain why
+you think that a circular linked list should be used.&nbsp; HINT: Will
+it eliminate unnecessary processor activities?&nbsp; If so, describe these
+activities.</font>
+<hr>
+
+
+<!--PART C -------->
+<center>
+<h3>
+<a NAME="C"></a>C. Dummy head Nodes</h3></center>
+<p>One of the problems in dealing with pointer based ordered lists is writing
+code to take care of special cases.&nbsp; For example, if we wish to insert
+a node in an ordered linked list, we MUST take care of the special case
+of inserting this node in the beginning of the list.&nbsp; This is a special
+case because if a node is inserted into the beginning of the list, the
+pointer indicating the beginning of the list, <b>head</b>,&nbsp; must be
+changed.&nbsp; Similarly, if we wish to delete a particular node, we must
+again also write code to handle the special case of deleting the first
+node in the list.
+<p>To avoid the special case problems involved in inserting and deleting
+nodes, programmers often use a dummy node in the list.&nbsp; A <b>dummy
+header node </b>is a node that always points to the beginning of the list
+or has a NULL pointer field if the list is empty.&nbsp; This node is called
+a dummy node since it does not contain data included in the list.&nbsp;
+This node is permanent (is never deleted) and always points to the first
+node in the list.&nbsp; To eliminate the need for special structures, it
+is preferred that the dummy node be set up using the same type of nodes
+as the data nodes in the list.&nbsp; Here is an example of a singly linked
+list with a dummy header node:
+<br>&nbsp;
+
+<center>
+<img src="image004.jpg" alt="image004.jpg">
+</center>
+
+<p>Now, let's determine how to insert a node pointed to by the pointer
+<b>p</b> into an ordered singly linked list.&nbsp; If the singly linked
+list is ordered, we must first determine where the node should be placed
+in the list.&nbsp; This is accomplished by setting up auxillary pointers,
+<b>prev</b> and <b>current</b>, moving these pointers down the list until
+<b>prev</b> is pointing to a node which should precede the node pointed
+to by <b>p</b> and <b>current</b> should be pointing to the first node
+which should succeed the node pointed to by <b>p</b>.&nbsp; The question
+is: How should <b>prev</b> and <b>current</b> be initialized?&nbsp; If
+a singly linked list with a dummy header node is used, then <b>prev</b>
+and <b>current</b> should be initialized to <b>head</b> and to <b>head->next</b>
+respectively.
+
+<!--EXERCISE 5 ----->
+<hr>
+<a href="javascript:Answer('Exercise5')"><b><font color="BB2222">Exercise 5:</font></b></a>
+<font color="BB2222">Assume that <b>p</b> is pointing to a node that should be inserted at the beginning of the list.  Show code
+to insert the node pointed to by the pointer, <i>p</i>, into the beginning
+of the list.&nbsp; Don't forget that <i>head</i> is a dummy header and
+should never be changed.&nbsp; <!-- You may assume that <i>prev</i> and <i>current</i>
+have been set up as stated above.&nbsp; Do not assume the <b>prev</b> and
+<b>current</b> are already pointing to the nodes before and after <b>p</b>.  -->
+</font>
+<hr>
+
+
+
+<!--PART D -------->
+<center>
+<h3>
+<a NAME="D"></a>D. Multi-Linked lists</h3></center>
+<p>A list can have two pointers without having a backward pointer. For instance,
+we may want to keep a set of data ordered on more than one "key". A key
+is a unique data item included in a record which distinguishes one record
+from all other records included in the list.&nbsp; Suppose we want to be
+able to access customer accounts in order by account number (integer) and
+by customer name (string). We can in fact have one list that
+is ordered both ways. We need two pointer fields.&nbsp; Each node of the
+list will have the form:
+<br>&nbsp;
+
+<center>
+<img src="image006.jpg" alt="image006.jpg">
+</center>
+
+<p>Now, let's assume that we have a class called <b>MultiListClass</b>
+and that we wish to implement this list with a dummy header node.&nbsp;
+Here is an example list which implements the multi-linked list:
+<center><img SRC="image007.jpg" alt="image007.jpg"></center>
+Insertion and deletion require about twice the work since two sets of pointers
+must be adjusted: one for the name and one for the account number.&nbsp;
+Essentially, you perform the same adjustments as in a singly linked list
+but you do it twice.
+
+<!--EXERCISE 6 ----->
+<hr>
+<a href="javascript:Answer('Exercise6')"><b><font color="BB2222">Exercise 6:</font></b></a>
+<font color="BB2222">Redraw the picture
+after: Able, 99200 is inserted.</font>
+<hr>
+
+
+<p>Insertion and deletion are more complicated in multi-linked lists.&nbsp;
+Below is a function we have written which inserts the new node into the
+linked list which is ordered alphabetically by the customer name.&nbsp;
+We use the notation from above.
+<blockquote><blockquote id="box">
+<b>
+<pre>
+// Algorithm for insertion into multi-linked list with two links.
+//This is the structure of nodes in the list
+struct Node
+{
+     TypeData name;       //Person's name
+     TypeInt number;      //Person's account number
+     TypePtr nextNum;     //Pointer to next record by account number
+     TypePtr nextName;    //Pointer to next record by name
+};
+
+//Function to insert a node into a linked list ordered by customer name
+void MultiListClass::insertNameList (TypePtr p)
+//IN:&nbsp; p points to the node to be inserted into the list
+{
+     //initialize prev and current
+     TypePtr prev = head;
+     TypePtr current = head->nextName;
+
+     //move prev and current until current is NULL or 
+     //current is pointing to a node which contains a name 
+     //that is larger than the name to be inserted into the list
+     while (!insertName (current,p))
+     {
+           prev = current;
+           current = current->nextName;
+     }
+
+     //insert the node between prev and current
+     prev ->nextName = p;
+     p->nextName = current;
+}
+</pre></b></blockquote></blockquote>
+<p>Now, we also need a function which will insert the node into the list ordered
+by the customer account number:
+<blockquote><blockquote id="box">
+<b>
+<pre>
+//Function to insert a node into a linked list ordered by customer 
+//account number
+void MultiListClass::insertNumList (TypePtr p)
+{
+     //Initialize prev and current
+     TypePtr prev = head;
+     TypePtr current = head->nextNum;
+
+     //Move prev and current until current is NULL or is pointing 
+     //to a node which contains a customer number that is larger 
+     //than the customer number contained in the node to be inserted
+     while (!insertNum (current, p))
+     {
+          prev = current;
+          current = current->nextNum;
+     }
+
+     //Insert the node between prev and current
+     prev ->nextNum = p;
+     p->nextNum = current;
+}
+</pre></b></blockquote></blockquote>
+<p>We have implemented this insert algorithm in <a href="javascript:Display('$CLA/inlab10.cc')">inlab10.cc</a>.&nbsp;&nbsp;
+It is used to build a multi-linked list with two links.&nbsp; Copy this
+source file to your account along
+with the data file <a href="javascript:Display('$CLA/inlab10.dat')">inlab10.dat</a>.
+
+<!--EXERCISE 7 ------>
+<hr>
+<a href="javascript:Answer('Exercise7')"><b><font color="BB2222">Exercise 7:</b></font></a>
+<font color="BB2222">To be sure
+our insert procedure works, write two "traverse" functions -- one to print
+the list in order by name and another to print it in order by account number.&nbsp;&nbsp;
+We will Include the ".h" file 
+<a href="javascript:Display('$CLA/inlab10.h')">inlab10.h</a>
+in main program and include the ".cc" file 
+<a href="javascript:Display('$CLA/inlab10.cc')">inlab10.cc</a>
+in the compilation.  
+Compile the <a href="javascript:Display('$CLA/main10.cc')">main10.cc</a> client
+program using:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>aCC main10.cc nlab10.cc -o lab10</i><br>
+Turn in a listing of inlab10.cc, <a href="javascript:Display('$CLA/inlab10.h')">inlab10.h</a>
+and main10.cc and a run.</font
+<hr>
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<center>
+<h5>
+----- End of Lab 10 - Linked Lists Variations -----<br>
+Complete the Exercises on the <a href="javascript:AnswerWindow('lab7OLD/lab10')">Answer
+Sheet</a>.<br>
+Turn in the Answer Sheet and the printouts required by the exercises.Don't forget to draw your answer for Exercise 2 on your Answer Sheet. </h5></center>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<!--RETURN LINK --->
+<center><a href="#top">Return to the top of this lab</a>
+<br><a href="../index.html">Return to the link page for all 2170 labs</a></center>
+
+<!--counter -->
+<center>
+<img SRC="http://www.mtsu.edu/cgi-bin/users/csdept/217man/counter.pl?count_lab10">
+</center>
+</body>
+</html>

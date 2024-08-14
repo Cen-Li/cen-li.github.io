@@ -1,0 +1,210 @@
+<HTML>
+<HEAD>
+<TITLE>argc/argv</TITLE>
+<META NAME="robots" CONTENT="noindex, nofollow">
+</HEAD>
+
+<BODY BGCOLOR="white" TEXT="black" LINK="blue" VLINK="navy" ALINK="red">
+<CENTER>
+ <TABLE BORDER=8> <TR VALIGN=middle>
+   <TD BGCOLOR="white"> <CENTER>
+     <FONT SIZE=4 COLOR="black"><B>
+       Getting Command Line Arguments in C++
+     </B></FONT>
+   </CENTER> </TD>
+ </TR> </TABLE>
+</CENTER>
+
+<HR SIZE=3>
+
+<h2>Arguments to function <b>main()</b></h2>
+
+<p>
+We have seen that functions may take arguments -- they can be parameterized.
+Similarly, an entire program can be passed arguments.
+This happens frequently, as many programs take arguments; for example:
+<pre>
+        cp a.cc b.cc
+        aCC hello.cc
+        ls -l a.out
+</pre>
+
+<p>
+The argument list follows the command (program) name
+and it is up to the program to make appropriate use of it. Without arguments,
+each program would have to explicitly include input statements to wait for
+suitable input. This would make them much less convenient to use, especially
+in the Unix environment.
+</p>
+
+<p>
+In C++, the <i>main</i> function is allowed to be written with
+parameters omitted.  However, if information from the command line
+is to be used inside the program, then the <i>main</i> function is
+coded as follows:
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<font color="blue"><b>int main( int argc, char* argv[] )</b></font>
+<br>
+where <b>argv</b> is an array of C-style strings.
+(Technically, <b>argv</b> is an array of <b>char*</b> pointers, but saying an
+array of C-style strings will get us by for now.)
+&nbsp;
+<b>argc</b> gives the size of the array.
+The <b>argv</b> array is used to store the command name
+and arguments given on the command line that invoked the program.
+</p>
+
+<h2>1. Using Argc and Argv</h2>
+<p>Given the following at the command line:
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<font color="blue"><b>a.out one two three</b></font>
+<br>
+four items have been typed.
+The first item is the command or program name (that is, the name of the
+program's executable file) and the rest are arguments to the program.
+In this example, when the main function is executed,
+<b>argc</b> has the value 4, corresponding with the
+<i>number of items on the command line</i>.
+</p>
+
+<p>
+The array <b>argv</b> has extent (number of elements) '<TT>argc + 1</TT>',
+the final element being set to zero (null).
+This marks the end of the array in much the same way that null marks the end
+of a string. The other elements are:</p>
+<ul>
+<li> &nbsp; argv[0] - points to &quot;a.out&quot;, the program (command) name.
+<li> &nbsp; argv[1] - points to &quot;one&quot;, the first argument.
+<li> &nbsp; argv[2] - points to &quot;two&quot;, the second argument.
+<li> &nbsp; argv[3] - points to &quot;three&quot;, the third argument.
+<li> &nbsp; argv[4] - null.</p>
+</ul>
+The following diagram illustrates the situation:</p>
+<p align="center">:<img src="argc-argv.gif" width="244" height="139"
+alt="argc/argv graphic example"></p>
+
+<h2>2. Example</h2>
+<p>The following program displays the arguments typed on the command line
+(including the program name).
+<pre>
+        #include &lt;iostream&gt;
+        using namespace std;
+        int main(int argc, char* argv[])
+        {
+            for (int i=0; i &lt; argc; i++)
+            {
+                cout &lt;&lt; argv[i] &lt;&lt; &quot; &quot; ;
+            }
+            cout &lt;&lt; endl ;
+            return 0 ;
+        }
+</pre>
+<p>Note that as each <b>argv</b> element points to a string, 
+it can be displayed directly using:
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<font color="blue"><b>cout &lt;&lt; argv[i];</b></font>
+<br>
+as the output stream always treats <b>char*</b> values
+as if they were C-style strings.</p>
+</p>
+
+<h2>3. A longer example using command line arguments</h2>
+<p>The following example implements a simple file copy program
+(like the Unix 'cp').
+<b>argv</b> and <b>argc</b> are used to read the names of the files
+to be copied from the command line.
+The program would be used like 'cp':
+<pre>        copy file1 file2</pre>
+<p>Notice that the error messages are output to the stream called <b>cerr</b>.
+This is like <b>cout</b> but is typically used for error messages.
+If standard output is redirected,
+output to <b>cerr</b> will still appear on the screen.
+<pre>
+      1   #include &lt;iostream&gt;
+      2   #include &lt;fstream&gt;    // for ifstream, ofstream
+      3   using namespace std;
+      4
+      5   int main(int argc, char* argv[])  
+      6   {  
+      7       ifstream source;     // Input stream
+      8       ofstream dest;       // Output stream
+      9       char ch;             // character read to be output
+     10
+     11       if (argc != 3)       // test number of arguments
+     12       {
+     13           cerr &lt;&lt; &quot;Error use: copy file1 file2\n&quot;;
+     14           return -1;       // terminate program
+     15       }
+     16
+     17       // Try to open source file
+     18       source.open(argv[1]); 
+     19       if ( !source  )
+     20       {
+     21           cerr &lt;&lt; &quot;Cannot open source file &quot; &lt;&lt; argv[1]
+     22             &lt;&lt; &quot; for input\n&quot;;
+     23           return -1;       // terminate program
+     24       }
+     25
+     26       dest.open(argv[2]);  // dest file will be created if not found
+     27                            // or overwritten if it already exists
+     28       if ( !dest )
+     29       {
+     30           cerr &lt;&lt; &quot;Cannot open destination file &quot; &lt;&lt; argv[2]
+     31             &lt;&lt;  &quot; for output\n&quot;;
+     32           return -1;       // terminate program
+     33       } 
+     34
+     35       // Copy file, one character at a time
+     36       source.get(ch);
+     37       while (source &amp;&amp; dest)
+     38       {
+     39           dest.put(ch); 
+     40           source.get(ch);
+     41       }
+     42
+     43       source.close(); 
+     44       dest.close();
+     45       return 0;
+     46   }
+</pre>
+<p>This example shows the typical structure of programs that use
+<b>argc</b> and <b>argv</b>.
+First a test is done on <b>argc</b> to see if the actual number of arguments
+matches the number expected.
+Then each argument is obtained from <b>argv</b> and used for
+its appropriate purpose (e.g., to specify a file name).
+If any argument is invalid,
+an error message is displayed and the program is terminated.
+If the program runs correctly the main function will return zero, the
+convention used by Unix to indicate that a program terminated without error.
+Otherwise the program returns -1,
+indicating that the program ran into problems.</p>
+
+<p> Finally, notice the loop, lines 36 through 41 above, that does the copying.
+The ifstream member function <b>get()</b> will read in the next character
+from the input stream and store it into the variable <b>ch</b>.
+The function <b>get()</b> does <i>not</i> ignore whitespace
+and thus will always read the next character regardless of what it is.
+That includes newlines ('\n') characters.
+The ofstream function <b>put()</b> will write any character to the 
+output stream.
+When the end of the source file is reached, the file handle <b>source</b>
+will return <b>false</b>.
+Similarly, if the program is unable to write to the destination file,
+the file handle <b>dest</b> will return <b>false</b>.
+</p>
+
+<HR SIZE=3>
+
+<ADDRESS>
+http://www.cs.mtsu.edu/~cs2170/manual/lab2R/argc-argv.html
+</ADDRESS>
+
+</BODY>
+</HTML>

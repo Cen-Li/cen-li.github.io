@@ -1,0 +1,382 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Brad Rudnik">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en]C-AtHome0405  (Win95; U) [Netscape]">
+   <meta name="Description" content="CSCI 2170 - Closed Lab 14 - Lesson Page.">
+   <title>CSCI 2170 Lab 14 - Trees</title>
+
+<!-- load the Javascript source file -->
+<script SRC="../windows.js">
+document.write("Included JS file not found");
+</script>
+
+<!-- load the style sheet -->
+<link rel="stylesheet" type="text/css" href="../styles.css" title="styles">
+
+</head>
+<body background="lab14.gif"><a NAME="top"></a>
+
+<center>
+<h1>
+CSCI 2170 LAB 14<br>
+Trees</h1></center>
+
+<table COLS=2 WIDTH="100%" >
+<tr>
+<td width=70%>
+<dl>
+<dt>
+<b>Objectives:&nbsp;</dt>
+
+<dd>
+To learn how the tree data structure is useful
+<br>To become familiar with the basic terminology related to trees
+<br>To learn how to implement binary search trees
+<br>To learn how to construct a balanced binary search tree
+</b></dd></dl>
+</td>
+
+<td><font size=4>
+<center><a href="javascript:AnswerWindow('lab14/lab14')">CREATE ANSWER SHEET for LAB 14</a>
+</font></center>
+</td>
+</tr>
+</table>
+
+<!--File access for browsers without javascript capabilities--><noscript>
+<blockquote>
+<blockquote><b>For those of you without Javascript capabilities these links
+will provide access to the additional files needed to complete this lab.
+They are set to open a new browser window if your browser supports this
+feature.</b>
+<center><b><a href="lab14Ans.html" target="_new">Answer Sheet</a></b></center>
+</blockquote>
+</blockquote>
+</noscript>
+
+<blockquote>
+A.&nbsp; <a href="#A">Purpose of the Tree Data Structure</a>
+<br>B.&nbsp; <a href="#B">Basic Terminology</a>
+<br>C.&nbsp; <a href="#C">Binary Search Trees</a>
+<br>D.&nbsp; <a href="#D">Balanced Binary Search Trees (AVL-Trees)</a></blockquote>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<!-- PART A -->
+<center>
+<h3>
+<a NAME="A"></a>A. Purpose of the Tree Data Structure</h3></center>
+<p>In computing we build trees often because they are useful data structures
+in evaluating expressions, in sorting, in searching, in problems that require
+<b>backtracking</b>
+(backing up when we have hit a dead end) as well as other areas of computing.&nbsp;
+Tree data structures are used to represent hierarchical relationships such
+as parent-child relationships and boss-worker relationships, for example.&nbsp;
+There are many different types of trees including:&nbsp; binary trees,
+AVL trees, trie trees, B-trees, and general trees.&nbsp; We will focus
+primarily on <b>binary trees</b>.
+
+<!-- PART B -->
+<center>
+<h3>
+<a NAME="B"></a>B. Basic Terminology</h3></center>
+<p>In order to comprehend the usefulness of trees, it is first important to
+build a basic "tree" vocabulary as pertaining to computer science.&nbsp;
+Let's examine the following definitions:
+<ul>
+<li>
+<b>tree</b> -a set of 0 or more nodes such that a non-empty tree has 1
+node that is called the root node from which descend 0 or more subtrees.</li>
+
+<li>
+<b>subtree</b> - is a subset of a tree and must satisfy the definition
+of a tree.</li>
+
+<li>
+<b>child</b> - a node that is a descendant of another node which is called
+the parent.</li>
+
+<li>
+<b>degree of a node</b> -&nbsp; the number of children (or subtrees) of&nbsp;
+a node.</li>
+
+<li>
+<b>leaf node</b> - a node with no children.</li>
+
+<li>
+<b>level of a node</b> -&nbsp; the root of a tree is at level 1 and all
+other nodes are at level (1 + level of its parent)</li>
+
+<li>
+<b>height of a tree or depth of a tree</b> - maximum level of any node
+in the tree.</li>
+
+<li>
+<b>binary tree</b> - a tree in which each node has at most two children</li>
+
+<li>
+<b>full binary tree</b> - a binary tree of depth k which has 2<sup>k</sup>
+ - 1 nodes.</li>
+
+<li>
+<b>complete binary tree</b>&nbsp; - a&nbsp; binary tree of height h which
+is full down to level h-1, with level h filled in from left to right</li>
+
+<li>
+<b>binary search tree</b> - a binary tree with the ordering&nbsp; property:
+the key data in any node P is greater than the key data in any node in
+the left subtree of P and less than the key data in any node in the right
+subtree of P.</li>
+</ul>
+
+<p>For example:
+<center><img SRC="lab14B.gif" height=400 width=560></center>
+
+<h5>
+NOTE: For each of the following exercises, indicate answers on the <a href="javascript:AnswerWindow('lab14/lab14')">answer
+sheet.</a></h5>
+
+<!-- EXERCISE 1 -->
+<hr>
+<a href="javascript:Answer('Exercise1')"><font color="BB2222"><b>Exercise 1:</b></font></a><font color="BB2222">&nbsp;&nbsp;Observe the following
+trees and answer the indicated questions related to each tree.</font>
+<p>
+
+<center><img SRC="lab14Ex1.gif" height=400 width=560></center>
+
+<font color="BB2222"><pre><b>
+a) Answer the following as related to Tree1.     b) Answer the following as related to Tree2.
+
+Height = ________________________                Height = ____________________
+Root Node = _____________________                Root node = _________________
+Children of R = _________________                Degree of node D = __________
+Parent of K = ___________________                Level of node E = ___________
+
+c) Fill in blanks.
+Which trees are binary trees? __________________________________­­­___
+Which trees are full binary trees? ________________________________
+Which trees are binary search trees? ______________________________
+Which trees are complete? _________________________________________</b></pre></font>
+<hr>
+<p>Note that if T is a full binary tree of height n, then T must have:
+<blockquote>
+<blockquote><b>2<sup>0</sup> nodes at level 1</b>
+<br><b>2<sup>1</sup> nodes at level 2</b>
+<br><b>.....</b>
+<br><b>2<sup>n-1</sup> nodes at level n</b></blockquote>
+</blockquote>
+
+<!-- EXERCISE 2 -->
+<hr>
+<a href="javascript:Answer('Exercise2')"><font color="BB2222"><b>Exercise 2:</b></font></a><font color="BB2222">&nbsp;&nbsp;Fill in the blanks.<br>
+<pre><b>
+a) A full binary tree of height = 1 will have 2<sup>0</sup> =  ____ node/s.
+b) A full binary tree of height = 2 will have 2<sup>1</sup> + 2<sup>0</sup> =  ____ nodes.
+c) A full binary tree of height = 3 will have 2<sup>2</sup> + 2<sup>1</sup> + 2<sup>0</sup> =  ____ nodes.
+d) A full binary tree of height = 4 will have&nbsp;&nbsp; _______nodes.
+e) A full binary tree of height = 5 will have&nbsp;&nbsp; _______nodes.
+f) A full binary tree of height = k will have&nbsp;&nbsp; _______nodes.
+g) How many leaves are there in a full binary tree of height 5? _______________&nbsp;
+h) How many leaves are there in a full binary tree of height k?________________</b></pre></font>
+<hr>
+
+<!-- PART C -->
+<center>
+<h3>
+<a NAME="C"></a>C. Binary Search Trees</h3></center>
+
+<p>A <b>binary search tree (BST)</b> provides convenient sorting and
+searching capabilities in a binary tree.&nbsp; Binary search trees provide
+the linked list equivalent of the binary search of a sorted array.&nbsp;
+Consider the following BST:
+<center><img SRC="lab14C1.gif" height=250 width=322></center>
+
+<p>Assume you want to search for x = 77.&nbsp; Since x is less than 85
+(the root), x must lie in the left subtree of the root, if it exists in
+the tree.&nbsp; Essentially we have split the search space of the above
+tree&nbsp; in half just as we do when using the binary&nbsp; search for
+a sorted array.&nbsp; The largest number of comparisons (of the form "Is
+x equal the data in this node?") required will equal the height of the
+tree.
+<p>Assume you have a full BST with height k.&nbsp; It has 2<sup>k</sup> - 1 
+nodes
+(or data values) and since its height is k, a search requires k comparisons
+in the worst case.&nbsp; Note that k is approximately equal to log<sub>2</sub> 
+( 2<sup>k</sup>
+- 1) .&nbsp; In other words, the number of comparisons in a full binary
+tree is approximately equal to the logarithm (base 2) of the number of
+nodes in the tree .&nbsp; This relationship is true in general.&nbsp; If
+a BST is relatively "balanced" (i.e., not badly skewed) and has n nodes
+then a search will require roughly log<sub>2</sub> n comparisons in the worst case.
+<p>The height of a tree is critical in determining how efficiently we can
+search the tree for a given element.&nbsp; All 3 trees below have 7 nodes.&nbsp;
+Let n be the total number of nodes in a tree.
+<center><img SRC="lab14C2a.gif" height=400 width=327></center>
+In figure a) the number of comparisons needed to find node G would be Big
+O of n (0(n)) because we make 7 comparisons.&nbsp; This is no better than
+searching a linear array.
+<center><img SRC="lab14C2b.gif" height=200 width=315></center>
+To find G in the full binary tree in figure b) we would have to make 7
+comparisons.&nbsp; The problem with the tree in figure b) is that it does
+not have the ordering property.
+<center><img SRC="lab14C2c.gif" height=205 width=344></center>
+The tree in figure c)&nbsp; has the ordering property and is called a <b>Binary
+Search Tree (BST)</b>.&nbsp; Therefore, we would need to make 3 comparisons
+which is roughly <b>log<sub>2</sub>n</b> because log<sub>2</sub>7 is approximately 3.&nbsp; Using a
+BST with minimum height we can find any element in the tree in log<sub>2</sub>n comparisons.&nbsp;
+A BST with minimum height has height approximately <b>log<sub>2</sub>(n)</b>.
+
+<!-- EXERCISE 3 -->
+<hr>
+<a href="javascript:Answer('Exercise3')"><font color="BB2222"><b>Exercise 3:</b></font></a><font color="BB2222">&nbsp;&nbsp;Approximately
+how many comparisons will be required, in the worst case, to locate a value
+in a relatively balanced BST with 1000 nodes? Give a numeric answer.&nbsp;
+_________________&nbsp; 1,000,000 nodes?&nbsp; ____________________</font><hr>
+
+
+
+<p>To give some empirical data regarding the height of BSTs, you should
+examine a client of the BSTClass that we have written which builds a BST
+containing 10 random integer nodes.&nbsp; Suppose the code were changed
+so that it generated a BST with 255 nodes.&nbsp; Note that 255 = 2<sup>8</sup>
+ - 1;
+so <b>if</b> the tree is complete, it would have height 8.&nbsp; In fact,
+it cannot have height less than 8, but it can have a height as great as
+255. UGH!
+
+<!-- EXERCISE 4 -->
+<hr>
+<a href="javascript:Answer('Exercise4')"><font color="BB2222"><b>Exercise 4:</b></font></a><font color="BB2222">&nbsp;&nbsp; 
+Look at the file
+<a href="javascript:Display('$CLA/main14.cc')">main14.cc</a>.&nbsp; This
+file&nbsp; utilizes the functions&nbsp; <i>insertInBST()</i> which inserts
+integers into a binary search tree,&nbsp; <i>printTree()</i> which performs
+an inorder traversal of the tree and <i>getHeight()</i> which calculates
+and displays the height of the tree.&nbsp; Copy <b>main14.cc</b>, 
+<b>inlab14.h</b>, and <b>inlab14.o</b>
+into your account.&nbsp; The file
+<i><b>inlab14.o</b></i> is the compiled version of the implementation file for
+the BSTClass.&nbsp; Take our<i> main14.cc</i> code and add statements
+so that it will&nbsp; generate 30 BSTs with 255 nodes each and calculate
+the average height for the 30 trees.&nbsp; <i>DO NOT PRINT EACH BST!!</i>
+Your modified code should print out:<br>
+<b><pre>
+      a) a table displaying the height of each of the 30 trees with 255 nodes
+      b) the average height of the 30 BSTs with 255 nodes
+      c) the smallest height among the 30 trees
+      d) the largest height among the 30 trees</pre></b>
+Compile your program by typing:<br>
+<pre><b><i>aCC inlab14.o main14.cc -o treelab</i></b></pre>
+Run your program and submit a script session showing the modified code,
+the compile and a run.</font><hr>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<!-- PART D -->
+<center>
+<h3>
+<a NAME="D"></a>D. Balanced Binary Search Trees (AVL-Trees)</h3></center>
+<p>Obviously search time is reduced (as is insertion and deletion time) if
+the BST is nearly balanced.&nbsp; Unless the tree has exactly 2<sup>n</sup> - 1 nodes
+(for some n), it cannot be perfectly balanced (or full).&nbsp; So "off-by-one"
+is generally the best we can hope for in balancing.&nbsp; That is, we will
+usually have the height of one subtree being greater than the height of
+the other subtree by 1.&nbsp; The question is, "Can we build a BST so the
+balance is <b>at most</b> off-by-one?"&nbsp; Note that the following tree
+is off-by-two.<img SRC="lab14D1a.gif" height=204 width=216 align=TEXTTOP>
+<p>The height of the left subtree is 0 (by definition an empty tree has
+height 0) and the height of the right subtree is 2.&nbsp; It can be rearranged
+by choosing a different root so it is balanced as follows:&nbsp;
+<img SRC="lab14D1b.gif" height=120 width=170 align=TEXTTOP>
+<p>It is still a binary search tree.&nbsp; Adelson-Velsky and Landis proved
+that a BST can be constructed so that it is nearly height balanced (i.e.,
+at worst off-by-one) <b>and</b>, more importantly, there is an efficient
+algorithm to construct such a tree.&nbsp; That is, the time complexity
+(efficiency) of the additional cost to guarantee (nearly) balanced trees
+is <b>not</b> unreasonable.&nbsp; In honor of their work such trees are
+called <b>AVL-trees.</b>
+<p>Formally, a BST is an <b>AVL-tree</b> if the height of the left and
+right subtree of each node in the tree differ by at most 1.&nbsp; Here
+is an example of two trees one of which is an AVL-tree and the other is
+not.
+<br><center>
+<img SRC="lab14D2a.gif" height=250 width=322>&nbsp;
+<img SRC="lab14D2b.gif" height=330 width=286></center>
+<p>
+<!-- EXERCISE 5 -->
+<hr>
+<a href="javascript:Answer('Exercise5')"><font color="BB2222"><b>Exercise 5:</b></font></a><font color="BB2222">&nbsp;&nbsp;Why is the tree
+in (b) not an AVL-tree?&nbsp; Be specific.</font><hr>
+
+<!-- Blank Space -->
+<br>&nbsp;
+
+<p>It may not be so clear as to how we could rearrange (b) into an AVL-tree.&nbsp;
+Essentially, in the terminology of Adelson-Velsky and Landis, it takes
+a "left rotation about 55" followed by a "right rotation about 75."&nbsp;
+The tree in (b) is pictured below after a left rotation about 55.&nbsp;&nbsp;
+<center><img SRC="lab14D2b.gif" height=330 width=286>&nbsp;
+<img SRC="lab14D2c.gif" height=330 width=286>&nbsp;</center>
+<p>A&nbsp; subsequent right rotation at 75 will change (c) into (a).
+<center>
+<img SRC="lab14D2c.gif" height=330 width=286>&nbsp;
+<img SRC="lab14D2a.gif" height=250 width=322>
+</center>
+
+<!-- EXERCISE 6 -->
+<hr>
+<a href="javascript:Answer('Exercise6')"><font color="BB2222"><b>Exercise 6:</b></font></a><font color="BB2222">&nbsp;&nbsp;
+ Imagine that
+the node containing 60 has just been inserted in the tree resulting in the non-AVL tree (b) above.&nbsp;
+Note that before the 60 was inserted it was an AVL-tree.&nbsp;&nbsp; Look
+at the nodes along the path from the root to where the 60 was inserted
+: 95, 75, 55, 65.&nbsp;<br>
+<b><pre>
+    a) Of the trees rooted at these four nodes, which one(s) is(are) 
+       not exactly balanced?   ___________
+    b) Which non-balanced node on this path is "closest" to where the 60 
+       was inserted?   _______________
+    c) On which side (left or right) of 75 did the 60 go?  ___________</pre></b></font><hr>
+<p>After the insertion,&nbsp; the subtree rooted at 75 is not an AVL-tree,
+correct?&nbsp; This explains the "right rotation at 75."&nbsp;&nbsp; The
+"left rotation at 55" is more dificult to motivate. It is required because
+the new node 60 was inserted in the right subtree of the left subtree of
+75.&nbsp; Had we inserted a 45 instead of 60, only the "right rotation
+at 75" would have been required.
+
+<!-- EXERCISE 7 -->
+<hr>
+<a href="javascript:Answer('Exercise7')"><font color="BB2222"><b>Exercise 7:</b></font></a><font color="BB2222">
+&nbsp;&nbsp;Give the right
+rotation at 75 to rebalance the tree <i>below</i> after 45 is inserted.&nbsp;&nbsp;
+Think about where the 65 should go after the rotation.&nbsp;&nbsp; Redraw
+the tree after the insertion and right rotation.</font>
+
+<center><img SRC="lab14Ex7.gif" height=250 width=286></center>
+<hr>
+<center>
+<h5>
+----- End of Lab 14 - Trees -----<br>
+Complete the Exercises on the <a href="javascript:AnswerWindow('lab14/lab14')">Answer Sheet</a>.&nbsp;<br>
+Turn in the Answer Sheet and the printouts required by the exercises.</h5></center>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<!--RETURN LINK -->
+<center><a href="#top">Return to the top of this lab</a>
+<br><a href="../index.html">Return to the link page for all 2170 labs</a></center>
+
+</body>
+</html>

@@ -1,0 +1,592 @@
+<HTML>
+<HEAD>
+<TITLE>Lab 1X - The UNIX Xfce desktop</TITLE>
+<META NAME="author" CONTENT="Roland H. Untch">
+<META NAME="robots" CONTENT="noindex, nofollow">
+</HEAD>
+
+<BODY BACKGROUND="lab1.gif"
+      BGCOLOR="white" TEXT="black" LINK="blue" VLINK="navy" ALINK="red">
+<CENTER>
+ <TABLE BORDER=8> <TR VALIGN=middle>
+   <TD BGCOLOR="white"><IMG SRC="/~csdept/images/WordmarkTiny.gif"
+       ALT="MTSU" WIDTH="97" HEIGHT="48"></TD>
+   <TD BGCOLOR="white"> <CENTER>
+     <FONT SIZE=5 COLOR="navy"> &nbsp; <B>
+       CSCI 1170 - <EM>Computer Science I</EM>
+     </B></FONT> &nbsp;
+     <BR><FONT SIZE=4 COLOR="black"><B>
+	   Lab <I>1X</I> - The UNIX Xfce desktop
+     </B></FONT>
+   </CENTER> </TD>
+ </TR> </TABLE>
+</CENTER>
+<BR>
+
+<CENTER> <FONT SIZE=4><B>
+Lab <I>1X</I> is an extension of Lab 1.
+</B></FONT> </CENTER>
+<HR SIZE=3>
+
+<CENTER>
+<IMG SRC="/~untch/images/UnderConstruction.gif"
+ALT="[Under Construction]"  WIDTH="465" HEIGHT="28">
+ <BR>
+ <FONT SIZE=4 COLOR=red>&nbsp;
+   Warning: Changes for the new ranger2 system still need to be made to this 
+   document.
+   </FONT>
+ <BR>
+<IMG SRC="/~untch/images/UnderConstruction.gif"
+ALT="[Under Construction]"  WIDTH="465" HEIGHT="28">
+</CENTER>
+<HR SIZE=3>
+
+
+<P>
+<B>ON DOING CLOSED LABS:</B>
+<FONT SIZE="+1" COLOR="red">Read everything!</FONT>
+Careful reading of the closed lab instructions is a must.
+You simply cannot delve into a lab and start typing.
+Unlike a verbose textbook where you can often skim over material,
+labs are much shorter and almost everything written is important.
+Read the material
+and, only where and when directed, enter commands.
+Be patient, both with yourself and with the lab material---remember,
+you are a beginner at this stuff and it will take a while to
+become proficient.
+<HR SIZE=3>
+
+<P>
+<BR>
+<B>EDUCATIONAL OBJECTIVE:</B>
+Earlier, you customized your <B><I>ranger</I></B> course computer account
+in <A HREF="https://cs.mtsu.edu/~untch/manual/labZ1/lab1.html">
+Closed Lab 1</A>.
+(Remember, this summer <B><I>ranger</I></B> really only refers
+to <B><I>ranger<FONT COLOR="green">2</FONT></I></B>.)
+You are now ready to use <B><I>ranger</I></B> to do some work.
+The exercises below will give you a brief introduction to 
+accessing the <B>Xfce</B> desktop via <B>NX</B>
+and let you practice entering a few <B>UNIX</B> commands
+and using some of the <B>Xfce</B> features.
+
+
+<P>
+<BR>
+<B><FONT COLOR=red>STEP 1.</FONT>
+LOG ON USING THE <I>X2Go CLIENT</I>:</B>
+We will be using a UNIX <B>Desktop</B> environment
+for the exercises below.
+(Unlike in any specific version of Windows
+where there is typically only one standard desktop environment,
+there are several possible UNIX Desktop environments.
+The one we will be using this semester is called
+<A HREF="http://en.wikipedia.org/wiki/Xfce"</A><b>Xfce</b></A>.)
+Although we will again connect to <B><I>ranger</I></B>,
+we will do it a bit differently---instead of using <B>PuTTy</B>,
+we will use a program installed on the lab PC you are using
+that is called the <I>X2Go Client</I>.
+To connect to <I>ranger</I> via the <I>X2Go Client</I>,
+double-click the mouse on the reddish <B><I>X2Go ranger</I></B> icon
+that looks like this one in the upper right-hand corner of the screen shot:
+<CENTER>
+<IMG SRC="X2Go-ranger.png" ALT="X2Go ranger">
+</CENTER>
+
+<P>
+<u>Make sure the icon has the label
+<b><i>X2Go&nbsp;ranger</i></b></u>!
+When you double-click on the icon,
+you should get an X2Go login window.
+Unfortunately the screen resolution left from the previous
+user might be the wrong value.  Dismiss the login window by
+pressing <B>Esc</B>cape and you'll get the following selection window.
+
+<center>
+      <img src="X2GoSelection.png" WIDTH=75%>
+</center>
+<P>
+The third drop-down item under ranger2 should say "Display 1".
+If it doesn't, open the menu and select that entry.  Be sure
+the rest of the values in that window say the same things as
+in the sample image above.  When everything is set, click
+the window and you'll again get an X2Go login window like the following:
+<center>
+      <img src="X2GoLogin.png" WIDTH=75%>
+</center>
+<P>
+Use your <I>course account</I> information to access <I>ranger</I>.  
+Inside the <FONT SIZE="+2"><tt>Login</tt></FONT> text box area
+enter your course account's <I>C-number</I>
+(that is, the 8&nbsp;character login <I>username</I> you were assigned;
+for example, c1003534). 
+In the <FONT SIZE="+2"><tt>Password</tt></FONT> text box area,
+enter your course account's <I>password</I>; for example 74ab2w45.
+Your password will not be displayed
+but will echo as a row of dots or asterisks, such as "********",
+so be careful in your typing. 
+
+<P>
+After filling in the requested information,
+click the <tt>Ok</tt> button and after a few seconds 
+a full-screen window should appear (as depicted below).
+We call this the <B><i>UNIX&nbsp;Desktop</i></B> window.
+(Actually, because you are on an upgraded system, YOUR desktop
+will look slightly different.)
+<P>
+    <center>
+      <img src="CustomizedXfceRoot.png" WIDTH=50%>
+    </center> 
+<P>
+<I>Note: 
+If you are unsuccessful after several attempts,
+check to be sure the <b>Caps Lock</b> key is not locked 
+on the keyboard. If it is, unlock it and try again.
+Otherwise, ask the lab assistant for help.</I>
+
+<P>
+It may take a few seconds for the <i>UNIX&nbsp;Desktop</i> to appear
+and your window may temporarily be dark before finally fully displaying.
+This larger window with a (I dunno, what color would you call it?) background
+shows that your PC is properly connected to the
+<i>ranger</i> system. 
+If you cannot get the <i>UNIX&nbsp;Desktop</i> window to appear,
+then ask a lab assistant for help. 
+
+<!-- ================================================================== -->
+
+<!--
+<P>
+<BR>
+<B><FONT COLOR=red>STEP 2.</FONT>
+USING the Iceweasel browser:</B>
+Once you have an active <I>UNIX&nbsp;Desktop</I>,
+you will open up the <B>Iceweasel</B> browser.
+<B>Iceweasel</B> is just another name for <B>Firefox</B>.
+Find the standard <B>Firefox</B> icon on the desktop and double-click it.
+Using the <B>Iceweasel</B> browser (NOT this browser that you are
+reading these instructions on!), browse to the page
+<B>https://cs.mtsu.edu/~untch/1170/private/honesty.txt</B>
+and read, print, sign, and hand in to the lab instructor the
+<I>Academic Honesty in the Context of CSCI 1170/2170</I>.
+<FONT COLOR=red><B>
+&nbsp;
+(NOTE: To access password-protected course Web pages, such as this one,
+use "MT" for the User name field and "CS" for the password; no
+quotation marks.)
+</B></FONT>
+&nbsp;
+Print to the (default) <B>cs360</B> laser printer.
+After you have retrieved your printout, close the <B>Iceweasel</B> browser.
+
+-->
+<P>
+<BR>
+<B><FONT COLOR=red>STEP 2.</FONT>
+USING the Chromium browser:</B>
+Next open up the <B>Chromium</B> browser.
+<B>Chromium</B> is just another name for Google's <B>Chrome</B> browser.
+Move your mouse to the <B>Chrome/Chromium</B> icon on the desk top
+and double-click the <B>Chromium</B> icon that appears there.
+<FONT COLOR=red>
+<B>Observation: icons on the top toolbar are activated by single-clicking
+but the icons on the desktop are activated by double-clicking.</B>
+</FONT>
+The arrow in this next screenshot points to the <B>Chromium</B> icon:
+    <center>
+      <img src="XfceChromium.png" WIDTH=50%> 
+    </center> 
+Using the <B>Chromium</B> browser (again, NOT this browser that you are
+reading these instructions on), browse to the page
+<B>https://cs.mtsu.edu/~cen/2170/index.html</B>
+and print and submit the <I>Syntax Comparison between Python vs. C++</I> page.
+The print out will be printed to the (default) <B>cs360</B> laser printer
+and turn the printed form in to the lab assistant.
+After you have retrieved your printout, close the <B>Chromium</B> browser.
+
+<P>
+<BR>
+<B><FONT COLOR=red>STEP 3.</FONT>
+GETTING A TERMINAL WINDOW: </B>
+When you are done with STEP 3, you will open a <I>Terminal</I> window
+on your <I>UNIX&nbsp;Desktop</I>.
+
+<P>
+There are several ways to open up a <I>Terminal</I> window.
+The easiest is to double-click on the big desktop <B>Terminal</B> icon that,
+on a customized account, is usually located in the lower left hand corner
+of the <I>UNIX&nbsp;Desktop</I>. 
+Alternatively, if the desktop Terminal icon is missing,
+you can move your mouse to the top toolbar 
+and single-click the tiny <B>Terminal</B> icon that appears there.
+The arrows in this next screenshot point to these
+ two <B>Terminal</B> icons:
+    <center>
+      <img src="XfceTerminalIcon.png" WIDTH=50%> 
+    </center> 
+
+
+<P>
+Either way, you should now have a <I>Terminal</I> window
+on your UNIX&nbsp;Desktop.  (See picture below.)
+You can move windows and arrange them as you like.
+To move a window, click the left mouse button on the title bar of the window,
+hold it down and drag the window into position.
+To make a window active, move the mouse on to that window.
+<B>Focus follows mouse</B>; you do not need to click.  If you move the mouse off
+that window to another window (other than the big blue desktop space) it
+will change which window is active.
+<BR>
+    <center>
+      <img src="XfceWithTerminal.png" WIDTH=50%> 
+    </center> 
+
+<P>
+<B>USING THE TERMINAL WINDOW:</B>
+Much of UNIX is "command&nbsp;driven"; that's a fancy way of saying
+that to get most things done, you type out command instructions 
+inside a <I>Terminal</I> window instead of clicking on icons.
+UNIX is <I>case-sensitive</I>,
+that is, it distinguishes between upper and lower case letters.
+It is important to type the commands exactly as indicated.
+Failing to put in a space where required is an error; however
+when a space is required, the amount of space (i.e., the number of blanks)
+is usually not critical.
+<P>
+The default <I>Terminal</I> window size is 24 rows long and 80 columns wide;
+that is what we usually want it to be.
+You can resize a window by placing the mouse over the 
+top or side window edge, then click the left mouse button, hold and drag. 
+Although the <I>Terminal</I> window can be resized,
+it MUST be at least 24 rows long and 80 columns wide.
+Any smaller than these minimum dimensions and certain commands get messed up.
+You can check the current size of your window by entering
+the following UNIX command, do so:
+<BR>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<FONT COLOR="red">$</FONT> <FONT FACE="Verdana" COLOR=blue><B>stty&nbsp;&nbsp;size</B></FONT>
+<BR>
+(Do NOT enter the dollar sign as part of your
+command. It is meant to represent the prompt provided by the system.) 
+This will display the number of rows followed by the column width.
+If the window is too small, resize it larger.
+
+<p>
+<B><FONT COLOR=red>STEP 4.</FONT>
+Starting Codelite in a Terminal</B>
+To start a codelite session, simply type "codelite" in a terminal, as shown below:
+<BR>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<FONT COLOR="red">$</FONT> <FONT FACE="Verdana" COLOR=blue><B>codelite</B></FONT>
+<BR>
+
+Your next lab has detailed instruction on how to proceed with C++ programming within codelite. 
+Follow the instructions carefully. It is important that you setup codelite correctly at the beginning.
+<!--
+<P>
+<B>A GLIMPSE AT THE PAST:</B>
+Before <B>rur</B> and the <I>Reeborg</I> robot, we used to use
+another "robot" to teach programming in this course--<I>Karel</I>.
+Just to get a flavor of what that was like, let's
+try running the Karel <B>maze</B> program located in <B>$PUB</B>.
+Issue the command
+<BR>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<FONT COLOR="red">$</FONT>&nbsp;<FONT FACE=Verdana COLOR=blue><B>$PUB/maze&nbsp;&nbsp;$PUB/maze.wor</B></FONT>
+<BR>
+(Don't get confused in typing this command in. Although you don't enter
+the red dollar sign, the blue dollar sign is part of the command
+and must be typed.)
+If all went well, you should have a screen that looks
+something like the following:
+<CENTER>
+<IMG SRC="/~untch/karel/images/MazeExample.jpg"             ALT ="maze">
+</CENTER>
+
+<BR>
+When a Karel program executes successfully, it creates a report file.
+Assuming the <B>maze</B> program execution was successful above,
+issuing the following command
+&nbsp; &nbsp; 
+<FONT COLOR="red">$</FONT>&nbsp;<FONT FACE=Verdana COLOR=blue><B>cat&nbsp;&nbsp;maze.wor.rpt</B></FONT>
+&nbsp; &nbsp; 
+will display the report file on your monitor.  Go ahead and do so.
+The displayed output should look like this:
+<FONT SIZE="-1" COLOR="brown">
+<PRE>
+>> maze.wor.rpt: Run Maze (Classroom Example)
+ (File: maze.wor)
+
+>>Initial Situation:
+ CORNER  FACING  BEEP-BAG
+ (1, 1)  EAST        0
+>>Final Situation:  
+ CORNER  FACING  BEEP-BAG  BEEP-CORNER  [Run Maze (Classroom Example)         ]
+ (7, 6)  WEST        0         1
+ST.+-----------------------------------------------------------------------+
+ 9 | .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   . |
+   |       +-------------------+-------+                                   |
+ 8 | .   . | .   .   >   >   V | .   . | .   .   .   .   .   .   .   .   . |
+   +-------+           +----   |       |                                   |
+ 7 | .   . | .   >   ^ | <   <   .   . | .   .   .   .   .   .   .   .   . |
+   +-------+       +---+---+-----------+                                   |
+ 6 | >   V   >   ^ | V   < | V   <   < | .   .   .   .   .   .   .   .   . |
+   |   |       +---+       |           |                                   |
+ 5 | ^ | V   ^ | V   >   V | >   V   ^ | .   .   .   .   .   .   .   .   . |
+   |   |       |       |   |   |       |                                   |
+ 4 | ^ | >   ^ | >   ^ | V   ^ | V   ^ | .   .   .   .   .   .   .   .   . |
+   |   +-------+---+   |       |       |                                   |
+ 3 | ^ | V   <   < | ^ | >   ^ | >   V | .   .   .   .   .   .   .   .   . |
+   |   |           |   +-------+----   |                                   |
+ 2 | ^   <   >   ^ | ^ | V   <   <   < | .   .   .   .   .   .   .   .   . |
+   +--------   ----+---+           ----+                                   |
+ 1 | >   >   ^   <   <   <   >   ^   < | .   .   .   .   .   .   .   .   . |
+   +-----------------------------------+-----------------------------------+
+     1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18 AVE.
+
+>>Primitive Execution Counts:
+ TurnOn:       1
+ TurnOff:      1
+ Move:        75
+ TurnLeft:    94
+ PickBeeper:   0
+ PutBeeper:    0
+ TOTAL:      171
+
+>>Trace/Debug &lt;Version 7.2.0/UNIX (Build $Revision: 1.7 $/vt100)&gt; Data:
+ @EEEEEEEET TWTTTNTTTE TNNNNTWWTS STTTWTTTNN TWTSTTTWTS TETTTSSTTN NNTTTETTTS
+ STETNNTTTE TTTSSTETTT STTTWWWTST TTWWWTTTNT TTETNTWWTS TTTWTTTNNN NTTTETTTSS
+ TETNNTTTET NTTTETNTTT EETTTSTTTW $
+
+ (7,6,W) [B0,C1] {-0 +0 ?0} <1>
+
+</PRE>
+</FONT>
+
+<P>
+Don't worry about interpreting this report.
+Although you can probably figure out some of it on your own,
+the only reason we produced this report is so that we'd have
+a file to display using the
+<FONT FACE=Verdana COLOR=blue><B>cat</B></FONT> command.
+For now, the important thing is that you were able to display the report.
+If you were unable to access the report, or if anything else did not
+work as you expected, ask the lab instructor for help.
+
+<P>
+After having displayed the report. let's get rid of the report file;
+we don't need it any longer.  Issuing the following command
+&nbsp; &nbsp; 
+<FONT COLOR="red">$</FONT>&nbsp;<FONT FACE=Verdana COLOR=blue><B>rm&nbsp;&nbsp;maze.wor.rpt</B></FONT>
+&nbsp; &nbsp; 
+will permanently erase (remove) this report file.  Go ahead and do so.
+
+<P>
+<BR>
+<B><FONT COLOR=red>STEP 5.</FONT>
+A LITTLE BIT OF UNIX and PRINTING A FILE:</B>
+&nbsp;
+By following the steps below, you will be able to navigate
+into a directory (folder) that will contain your closed lab files
+and learn how to invoke the <B>rur</B> environment.
+
+<P>
+<OL>
+<LI>
+Closed lab files and such are stored in the the <B>CLA</B> directory.
+The <B>CLA</B> directory was automatically created for you
+when you customized your account.
+A directory is essentially a folder where a collection of files is stored.
+To enter the <B>CLA</B> directory,
+you would issue the command
+<BR>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<FONT COLOR="red">$</FONT> <FONT FACE="Verdana" COLOR=blue><B>cd&nbsp;&nbsp;CLA</B></FONT>
+<BR>
+to make the <B>CLA</B> directory your current working directory.
+Go ahead and enter the command.
+(Last reminder:  Do NOT enter the dollar sign as part of your command.
+It is meant to represent the prompt provided by the system.)
+&nbsp;
+<I>Observation:</I> By now you may have noticed that most UNIX commands,
+including this one, are <I>silent</I> when they work correctly.
+Thus you will not get any confirmation that you successfully
+changed directories---it will simply happen and you'll get another
+system prompt.
+
+<P>
+Once you are in the <B>CLA</B> directory, you can continue with the next step.
+
+<P>
+<LI>
+Let's copy a file into the <B>CLA</B> directory, enter the command
+     <BR>
+     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+     <FONT COLOR="red">$</FONT> <FONT FACE="Verdana" COLOR=blue><B>cp $CLA/shortwalk.py shortwalk.py</B></FONT>
+     <BR>
+The copy command is another example of a UNIX command that is <I>silent</I>
+when it works correctly.  So if you got some message from typing this
+command, it's probably the system complaining you did something wrong.
+Try again.  If necessary, raise your hand and the lab assistant will
+assist you.
+
+<P>
+<LI>
+To see what is in the <B>CLA</B> directory, enter the command
+     <BR>
+     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+     <FONT COLOR="red">$</FONT> <FONT FACE="Verdana" COLOR=blue><B>ls</B></FONT>
+     <BR>
+
+You should see one entry:
+&nbsp;
+<B>shortwalk.py</B>
+&nbsp;
+
+<P>
+<!--
+<LI>
+Now let's invoke the <B>rur</B> environment so we can
+&nbsp; (A) put in our own name in the comments on the program and
+&nbsp; (B) run the program. Enter the command
+that follows (complete with trailing ampersand):
+     <BR>
+     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+     <FONT COLOR="red">$</FONT> <FONT FACE="Verdana" COLOR=blue><B>rur shortwalk.py &</B></FONT>
+     <BR>
+
+If all goes well, you should now have an <B>rur</B> window that looks like:
+<BR>
+    <center>
+      <img src="rurShortwalk.png" WIDTH=50%> 
+    </center> 
+
+The left hand panel of the <B>rur</B> window is a <I>notepad</I>-like editor.
+Change <FONT color="green">student name</FONT> to your own name.
+The <FONT color="green">student name</FONT> field appears TWICE in the
+comments; be sure you change BOTH of them.
+Once you have made these two sets of changes, 
+save the file by clicking on the
+<I>Saves robot program</I> <IMG SRC="save_program.png"> button
+on the <B>rur</B> window title bar.
+Next run the program by clicking the green run
+<IMG SRC="run1.png"> button.
+
+Exit <B>rur</B> by clicking on the
+close <IMG SRC="close4.gif"> button on that window's title bar.
+
+<P>
+<LI>
+You need to create a hardcopy printout of the <B>shortwalk.py</B> file.
+<FONT size="+2" color="red">
+<U>Hand&nbsp;in&nbsp;this&nbsp;hardcopy.</U>
+</FONT>
+Don't forget to label the printout with the five lines of 
+information requested in
+<A HREF="/~untch/1170/labinfo.html#SUBMISSION">handout #2</A>
+(see section "<B>CLA Submission</B>".)
+The command
+<BR>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<FONT COLOR="red">$</FONT> <FONT FACE="Verdana" COLOR=blue><B>lph&nbsp;&nbsp;shortwalk.py</B></FONT>
+     <BR>
+will print the file on the laser printer in KOM 360.
+<P>
+<LI>
+You will also electronically submit the program source; 
+use the following UNIX command to do this:
+<BR>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<FONT COLOR="red">$</FONT> <FONT FACE="Verdana" COLOR=blue><B>
+handin "lab1X"  shortwalk.py
+</B></FONT>
+
+     <BR>
+     <BR>
+Because this is the first time you are using the
+<FONT FACE="Verdana" COLOR=blue><B>handin</B></FONT>
+command, you will get a message of the form:
+<PRE>
+NOTE: Please enter your course account's password when prompted.
+(Use your instructor-supplied course account password.)
+Authentication realm: &lt;svn://svn.cs.mtsu.edu:3690&gt; 076fc91e-5327-0410-80b2-9ad2079b72ac
+Password for 'c8******':
+</PRE>
+Enter your course account password (the same one you used to log on to ranger)
+as indicated.
+<FONT COLOR="green">
+&nbsp;
+On the newer ranger systems, your password will be obscured by a
+row of asterisks.
+On the older ranger systems,
+don't be alarmed that nothing seems to be being entered;
+your password will <b>not</b> be shown on the screen as you type it,
+not even as a row of asterisks.  It is going in, however!
+</FONT>
+<BR> 
+(You may also be asked if you'd like to
+<CODE>Store&nbsp;password&nbsp;unencrypted&nbsp;(yes/no)?</CODE>;
+&nbsp;
+if asked, answer &nbsp;
+<FONT FACE="Verdana" COLOR=blue>
+<B><CODE>yes</CODE></B></FONT>.)
+<BR> 
+This will be the only time you will need to provide
+this information for <FONT FACE="Verdana" COLOR=blue><B>handin</B></FONT>;
+the information is stored for future uses.
+<BR> 
+If successful, this <FONT FACE="Verdana" COLOR=blue><B>handin</B></FONT>
+command will deposit a copy of the specified file in an electronic repository.
+<P>
+<LI>
+-->
+<p>
+Once you are done, you should close your terminal window by entering
+<FONT COLOR="red">$</FONT> <FONT FACE="Verdana" COLOR=blue><B>exit</B></FONT>
+and then logging off <I>ranger</I>
+by closing your <B><i>UNIX&nbsp;Desktop</i></B>.
+To log out, click the green (running person) <i>Quit</i> icon
+on the far right of the menu bar.
+<P>
+    <center>
+      <img src="XfceQuit.png">
+    </center>
+<BR>
+In the resulting window, select the <I>Log Out</I> item.
+<P>
+    <center>
+      <img src="XfceLogOut.png">
+    </center>
+<BR>
+
+</OL>
+
+
+<!-- ================================================================== -->
+
+<HR>
+<HR>
+<P>
+
+<P ALIGN="center">
+<B><FONT size="+1">
+Congratulations!  You have finished Lab 1X.
+</FONT></B>
+
+<P>
+<HR SIZE=3>
+<A HREF="http://www.mtsu.edu/">
+  <IMG SRC="/~csdept/images/MtsuButton.gif"
+  ALT="MTSU" WIDTH="74" HEIGHT="32"></A>
+<A HREF="http://www.mtsu.edu/csc">
+  <IMG SRC="/~csdept/images/CS.gif"
+  ALT="CS" WIDTH="74" HEIGHT="32"></A>
+<HR SIZE=3>
+
+
+<!-- $Header: /nfshome/untch/public_html/manual/labZ1/RCS/lab1X.html,v 1.7 2016/01/20 22:26:59 untch Exp untch $ -->
+</BODY>
+</HTML>
+
+

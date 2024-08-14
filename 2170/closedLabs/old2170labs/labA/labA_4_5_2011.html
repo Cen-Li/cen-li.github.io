@@ -1,0 +1,1019 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en"><html><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="Author" content="Brad Rudnik">
+  <meta name="GENERATOR" content="Mozilla/4.5 [en]C-AtHome0405  (Win95; U) [Netscape]">
+  <meta name="Description" content="CSCI 2170 - Closed Lab 2 - Lesson Page."><title>CSCI 2170 Lab A - Testing and Debugging</title><!-- load the Javascript source file -------------------------------->
+  
+
+
+<script src="labA1_files/windows.html">
+document.write("Included JS file not found");
+</script><!-- load the style sheet ------------------------------------------->
+
+
+<link rel="stylesheet" type="text/css" href="labA1_files/styles.html" title="styles"></head>
+
+<body background="labA1_files/labA.gif"> <a name="top"></a>
+
+<center>
+<h1> CSCI 2170 LAB A<br>
+Testing and Debugging</h1> </center>
+
+<table cols="2" width="100%">
+<tbody><tr>
+<td width="70%">
+<dl><dt> 
+<b>Objectives:&nbsp; 
+
+
+Become familiar with "testing" and "debugging" concepts 
+<br>To learn testing and debugging techniques 
+<br>To learn NetBeans debugger&nbsp; 
+</b></dt></dl>
+</td>
+
+<td>
+<center><font size="+1"><a href="javascript:AnswerWindow('labA/labA')">CREATE 
+ANSWER SHEET for LAB A</a></font></center>
+</td>
+</tr>
+</tbody></table>
+
+<!--File access for browsers without javascript capabilities-->
+<noscript> 
+<blockquote>
+<blockquote><b>For those of you without Javascript capabilities these links 
+will provide access to the additional files needed
+to complete this lab. They are set to open a new browser window if your browser
+supports this feature.</b> 
+<center> <b><a href="labAAns.html"
+target="_new">Answer
+Sheet</a> </b></center></blockquote></blockquote> </noscript>
+
+<blockquote>A.&nbsp; <a href="#A">Locating program errors</a> <br>
+B.&nbsp; <a href="#B">Debugging Techniques</a> <br>
+C.&nbsp; <a href="#C">Using the NetBeans Debugger</a></blockquote>
+<!-- Blank Space --> <br>
+<center>
+<h3>Introduction</h3>
+</center>
+You have been asked to solved a problem; you have designed a solution, 
+and you have implemented the solution in C++. 
+Inaddtion, you have compiled the implemented solution and there are no
+syntax errors reported.
+Next you execute your program, but it does not work correctly.
+Perhaps it gives incorrect answers or goes into an infinite loop or it aborts
+with a message such as the following:
+
+<blockquote><b>segmentation fault: core dumped</b></blockquote>
+<p>For whatever reason, the outcome of executing the program does not
+produce the expected/desired results. 
+Historically nonsyntax errors in programs are called "<b>bugs</b>."&nbsp;
+The term bug was first coined by Grace Hopper, the creator of COBOL (COmmon Business Oriented Language)
+and the first assembly language.&nbsp; In 1945, the famous Mark I
+computer came to a halt.&nbsp; Workers found a
+moth inside the computer, removed the offending beast and the computer
+was
+fine!&nbsp; From then on, all mysterious problems with computing were
+called bugs.
+<br>
+<br>
+<br>
+&nbsp;<!-- PART A ------> </p>
+
+<center>
+<h3> <a name="A"></a>A. Program Bugs/Errors</h3>
+</center>
+<p>There are numerous famous bugs in computing and the list grows longer each year.&nbsp; For example, the
+Russians lost a space ship in mid-flight when an erroneous command
+transmitted from mission control sent the space ship into a test
+routine from which it never recovered.&nbsp; This could have easily been prevented if had been
+some safety "switch" that prevented the accidental execution of such a
+test sequence. </p>
+<p>A multi-million dollar X-ray machine killed at least two people by
+administering
+excessive doses of radiation.&nbsp;&nbsp; The cause of the error was
+traced
+to a certain sequence of editing commands.&nbsp; One day programmers
+may
+need "malpractice insurance" like physicians do today to protect
+themselves
+in such situations. </p>
+
+<p>Can bugs be avoided?&nbsp; Yes and no.&nbsp; Software Engineering is
+dedicated
+to developing techniques for building better software.&nbsp; Our goal
+is
+to be as good at building software as an engineer is at building a
+bridge.&nbsp;
+Bridges rarely fail just as software should rarely fail.&nbsp; To help
+reduce
+errors in software, we have developed <b>paradigms</b> of software
+development.&nbsp;
+A paradigm is a method with all its related steps and techniques (i.e.,
+an
+approach).&nbsp; In the 1970's, a software development paradigm called
+the
+
+<b>Waterfall</b> paradigm was developed.&nbsp; It was so named because
+each
+step or phase supplies information to the next like water flows over a
+waterfall.&nbsp;
+The phases are as follows: <br>
+&nbsp; </p>
+<center>
+<table cols="5" width="80%">
+  <tbody>
+    <tr>
+      <td align="center"><b>Analysis</b></td>
+
+      <td><br>
+      </td>
+      <td><br>
+      </td>
+      <td><br>
+      </td>
+      <td><br>
+      </td>
+    </tr>
+
+    <tr>
+      <td align="right"><img src="labA1_files/arrow.gif"> </td>
+      <td align="center"><b>Design</b></td>
+      <td><br>
+      </td>
+      <td><br>
+      </td>
+      <td><br>
+
+      </td>
+    </tr>
+    <tr>
+      <td><br>
+      </td>
+      <td align="right"><img src="labA1_files/arrow.gif"> </td>
+      <td align="center"><b>Implementation</b></td>
+      <td><br>
+
+      </td>
+      <td><br>
+      </td>
+    </tr>
+    <tr>
+      <td><br>
+      </td>
+      <td><br>
+      </td>
+
+      <td align="right"><img src="labA1_files/arrow.gif"> </td>
+      <td align="center"><b>Testing</b></td>
+      <td><br>
+      </td>
+    </tr>
+    <tr>
+      <td><br>
+      </td>
+
+      <td><br>
+      </td>
+      <td><br>
+      </td>
+      <td align="right"><img src="labA1_files/arrow.gif"> </td>
+      <td align="center"><b>Maintenance</b></td>
+    </tr>
+  </tbody>
+
+</table>
+</center>
+<p>In the <b>analysis phase</b>, requirements describing what the
+software product is to do are determined by interviewing the
+client.&nbsp; The requirements are analyzed and a specifications
+document is produced.&nbsp; In the <b>design phase</b>, the
+specifications document is turned into an architectural design
+in which the software is broken down into modules.&nbsp; The modules
+are
+designed in a more detailed fashion that focuses on procedural
+detail.&nbsp; The data structures are defined at this point.&nbsp;
+During the <b>implementation phase</b>, the modules are coded and
+tested.&nbsp; The modules are integrated and tested as a whole in the <b>testing
+phase</b>.&nbsp; The <b>maintenance phase</b> includes making changes
+to the software including corrections and
+enhancements.&nbsp;&nbsp; Many methods such as step-wise refinement and
+structured
+programming have been developed to improve the process of software
+development.&nbsp;
+
+We will focus in this lab (and in this course) on the Waterfall
+paradigm
+for software development.&nbsp; The object oriented paradigm is another
+popular
+method in use today. </p>
+<p>Errors can occur at any phase of software development.&nbsp; Any of
+these
+errors can lead to serious problems and result in software that does
+not
+function as desired.&nbsp; Given the disastrous results with the
+software in the X-ray machine, we must take every precaution possible
+to be sure there
+are no errors in our systems.&nbsp; Several things have been done. </p>
+<p>"Formal languages" have been developed in which requirements can be
+expressed
+instead of expressing them in ambiguous and imprecise English.&nbsp;
+The
+design can be reviewed by a team of professionals for potential
+problems.&nbsp; Prototypes can be used to clarify requirements or
+difficult design algorithms.&nbsp; An appropriate high-level language
+choice will reduce errors.&nbsp; Code walkthroughs
+help the developer locate many errors.&nbsp; A code walkthrough is a
+line-by-line
+reading of a unit of code by a team of professionals.&nbsp; The purpose
+of
+each line in the given program is explained.&nbsp; Good documentation
+habits
+and good naming conventions decrease errors too.&nbsp; A good design
+and
+a good programmer are the best way to avoid coding errors. </p>
+
+<p>Finally, careful testing must be done before software is released.&nbsp; <b>Testing</b> is the process of locating errors
+and <b>debugging</b> is the process of localizing, analyzing, and
+removing
+suspected errors in the code. </p>
+<p>If an instruction is written incorrectly it is called a <b>syntax
+error</b> and will be caught by the compiler.&nbsp; If a
+formula or algorithm is incorrectly implemented, it is called a <b>logic error</b> and
+should be caught by the programmer or tester.&nbsp; Errors that manifest themselves 
+at run time are called <b>run time
+errors</b> (i.e., dividing by zero or array index out of range).<!-- Blank Space --> <br>
+
+&nbsp; <br>
+&nbsp; <br>
+&nbsp;<!--PART B --------> </p>
+<center>
+<h3> <a name="B"></a>B. Debugging Techniques</h3>
+</center>
+<p>A theory of debugging was developed by Poston that is based on <b>Most
+Probable Errors (MPEs)</b>.&nbsp; MPEs are the most frequent mistakes
+made by programmers.&nbsp; The most likely place to contain an error is
+in an IF
+- THEN - ELSE conditional expression. The second most likely place for
+errors
+is in input/output statements and the third is in loops.&nbsp;
+
+According to
+this theory, you should check the conditional expression in any If
+statement first.&nbsp; Then I/O statements should be checked and
+finally loops should be examined. </p>
+<p>How does one localize and analyze an error? There are standard
+debugging techniques that can be used.&nbsp; You will practice these in
+this lab.&nbsp; They are as follows: </p>
+<ol>
+  <li> Get a hard copy of your program.<br>
+Read the code and think about what it does. (Desk check)</li>
+
+  <li> Use print statements to pinpoint the source of an error.</li>
+  <li> Use a debugger to help locate an error.</li>
+</ol>
+<p>A program is written only once but is read many times.&nbsp; Donald
+Knuth has developed a system, called <a href="http://www-cs-faculty.stanford.edu/%7Eknuth/cweb.html">CWEB</a>
+,
+that helps one develop software as a work of literature.&nbsp;
+Explaining
+CWEB is beyond the scope of this lab exercise but we must learn <i>to
+read
+our programs for debugging purposes</i> and <i>write programs that are
+readable</i>.&nbsp;
+
+If we read our code to ourselves we often read over our errors.&nbsp;
+It
+is a good idea to read our code to another knowledgeable person
+explaining
+how each line contributes to the solution. </p>
+<hr>
+<p>When reading through program code, often just looking at the code  does not help us identify the 
+logic error(s).  To help us locate logic errors, we can insert
+output (<b>cout &lt;&lt;</b>) statements at strategic places in the
+code to
+localize errors.&nbsp; These output statements allow us to trace the
+path
+of execution or to trace the value of certain variables as the program
+is
+executed to determine what part of the code is not functioning
+correctly.&nbsp; There are 3 types of traces that can be implemented by
+placing output statements in the code - subprogram trace, statement
+trace, and variable trace.&nbsp; A <b>subprogram trace</b> is used to
+determine the order in which subprograms are called.&nbsp; An output
+statement that outputs the name of the subprogram is placed at the
+start of every subprogram to implement a subprogram trace.&nbsp; A <b>statement
+level trace</b> is used to determine where the execution of
+the program halts.&nbsp; An output statement can be placed after
+different statements in the code to determine which instructions are
+executed before the program halts. </p>
+
+<p>If an answer produced by the program is wrong, we look at variables
+used
+to calculate this answer.&nbsp; To implement a <b>variable trace</b>,
+we
+print the value of variables involved in the calculation at different
+places
+to see where one or more of them became incorrect. When a variable of
+interest
+is changed, the new value should be printed with the name of the
+enclosing
+block and a line number to help identify where the change
+occurred.&nbsp;
+All input to the program as well as input to all subprograms should be
+checked
+to make sure the values are valid. </p>
+<p>Once we locate and fix the problem, the output statements are no
+longer needed.&nbsp; They can be removed with the editor and the code
+recompiled. In some languages such as "C++" there is a mechanism by
+which the output statements
+can physically be left in the source code but directions can be given
+to
+the compiler to omit them when the last compile is done.&nbsp; If the
+statements
+are needed later they do not have to be retyped.
+</p><hr>
+<!--EXERCISE 1 -----> <p></p>
+<hr> <a href="javascript:Answer('Exercise1')"><font color="#bb2222"><b>Exercise
+1:</b></font></a> 
+
+<font color="#bb2222">
+One type of testing is called black box testing. In this scenario, 
+the tester does not test by examining the source code, 
+but tests based upon the requirements of the program, the input, and the expected 
+output. <b>Black box testing</b> focuses on 
+functionality, or what the system should do. One type of black box testing is <b>
+input partitioning</b> or equivalence partitioning. Information about the input 
+is used to divide the input domain into valid and invalid groups of input 
+values.
+
+<p>Let's consider a program which reads a list of integers and 
+outputs <b>YES</b> if the list is in strictly descending order and it contains
+at least one but no more than 10 integers.  The program outputs <b>NO</b>, 
+otherwise. You, as the software test engineer, need to create test cases and test the program
+thoroughly to make sure it correctly handles all kinds of inputs. 
+
+</font>
+<ol>
+	<li style="color: rgb(204, 0, 0);" type="A"><span style="color: rgb(204, 0, 0);">
+To black box test the 
+	program as described above, you need to design various test cases (program input) to cover different situations 
+	and ensure the program can handle ALL kinds of inputs appropriately. 
+	Although the following does not include all kinds of inputs, it describes five test cases. For the five cases given, please choose test cases that should be included in testing the program.</span></li>
+
+</ol>
+<blockquote>
+	<ol type="i" style="color: rgb(204, 0, 0);">
+		<li type="i"><font color="#bb2222" size="3">a list of 1 to 10 integers 
+		in strictly descending order</font></li>
+		<li><font color="#bb2222" size="3">a list of 1 to 10 integers in 
+		non-strictly descending order (have duplicate values)</font></li>
+		<li><font color="#bb2222" size="3">a list of 1 to 10 integers in 
+		non-descending order (may or may not have duplicate values)</font></li>
+		<li><font color="#bb2222" size="3">no numbers provided in the list</font></li>
+		<li><font color="#bb2222" size="3">more than 10 integers provided in the list</font></li>
+
+	</ol>
+	<ol type="a" style="color: rgb(204, 0, 0);">
+		<li><font color="#bb2222">i only</font></li>
+		<li><font color="#bb2222">i and ii only</font></li>
+		<li><font color="#bb2222">i, iv, and v only</font></li>
+		<li><font color="#bb2222">ii, iii, iv, and v only</font></li>
+		<li><font color="#bb2222">i, ii, iii, iv, and v</font></li>
+		<li><font color="#bb2222">None of the above</font></li>
+	</ol>
+</blockquote>
+<ol>
+	<li style="color: rgb(204, 0, 0);" type="A" value="2"><span style="color: rgb(204, 0, 0);">
+	For which of the following sets of inputs (test cases), should a correctly executing program print YES?</span></li>
+</ol>
+<blockquote>
+	<ol style="color: rgb(204, 0, 0);" type="i">
+		<li><font color="#bb2222" size="3">11 10 9 8 7 6 5 4 3 2 1</font></li>
+		<li><font color="#bb2222" size="3">6 5 4 3 2 1</font></li>
+		<li><font color="#bb2222" size="3">5 1 2 3 </font></li>
+		<li><font color="#bb2222" size="3">-1 -2 </font></li>
+		<li><font color="#bb2222" size="3">1</font></li>
+	</ol>
+	<ol style="color: rgb(204, 0, 0);" type="a">
+		<li><font color="#bb2222">i and ii</font></li>
+		<li>i, ii, and iv</li>
+		<li>i, ii, iv, and v</li>
+		<li>ii, iii, and iv</li>
+		<li><font color="#bb2222">ii, iv, and v</font></li>
+		<li>None of the above</li>
+	</ol>
+
+</blockquote>
+<ol>
+	<li style="color: rgb(204, 0, 0);" type="A" value="3">
+	<span style="font-style: normal; font-variant: normal; font-weight: normal; font-family: Times New Roman; color: rgb(204, 0, 0);">
+	What output should a correctly executing program give if no number is provided?</span></li>
+</ol>
+<blockquote>
+	<ol style="color: rgb(204, 0, 0);" type="a">
+		<li><font color="#bb2222">YES</font></li>
+		<li>NO</li>
+		<li>NaN</li>
+		<li>none of the above</li>
+	</ol>
+</blockquote>
+<ol>
+	<li style="color: rgb(204, 0, 0);" type="A" value="4"><span style="color: rgb(204, 0, 0);">
+	For which of the following test cases, should a correctly executing program print NO?</span><ol type="i">
+		<li><font color="#bb2222" size="3">0</font></li>
+		<li><font color="#bb2222">3 2 1 0 -1 -2 -3</font></li>
+		<li><font color="#bb2222" size="3">1 1 1 1 </font></li>
+		<li><font color="#bb2222" size="3">8 7 6 5 5 4</font></li>
+		<li><font color="#bb2222" size="3">8 7 6 5 4 5</font></li>
+	</ol>
+	</li>
+</ol>
+
+<blockquote>
+	<ol style="color: rgb(204, 0, 0);" type="a">
+		<li><font color="#bb2222">i and ii only</font></li>
+		<li><font color="#bb2222">i, ii, and iii only</font></li>
+		<li>i, iii, iv, and v only</li>
+		<li>iii and v only</li>
+		<li>iii, iv, and v only</li>
+		<li><font color="#bb2222">None of the above</font></li>
+	</ol>
+</blockquote>
+<ol>
+	<li style="color: rgb(204, 0, 0);" type="A" value="5">According to the program 
+	specification, a correct program should produce NO for the following list. Why?</li>
+</ol>
+<blockquote>
+	<blockquote>
+		<p><span style="color: rgb(204, 0, 0);">5 4 3 2 1 0 -1 -2 -3 -4 -5</span></p>
+
+	</blockquote>
+</blockquote>
+<blockquote>
+	<ol style="color: rgb(204, 0, 0);" type="a">
+		<li>The list is in strictly descending order</li>
+		<li>The list is not in strictly descending order</li>
+		<li>The list doesn't contain duplicate values</li>
+		<li><font color="#bb2222">The list contains more than 10 integers</font></li>
+
+		<li>None of the above</li>
+	</ol>
+</blockquote>
+<hr>
+
+
+<h4>Program Specifications</h4>
+<p>Let's consider the program noted in Exercise 1 which reads a list of integers and 
+outputs <b>YES</b> if the list is in strictly descending order and it contains
+at least one but no more than 10 integers.  The program outputs <b>NO</b>, 
+otherwise. The program as given in Exercise 2 below makes use of command line
+arguments to input the list of integers. For example, if the executable program name is a.out, then the command
+<blockquote><b> a.out 7 6 4 1  </b></blockquote>
+would execute the program and provide as input to the program the 
+four numbers 7, 6, 4, and 1 and IF it is correctly executing, then it should also 
+produce the output YES.
+If you are unfamiliar with command line arguments and need additional information after looking at the 
+program code referenced in 
+Exercise 2 below, then see 
+<a href="http://www.cs.mtsu.edu/%7Ezdong/2170/labA/argc-argv.html"> Getting Command Line Arguments in C++</a>
+
+</p>
+
+<hr> <a href="javascript:Answer('Exercise2')"><font color="#bb2222"><b>Exercise
+2:</b></font></a> 
+<font color="#bb2222">
+The source code found in Exercise 2 is suppose to work 
+according the program specifications noted above for which input comes from the command line. 
+Similar to Exercise 1, we wish to identify errors in the program via testing, 
+but in this exercise we will have the source code available.
+ </font> 
+<hr><!--PART C -------->
+<ol>
+	<li style="color: rgb(204, 0, 0);" type="A" value="1"><span style="color: rgb(204, 0, 0);">
+	Let's first test the program to see if it correctly handles lists with size zero. 
+Based upon your experience with Exercise 1 above, compile, select the 
+apppropriate data set from those given, and execute the program.
+Does the program correctly handle lists of size zero? Yes or No </span></li>
+</ol>
+<ol>
+	<li style="color: rgb(204, 0, 0);" type="A" value="2"><span style="color: rgb(204, 0, 0);">
+	Now, let's test the program to see if it correctly handles lists with size larger than ten. 
+Based upon your experience with Exercise 1 above, compile, select the 
+apppropriate data set from those given, and execute the program.
+Does the program correctly handle lists of size larger than ten? Yes or No </span></li>
+</ol>
+<ol>
+	<li style="color: rgb(204, 0, 0);" type="A" value="3"><span style="color: rgb(204, 0, 0);">
+	Now, let's test the program to see if it correctly handles lists with size one. 
+Based upon your experience with Exercise 1 above, compile, select the 
+apppropriate data set from those given, and execute the program.
+Does the program correctly handle lists of size one? Yes or No </span></li>
+</ol>
+<ol>
+	<li style="color: rgb(204, 0, 0);" type="A" value="4"><span style="color: rgb(204, 0, 0);">
+We need to do more comprehensive testing of the program so as to judge what works and what does not work. Based upon your experience with Exercise 1 above, compile, select the 
+apppropriate data set from those given, and execute the program.
+After completing your testing, what are your conclusions, i.e., provide answers to the following questions.
+</span></li>
+</ol>
+<blockquote>
+	<ol style="color: rgb(204, 0, 0);" type="i">
+		<li>The program works as specified. True or False</li>
+		<li>The program works as specified for list size zero. True or False</li>
+		<li>The program works as specified for list size one. True or False</li>
+		<li>The program works as specified for list size greater than ten. True or False</li>
+		<li>The program works as specified for lists that are strictly descending order. True or False</li>
+		<li>The program always prints NO. True or False</li>
+		<li>The program always prints YES. True or False</li>
+	</ol>
+</blockquote>
+<ol>
+	<li style="color: rgb(204, 0, 0);" type="A" value="5"><span style="color: rgb(204, 0, 0);">
+Let's look closely at the source code. Where should we place a single cout statement so as to tell us what value is being used for the 
+list size, i.e., what is the initial value of the variable listSize? Remember, we only get to insert one cout statement, where should it be placed? After line number? _____
+</span></li>
+</ol>
+<ol>
+	<li style="color: rgb(204, 0, 0);" type="A" value="6"><span style="color: rgb(204, 0, 0);">
+Compile and execute the program to find the value of listSize when there are zero items in the list? _____
+</span></li>
+</ol>
+<ol>
+	<li style="color: rgb(204, 0, 0);" type="A" value="7"><span style="color: rgb(204, 0, 0);">
+Compile and execute the program to find the value of listSize when there are 
+ten items in the list? _____
+</span></li>
+</ol>
+<ol>
+	<li style="color: rgb(204, 0, 0);" type="A" value="8"><span style="color: rgb(204, 0, 0);">
+What one line in the program can be changed to correct the list size error, i.e., to properly initialize the variable listSize? Give the line number here:  _____
+<br>
+Now correct the one line of code that you have identified that incorrectly initializes the variable listSize. 
+Verify your correction by compiling and running your program with different data sets to see if the size is correctly printed by your inserted cout statement.
+</span></li>
+</ol>
+<ol>
+	<li style="color: rgb(204, 0, 0);" type="A" value="9"><span style="color: rgb(204, 0, 0);">
+Now after correcting the error, we need to conduct additional comprehensive testing. Execute 
+program with the listSize correction and by using selected data sets from those given. What conclusions can you draw?
+</span></li>
+</ol>
+<blockquote>
+	<ol style="color: rgb(204, 0, 0);" type="i">
+		<li>The program works as specified for list size zero. True or False</li>
+		<li>The program works as specified for list size one. True or False</li>
+		<li>The program works as specified for list size greater than ten. True or False</li>
+		<li>For lists with fewer than ten numbers, the program stops. True or False</li>
+		<li>For lists with more than ten numbers, the program runs longer than five seconds . True or False</li>
+	</ol>
+</blockquote>
+<ol>
+	<li style="color: rgb(204, 0, 0);" type="A" value="10"><span style="color: rgb(204, 0, 0);">
+Now based upon your testing, you should have encountered problems with the program continuing to run, i.e., an infinite loop. Our testing above should have also identified data sets that results in the program continuing to run. We now need to identify the code that is causing the problem. We do this by placing cout statements in the source code to determine which (if any) loop(s) (there are only two loops) 
+produce an infinite loop. Insert as many cout statements as you desire, execute the code, and determine which loop(s) is (are) the problem.
+</span></li>
+</ol>
+<blockquote>
+	<ol style="color: rgb(204, 0, 0);" type="i">
+		<li>The first loop.</li>
+		<li>The second loop.</li>
+		<li>Both loops.</li>
+		<li>Neither loop.</li>
+	</ol>
+</blockquote>
+<ol>
+	<li style="color: rgb(204, 0, 0);" type="A" value="11"><span style="color: rgb(204, 0, 0);">
+At this point in your testing, you should have determined there is (are) infinite loop(s) and examples of  
+data sets that produce the infinite loop. We now need to locate the line of code causing the loop problem. 
+Insert sufficient cout statements so that you
+can determine exactly what line and what part of the line is causing the infinite loop(s).
+</span></li>
+</ol>
+<blockquote>
+	<ol style="color: rgb(204, 0, 0);" type="i">
+		<li>The problem is in the atoi library function.</li>
+		<li>The problem is because the variable <i>descending</i> should be initialized to false instead of true before the second loop .</li>
+		<li>The first loop is infinite because the loop index should stop at listSize minus one.</li>
+		<li>The second loop is infinite because the loop condition is never false.</li>
+		<li>For the first loop, an array index is used outside the bounds of the array.</li>
+		<li>For the second loop, an array index is used outside the bounds of the array.</li>
+		<li>None of the above.</li>
+	</ol>
+</blockquote>
+</ol>
+</ol>
+
+Al Cripps has the code here for convenience
+<pre>
+#include &lt;iostream>       // cin, cout
+#include &lt;cstdlib>        // atoi()
+using namespace std;
+
+const int SIZE = 10;      // size of the array 
+
+int main(int argc, char * argv[])
+{
+	int i;             // loop counter
+	bool descending;   // true if the list is in descending order 
+	int list[SIZE];    // array to hold the list                  
+	int listSize;      // the number of integers in the list      
+     
+
+	// Set listSize to the number of integers on the command line, 
+	listSize = argc-2;
+
+
+	// Convert the numbers on the command line from ASCII strings to 
+	// integers and store them in the array using the library function atoi function.                                   
+	for (i = 0; i < listSize; i++)
+		list[i] = atoi(argv[i+1]);
+
+
+	// Check each pair of adjacent integers to see if the first item
+	// in the pair is greater than the one following.
+	descending = true;
+	for (i = 0; (i < listSize) || descending; i++)
+		descending = (list[i] > list[i+1]);
+     
+
+	// Inform the user of the result 
+	if (descending)
+		cout << "YES\n";
+	else
+		cout << "NO\n";
+
+	return 0;
+}
+</pre>
+
+<center>
+<h3> <a name="C"></a>C. Using NetBeans -- Integrated
+Development
+Environment (IDE)</h3>
+</center>
+<p>NetBeans is an integrated developement environment that
+allows a developer to edit, compile/build, debug, and run projects with
+components written in multiple languages. It provides simplified code
+reuse and has good debugging support. A <i>debugger</i> is a program that controls the
+execution of another program for the purpose of locating (and/or
+repairing) errors.<br>
+</p>
+<p> NetBeans documentation beyond what is found in this lab can be found at
+<a href="http://www.netbeans.org/kb/index.html">http://www.netbeans.org/kb/index.html</a>
+</p>
+<p> In this lab, we will learn to develop a project written in C++
+using NetBeans. In particular, we will learn to use the
+built-in debugger. With the debugger, you can:</p>
+
+<ul>
+  <li> set a <b>breakpoint</b> to halt execution at a certain line or
+function</li>
+  <li><b>display </b>values of variables and expressions</li>
+  <li><b>step</b> through the code one instruction at a time</li>
+
+  <li><b>run</b> the program from the start or <b>continue</b> after a
+break in the execution</li>
+  <li>do a <b>backtrace</b> to see who has called whom to get to where
+you are</li>
+  <li><b>quit</b> debugging.. <br>
+
+  </li>
+</ul>
+<p><b>To practice using the NetBeans debugger, we must first
+create a new C++ project in NetBeans<br>
+</b></p>
+<p>Start by logging into <i>ranger</i> using an NX client. See the previous lab if you
+need to review this process.
+</p><p>Next from the command window, enter/type <b>"netbeans&amp;"</b> </p>
+<p>A window similar to the following should appear
+<br>
+
+<br>
+</p><center>
+<img src="labA1_files/2c-start.jpg"><p></p>
+</center>
+<font style="font-weight: bold;" color="#ff0000">How to create an empty C++ project:</font><p>
+<span style="font-weight: 700;">Follow </span><font style="font-weight: bold;">the steps 1 through 3f   as given below to create an empty
+C++ project:</font></p>
+<ol>
+  <li>Click on&nbsp;<b> File </b>from the top menu bar</li>
+  <li>Click on <b>New Project</b> from the pull down menu
+    <center>
+
+    <div style="text-align: center;"> </div>
+    <p style="text-align: center;"><font size="3">
+<img src="labA1_files/2c-start2.jpg"></font></p>
+    </center>
+  </li>
+</ol>
+<ol start="3">
+  <li>From the pop up window:
+    <ol start="1" style="list-style-type: lower-alpha;">
+      <li> select <b>C/C++ projects </b>from the left hand side
+list</li>
+
+      <li> select <b>C/C++ Application</b> from the right hand side list and click <i>Next</i></li>
+  <center>
+  <p><font size="3"><img src="labA1_files/2c-project.jpg"></font></p>
+  </center>
+      <li>fill in the <b>project name </b>in the upper part of the
+window (this will also serve as the name of &nbsp;folder containing all
+files of your new project). </li>
+
+      <li>Take
+a look at the line showing the directory of where the
+project directory will be located in your computer. IF you want your
+project to be located in your CLA directory, then you need to change
+the path..use the browse button</li>
+	  <li><b>Note:</b> If your see <b>"Create Main F<u>i</u>le"</b> with a checkbox
+	above "Set as <u>M</u>ain Project", uncheck the box for Main File by clicking on it.</li>
+	  <li>Now, click <b>Finish</b>.</li>
+
+    </ol>
+  </li>
+  <center>
+  <p><font size="3"><img src="labA1_files/2c-project2.jpg"></font></p>
+  </center>
+</ol>
+<p><font color="#ff0000"><span style="font-weight: 700;">How to create a new C++ 
+file in a project</span></font></p>
+<p>Follow
+the instructions below to create a new C++ file.</p>
+<ol>
+  <li> Click on <b>Source Files </b>for your project</li>
+
+  <li>Click on <b>New</b> from the pull down menu</li>
+  <li>Select <b>Main C++ File...</b>. </li>
+    <center>
+    <p><font size="3"><img src="labA1_files/2c-file.jpg"></font></p>
+    </center>
+
+  
+  <li>For this project main C++ file, just choose the defaults,i.e., main.cpp </li>
+  <li>Next we want to use a program found in the $CLA folder, inlabAc.cc. 
+    <ol start="1" style="list-style-type: lower-alpha;">
+    <li>First bring up a new terminal window in your NX 
+         session--locate the terminal icon near the top of 
+your NX window and click on the icon. </li>
+    <li> In this terminal window, <i>cd</i> to 
+where your NetBeans project was created... possibly in ./NetBeansProjects 
+or ./CLA/NetBeansProjects.</li>
+    <li>Now in your NX terminal window, locate the project name, i.e., <br>
+
+      enter the command: <i>ls </i>    <br> you should see the project folder such as CppApplication_1.  
+    </li><li>Now <i>cd </i> to that folder
+and enter the command: <i>ls</i>   <br>You should see the main.cpp file -- if you don't, then you need to locate the main.cpp file before proceeding </li>
+   <li>We are now ready to copy the program file: 
+	<a href="javascript:Display('$CLA/inlabAc.cc')">inlabAc.cc</a>. <br>
+
+     <i>cp $CLA/inlabAc.cc main.cpp </i>
+  </li>
+
+ </ol>
+  </li><li>After you have copied  the program inlabAc.cc, in the NetBeans session double click on 
+"main" in the project listing under the folder "Source Files". The newly copied file should 
+appear in your window listing.
+  </li>
+</ol>
+<p><font style="font-weight: bold;" color="#ff0000">How to build and run a program:</font></p>
+<p>Read
+the main program code to get an idea of what the program should do. Follow the 
+instructions below to compile and run
+this program:<br>
+</p>
+
+<ol>
+  <li>Click <b>Build</b> from the top menu bar</li>
+  <li>Click on "<b>Build Main Project</b>". The program should compile
+properly and display the message "Build Successful ..." in the bottom window labeled "Output".&nbsp;
+    <p></p>
+  </li>
+  <center>
+
+  <p><font size="3"><img src="labA1_files/2c-build-succ.jpg"> </font></p>
+  </center>
+  <li> Run the program by clicking "Run" followed by "Debug Main Project" from the top menu.
+A new window should appear that prompts for you to
+enter the number of values and the values to use. At the prompts enter
+indicate there are <b>2</b> numbers in the list both with a value of <b>22</b>.
+The window will remain open with the program output.&nbsp;</li>
+  <center>
+  <p><font size="3"><img src="labA1_files/2c-run1.jpg"> </font></p>
+
+  </center>
+</ol>
+<hr>
+Look at the results. Are they correct?
+Which results are wrong? Once you realize a program has errors, you may use
+the debugger to find out where the errors are in your program.<p></p>
+<center> </center>
+<center> </center>
+<center> </center>
+<p></p>
+<center> </center>
+<font size="3"> </font>
+
+<p><font size="3">Let's practice debugging this program. First we need
+to
+set a <i>breakpoint</i> on a line of code that could potentially show
+us
+what the problem is. It should be a line of executable code. Scroll
+through
+the code and find the line in main</font></p>
+<pre><font size="5">	<b>total = sum(listOfNumbers, howMany);</b></font></pre>
+<p><font size="3">Set a breakpoint at this line by clicking on the gray
+area to the left of the line. A red dot should appear as shown below.
+(If you
+wish to delete a breakpoint, click on it again. Do not delete the
+breakpoint
+you just set. If you accidentally deleted it, then simply reset it.)</font></p>
+<center>
+<p><font size="3"><img src="labA1_files/2c-break2.jpg"></font></p>
+</center>
+<p><font size="3">Let's run the program and see what happens. Click on
+the<b>
+Start the debugger</b> shortcut button across the top of the window (or again do a build and start the debugger from the previous menu choices). 
+Use the same input as you did when you ran the program before.</font></p>
+
+<center>
+<p><font size="3"><img src="labA1_files/2c-run2.jpg"></font></p>
+</center>
+<p><font size="3">&nbsp;</font></p>
+<p><font size="3">&nbsp;</font></p>
+<p><font size="3">After you enter the input, the debugger will execute
+the
+program up to the breakpoint. It places a green arrowi/line on the break
+code line.</font></p>
+<p><font size="3">The current values of different variables are
+displayed
+in the right bottom "Output" window under the tab <i>Local Variables View</i>. For example, variable <i>howMany</i>
+currently
+has large value (indicating it has not been initialized).
+</font></p>
+<center>
+<p><font size="3"><img src="labA1_files/2c-show-values.jpg"></font></p>
+</center>
+
+<!--EXERCISE 3 ----->
+<hr> <font size="3"><a href="javascript:Answer('Exercise3')"><font color="#bb2222"><b>Exercise 3:</b></font></a> <font color="#bb2222">Write the 
+answers to the following questions.&nbsp;
+The
+blank lines are there to remind you that an answer is expected.
+<p><font color="#cc0000">A. (T/F) </font>The variable <i>total</i>&nbsp; is not 
+initialized yet. Therefore, it contains a random/garbage value. ___________<br>
+</p>
+<p>B. Which of the following is correct with regarding to the array <i>listOfNumbers</i>?</p>
+
+<ol>
+	<li type="a">All array elements are initialized.</li>
+	<li type="a">Some array elements are initialized, but some 
+	elements are not.</li>
+	<li type="a">All array elements are not initialized.</li>
+	<li type="a">None of the above<br></li>
+</ol>
+</font></font>
+<p><font size="3"><font color="#bb2222">C.&nbsp;&nbsp;Look at the <i>cout
+
+&lt;&lt;</i> statement which is two lines below the current program
+statement
+(breakpoint). This statement should output the average. Given the current
+value of the variables, which of the following sentences is <b>NOT</b> correct?___ </font></font></p>
+<ol>
+	<font color="#bb2222" size="3">
+	<li type="a">It outputs a random value since both <i>howMany</i> and <i>
+	total</i> are not initialized.</li>
+
+	<li type="a">The output (i.e. the average) can be a negative value.</li>
+	<li type="a">The statement may terminate the program because of the division 
+	by zero.</li>
+	<li type="a">None of the above</li></font>
+</ol>
+<p><font size="3"><font color="#bb2222">D.&nbsp;&nbsp; From reading the
+comment
+before the call to <i>readNumbers(listOfNumber, howMany)</i> in <i>main()</i>,
+and from reading the header comments in the function <i>readNumbers()</i>,
+what did the programmer intend for <i>readNumbers()</i> to do to the
+variable <i>howMany</i>?___ </font></font></p>
+
+<ol>
+	<font color="#bb2222" size="3">
+	<li type="a">Pass a valid value that will be used in the function <i>
+	readNumbers</i>;</li>
+	<li type="a">Pass a valid value that will be used in the function <i>
+	readNumbers</i>, and return the number of values read from the user<i>;</i></li>
+
+	<li type="a">Ignore the passed value, and store and return the number of 
+	values read from the user;.</li>
+	<li type="a">None of the above</li></font>
+</ol>
+<font size="3"><font color="#bb2222"> </font> </font>
+<hr>
+<center><font size="2"> </font> </center>
+<center><font size="2"> </font></center>
+<p><font size="3">&nbsp;&nbsp;&nbsp; Now let's continue to determine
+the cause of the error using the debugger: The value of the variables <span style="font-style: italic;">howmany</span>, <span style="font-style: italic;">total</span> and <span style="font-style: italic;">listOfNumbers</span> are not what you have
+expected, right? This suggests that error(s) occurred before the
+current line in the program. So lets back up and put a break next to
+the previous statement :<br>
+
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; readNumbers(listOfNumbers, howMany);<br>
+Run the debugger again. (You need to stop the debugger from the
+previous run, and start again). This time, when the debugger stops, try
+step into the function being called (e.g., readNumbers) by clicking on
+the <span style="font-weight: bold;">Step Into </span>debugging short
+cut button.<br>
+<center>
+<p><font size="3"><img src="labA1_files/2c-stepinto.jpg"></font></p>
+</center>
+<br>
+</font></p>
+<p><font size="3">&nbsp;&nbsp;&nbsp; The debugger should move to the
+first executable statement in function <span style="font-weight: bold;">readNumbers</span>.
+Step throught the first two statements by clicking <span style="font-weight: bold;">Step Over</span> short cut button <span style="font-weight: bold;">twice</span>. (add short cut here). 
+Enter the same information in the input window when prompted as before.<br>
+
+</font></p>
+<hr> <font size="3"><a href="javascript:Answer('Exercise3')"><font color="#bb2222"><b>Exercise 3 Continued</b></font></a></font>
+<p><font size="3"><font color="#bb2222">E.&nbsp;&nbsp; What is the
+current value of <span style="font-style: italic;">howMany</span>?___</font></font></p>
+<p><font color="#bb2222" size="3"><br>
+</font><span style="color: rgb(204, 0, 0);">F.&nbsp;&nbsp; Why
+is the value of <span style="font-style: italic;">howMany</span> in
+function "readNumber" different from its value in the main function right
+after the call to function "readNumber"?</span></p>
+
+<ol style="color: rgb(204, 0, 0);">
+	<li type="a"><span style="color: rgb(204, 0, 0);">Because <i>howMany </i>is 
+	a reference parameter</span></li>
+	<li type="a"><span style="color: rgb(204, 0, 0);">Because <i>howMany</i> is a value 
+	parameter</span></li>
+	<li type="a">Because <i>howMany</i> is a global variable</li>
+
+	<li type="a">None of the above</li>
+</ol>
+<p><span style="color: rgb(204, 0, 0);">G</span><span style="color: rgb(204, 0, 0);">.&nbsp;&nbsp; 
+Is the phenomena described in the previous question the expected behavior? If 
+not, what change will produce the expected behavior?</span></p>
+<font color="#bb2222"></font>
+<ol>
+	<font color="#bb2222" size="3">
+	<li type="a">The behavior is what we expect;</li>
+	<li type="a">The behavior is not what we expect. Fix it by passing <i>
+
+	howMany</i> to the function "readNumber" by reference;</li>
+	<li type="a">The behavior is not what we expect. Fix it by passing <i>
+	howMany</i> to the function "readNumber" by value;</li>
+	<li type="a">The behavior is not what we expect. Fix it by adding a third 
+	parameter to the function "readNumber";</li>
+	<li type="a">None of the above.</li></font>
+
+</ol>
+<hr>
+<p><font size="3">&nbsp;&nbsp;&nbsp; Click on the <b>"Step Over</b>"
+short cut button until the debugger moves back to the main function. <br>
+</font></p>
+<p><font size="3"><a href="javascript:Answer('Exercise3')"><font color="#bb2222"><b>Exercise 3 Continued</b></font></a></font><font size="3"><font color="#bb2222"><br>
+</font></font></p>
+<font color="#bb2222">H</font><font color="#bb2222" size="3">. How many times is the body of
+the <span style="font-style: italic;">for </span>loop executed?____
+</font>
+<p><font color="#bb2222">I</font><font color="#bb2222" size="3">.&nbsp;
+
+</font><span style="color: rgb(204, 0, 0);">Is the phenomena described in the 
+previous question the expected behavior? If not, how to fix it?___</span> </p>
+<ol>
+	<font color="#bb2222" size="3">
+	<li type="a">The behavior is what we expect;</li>
+	<li type="a">The behavior is not what we expect. Fix it by changing "int i=1" 
+	to "int i=0";</li>
+	<li type="a">The behavior is not what we expect. Fix it by changing "i&lt;howMany" 
+	to "i&lt;howMany+1";</li>
+
+	<li type="a">The behavior is not what we expect. Fix it by changing "i&lt;howMany" 
+	to "i&lt;=howMany";</li>
+	<li type="a">None of the above.</li></font>
+</ol>
+<p>&nbsp;</p>
+<hr style="width: 100%; height: 2px;">&nbsp;&nbsp;&nbsp; Click on the "<span style="font-weight: bold;">Start/Continue</span>" short cut button. <font size="3">This
+will continue execution of the program from the breakpoint. You should
+see <b>Program exited normally</b> in the "Output" window. Save the
+changes, build and execute the program again to make sure that the
+program is free of run time errors. You should enter different data to
+test the program. </font>
+
+<hr> <font size="3"><a href="javascript:Answer('Exercise3')"><font color="#bb2222"><b>Exercise 4 </b></font></a></font><font color="#bb2222">Based
+on your answers of previous questions, please fix all logic errors in
+main.cpp. Then please copy and paste main.cpp in the given blank space.
+Before submitting it, make sure you run it against all provided test
+cases.</font><p>
+<font color="#bb2222" size="3">(PROGRAM TUTOR)&nbsp; </font></p><font color="#bb2222" size="3"> 
+
+
+<hr> 
+<p><font size="3">&nbsp; </font>
+<br>
+</p>
+</font>
+</body></html>

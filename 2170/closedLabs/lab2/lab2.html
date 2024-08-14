@@ -1,0 +1,83 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+  <title>Lab 2 - C++ expression and math functions
+  </title>
+</head>
+  <!--!!!!!!!!!! Lesson Title and Objective   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!--> 
+    <center>
+      <h1>
+Lab 2 -- C++ expression and math functions
+      </h1>
+      </center>
+
+<p>
+ 
+<h2>The programming problem</h2>
+Write a C++ program named <font color=red>"invest.cpp"</font> that computes the total anticipated future value of the investment at the end of the years allotted. 
+the future amount may be computed using the formula shown below. 
+<br>
+<img src="invest.jpg">
+<p>
+The program prompts the user to enter :
+<ul>
+<li>P: the principle amount of the investment, 
+<li>r: the interest rate,
+<li>n: the number of times interest is compounded per year (1 or 12),
+<li>t: number of years of the investment.
+</ul>
+Your program computes and displays the future value of the investment.
+
+Once you finished writing your program, compile and run the program.
+
+<br><P>
+Here is an example run of the program:
+
+<hr>
+<xmp>
+Welcome to the investment helper!
+
+Enter principle amount of your investment : $ 2500
+Enter the interest rate: 6.5
+Enter the number of times interest is compounded per year: 12
+Enter the number of years of this investment: 10
+
+Your investment of $2500 will grow into $4780.44  at the end of 10 years.
+
+</xmp>
+
+
+<br><P>
+Here is another example run of the program:
+
+<hr>
+<xmp>
+Welcome to the investment helper!
+
+Enter principle amount of your investment : $ 3000
+Enter the interest rate: 4.5
+Enter the number of times interest is compounded per year: 12
+Enter the number of years of this investment: 20
+
+Your investment of $3000 will grow into $7366.34  at the end of 20 years.
+</xmp>
+<h2>Submit the program:</h2>
+Create a script file that capture the outputs of your program.
+<xmp>
+script  log2
+pr -n -t -e4 invest.cpp
+g++ invest.cpp -o run
+run
+run
+run
+run
+exit
+</xmp>
+<p>
+These steps creates the script file named log2. <br><p>
+<ul>
+
+<p>
+<b>For this lab, submit the following two files: invest.cpp and log2. </b>
+</ul>
+</body></html>

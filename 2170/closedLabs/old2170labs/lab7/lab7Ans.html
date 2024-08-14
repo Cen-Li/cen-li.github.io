@@ -1,0 +1,313 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Brad Rudnik">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win95; I) [Netscape]">
+   <title>Lab 7 - Answer Sheet</title>
+
+<!-- load the style sheet -->
+<link rel="stylesheet" type="text/css" href="http://www.cs.mtsu.edu/~cs2170/manual/styles.css" title="styles">
+
+</head>
+<body background="http://www.cs.mtsu.edu/~cs2170/manual/lab7/lab7.gif">
+
+<form method="post">
+<input type=hidden name=lab value="lab7">
+<input type=hidden name=name value="">
+<input type=hidden name=uname value="">
+<input type=hidden name=partner value="">
+<input type=hidden name=instructor value="">
+<center>
+<h1>
+Lab 7 -- C++ Classes Continued
+</h1></center>
+
+<center>
+<h3>
+Answer Sheet</h3></center>
+
+<center>
+<input type=submit name="submit" value="Final Answer Sheet">
+<input type=submit name="submit" value="Click to Save Answers: Only if you must quit now">
+</center>
+
+<h2>
+<a NAME="Exercise1"></a>Exercise 1</h2>
+<br>A.&nbsp;&nbsp;&nbsp;  The public section of the class specification contains the data members and methods
+that provide the ________________ of the object.
+<br><BR>
+<textarea name="exercise1a" rows=2 cols=20></textarea>
+<BR>
+<BR>B.&nbsp;&nbsp;&nbsp;  Given the following specification:
+<pre><b>
+     class LoanClass
+     {
+          1:
+               void printRate();
+               float payoff();
+               void schedule();
+               void LoanSettings (char t, float r, int m);
+          2:
+               char type;
+               float rate;
+               int months;
+               float simplePayment();
+               float compoundPayment();
+     };
+</b></pre>
+<br>the numbers 1 and 2 are place holders.  What should they be replaced by
+if the main program cannot access the data member months?
+<blockquote>
+<br>A.  specification and implementation
+<br>B.  object and declaration
+<br>C.  public and private
+<br>D.  declaration and prototype
+</blockquote>
+<BR><BR>
+<textarea name="exercise1b" rows=2 cols=20></textarea>
+<br><br>C.&nbsp;&nbsp;&nbsp;  Given a variable <b>loan</b> of type <b>LoanClass</b>, write a call
+to the method <b>printRate()</b>.
+<br>
+<BR><BR>
+<textarea name="exercise1c" rows=4 cols=40></textarea>
+
+<br><br>D.  The private section of the class definition contains the
+data members and methods which can only be accessed by
+_________________ of the class.
+<br>
+<textarea name="exercise1d" rows=2 cols=40></textarea>
+<br><br>E. &nbsp;&nbsp;&nbsp; (T/F) Given the following class specification:
+<blockquote>
+<b>
+<pre>
+class LoanClass
+{
+ public:
+        void printRate();
+        float payoff();
+        void schedule();
+        void LoanSettings(char t, float r, int m);
+ private:
+        char type;
+        float rate;
+        int months;
+        float simplePayment();
+        float compoundPayment();
+};
+</pre>
+</b>
+</blockquote>
+the main function of the program can make a call to simplePayment() for any
+LoanClass instance.
+
+<br><br>
+<textarea name="exercise1e" rows=2 cols=20></textarea>
+<br>
+<h2>
+<a NAME="Exercise2"></a>Exercise 2</h2>
+
+<br>A.&nbsp;&nbsp;&nbsp;  A constructor must have the same name as the ___________.
+<BR><BR>
+<textarea name="exercise2a" rows=2 cols=20></textarea>
+<br><br>B.&nbsp;&nbsp;&nbsp;  What is the type of a constructor?
+<Blockquote>
+<br>A.  There is no type
+<br>B.  void
+<br>C.  Bool because it returns true or false based on whether or not the
+initialization was successful.
+<br>D.  The type is dependent upon the actual class.
+</Blockquote>
+<BR><BR>
+<textarea name="exercise2b" rows=2 cols=20></textarea>
+<br><br>C.&nbsp;&nbsp;&nbsp; Given the following class specification, write the code necessary to
+declare and initialize an object "loan" of LoanClass such that "loan" is
+ a simple loan ('S') with
+a .0675 rate and 36 months.
+
+<pre><b>
+     class LoanClass
+     {
+          public:
+              LoanClass(char t, float r, int m);
+              void printRate();
+              float payoff();
+              void schedule();
+          private:
+              char type;
+              float rate;
+              int months;
+              float simplePayment();
+              float compoundPayment();
+     };
+</b></pre>
+<BR><BR>
+<textarea name="exercise2c" rows=4 cols=40></textarea>
+<BR><BR>
+
+
+<h2>
+<a NAME="Exercise3"></a>Exercise 3</h2>
+<p><i><b>{ Script }</b></i>
+
+<h2>
+<a NAME="Exercise4"></a>Exercise 4</h2>
+<br><br>A.&nbsp;&nbsp;&nbsp;  The constructor is normally a __________________.
+<blockquote>A.  public member function
+<br>B.  private member function
+<br>C.  public data member
+<br>D.  private data member
+</blockquote>
+<BR><BR>
+<textarea name="exercise4a" rows=4 cols=35></textarea>
+<BR><BR>
+<br>B.&nbsp;&nbsp;&nbsp;  A constructor is used to ________________ an object when the object
+is declared.
+<BR><BR>
+<textarea name="exercise4b" rows=2 cols=20></textarea>
+<BR><BR>
+
+<h2>
+<a NAME="Exercise5"></a>Exercise 5</h2>
+<br>A.&nbsp;&nbsp;&nbsp;  (T/F) The following is an example of the use of an overloaded function.
+<pre><b>
+        int a = 10, b = 6;
+        int x[4] = {5, 6, 7, 8};
+        cout << sum(a, b) << endl;
+        cout << sum(x, 4) << endl;
+</b></pre>
+<BR>
+<textarea name="exercise5a" rows=2 cols=20></textarea>
+<BR><BR>B.&nbsp;&nbsp;&nbsp;  Which of the following determines which definition of an overloaded
+function is intended based on the context?
+<blockquote>A.  The user
+<br>B. The compiler
+<br>C. The linker
+<br>D. The processor
+</blockquote>
+<BR>
+<textarea name="exercise5b" rows=2 cols=20></textarea>
+<br><br>C.&nbsp;&nbsp;&nbsp;  Which of the following represent situations where function
+overloading could be used?
+<blockquote>
+A.  The program must add 3 numbers.  It must also add 3 arrays.
+<br>B.  The program must multiply two arrays.  It must also add two arrays.
+<br>C.  A and B
+<br>D.  None of the above
+</blockquote>
+<BR>
+<textarea name="exercise5c" rows=2 cols=20></textarea>
+<BR>
+<h2>
+<a NAME="Exercise6"></a>Exercise 6</h2>
+<p><i><b>{ Script }</b></i>
+<h2>
+<a NAME="Exercise7"></a>Exercise 7</h2>
+<br>A.&nbsp;&nbsp;&nbsp;  Overloading is an example of ___________________, a term derived from
+a Greek work meaning "many forms".
+<br>
+<textarea name="exercise7a" rows=2 cols=20></textarea>
+<br><br>B.&nbsp;&nbsp;&nbsp;   (T/F) The meaning of a function that is overloaded is completely determined
+by the context (i.e., what statements are around the function call).
+<br>
+<textarea name="exercise7b" rows=2 cols=20></textarea>
+<br>
+<h2>
+<a NAME="Exercise8"></a>Exercise 8</h2>
+<BR>A.&nbsp;&nbsp;&nbsp;A constructor with no arguments is called a
+__________________ constructor.
+<br><br>
+<textarea name="exercise8a" rows=2 cols=20></textarea>
+<BR><BR>
+B.&nbsp;&nbsp;&nbsp;(T/F) A class must explicitly define a constructor in order for
+objects of that type to be declared.
+<BR><BR>
+<textarea name="exercise8b" rows=2 cols=20></textarea>
+<BR><BR>
+C.&nbsp;&nbsp;&nbsp;Write the function heading for a default
+constructor for the "Book" class.
+<BR><BR>
+<textarea name="exercise8c" rows=2 cols=40></textarea>
+
+<h2>
+<a NAME="Exercise9"></a>Exercise 9</h2>
+<p><i><b>{ Script }</b></i>
+
+
+<h2>
+<a NAME="Exercise10"></a>Exercise 10</h2>
+<BR>A. &nbsp;&nbsp;&nbsp;(T/F) It is possible to have two default constructors
+in a class definition.
+<BR><BR>
+<textarea name="exercise10a" rows=2 cols=20></textarea>
+<BR><BR>
+B. &nbsp;&nbsp;&nbsp;Define a default constructor for the "Book" class (as it
+appears in the implementation file) that
+leaves all data values uninitialized.
+<br><br>
+<textarea name="exercise10b" rows=4 cols=40></textarea>
+
+<h2>
+<a NAME="Exercise11"></a>Exercise 11</h2>
+<BR>A.&nbsp;&nbsp;&nbsp;(T/F) The C++ compiler automatically provides overloaded definitions for the =
+operator.
+<BR><BR>
+<textarea name="exercise11a" rows=2 cols=20></textarea>
+<BR><BR>
+<BR>B.&nbsp;&nbsp;&nbsp;(T/F) It is possible to change the meaning of the +
+operator for variables of type float.
+<BR><BR>
+<textarea name="exercise11b" rows=2 cols=20></textarea>
+<BR><BR>
+<BR>C.&nbsp;&nbsp;&nbsp;Write the function heading of an overloaded
+* operator that multiplies two objects of the myArray class (the usage
+would be lhs * rhs) and returns a value of type myArray.
+<BR><BR>
+<textarea name="exercise11c" rows=4 cols=40></textarea>
+<BR><BR>
+
+<H2>
+<a NAME="Exercise12"></a>Exercise 12</h2>
+<p><i><b>{ Script }</b></i>
+<h2>
+<a NAME="Exercise13"></a>Exercise 13</h2>
+<BR>A. &nbsp;&nbsp;&nbsp;Write the heading of the function
+operator == for the Clock class (the usage is lhs == rhs).
+<BR><BR>
+<textarea name="exercise13a" rows=4 cols=40></textarea>
+<BR><BR>
+<BR>B. &nbsp;&nbsp;&nbsp;(T/F) We can overload the + operator to add three
+user defined matrices.
+<BR><BR>
+<textarea name="exercise13b" rows=2 cols=20></textarea>
+<br><br><br>
+<H2><A name=Exercise14></A>Exercise 14</H2><BR>A. Write the function prototype for a mutator for the Clock class that would set the hours
+in a clock object to the value of the parameter passed to the method.<br><br>
+<textarea name="exercise14a" rows=4 cols=50></textarea>
+<BR><BR><BR>
+B. Write the function implementation for the mutator defined in A.  The mutator should contain code to determine
+whether the value of the parameter is an acceptable value.  Otherwise, set the clock's hour to 12.<br><br>
+<textarea name="exercise14b" rows=7 cols=50></textarea>
+<BR><BR><BR>
+C.  Write the function prototype for an accessor for the clock Class that would return the data member for
+hours to the calling program.
+<BR><BR><textarea name=exercise14c rows=4 cols=50></textarea>
+<H2><A name=Exercise15></A>Exercise 15</H2><BR>Write code that might be placed in a
+client to print all of the books in the array, arrayOfBooks.<BR><BR>
+<textarea name="exercise15" rows=7 cols=50></textarea>
+
+<BR><BR>
+
+<center>
+<h5>
+----- End of Lab 7 -  C++ Classes Continued-----<br>
+Complete the Exercises on the Answer Sheet. <br>Turn in the Answer Sheet 
+and the printouts required by the exercises.</h5></center>
+<center>
+<input type=submit name="submit" value="Final Answer Sheet">
+<input type=submit name="submit" value="Click to Save Answers: Only if you must quit now">
+</center>
+</form>
+</body>
+</html>

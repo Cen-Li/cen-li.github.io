@@ -1,0 +1,15 @@
+The STL Queue Lab
+
+For part one of this lab, write a program named "queueA.cpp".
+
+This program generates 100 random numbers between 1 and 100. If the number is below 50, add it to the queue. If the number is above 75, delete the item at the front of the queue. Deletion should only be performed if there is something in the queue to be deleted.
+
+After the 100 values have been processed, report how many items are remaining in the queue. 
+
+
+Part two of the lab requires you to write a program named "queueB.cpp". This is an extension of the "queueA.cpp" program.
+
+This program will repeat the process performed in "queueA.cpp" 25 times. Each time it records the length of the queue after 100 values are processed. Then it computes and displays the average of the queues over these 25 runs.
+
+Turn in these two programs via D2L dropbox.
+

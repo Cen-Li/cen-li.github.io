@@ -1,0 +1,465 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Tom Cheatham">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en]C-AtHome0405  (Win95; U) [Netscape]">
+   <title>CSCI 2170 Lab C - Sorting</title>
+
+<!-- load the Javascript source file -------------------------------->
+<script SRC="../windows.js">
+document.write("Included JS file not found");
+</script>
+
+<!-- load the style sheet ------------------------------------------->
+<link rel="stylesheet" type="text/css" href="../styles.css" title="styles">
+
+</head>
+<body background="labC.gif"><a NAME="top"></a>
+
+<center>
+<h1>
+CSCI 2170 Lab C<br>
+Sorting</h1></center>
+
+<table COLS=2 WIDTH="95%" >
+<tr>
+<td width=70%>
+<dl>
+<dt>
+<b>Objectives:</b></dt>
+
+<dd>
+<b>To study various sorting algorithms
+<br>To learn how to analyze the efficiency of different algorithms 
+<br>To compare the efficiency of three different sorting algorithms
+</b></dd></dl>
+</td>
+<td>
+<font size=4>
+<center><a href="javascript:AnswerWindow('labC/labC')">CREATE ANSWER SHEET for Lab C</a></center>
+</font>
+</td>
+</tr>
+</table>
+
+<!--File access for browsers without javascript capabilities-->
+<noscript>
+<blockquote>
+<blockquote><b>For those of you without Javascript capabilities these links
+will provide access to the additional files needed to complete this lab.
+They are set to open a new browser window if your browser supports this
+feature.</b>
+<center><b>
+<a href="labC.html" target="_new">Answer Sheet</a>
+</b></center></blockquote></blockquote>
+</noscript>
+
+<p>In this laboratory assignment we will consider the following:
+<blockquote>A.&nbsp; <a href="#A">Simple Sort</a>
+<br>B.&nbsp; <a href="#B">Bubble Sort</a>
+<br>C.&nbsp; <a href="#C">Quick Sort</a>
+<br>D.&nbsp; <a href="#D">Efficiency of Sorting Algorithms</a>
+</blockquote>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<p>To sort means to arrange in "order."  Basically there are two linear orders--increasing 
+(ascending) and decreasing (descending).  If the list to be sorted contains duplicate 
+copies of some element, then strictly increasing (decreasing) order is impossible.  
+We may use non-decreasing (or non-increasing) to cover such cases.  In this lab, we assume we sort
+a list in non-decreasing order.
+
+<p>Sorting is a frequent activity in computing and it is important to develop efficient 
+algorithms.  The first sort algorithm that most of us develop will probably be simple but 
+not efficient!  We call this algorithm the <a href="#A">Simple Sort</a>.  Assume an array a[0..n-1] is to 
+be sorted and swap(x,y) is a function that exchanges two elements stored in x and y.
+
+<p>
+<br><br>
+
+<!-- PART A ------>
+<center>
+<h3>
+<a NAME="A"></a>A.  Simple Sort</h3></center>
+
+<h4>
+Simple Sort:</h4>
+<blockquote><pre>
+1.  for (i=0; i &lt; n; i++)
+2.     for (j=0; j &lt; n; j++)
+3.       if (a[i] &gt; a[j])  swap(a[i], a[j])
+</pre></blockquote>
+
+<h5>
+NOTE: For each of the following exercises, indicate answers on the <a href="javascript:AnswerWindow('labC/labC')">answer
+sheet.</a></h5>
+
+<!--EXERCISE 1 ----->
+<hr>
+<a href="javascript:Answer('Exercise1')"><font color="BB2222"><b>Exercise 1:</b></font>
+</a><font color="BB2222">As a review of 
+<a href="javascript:Display('../labB/labB.html')">Lab B</a>, compute the
+ run-time complexity of the above Simple Sort.  Also, be sure to indicate the best case, 
+worst case and average case complexity.  </font>
+<hr>
+
+<!-- Blank Space -->
+<br>
+
+<p>The Simple Sort  is not "good."  We can do better!
+
+<p>We studied the Bubble Sort algorithm earlier.  It is better in the 
+best case and, in practice, in many cases.  Shown below is pseudocode for the 
+Bubble Sort.<p><p>
+
+<br>
+<!--PART B -------->
+<center>
+<h3>
+<a NAME="B"></a>B. Bubble Sort</h3></center>
+<p>
+<h4>
+Bubble Sort:</h4>
+<blockquote><pre>
+1.  k = n          {Sort the first n elements}               
+2.  sorted = false
+3.  While NOT sorted and we haven't exceeded the number of necessary passes
+4.  {
+5.     k = k - 1   {Reduce the size of subarray to sort}
+6.     sorted = true           {See if this pass makes any changes}
+7.     for (i=0; i&lt;k; i++)
+8.        if (a[i] > a[i+1])
+9.        {
+10.          swap(a[i], a[i+1])
+11.          sorted = false       {Wasn't sorted ...}
+12.       }
+13.  }
+</pre></blockquote>
+
+
+<p>It requires a bit more thinking to calculate the <a href="javascript:Display('../labB/labB.html#D')">complexity</a> (Big-O) of this algorithm.  
+In the "best case" where the array a[0..n-1] is already sorted, the "while" loop will 
+run only once.  The "for" loop will iterate n-1 times, so the complexity is roughly 
+n-1 = O(n) in the "best case."  In the worst case, the while loop will run n-1 times 
+and the "for" loop runs n-1, n-2, ..., 1 times respectively.  The total number of 
+comparisons (line 7) is <p>
+
+<center>1 + 2 + 3 + ... + n-1 = (n-1)*n/2 = O(n<sup>2</sup>). </center><p>
+
+This is also the average time.  So, theoretically, in the average and worst cases, the 
+bubble sort is no "better" than the simple sort.  Though its magnitude (Big-O) is the 
+same, it has a better run time in general for small and reasonable size lists (as we 
+will see). 
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<!--PART C -------->
+<center>
+<h3>
+<a NAME="C"></a>C. Quick Sort</h3></center>
+<p>
+
+
+There are more efficient sort algorithms.  We will discuss an algorithm called quick sort 
+that is better in the average case than the previous two routines.  
+The quick sort has an average case complexity of O(n log<sub>2</sub> n).  For small n, 
+there is no great difference in O(n log<sub>2</sub> n) and O(n<sup>2</sup>), but for larger values of n, say 
+n &gt; 1000, the difference is significant: <p>
+
+For example, let n=1000:
+<dir>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  n log<sub>2</sub>n = 1000 log<sub>2</sub> 1000 = 1000 * 10 = 10,000 <p>
+  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  and <p>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  n<sup>2</sup> = 1000 * 1000  =  1,000,000.
+</dir>
+<p>The basic idea behind the Quick Sort is as follows:
+<font color="6600CC">
+<ol>
+   <li>pick one element in the array, which will be the pivot.
+   <li>make a pass through the array, called a partition step, re-arranging the entries so that:
+       <ul>
+          <li>the pivot is in its proper place (in its final sorted position).
+          <li>entries smaller than the pivot are to the left of the pivot.
+          <li>entries larger than the pivot are to its right.
+       </ul>
+   <li>recursively apply quicksort to the part of the array that is to the left of the pivot, and to the part on its right. 
+</ol>
+</font>
+<p>The image of an array below should help you to visualize this process.
+<br>
+<br>
+<center>
+	<table COLS=3 border=2 width=30%>
+	<tr><td >&#60; pivot<td align=center>pivot<td align=center>&#8805; pivot
+	</table>
+	<table COLS=3 width=30%>
+	<tr><td >first<td align=center>pivotIndex<td align=right>last
+	</table>
+</center>
+
+<p>Shown below is code to perform the Quick Sort.  
+Note that it uses a recursive function.  
+
+<h4>
+Quick Sort:</h4>
+<blockquote><pre>
+
+     //This function sorts the items in an array into ascending order
+     void quickSort (DataType a[], int first, int last) //sort a[first..last]
+     {
+       int pivotIndex;        //index of pivot position after partitioning
+
+       if (first &lt; last) 
+       {
+          //create the partition by placing the first
+          //array element exactly where it should stay
+          partition(a, first, last, pivotIndex);
+
+          //sort the two partitions
+          quickSort(a, first, pivotIndex - 1)
+          quickSort(a, pivotIndex + 1, last)
+        }
+      }
+
+      //Rearrange elements in a[first..last] so that a[first] is in
+      //its final sorted position at pivotIndex, all elements less than a[first]
+      //are in positions less than pivotIndex, and all elements greater than
+      //a[first] are in positions greater than pivotIndex.
+      void partition(DataType a[], int first, int last, int& pivotIndex)
+      {
+         DataType pivot = a[first];     //the pivot is the first element
+         int lastRegion1 = first;       //index of last item in region 1
+         
+         //move one item at a time until unknown region is empty
+         for (int firstUnknown = first + 1; firstUnknown <= last; ++firstUnknown)
+         {
+            //move item from unknown to proper region
+            if (a[firstUnknown] < pivot)
+            {
+                //item from unknown belongs in region 1
+                ++lastRegion1;
+                swap (a[firstUnknown], a[lastRegion1]);
+            }
+         }
+
+         //place the pivot in the proper position and mark its position
+         swap (a[first], a[lastRegion1]);
+         pivotIndex = lastRegion1;
+                
+     }</pre></blockquote>
+
+
+
+
+<p>Here is an example of how the "partition" function works: <p><p>
+
+<blockquote>
+<pre>
+	The array a contains:</pre>
+<p>
+	<table COLS=6 width=60%>
+	<tr><td align=center >0<td align=center>1<td align=center>2<td align=center>3
+	    <td align=center>4<td align=center>5<td align=center>
+	</table>
+	<table COLS=6 border=2 width=60%>
+	<tr><td align=center bgcolor="ffff00">40<td align=center>50<td align=center>20<td align=center>60
+	    <td align=center>30<td align=center>70
+	</table>
+<pre>
+        When the partition() function is activated the first time,
+            first = 0 and last = 5.
+        Next pivot = a[0] = 40 (you can see this item in "yellow" above).
+        Also lastRegion1 = 0
+
+        The for loop is started and:
+           firstUnknown = 1
+           a[1] < pivot is false
+               
+           firstUnknown = 2
+           a[2] < pivot is true
+               lastRegion1 = 1
+               swap a[2] with a[1]
+           The table then becomes:
+</pre>
+<p>
+	<table COLS=6 width=60%>
+	<tr><td align=center >0<td align=center>1<td align=center>2<td align=center>3
+	    <td align=center>4<td align=center>5<td align=center>
+	</table>
+	<table COLS=6 border=2 width=60%>
+	<tr><td align=center bgcolor="ffff00">40<td align=center bgcolor="00ff33">20
+            <td align=center bgcolor="6699FF">50<td align=center>60
+	    <td align=center>30<td align=center>70
+	</table>
+<pre>
+           firstUnknown = 3
+           a[3] < pivot is false
+</pre>
+<p>
+	<table COLS=6 width=60%>
+	<tr><td align=center >0<td align=center>1<td align=center>2<td align=center>3
+	    <td align=center>4<td align=center>5<td align=center>
+	</table>
+	<table COLS=6 border=2 width=60%>
+	<tr><td align=center bgcolor="ffff00">40<td align=center bgcolor="00ff33">20
+            <td align=center bgcolor="6699FF">50<td align=center bgcolor="6699FF">60
+	    <td align=center>30<td align=center>70
+	</table>
+<pre>
+           firstUnknown = 4
+           a[4] < pivot is true
+               lastRegion1 = 2
+               swap a[4] with a[2]
+           The table then becomes:
+</pre>
+<p>
+	<table COLS=6 width=60%>
+	<tr><td align=center >0<td align=center>1<td align=center>2<td align=center>3
+	    <td align=center>4<td align=center>5<td align=center>
+	</table>
+	<table COLS=6 border=2 width=60%>
+	<tr><td align=center bgcolor="ffff00">40<td align=center bgcolor="00ff33">20
+            <td align=center bgcolor="00ff33">30<td align=center bgcolor="6699FF">60
+	    <td align=center bgcolor="6699FF">50<td align=center>70
+	</table>
+<pre>
+           firstUnknown = 5
+           a[5] < pivot is false
+
+           the loop is exited
+           swap a[0] with a[lastRegion1] or a[2]
+           pivotIndex = lastRegion1 = 2
+
+        <b>Partition is finished and the pivot is in the correct position.
+        All of the items to the left (in green) are less than the pivot
+        and all of the items to the right (in blue) are greater than the pivot.</b>
+</pre>
+<p>
+	<table COLS=6 width=60%>
+	<tr><td align=center >0<td align=center>1<td align=center>2<td align=center>3
+	    <td align=center>4<td align=center>5<td align=center>
+	</table>
+	<table COLS=6 border=2 width=60%>
+	<tr><td align=center bgcolor="00FF33">30<td align=center bgcolor="00FF33" >20
+            <td align=center bgcolor="FFFF00">40<td align=center bgcolor="6699FF">60
+	    <td align=center bgcolor="6699FF">50<td align=center bgcolor="6699FF">70
+	</table>
+
+<pre>
+       After the return from "partition" <b>pivotIndex</b> contains 2 and two recursive 
+       calls will be made to the quick sort routine:  
+            one to sort <b>a[0..1]</b> and 
+            another to sort the list <b>a[3..5]</b>.
+<pre>
+</blockquote>
+
+
+
+
+Like all divide-and-conquer routines, it is important that the two sublists are roughly 
+the same size.  For that to happen, the element separating them must belong near the 
+middle of the sorted list.  Of course, if we knew how to pick such an element we would 
+not need a sort routine.  We usually choose the left-most element of the list as the 
+pivot.  This is our approach in the above algorithm.  Better techniques for selecting the
+pivot do exist.  The "quick sort" is an O(n log<sub>2</sub> n) algorithm in the  average 
+case, but it is O(n<sup>2</sup>) in the worst case.  Interestingly, the worst case occurs 
+when the array is already sorted.  a[first] will already be in its 
+final sorted position and one of the two sublists will be empty while the other will have 
+one less element than the original.
+
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<!--PART D -------->
+<center>
+<h3>
+<a nAME="D"></a>D. Efficiency of Sorting Algorithms</h3></center>
+<p>
+
+
+To provide you some relative evaluation of these three sort algorithms, we have 
+implemented each in the file <a href="javascript:Display('$CLA/inlabC.cc')">inlabC.cc</a>.  C++ has 
+a built-in function called <b>clock()</b> This function returns the amount of CPU
+time (in microseconds) used since the first call to clock().  To determine the
+time in seconds, the value returned must be divided by the value of CLOCKS_PER_SEC 
+which is defined along with clock() in the <b>ctime</b> library. 
+
+
+
+<!--EXERCISE 2 ------>
+<hr>
+<a href="javascript:Answer('Exercise2')"><font color=BB2222"><b>Exercise 2:</b></font></a>
+<font color="BB2222">Test the CPU time used by each 
+algorithm for a random list of
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n = 100 integers,
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n = 1000 integers,
+<p>and n = 10,000 integers.
+<p>We have included a routine to generate a specified quantity of random integers.  Only 
+the quick sort is done recursively and recursion takes more CPU time so this puts 
+quick sort at a slight disadvantage but it should win anyway!  A non-recursive 
+version of quick sort does exist and it would make a better comparison. </font>
+<br><p><hr>
+
+<!--EXERCISE 3 ------>
+
+<a href="javascript:Answer('Exercise3')"><font color="BB2222"><b>Exercise 3:</b></font></a>
+<font color="BB2222">Draw a graph of the results 
+from the above tests using an X-axis of n and a Y-axis of CPU_TIME.  Put all three 
+graphs on one coordinate system so we can compare them.<p>
+
+The "clock()" function requires the ctime header file to be included, and a structure of 
+type <b>clock_t</b> to be declared.<p>
+
+Read the code to see how "clock()" is used.</font><p>
+<br><hr>
+
+<!--EXERCISE 4 ------>
+
+<a href="javascript:Answer('Exercise4')"><font color="BB2222"><b>Exercise 4:</b></font></a>
+<font color="BB2222">Now, let's analyze the results 
+of the sorting techniques using data sets that are <b>already</b> in order.  Add code to the 
+<a href="javascript:Display('$CLA/inlabC.cc')">inlabC.cc</a> program so that the CPU 
+time can be tested for a sorted list of
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n = 100 integers,
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n = 1000 integers,
+<p>and n = 10,000 integers.
+<p>Draw a graph of the results from the above tests using the X-axis for the values of <b>n</b>
+ and the Y-axis  for the <b>CPU time</b>.</font>
+<hr>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<center>
+
+----- End of Lab C - Sorting -----<br>
+Complete the Exercises on the <a href="javascript:AnswerWindow('labC/labC')">Answer Sheet</a>.&nbsp;<br>
+Turn in the Answer Sheet and the printouts required by the exercises.</h5></center>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<!--RETURN LINK --->
+<center><a href="#top">Return to the top of this lab</a>
+<br><a href="../index.html">Return to the link page for all 2170 labs</a></center>
+
+<!--counter -->
+<center>
+<img SRC="http://www.mtsu.edu/cgi-bin/users/csdept/217man/counter.pl?count_labC">
+</center>
+</body>
+</html>

@@ -1,0 +1,30 @@
+Test 3 topics:
+
+1) variations of linked list
+   - with a doubly linked list with dummy head:
+      - show C++ code for insertion
+      - show C++ code for deletion 
+      - show C++ code to add an iterator for this linked list
+      - show how to add methods  "forward()" and "backward()" which will advance the iterator forward one node or backward one node
+      - show how to add methods "begin()" and "end()" which will return a pointer to the first node in the list, and the pointer to end of the list 
+   
+   - how to traverse a circular singly-linked list
+
+2) inheritance
+  - given a base class, be able to show C++ code to define a derived class
+    - show code in .h and .cpp files
+    - define new constructors, 
+    - redefine methods
+    - create new methods
+    - write client program that uses objects of both classes
+
+3) polymorphism 
+  - show C++ code to create a linked list of objects of both the base class and the derived class
+  - show C++ code that use objects of different (base and derived) classes to apply virtual methods 
+
+4) templated class
+   - given a user defined class, be able to convert the class into a templated class
+   - be able to write client program to instantiate the templated class with different data types.
+
+5) standard template libraries
+   - be able to use the built-in methods of list, vector, stack, queue, and map to write C++ code to solve simple problems, i.e., the example code discussed in class

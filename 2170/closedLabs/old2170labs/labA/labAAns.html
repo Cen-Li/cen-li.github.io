@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="Author" content="Brad Rudnik">
+  <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win95; I) [Netscape]">
+  <meta name="Description" content="CSCI 2170 - Closed Lab 2 - Answer Sheet.">
+  <title>Lab 2 - Answer Sheet</title>
+
+<!-- load the style sheet ------------------------------------------->
+<link rel="stylesheet" type="text/css" href="http://www.cs.mtsu.edu/~cs2170/manual/styles.css" title="styles">
+
+</head>
+<body background="http://www.cs.mtsu.edu/~cs2170/manual/labA/labA.gif">
+
+<form method="post">
+<input type=hidden name=lab value="labA">
+<input type=hidden name=name value="">
+<input type=hidden name=uname value="">
+<input type=hidden name=partner value="">
+<input type=hidden name=instructor value="">
+<center>
+<h1>
+Lab A -- Debugging using NetBeans </h1> </center>
+
+<center>
+<h3>
+Answer Sheet</h3> </center>
+
+<center>
+<input type=submit name="submit" value="Final Answer Sheet">
+<input type=submit name="submit" value="Click to Save Answers: Only if you must quit now">
+</center>
+
+<p> The purpose of Exercises 1 and 2 is the usage of  <i>cout</i> statements to 
+find logic errors. The latter exercises in this lab will make use of a graphical debugging 
+environment, NetBeans, to debug.
+</p>
+<a name="Exercise1"></a>
+<h2>
+Exercise 1</h2>
+
+<p>Copy the program shown in the listing below to your account,i.e., 
+<br> cp $CLA/inlabAa.cc inlabAa.cc
+<br>Add debugging <i>cout</i> statements to the program as described in the 
+paragraph found in your other browser window that immediately above  
+the lab Excercise 1, i.e., <i>cout</i>'s dealing with <b><i>statement level trace</i> </b>and <b><i>variable trace</i></b> so that you can 
+locate error(s) and correct the inlabAa.cc program. Once you have the program
+corrected, see Exercise 2. 
+</p>
+<pre>
+// ---------------------------------------------------------------
+//
+// This program reads a list of numbers from the command line and
+// determines whether or not they are in descending order.
+//
+// usage:
+//    inlabAa  number [number ...]
+// i.e.,
+//    ./a.out  13 12 8 7 5 4
+// tells the program there will be 6 numbers in the list and the
+// list consists of 13,12,8,7,5,4
+// The program (when corrected) should report that the list
+// is in descending order
+
+// To get started, copy this file to your local directory, i.e.,
+// cp $CLA/inlab2a.cc  inlab2a.cc
+// Now compile the program. There should be no syntax errors.
+// Now add cout statements that will allow you to locate 
+// and correct logic errors.
+
+// Please note there are errors dealing with the value of argc being
+// used and which argv array item should be referenced.
+// You need not fully understand what these are nor how they work at this time.
+
+// ---------------------------------------------------------------
+
+#include &lt;cstdlib&gt;
+#include &lt;iostream&gt;
+using namespace std;
+
+const int SIZE = 10                // size of the array
+
+int main(int argc, char *argv[])
+{
+    int i;                // loop counter
+    bool descending;      // true if the list is in descending order
+    int list[size];       // array to hold the list
+    int lstSize;          // the number of integers in the list
+
+    // Set listSize to the number of integers on the command line,
+    // or the size of the array, whichever is smaller.
+    if ( argc-1 > SIZE )
+        listSize = SIZE;
+    else
+        listSize = argc - 1;
+
+
+    // convert the numbers on the command line from ASCII to
+    // integer and store them in the list.
+    for (i = 1; i &lt; listSize; i++)
+        list[i] = atoi(argv[i+1]);   // the atoi comes from the cstdlib library.
+                                     // The atoi takes an alphanumeric string value and
+                                     // converts it to an integer.  no error here :-)
+
+
+    // Check each pair of adjacent integers to see if the one with
+    // the lower index has a lower value.
+    for (i = 0, descending = true; (i &lt; listSize) && descending; ++i)
+        descending = (list[i] > list[i+1]);
+
+    // Inform the user of the result
+    if (descending)
+        cout &lt;&lt; "The list is in descending order.\n";
+    else
+        cout &lt;&lt; "The list is NOT in descending order.\n";
+
+    return(descending);
+}
+</pre>
+
+<a name="Exercise2"></a>
+<h2>
+Exercise 2</h2>
+<p>Turn in a printout of inlabAa.cc program with corrections marked on the printout, i.e., note with pen/pencil the corrections you made.  Leave your <i>cout</i> statements in the corrected code.
+
+<a name="Exercise3"></a>
+<h2>
+Exercise 3</h2>
+<p>Follow the steps to create an empty C++ project.
+
+<h2>
+Exercise 4<br> </h2>
+<p>Follow the steps to create a new C++ file to be part of the project.
+
+<h2>
+Exercise 5<br> </h2>
+<p>Follow the steps to compile and run the program.
+
+<h2>
+Exercise 6<br> </h2>
+<p>A. What is the current value of the variable <I>total</I>? <br><br>
+<textarea name="exercise3a" rows="3" cols="40"></textarea> 
+<br><br>
+  
+<p>B. What is the first four values of array <I>listOfNumbers</I>? <br><br>
+<textarea name="exercise3b" rows="3" cols="40"></textarea> <br><br>
+ 
+<p>C. Look at the <i>cout &lt;&lt;</i> statement which is two lines
+below the current program statement (breakpoint). This statement will
+output the average. Given the current value of the variables, what is
+the problem with this statement? 
+<br><br>
+
+<textarea name="exercise3c" rows="3" cols="40"></textarea>
+<br><br>
+  
+<p>D. From reading the comment before the call to <i>readNumbers(listOfNumbers,
+howMany)</i> in <i>main()</i>, and from reading the header comments in
+the function <i>readNumbers()</i>, what did the programmer intend for <i>readNumbers()</i>
+to do to the variable <i>howMany</i>? <br><br>
+
+<textarea name="exercise3d" rows="3" cols="40"></textarea> <br><br>
+ 
+<p>E. What is the current value of <I>howMany</I>? 
+<br><br>
+
+<textarea name="exercise3e" rows="3" cols="40"></textarea>
+<br><br>
+
+<p>F. Why is the value of <I>howMany</I> in function 
+"readNumber" differ from its value in the main function right
+after the call to function "readNumber"? How would you fix
+it?<br><br>
+
+<textarea name="exercise3f" rows="3" cols="40"></textarea>
+<br><br>
+ 
+<p>G. How many times is the body of the <I>for</I>loop executed?How
+would you fix it?
+<br><br>
+
+<textarea name="exercise3g" rows="3" cols="40"></textarea>
+<br><br>
+
+<p>H. How do you set a breakpoint in NetBeans?
+<br><br>
+
+<textarea name="exercise3h" rows="3" cols="40"></textarea>
+<br><br>
+
+<p>I. Once all the breakpoints are set, how do you begin execution of
+the program in NetBeans?
+<br><br>
+
+<textarea name="exercise3i" rows="3" cols="40"></textarea>
+<br><br>
+
+<p>J. How do you inspect the value of a variable in NetBeans?
+<br><br>
+
+<textarea name="exercise3j" rows="3" cols="40"></textarea>
+<br><br>
+ 
+<p>K. How do you continue the execution of the program after a breakpoint has been reached?
+<br><br>
+
+<textarea name="exercise3k" rows="3" cols="40"></textarea>
+<br> <br>
+
+<p>L. Turn in a copy of the corrected program printed from NetBeans.
+<br><br>
+ 
+<p>M. Turn in a script created on Ranger containing the list of
+the program, the compile and the run of the program.
+<br><br>
+
+<p>Turn in your answer sheet and the printouts from exercises 1, 2, 6L, and 6M. 
+Be sure to mark the errors on the printout from Exercise 1 and the new "couts" on the printout of exercise 2.
+<br><br> 
+<center>
+<h5>
+----- End of Lab 2 - Debugging -----<br>
+Complete the Exercises on the Answer Sheet. <br>Turn in the Answer Sheet 
+and the printouts required by the exercises.</h5> </center>
+<center>
+<input type=submit name="submit" value="Final Answer Sheet">
+<input type=submit name="submit" value="Click to Save Answers: Only if you must quit now">
+</center>
+</form>
+</body>
+</html>

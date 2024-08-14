@@ -1,0 +1,605 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Brad Rudnik">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en]C-AtHome0405  (Win95; U) [Netscape]">
+   <meta name="Description" content="CSCI 2170 - Closed Lab 4 - Lesson Page.">
+   <title>CSCI 2170 Lab 4 - C++ Enumerated Types, Typedef, Structs, and Array of Structs</title>
+
+<!-- load the Javascript source file -------------------------------->
+<script SRC="../windows.js">
+document.write("Included JS file not found");
+</script>
+
+<!-- load the style sheet ------------------------------------------->
+<link rel="stylesheet" type="text/css" href="../styles.css" title="styles">
+</head>
+<body background="lab4.gif"><a NAME="top"></a>
+
+<center>
+<h1>
+CSCI 2170 LAB 4<br>
+Enumerated Types, Typedef, Structs, and<br> Array of Structs</h1></center>
+<h2><i>A few book keeping items before starting</i></h2>
+1.  All of the labs in this format should be done using the <i>ranger</i> (ranger.cs.mtsu.edu) system.
+<br>You should access <i>ranger</i> using an NX client. 
+If you are not familar with NX connectivity or the Linux environment, please click <a href="http://cslabserver.cs.mtsu.edu/labs/1170/lab2a/index.html">here</a> for help.
+<br>
+<br>
+2.  You must click the "Create Answer Sheet for LAB #" for any lab of this format.  Then place
+appropriate answers in the provided blanks.<br><br>
+3.  Labs of this format will require you to turn in answer sheets as well program printouts.  Be
+sure to turn in all required items.<br><br>
+<p>
+
+<table COLS=2 WIDTH="95%" >
+<tr>
+<td width=70%>
+<dl>
+<dt>
+<b>Objectives:</dt>
+
+<dd>
+Review Enumerated types and Typedef
+<br>Learn to manipulate C++ structs
+<br>Provide practice in using arrays of structs</b></dl>
+</td>
+
+<td>
+<font size=4>
+<center><a href="javascript:AnswerWindow('lab4/lab4')">CREATE ANSWER SHEET for LAB 4</a></center>
+</font>
+</td>
+</tr>
+</table>
+
+
+<p>In this laboratory assignment we will consider the following:
+<blockquote>A.&nbsp; <a href="#A">Review Enumerated Types and Typedef</a>
+<br>B.&nbsp; <a href="#B">Using C++ Structures</a>
+<br>C.&nbsp; <a href="#C">Array of Structs</a></blockquote>
+
+<!-- PART A ------>
+<center>
+<h3>
+<a NAME="A"></a>A. Review of Enumerated Types and Typedef</h3></center>
+
+<h4>
+The ENUM Statement</h4>
+
+<p>The <b>enum</b> (short for enumerated type) keyword can be used
+to define new data types.&nbsp; In programming where advanced data structures
+will be required, the <i>enum</i> statement is essential.&nbsp; The <i>enum</i>
+type should be used to provide good internal documentation.&nbsp; This
+makes the program more readable and easier to understand (more self-documenting).&nbsp;
+Also, another purpose for the <i>enum</i> statement is to help reduce logical
+errors in a program.
+<p>The enum statement provides a way to name integer constants and allows
+the programmer to invent a "new" type and to specify what values this new
+type can support.&nbsp; The syntax of the enum appears as:
+<blockquote>
+<blockquote><b><pre><font size=4>
+enum user-defined_type {listing of data values};
+</font></pre></b>
+<br>or<br>
+<b><pre><font size=4>
+enum {listing of integer constants};
+</font></pre></b></blockquote>
+</blockquote>
+
+<p>Note the following examples:
+<blockquote>
+
+<blockquote><b>
+<pre><font size=4>
+enum Day { MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY};
+enum Video { COMEDY, ADVENTURE, HORROR, MYSTERY, MUSICAL};
+enum {FALSE, TRUE};
+</font>
+</pre>
+</b></blockquote>
+</blockquote>
+Now we have two new data types:&nbsp; <b>Day</b> and <b>Video</b>.&nbsp;
+Note that these are <b><i>types</i></b>, not variables!&nbsp; Therefore,
+declarations similar to the following would be appropriate.
+<blockquote>
+<blockquote><b><pre><font size=4>
+Day returnDay;
+Video oneVideo;
+</font></pre></b></blockquote>
+</blockquote>
+The third <b>enum</b> statement listed above is equivalent to the following:
+<blockquote>
+<blockquote><b><font size=4><pre>
+const int FALSE = 0;
+const int TRUE = 1;
+</pre></font></b></blockquote>
+</blockquote>
+<p>Enumerated variables are treated as "integers" by the compiler which means
+that these values are ordinal (ordered).&nbsp; In the <b>Day</b> list of
+data items, <b>MONDAY</b> would be stored as 0 and <b>THURSDAY</b> would
+be stored as 3, for example.
+<p>There are disadvantages of using enumerated data types, however.&nbsp;
+One major disadvantage is the fact that variables of this type cannot be
+input or output directly (using the input and output operators).&nbsp;
+We will learn how to get around this later!
+
+<a name="TD"></a>
+<h4>
+Using typedef</h4>
+
+<p>Another tool which is often used to aid in self documentation is
+the
+<i>typedef</i> specification.&nbsp; The <i>typedef</i> declaration
+is used to re-define an existing data type and is invaluable in making
+a program easier to modify.&nbsp; This will be extremely important to us
+later in the semester.
+<p>The syntax for the <i>typedef</i> follows:
+<blockquote>
+<blockquote><b><pre><font size=4>
+typedef ExistingDataType NewDataType;
+</font></pre></b></blockquote>
+</blockquote>
+For example,
+<blockquote>
+<blockquote><b><pre><font size=4>
+typedef char CharacterType;
+</font></pre></b></blockquote>
+</blockquote>
+re-names the type <i>char</i> as <i>CharacterType</i>.&nbsp; Now we have a
+"new" type.&nbsp; It is called a <i>CharacterType</i> and we could declare
+variables as follows:
+<blockquote>
+<blockquote><b><pre><font size=4>
+CharacterType letter;
+CharacterType name[20];
+</font></pre></b></blockquote>
+</blockquote>
+
+<h5>
+NOTE: For each of the following exercises, indicate answers on the <a href="javascript:AnswerWindow('lab4/lab4')">answer
+sheet.</a></h5>
+
+<!--EXERCISE 1 ----->
+<hr>
+<a href="javascript:Answer('Exercise1')"><font color="BB2222"><b>Exercise 1:</b></font>
+</a>
+<font color="BB2222"> 
+<br> a)&nbsp; Show how to declare <b>Real</b> as a synonym for float (float and Real can be
+used interchangeably).<br>
+<br> b)&nbsp; Show how to declare the following constants using an enum statement:
+<br><dd> WINTER =0, SPRING = 1, SUMMER = 2 and FALL = 3.
+</font>
+<hr>
+
+<!--PART B -------->
+<center>
+<h3>
+<a NAME="B"></a>B. Using C++ Structures</h3></center>
+<p>In reviewing our previous knowledge of simple data types, we remember that
+variables of these types have a major restriction:&nbsp; these variables
+may only store one data item.&nbsp; For example, if the following declaration
+is made:
+<blockquote>
+<blockquote><b><pre><font size=4>
+int oneNumber;
+</font></pre></b></blockquote>
+</blockquote>
+<i>oneNumber</i> may only store one integer value.&nbsp; To store multiple
+data items of the same type, we have the <i>array</i> structured data type.&nbsp;
+For example,
+<blockquote>
+<blockquote><b><pre><font size=4>
+const unsigned int MAX_VALUES = 50;
+int manyNumbers[MAX_VALUES];
+</font></pre></b></blockquote>
+</blockquote>
+<p><br>will set up an array called <b>manyNumbers</b> which will have the
+ability to store as many as 50 integers.&nbsp; One major disadvantage of
+the simple data type and the array structure is the fact that each type
+only stores one data type.&nbsp; For example, the <b>manyNumbers</b> array
+can store only integers and the <b>oneNumber</b> variable may store only
+an integer.&nbsp; There are many applications where it would be beneficial
+to have one variable which could store several types of information at the
+same time.&nbsp;
+For example, in a program to manage inventory and customers for a video store,
+it would be nice to have:
+<blockquote>
+<blockquote id="box">
+<ul><li>a variable to store information related to a movie owned by
+a video store which will store the name of the movie, the number of copies
+owned by the store, and the type of movie</li>
+<li>a variable to store information concerning a customer of the video store
+including the name of a person renting a movie, the person's id number,
+name of a movie rented, and the return date of the movie rental.</li>
+</ul>
+</blockquote></blockquote>
+C++ provides the <i>structure</i> data type to satisfy this need.&nbsp;
+The C++ <b>struct</b> is a group of data items which do not necessarily
+have the same data type. The <i>struct</i> should be used whenever the
+programmer wishes to store related information into one variable name.&nbsp;
+
+<h4>
+Declaring Structs</h4>
+
+<p>The syntax for the C++ struct type follows:
+
+<blockquote>
+<blockquote id="box"><b>struct</b>&nbsp; StructName
+<br>{
+<br>&nbsp;&nbsp;&nbsp;&nbsp; list of member types and member names;
+<br>};</blockquote>
+</blockquote>
+
+<!--EXERCISE 2 ----->
+<hr>
+<a href="javascript:Answer('Exercise2')"><font color="BB2222"><b>Exercise 2:</b></font></a>
+<font color="BB2222">Copy the files
+<a href="javascript:Display('$CLA/inlab4.cc')">inlab4.cc</a>,
+<a href="javascript:Display('$CLA/inlab4.dat')">inlab4.dat</a>&nbsp;
+and
+<a href="javascript:Display('$CLA/inlab4b.dat')">inlab4b.dat</a> which
+are found in the $CLA directory to your account.&nbsp; <i>inlab4.cc</i>
+is a short program that reads data from the data files, <i>inlab4.dat</i>
+and <i>inlab4b.dat</i>,&nbsp; and prints out information related to videos
+owned by the Movie Rent Video Store.&nbsp; This program displays a menu
+so that the user can select one of the following options:
+
+<dd>1) Print a list of all videos owned by the Movie Rent Video Store</dd>
+<dd>2) Print a list of all customers</dd>
+<dd>3) Print out a list of rental information by video titles</dd>
+<dd>0) Exit this program</dd>
+<br>
+Presently, this program reads inventory information from a file called<i>
+inlab4.dat</i> which contains the following information for each video
+owned by the company:&nbsp; name of video, the number of copies of a particular
+title, and the video type (mystery, comedy, etc.).&nbsp; The program, as
+it is given, will allow the user to choose option 1) or option 0) only.
+We will be adding code to this file so that the other options are eventually
+added to the code. Compile and execute this program to make sure that you
+understand what the program is doing.
+</font>
+<hr>
+
+
+<p>In observing our <a href="javascript:Display('$CLA/inlab4.dat')">inlab4.dat</a>
+file, we realize that we need a struct that will store the following information
+for each video: name of the video, the number of copies of the video owned
+by the video store and the type of video.&nbsp; The variable, <b>videoInfo</b>,
+to declare a video struct of this type follows:
+<blockquote>
+<blockquote id="box">
+<PRE><b>
+<font size=4>
+struct Video
+{
+     string movieTitle;            //name of movie
+     unsigned int numberCopies;    //number of copies
+     string videoType;             //type of video
+};
+Video videoInfo;
+</font>
+</b>
+</PRE>
+</blockquote>
+</blockquote>
+<b>NOTE</b> that <b>Video</b> is a <b>TYPE</b> not a variable!!!&nbsp;
+Thus, we must declare a variable to be of type video for memory locations
+to be associated with the member elements.&nbsp; Also, note that 
+<b>videoInfo</b> is a variable that has been declared to be of type Video!!
+<p>The items included in the C++ struct are called <b>members</b> of the
+struct and we will learn later that structs can have data members (as shown
+above) and/or function members.
+<p>As stated earlier, we need to add code to the&nbsp;<a href="javascript:Display('$CLA/inlab4.cc')">
+inlab4.cc</a> program so that it will also evaluate customers and print
+out a list of video customer information.&nbsp; Let's now observe the <a href="javascript:Display('$CLA/inlab4b.dat')">inlab4b.dat</a>
+file.&nbsp; This file contains customer information for the video store.&nbsp;
+All data in this file is in the following form for each customer:
+<br>&nbsp;
+<center><table BORDER COLS=2 WIDTH="90%" >
+<tr>
+<td>name of customer</td>
+
+<td>(a string)</td>
+</tr>
+
+<tr>
+<td>id number of customer</td>
+
+<td>(integer)</td>
+</tr>
+
+<tr>
+<td>name of video rented by the customer</td>
+
+<td>(a string)</td>
+</tr>
+
+<tr>
+<td>return date of the video</td>
+
+<td>(a string)</td>
+</tr>
+</table></center>
+<p>
+<!--EXERCISE 3 ---->
+<hr>
+<a href="javascript:Answer('Exercise3')"><font color="BB2222"><b>Exercise 3:</b></font></a>
+<font color = "BB2222">Using the above
+struct declaration as a guide, show code to set up a struct called <i>customerType</i>
+which will have fields for a customer's name,
+the customer's id number (integer),&nbsp; the title of the movie/video
+rented, and when the video is to be returned.&nbsp; 
+Also declare a variable <i>customer</i> of the type <i>customerType</i>.
+Insert this code 
+into the two positions indicated by comments in the <i>inlab4.cc</i>
+program.</font>
+<hr>
+
+
+<h4>
+Manipulating C++ Structs</h4>
+
+<p>The dot operator, "." , is used when accessing structs. It
+is preceded by the struct variable name and is followed by the name of
+a member of that struct.&nbsp; Hence, the "." operator is often called
+a <i>membership operator</i>.&nbsp; The following code will read from the
+stream <b>videoIn</b> and print values for the variable <b>videoInfo</b>
+as declared above.
+
+<blockquote>
+<blockquote id="box">
+<pre>
+<font size=4>//get the video information
+<b>getline(videoIn, videoInfo.movieTitle);
+videoIn >> videoInfo.numberCopies;
+videoIn.get(endOfLine);
+getline(videoIn, videoInfo.videoType);</b>
+
+//print out video information
+<b>cout &lt;&lt; "\n\nName of video:\t\t" 
+     &lt;&lt; videoInfo.movieTitle &lt;&lt; endl;</b>
+<b>cout &lt;&lt; "Number of copies:\t" 
+     &lt;&lt; videoInfo.numberCopies &lt;&lt; endl;</b>
+<b>cout &lt;&lt; "Video type:\t\t"
+     &lt;&lt; videoInfo.videoType &lt;&lt; endl;</b>
+</font>
+</pre>
+</blockquote>
+</blockquote>
+
+<!--EXERCISE 4 ----->
+<hr>
+<a href="javascript:Answer('Exercise4')"><font color="BB2222"><b>Exercise 4:</b></font></a>
+<font color="BB2222">Add code
+to read values for the variable <i>customer</i> described in exercise 3.&nbsp;
+This is accomplished by a call to the function <i>getCustomer()</i>.&nbsp;
+Complete the function <i>getCustomer() </i>so that it will read values
+for one customer from the indicated input file stream.&nbsp; Include this
+code in the indicated position of the<i> inlab4.cc</i> program.
+</font>
+<hr>
+Other manipulations which might occur using structs will be addressed by
+example.
+
+
+<h4>
+How are structs passed to functions?</h4>
+
+<p>This question might best be answered by showing the complete program
+to process one video.
+
+<blockquote>
+<blockquote id="box">
+<pre><font size=4><b>
+#include &lt;fstream>
+using namespace std;
+
+//set up global struct type
+struct Video
+{
+     string movieTitle;          //name of movie
+     unsigned int numberCopies;  //number copies owned
+     string videoType;           //type of video
+};
+
+//function prototyes
+void getVideo(Video&amp;, ifstream&amp;);   //get one video
+
+int main()
+{
+     //variable declarations
+     Video videoInfo;             //one video
+
+     //declare and open the file containing 
+     //video information
+     ifstream videoIn;
+     videoIn.open("inlab4.dat");
+
+     //read from the file until eof is reached
+     getVideo(videoInfo, videoIn); 
+     while (videoIn)
+         getVideo(videoInfo, videoIn);
+
+     return 0;
+} //end of main
+
+//Function to get one movie's information
+void getVideo (Video&amp; oneVideo,        
+               ifstream &amp; videoIn)     
+{
+     char endOfLine;
+
+     //get the video information
+     getline(videoIn, oneVideo.movieTitle);
+     videoIn >> oneVideo.numberCopies;
+     videoIn.get(endOfLine);
+     getline(videoIn, oneVideo.videoType);
+}</b>
+</font>
+</pre>
+</blockquote>
+</blockquote>
+
+
+<h4>
+Can assignment statements be used between two struct variables of the
+same type?</h4>
+
+<p><b>YES!!!</b>&nbsp; Note the following function which swaps two
+structs of type Video.
+
+<blockquote>
+<blockquote id="box"><b>
+<pre>
+<font size=4>
+void swap (Video&amp; one, Video&amp; two)
+{
+     Video temp;
+     temp = one;
+     one = two;
+     two = temp;
+}
+</font>
+</pre>
+</b>
+</blockquote>
+</blockquote>
+
+
+<!--PART C -------->
+
+<center>
+<h3>
+<a NAME="C"></a>C. Array of structs</h3></center>
+<p>A more common application of structs occurs when multiple structs of the
+same type are needed in a program.&nbsp; Suppose that we need to write
+a program which performs manipulations on as many as 100 videos.&nbsp;
+The data structure that would be needed for this application is an array
+of structs.
+
+
+<h4>
+Defining an Array of Videos</h4>
+
+<p>Remember that when working with structs, one of the first things
+that is accomplished is the creation of a struct <i>type</i>.&nbsp;&nbsp;
+This
+<i>type</i> is used to declare an array of this new <i>type</i>.&nbsp;
+For example, the following code defines a variable called <i>allVideos</i>
+which will store information for as many as 100 videos.
+
+<blockquote>
+<blockquote id="box">
+<b><pre><font size=4>
+const unsigned int MAX_VIDEOS = 100;
+Video allVideos[MAX_VIDEOS];
+</font></pre></b></blockquote>
+</blockquote>
+
+<!--EXERCISE 5 ----->
+<hr>
+<a href="javascript:Answer('Exercise5')"><font color="BB2222"><b>Exercise 5</b></font></a>
+<font color="BB2222">Add code to the<a href="javascript:Display('$CLA/inlab4.cc')">
+inlab4.cc</a> program to define a variable called <i>allCustomers</i>
+which will store information contained in the inlab4b.dat file for as many
+as 20 customers as described in Exercise 4.
+</font>
+<hr>
+
+
+<h4>
+Manipulation of Arrays of Structs</h4>
+<p>Data included in an array of structs is accessed by denoting the following
+in the order specified:
+
+<dd>1) indicate array variable name</dd>
+<dd>2) indicate which struct to be accessed (show the subscript)</dd>
+<dd>3) indicate which member of the struct that is to be accessed.</dd>
+
+<p>For example, the following:
+<blockquote><blockquote>
+<b><pre><font size=4>
+cout &lt;&lt; allVideos[0].movieTitle &lt;&lt; endl;
+</font></pre></b>
+</blockquote></blockquote>
+
+<br>will print out the movie title of the first video included in the
+list of rental videos.
+<br>&nbsp;
+<!--EXERCISE 6 ------>
+<hr>
+<a href="javascript:Answer('Exercise6')"><font color="BB2222"><B>Exercise 6:</b></font></a>
+<font color="BB2222">Write code
+to print out the id number of the second customer included in the <i>allCustomers</i>
+array as described in exercise 5.&nbsp; Place your answer on the answer sheet.
+</font>
+<hr>
+
+
+<h4>
+Passing an Array of Structs to a Function</h4>
+
+<p>Suppose that we need a function called <b>findAndPrint</b> which
+will search the <b>allVideos</b> array for a particular type of video
+and will print out all videos included in the list which have this type.&nbsp;
+The function should receive the <b>allVideos</b> array so that it can
+be searched and secondly, the function should receive the type of videos
+that it is searching for.&nbsp; The function header definition will appear
+as:
+<blockquote><blockquote>
+<b>void findAndPrint (Video shows[], string showType)</b>
+</blockquote></blockquote>
+and we can call this function using the following statement:
+<blockquote><blockquote>
+<b>findAndPrint(allVideos, "comedy");</b>
+</blockquote></blockquote>
+
+<!--EXERCISE 7 ------>
+<hr>
+<a href="javascript:Answer('Exercise7')"><font color="BB2222"><b>Exercise 7:</b></font></a>
+<font color="BB2222">Show function
+header definition and body for a function called <i>printRentalInfo</i> which
+will receive the <i>allCustomers</i> array defined in Exercise 5, a
+movie title, and the number of customers and will print out a list of all the names of customers who
+have rented the video indicated in the movie title sent to the function.&nbsp;
+Add this code to&nbsp;<a href="javascript:Display('$CLA/inlab4.cc')"> inlab4.cc</a>
+at the indicated position.
+</font><hr>
+
+<hr>
+<a href="javascript:Answer('Exercise8')"><font color="BB2222"><b>Exercise 8:</b></font></a>
+<font color="BB2222">Now complete
+the Movie Rent Video Store program.&nbsp; Insert a function called <i>printCustomer</i>
+which will receive one struct of type <i>customerType</i> and will print out
+all information related to this customer (name, id, name of video rented,
+and return date of video).
+</font>
+<hr>
+
+<hr>
+<a href="javascript:Answer('Exercise9')"><font color="BB2222"><b>Exercise 9</b></font></a>
+<font color="BB2222">Remove comments
+from the program so that all menu selections can be selected by the user.&nbsp;
+Compile and execute this program showing that all options in the menu are
+operational.&nbsp; Turn in a script containing a listing of the program,
+a compile of the program and a run of the program for grading.
+</font>
+<hr>
+
+
+<center>
+<h5>
+----- End of Lab 4 - C++ Enumerated Types, Typedefs, Structs, and Array of Structs
+-----<br>
+Complete the Exercises on the <a href="javascript:AnswerWindow('lab4/lab4')">Answer Sheet</a>. <br>
+Turn in the Answer Sheet and the printouts required by the exercises.</h5></center>
+<!--RETURN LINK --->
+<center>
+<a href="#top">Return to the top of this lab</a>
+<br><a href="../index.html">Return to the link page for all 2170 labs</a>
+</center>
+
+</body>
+</html>

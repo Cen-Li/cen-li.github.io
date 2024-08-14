@@ -1,0 +1,787 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+    
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+    
+  <meta name="Author" content="Brad Rudnik">
+    
+  <meta name="GENERATOR"
+ content="Mozilla/4.5 [en]C-AtHome0405  (Win95; U) [Netscape]">
+    
+  <meta name="Description"
+ content="CSCI 2170 - Closed Lab 6 - Lesson Page.">
+  <title>CSCI 2170 Lab 6 - C++ Classes</title>
+      <!-- load the Javascript source file --------------------------------> 
+  <script src="../windows.js">
+document.write("Included JS file not found");
+  </script>  <!-- load the style sheet -------------------------------------------> 
+  <link rel="stylesheet" type="text/css" href="../styles.css"
+ title="styles">
+</head>
+  <body background="lab6.gif">
+<a name="top"></a>  
+<center> 
+<h1> CSCI 2170 LAB 6<br>
+ C++ Classes</h1>
+</center>
+  
+<table cols="2" width="95%">
+ <tbody>
+    <tr>
+ <td width="70%"> 
+      <dl>
+        <dt> <b>Objectives:</b></dt>
+        <dd> <b>To introduce data encapsulation and information hiding <br>
+To introduce Object-oriented programming <br>
+To introduce the C++ class <br>
+To become familiar with C++ class syntax</b></dd>
+      </dl>
+ </td>
+  <td> <font size="6"> 
+      <center><a href="javascript:AnswerWindow('lab6/lab6')">CREATE ANSWER
+SHEET for LAB 6</a></center>
+ </font> </td>
+ </tr>
+ 
+  </tbody>
+</table>
+  <!--File access for browsers without javascript capabilities--> 
+<noscript>  <blockquote> <blockquote> <b>For those of you without Javascript
+capabilities these links will provide access to the additional files needed
+to complete this lab. They are set to open a new browser window if your browser
+supports this feature. <br><center><a href="lab6Ans.html" target="_new">Answer
+Sheet</a></center> </blockquote> </blockquote>  </noscript>
+  
+<p>In this laboratory assignment we will consider the following: </p>
+<blockquote>A.&nbsp; <a href="#A">Object-Oriented Programming</a> <br>
+B.&nbsp; <a href="#B">Data Encapsulation</a> <br>
+C.&nbsp; <a href="#C">C++ Classes</a> <br>
+D.&nbsp; <a href="#D">C++ Class Syntax</a> </blockquote>
+  <!-- Blank Space --> <br>
+&nbsp; <br>
+&nbsp; <br>
+&nbsp;   
+<p>Previously, we have viewed software development using functions operating on 
+data (or structured programming). The emphasis was creating the functions.
+Beginning In this lab, we will place an emphasis upon the data and the 
+associated operations that are performed upon the data.
+This approach to software development
+is called object-oriented programming (OOP). <br>
+&nbsp; <br>
+&nbsp;   <!-- PART A ------> </p>
+<center> 
+<h3> <a name="A"></a>A. Object-Oriented Programming</h3>
+</center>
+  
+<p>In the OOP approach, software objects (often called abstract data types) are used.&nbsp; An  <b>object</b> 
+is a self-contained computing entity with its own data and
+its associated operations.&nbsp; In real life, we deal with physical
+objects all the time.&nbsp; When we sit in our chair (an object) at our desk
+(an object), we might consult our calendar (an object) to see what we must
+do today.&nbsp; Then we might make a few calls using our phone (an object)
+after consulting our phone book (an object) to look up numbers and so on. 
+</p>
+<p>Object-oriented programming (OOP) mimics real life situations by building 
+software using software objects.&nbsp; The idea is to use software to model objects 
+that closely correspond to real objects in the application.&nbsp; Thus in
+our example above, we could visualize both the calendar and the phone book
+and possibly the desk as software objects.&nbsp; Probably "today" would be
+a date object as well. </p>
+<p>In the object-oriented approach to programming, a problem is decomposed 
+into a well-defined set of objects that can be used to model&nbsp; the application.&nbsp;
+Once the objects are determined, consideration is given to exactly what data
+each will encapsulate(represent) and what operations are associated with the data.&nbsp;
+Finally the relationships among the objects are established. <br>
+&nbsp; <br>
+&nbsp;  </p>
+<h5> NOTE: For each of the following exercises, indicate answers on the  <a
+ href="javascript:AnswerWindow('lab6/lab6')">answer sheet.</a></h5>
+   <!--EXERCISE 1 -----> 
+<hr> 
+<br>
+<a href="javascript:Answer('Exercise1')"><font color="BB2222"><b>Exercise 1:</b></font></a>
+<font color="BB2222">Describe the 
+difference between structured programming and object-oriented programming.</font>
+<br>
+<hr>
+<br>
+ 
+According to Wang <a href="#1">[1]</a>,  
+OOP has several advantages:
+
+<blockquote><i>Simplicity</i>:&nbsp; Because software objects model real world
+objects in the application domain, the complexity of the program is reduced
+and the program structure is more clear and simple. <br>
+  <br>
+  <i>Reusability</i>:&nbsp; Objects can be reused in different programs.&nbsp; 
+A table-building object, for instance, can be used in any program that requires
+a table of some sort.&nbsp; Thus, programs can be built from prefabricated 
+and pretested components in a fraction of the time required to build new programs
+from scratch. <br>
+  <br>
+  <i>Maintainability</i>:&nbsp; Objects can be maintained separately, making
+locating and fixing problems and adding "bells and whistles" easy.</blockquote>
+  
+<p>Several languages have been developed which are OOP languages.&nbsp; One
+such language is Smalltalk.&nbsp; It is considered to be a <b>pure</b> object-oriented
+language, a language in which everything is an object.&nbsp; All actions
+in a pure object-oriented language are produced by passing messages.
+A <b>message</b> is a request sent to an object to perform an operation
+on its data.&nbsp; Other languages like C++ are called <b>hybrid</b>
+languages because they support a combination of object-oriented and traditional
+structured programming. Our usage of C++ up to this point has concentrated upon the structured aspect of C++.</p>
+<p>C++ was designed by Bjarne Stroustrup of AT&amp;T Bell Labs in the early 
+1980s.&nbsp; It was designed to incorporate the object-oriented paradigm into
+the C programming language.&nbsp; C++ has become a predominant OOP language
+because it provides a well-designed set of language constructs which fully
+support OOP programming.&nbsp; Secondly, it is an extension of the popular,
+standardized ANSI C.  
+
+
+<!--EXERCISE 2 -----> </p>
+<hr> <a href="javascript:Answer('Exercise2')"><font color="BB2222"><b>Exercise 2:</b></font></a>
+<font color="BB2222">Describe the
+difference between a pure and a hybrid programming language.&nbsp; Give an
+example of each language.</font>
+<hr>
+  
+
+<p>In the next section of our closed lab, we will introduce C++ objects and start using them in our 
+problem solving.&nbsp; 
+&nbsp; <br>
+&nbsp;  <!--PART B --------> </p>
+<center> 
+<h3> <a name="B"></a>B. Data Encapsulation</h3>
+</center>
+ 
+<p>First consider a real world object that most of us use -- an automobile.&nbsp; We know that 
+each automobile is described by its make (such as GM, Ford, Honda, Toyota), 
+model, type (such as two door, four door, sedan, SUV, van), year (when it 
+was made by a particular manufacturer), an engine, 
+a transmission (
+either a straight shift or automatic) and so on. This set of features
+can be thought of as "data" features describing an automobile object. Actually, 
+most view  the engine and transmission as objects in their own right, i.e., as
+subobjects, but they are still data features of the automobile object.
+The automobile object also has certain functions or "operations" which
+it can perform. We can "start" the automobile;
+we can "drive" the automobile; we can move forward; we can move in reverse;
+we can stop the automobile.
+It doesn't matter
+what kind of an automobile we have, we can hopefully depend on certain basic
+functions and features (data) being built in.&nbsp; This wrapping together
+of data features and functions is an example of encapsulation.&nbsp; This
+situation is analogous to the concept of <b>data encapsulation</b> which
+we use in computing.&nbsp; Using this concept we view the object which consists of
+the data plus the functions (also called methods or operations)
+on these data items as "encapsulated" or bound together in a single program
+unit. </p>
+<p>The operations may require certain inputs to obtain
+the desired results. For example, to "start" the car, we must have it
+in the correct gear.  We must have the correct ignition key.
+If we use the wrong key or don't have the automobile in the correct
+gear, the automobile won't start. Similarly in computing, the operations
+associated with an object may require certain inputs/parameters
+before the correct results will be obtained. 
+
+<!--EXERCISE 3 -----> 
+</p>
+<hr> <a href="javascript:Answer('Exercise3')"><font color="BB2222"><b>Exercise 3:</b></font></a>
+<font color="BB2222">A DVD player can be thought of as an example 
+of a physical object.<br>
+ <dd>a.&nbsp; Name some "data items or data features" which come standard
+with a simple DVD player?<br>
+ </dd>
+<dd>b.&nbsp; Name some&nbsp; "operations" which a simple DVD player would perform? 
+</dd>
+</font>
+  
+<!--EXERCISE 4 ----> 
+<hr> <a href="javascript:Answer('Exercise4')"><font color="BB2222"><b>Exercise 4:</b></font></a>
+<font color="BB2222">The DVD player can
+be used as an example of data encapsulation.&nbsp; Explain.</font>
+<hr>
+  
+<p>We consider the automobile as a machine whose internal workings are not
+normally visible.&nbsp; When we insert the correct key in the ignition and
+turn it, the car starts.&nbsp; What goes on inside the engine is unknown
+and unimportant to the driver as long as the car starts.&nbsp; We use this concept in computing
+also.&nbsp; The process of "hiding" implementation details from a higher-level
+module (the automobile driver in our example)  is called <b>information hiding</b>.&nbsp; When we use an object,
+we are normally concerned with how to interface with the object (the public
+interface) rather than with the internal workings of the object.&nbsp; The
+<b>public interface</b> of an object is composed of the collection of functions
+and features which allow us to use the object.&nbsp; This public
+interface completely defines how the object can be used (similar to a manual which
+comes with our automobile describing how to operate and maintain the vehicle).&nbsp;
+The public interface to the car object includes details on "starting" the
+car, putting the car in "drive", and in "reverse".&nbsp; Each object also has internal
+data and functions that are available via the 
+ <b>private interface</b>
+which is not the same as the public interface. This is like when your 
+check engine light comes on; you look in your owners manual and are told 
+to take the automobile to the dealer for repairs. In other words, how to
+"repair" the engine is not part of the public interface but is part of the 
+private interface known by the dealer.
+Likewise, an object organizes data and related operations into
+a collective structure which can hide the internal workings of the object 
+from public view, i.e., cannot be seen/used via the public interface.  <!--EXERCISE 5 -----> </p>
+<hr> <a href="javascript:Answer('Exercise5')"><font color="BB2222"><b>Exercise 5:</b></font></a>
+<font color="BB2222">Consider the
+DVD player again.&nbsp; Describe an operation in which information hiding is being
+used.&nbsp; Give an operation which would be in the public interface of the
+DVD player.</font>
+<hr>
+  <!-- Blank Space --> <br>
+&nbsp; <br>
+&nbsp; <br>
+&nbsp;    <!--PART C --------> 
+<center> 
+<h3> <a name="C"></a>C. C++ Classes</h3>
+</center>
+ 
+<p>As previously described, software objects are used to closely model actual objects 
+in a real problem to be solved.&nbsp; In C++, the <b>class</b> construct is
+used to model real objects. By using the C++ class definition, the data and associated
+operations can be collected (encapsulated) into one unit, i.e., a class. </p>
+<p>As an example, consider a "clock" that we might use to maintain 
+and display the time of day. We could use this "clock" in any software 
+in which the time of day was necessary. Of course, the "clock" 
+consists of the data plus associated operations. 
+Thus a clock might be viewed as: <br>
+&nbsp;  </p>
+<center>
+<table cols="3" width="95%">
+ <tbody>
+    <tr>
+ <td> 
+      <center><b>data:</b></center>
+ <br>
+&nbsp;<br>
+&nbsp;</td>
+  <td><b>hour <br>
+minute <br>
+second <br>
+meridian</b></td>
+  <td><b>(in the range 1-12) <br>
+(in the range 0-59) <br>
+(in the range 0-59) <br>
+(am or pm)</b></td>
+ </tr>
+  <tr>
+ <td> 
+      <center><b>operations:</b></center>
+ <br>
+&nbsp;<br>
+&nbsp;</td>
+  <td><b>setClock <br>
+displayStandard <br>
+displayMilitary <br>
+</td>
+  <td><br>
+ <b>(i.e. 1:30:45 pm) <br>
+(i.e. 13:30:45)</b> <br>
+&nbsp;<br>
+&nbsp;</td>
+ </tr>
+ 
+  </tbody>
+</table>
+</center>
+  
+Terminology:
+<br>
+<p><i>instance variable</i> -- is a variable declared as part of the class, i.e., a member variable.  Each object of the class has a copy of the variable.</p>
+<p><i>message</i> -- We previously defined a <i>message</i> as a request sent to 
+an object to perform some operation. For example, the remark "start" 
+is a request/message sent to the automobile (operator). As another example, a request 
+by you to the MTSU records office to send a transcript to a potential employer is a 
+message, i.e., your request to MTSU is the message. MTSU is the object of the request.
+<p><i>method</i> -- It is the internal implementation/representation of an 
+object operation. For now, you can think of a method as a function. How your 
+transcript request is handled internally by MTSU relates to what "methods" MTSU
+uses to process your request. For the clock 
+example, the internal function used for "setClock" is an example of a method.  If
+you request that a clock be set to say 1pm, then your request is a message
+(because it comes from a source external to the actual clock) that is acted upon
+by an internal method (setClock in this case with parameters 1,0,0,"pm"
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Typically a "message" and "method" have the same name. A message is a request 
+sent by an external source to an object and the object responds by invoking a method
+of the same name IF that method is available via the public interface. 
+<p><i>object</i> -- is an instance of class. As an example of the concept of class 
+and object, consider our automobile example. Previously we provided a generic 
+description of all automobiles, i.e., a list of possible features such as make, 
+model, type, year, engine, and transmission along with operations: start, drive, 
+reverse, and stop. This is analogous to a class definition. Now if we provide 
+the features associated with your automobile such as Ford, Escort, 2-door, 2004, 
+3.0 Liter, 5-speed automatic,etc. then your specific automobile is an 
+instance/example of the automobile class. 
+
+<p>Given a clock object, we could set our clock to say 1:30:45 pm,&nbsp; by sending a request (message) to the  method <i>setClock</i> 
+with arguments for the hour, minute, second and whether it is am or pm.&nbsp; The
+actual representation of the data is hidden from the user.&nbsp; After setting the clock to 1:30:45pm, sending the
+message&nbsp; <i>displayStandard</i> would cause the time to be displayed&nbsp; 
+in the form 1:30:45 pm.
+
+
+<!--EXERCISE 6 -----> 
+</p>
+<hr>
+<dl>
+  <dt> <a href="javascript:Answer('Exercise6')"><font color="BB2222"><b>Exercise 6:</b></font></a>
+<font color="BB2222">
+Consider a "date" (time of year as opposed to time of day).
+</dt>
+ <dd>a.&nbsp;&nbsp; What data should be included in a date?</dd>&nbsp;<br>
+ <dd>b.&nbsp;&nbsp; What methods should be included to allow us to 
+initialize a date, to display
+the date in the form<i> month/day/year</i>? Use the "clock" as an example to go by.
+ 
+</dd>
+</dl>
+</font>
+<hr>
+    
+<center> 
+<h3> <a name="D"></a>D.&nbsp; C++ Class Syntax</h3>
+</center>
+ 
+<p>How do we implement the "clock" using C++? 
+This is accomplished with the C++ <b>class</b> construct.&nbsp; Normally a class 
+definition is separated into two sections: <b>specification</b> and <b>implementation</b>.
+To simplify our view, we will first give the class definition as one unit.  
+Then we will separate our definition into two parts: specification and implementation, and we will place these in separate files.
+Below is the complete definition of the class called <b>Clock</b> given as one unit. 
+ </p>
+<blockquote> 
+  <blockquote id="box">
+<pre>
+<font size=3>
+<b>
+#include &lt;iostream>  // this is needed because of
+using namespace std; // the "cout" below.
+
+//The Clock class definition starts here. 
+// Again, given here as one unit for clarity where 
+// as normally this definition would be divided 
+// into two parts: specification and implementation
+// and written in separate files.  
+
+class Clock 
+{ 
+  private:
+    //declarations of data members that are private
+    int hour;          //an hour in the range 1 - 12
+    int minute,        //a minute in the range 0 - 59
+    int second;        //a second in the range 0 - 59
+    string meridian;   //is the time AM or PM
+
+  public: 
+    // publically accessible methods, i.e., the public interface 
+
+    //Set the clock to the specified time 
+    void setClock (int h, int m, int s, string mer)
+    {
+       hour = h;
+       minute = m;
+       second = s; 
+       meridian = mer;
+    }
+
+    //Display the time in standard notation
+    void displayStandard()
+    {
+      cout << hour<<':'&lt;&lt;minute<<':'&lt;&lt;second<<' ' << meridian ;
+    }
+
+    //Display the time in military notation
+    void displayMilitary()
+    {
+      int militaryHour = hour;
+  
+      //if it is pm and it isn't 12:00 noon, then add 
+      //12 hours to the time
+      if (meridian == "PM" && hour != 12)
+          militaryHour += 12;
+
+      //if it is 12:00 midnight, then subtract 12 hours
+      if (meridian == "AM" && hour == 12)
+          militaryHour -= 12;
+
+      cout << militaryHour << ':' << minute <<  ':' << second;		  
+    }
+
+};
+//The Clock class definition ends with the closing brace and semicolon.
+</b>
+</font>
+</pre> 
+  </blockquote>
+</blockquote>
+  
+<p>As you can see, the class definition begins with the line
+with the C++ reserved word <b>class</b> and consists of everything between
+the opening brace, {, up to and including the semicolon after the closing
+brace, }.&nbsp; This definition includes a <b>public</b> and a <b>private</b> section.&nbsp;
+The public section describes the public interface of the class (remember
+the car manual).&nbsp; The public interface includes variables, types, constants,
+and methods (functions) that a programmer needs to know to use the class.&nbsp;
+The private section includes variables, constants, data types, and methods (functions)
+which are to be hidden (not to be used) by other program components
+except those in the class definition.&nbsp; Whether in the public or private
+section, variables and constants are referred to as <b>data members </b>and
+functions are referred to as <b>methods</b>. </p>
+<hr>
+<p>As previously noted, the data and method prototypes for a class are normally 
+placed in a <b>.h</b> file and is included in appropriate program files when 
+the class definition is used. The implementation of the methods is usually placed 
+in a <b>.cpp</b> file.
+<p>In the above example, for clarity both were placed in one file/block of code. We 
+will now change this by dividing the "clock" class definition into the 
+specification and implementation files. What follows is the 
+<a href="javascript:Display('$CLA/clock.h')"><b>clock.h</b></a> file. 
+
+<blockquote> 
+  <blockquote id="box">
+<pre>
+<font size=3>
+<b>
+#include &lt;iostream>  // this is needed because of
+using namespace std; // the "string" data type below.
+
+//The Clock class SPECIFICATION starts here. 
+class Clock 
+{ 
+  private:
+    //declarations of data members that are private
+    int hour;          //an hour in the range 1 - 12
+    int minute;        //a minute in the range 0 - 59
+    int second;        //a second in the range 0 - 59
+    string meridian;   //is the time AM or PM
+
+public: 
+    // publically accessible methods,i.e., public interface 
+
+    //Set the clock to the specified time 
+    void setClock (int h, int m, int s, string mer);
+    //Display the time in standard notation
+    void displayStandard();
+    //Display the time in military notation
+    void displayMilitary();
+};
+</b>
+</font>
+</pre> 
+  </blockquote>
+</blockquote>
+
+<p>The following is the implementation portion of the class definition. It is placed
+in the file 
+<a href="javascript:Display('$CLA/clock.cpp')"> <b>clock.cpp</b> </a> 
+<blockquote> 
+  <blockquote id="box">
+<pre>
+<font size=3>
+<b>
+    #include "clock.h"
+    //Set the clock to the specified time 
+    void Clock::setClock (int h, int m, int s, string mer)
+    {
+       hour = h;
+       minute = m;
+       second = s; 
+       meridian = mer;
+    }
+
+    //Display the time in standard notation
+    void Clock::displayStandard()
+    {
+      cout << hour<<':'&lt;&lt;minute<<':'&lt;&lt;second<<' ' << meridian ;
+    }
+
+    //Display the time in military notation
+    void Clock::displayMilitary()
+    {
+      int militaryHour = hour;
+  
+      //if it is pm and it isn't 12:00 noon, then add 
+      //12 hours to the time
+      if (meridian == "PM" && hour != 12)
+          militaryHour += 12;
+
+      //if it is 12:00 midnight, then subtract 12 hours
+      if (meridian == "AM" && hour == 12)
+          militaryHour -= 12;
+
+      cout << militaryHour << ':' << minute <<  ':' << second;
+    }
+
+</b>
+</font>
+</pre> 
+  </blockquote>
+</blockquote>
+
+The "clock.h" file can be included in any program file with the #include
+directive: </p>
+<blockquote> 
+  <blockquote><b>#include "clock.h"</b></blockquote>
+ </blockquote>
+ 
+<p>The ".h" file needs to be included in
+any main program that utilizes the clock class.&nbsp; The implementation section
+of the clock class should be placed in a different ".cpp" file other than the 
+file containing the
+main function.&nbsp; Thus both the clock implementation file and the main function
+file must have the #include "clock.h" directive.&nbsp; However, if an application program
+includes this header file more than once, the compiler issues an error message
+that there is an attempt to redefine a type.&nbsp; We can avoid this problem/error,
+by surrounding the clock specification definition
+with preprocessor-directives as follows: </p>
+<blockquote> 
+  <blockquote id="box">
+<pre>
+<font size=3>
+<b>
+//Eliminate the problem of multiple inclusions 
+#ifndef CLOCK_H
+#define CLOCK_H
+    
+//the class definitions come here
+.
+.
+.
+#endif
+</b>
+</font>
+</pre>
+</blockquote>
+ </blockquote>
+ 
+<p>Before <a href="javascript:Display('$CLA/clock.h')">clock.h</a> is 
+included initially, the constant <b>CLOCK_H</b> is not defined.&nbsp; Thus 
+the #define directive causes the constant <b>CLOCK_H</b> and the class <b>Clock</b> 
+to become defined.&nbsp; For subsequent inclusions, the preprocessor notes 
+that <b>CLOCK_H</b> has a definition and does not pass the remainder of the
+file to the compiler so the <b>Clock</b> class is not redefined.  
+
+<!--EXERCISE 7 ------> 
+</p>
+<hr> <a href="javascript:Answer('Exercise7')"><font color="BB2222"><b>Exercise 7:</b></font></a>
+<font color="BB2222">Write the
+specification section of&nbsp; a <i>Date</i> class.&nbsp; You have already decided
+what data and methods should be included in this class in Exercise 6.&nbsp;&nbsp; 
+Type this into a file called<i> date.h </i>in your account. Remember you are only
+giving the prototype for each method and not the implementation!  Use the
+<i>Clock</i> class specification
+definition found in the file <a
+ href="javascript:Display('$CLA/clock.h')">clock.h</a> as an example
+to follow.</font>
+<hr>
+  
+<p>In addition to the specification section, an implementation section must be
+developed which defines each function included in the class definition.&nbsp; 
+As noted above, the implementation section for a class is usually placed in a 
+separate file. You can find our 
+<i>Clock</i> class implementation file in <a
+ href="javascript:Display('$CLA/clock.cpp')">clock.cpp</a>.  
+
+<!--EXERCISE 8 ------> 
+</p>
+<hr> <a href="javascript:Answer('Exercise8')"><font color="BB2222"><b>Exercise 8:</b></font></a>
+<font color="BB2222">You should 
+load the file,&nbsp; <a href="javascript:Display('$CLA/clock.cpp')">clock.cpp</a>, 
+from the 2170 account and examine it now.</font>
+<hr>
+<p>The implementation of the setClock function is as follows:  </p>
+<blockquote> 
+  <blockquote id="box">
+<pre>
+<font size=3>
+<b>
+//Function:  setClock() 
+//Purpose:   This function assigns the time specified by the user.
+//           No error checking is done to check for illegal values.
+//           Arguments include the hour (h), minute (m), second(s)
+//           and meridian (am or pm).
+void Clock::setClock(int h, int m, int s, string mer) 
+                     //IN      IN      IN     IN
+{
+    //hr, min, sec and amPm are private data members
+    hour = h;
+    minute = m;
+    second = s;
+    meridian = mer;
+}
+</b>
+</font>
+</pre>
+</blockquote>
+ </blockquote>
+  
+<p>As you can see from this method definition, we are just defining the function 
+(method), setClock, which appears in the clock.cpp file.
+Note that the method has direct access to the private data members of the
+class such as hour, minute, second, and meridian. Methods outside the class 
+implementation file do not have this access! One difference
+between methods in the implementation file and functions outside the 
+implementation file is the function heading.&nbsp;
+Consider the setClock heading. </p>
+<blockquote> 
+  <blockquote><b><font size=3><pre>
+void <i>Clock::</i>setClock(int h, int m, int s, string mer)
+</pre></font></b></blockquote>
+ </blockquote>
+ 
+<p>The operator <b>::</b> is used and is preceded by the name of the class 
+in which setClock is a method. The operator <b>::</b> is called 
+the <b>scope resolution</b> operator.&nbsp; It is possible for several different
+classes to have member functions with the same name.&nbsp; The scope resolution
+operator is like the <b>dot</b> operator that was introduced (and we will
+see again shortly) in the <a
+ href="javascript:Display('../lab5/lab5.html#B')">lab on structs</a>.&nbsp;
+The scope resolution operator is used to tell the compiler to what class
+a member function belongs.&nbsp; Thus when <b>Clock::</b> precedes the name
+of the function setClock, we automatically know that setClock is a member
+function in the class Clock. </p>
+
+
+<hr> <a href="javascript:Answer('Exercise9')"><font color="BB2222"><b>Exercise 9:</b></font></a>
+<font color="BB2222">Write the
+implementation section for the date object which was defined in Exercise
+6 and 7.&nbsp; Place this in the file <i>date.cpp</i>.</font>
+<hr>
+  
+
+<p>Now, how can we use this class specification and implementation in a 
+program? 
+Consider the following main program that uses our Clock class.
+</p>
+<blockquote> 
+  <blockquote id="box">
+<pre>
+<font size=3>
+<b>
+#include &lt;iostream&gt;
+#include "clock.h"
+using namespace std;
+
+int main()
+{
+    //Declare two Clock objects
+    Clock myClock, newClock;
+
+    //Set the time of myClock to 12:45:30 am.
+    myClock.setClock(12, 45, 30, "am");
+
+    //Set the time of the newClock object to 2:15:30 pm.
+    newClock.setClock (2, 15, 30, "pm"); 
+
+    //Display the time of myClock in both standard and
+    //military format
+    cout &lt;&lt; "The time on the Digital Clock (in standard form) is: "
+    myClock.displayStandard(); 
+    
+    cout &lt;&lt; "\nThe time in military format is: ";
+    myClock.displayMilitary(); 
+    
+    //Set the two times to the same time
+    myClock = newClock;
+
+    //Display the time of myClock in standard time  
+    cout &lt;&lt; "The time on the Digital Clock (in standard form) is: "
+    myClock.displayStandard(); 
+ 
+    return 0; 
+}
+</b>
+</font>
+</pre>
+  </blockquote>
+ </blockquote>
+  
+<p>Notice that the <b>dot</b> operator is used to select a particular member
+function (method) to invoke.&nbsp; This is how "messages" are passed to an object
+in C++.&nbsp; Thus, </p>
+<blockquote> 
+  <blockquote><b><pre><font size=3>myClock.setClock(12,45,30,"am");</font></pre></b></blockquote>
+ </blockquote>
+ sends the setClock message to the object myClock. 
+<p>In the above function, the assignment statement: 
+<blockquote> 
+  <blockquote><b><pre><font size=3>myClock = newClock;</font></pre></b></blockquote>
+ </blockquote>
+This line is valid and copies all data fields from the object newClock to
+the object myClock.&nbsp; It is valid and accomplishes what we desire in
+this example because we have simple data types making up the two objects. 
+</p>
+<p>Note that nowhere in our main function do we try to access the data variables
+<i>hour</i>, <i>second</i>, <i>minute</i>, and <i>meridian</i> which were defined in the Clock class.&nbsp;
+
+In fact, we could not do so because these data members were placed in the
+private section of the class which means that only members of the class can
+access them.&nbsp; Thus we <b>could not</b> incorporate the following statements
+in the main function: </p>
+<blockquote> 
+  <blockquote><b><font size = 3 color="red"><pre>
+//This is an invalid member access
+myClock.hour = 2;
+</pre></font></b></blockquote>
+ </blockquote>
+  
+<hr> <a href="javascript:Answer('Exercise10')"><font color="BB2222"><b>Exercise 10:</b></font></a><font color="BB2222">The above
+example was a very simple example of a main program utilizing the Clock class.&nbsp; 
+For a slightly more complicated example of a main program utilizing the Clock
+class, load the file <a href="javascript:Display('$CLA/clock_main.cpp')">clock_main.cpp</a> 
+from the 2170 account to your account.&nbsp; Both the main function and the
+implementation functions for the Clock class must be compiled.&nbsp; Since
+they are in separate files, a slight variation of the compilation command 
+is required.&nbsp; To compile this program, type</font>
+  
+<blockquote> 
+  <blockquote> 
+    <h5> <pre><font size=3><i>aCC clock_main.cpp clock.cpp -o inlab6a</i></font></pre></h5>
+ </blockquote>
+ </blockquote>
+  
+<font color="BB2222">Run the program 
+(the executable&nbsp; is contained in <i>inlab6a</i>).&nbsp; Read the program 
+and make sure you understand the code.&nbsp; What does the program do?</font>
+ &nbsp; 
+<hr> <a href="javascript:Answer('Exercise11')"><font color="BB2222"><b>Exercise 11:</b></font></a><font color="BB2222">Write a
+simple main program which utilizes your Date class and place the program in
+<i>date_main.cpp</i> .&nbsp; The program should create a birth date and a graduation
+date containing your birthday and a tentative date for your graduation from
+MTSU.&nbsp; Print the dates in the form<i> MM/DD/YY</i> 
+using your display Date method as described in exercises 6 and 7 above.&nbsp;&nbsp; Turn in a printout containing a listing of the
+three files <i>date.h</i>, <i>date.cpp</i>, and<i> date_main.cpp</i>, a
+compile and a run.</font>
+  <P>
+<center> 
+<h5> ----- End of Lab 6 - C++ Classes -----<br>
+ Complete the Exercises on the <a
+ href="javascript:AnswerWindow('lab6/lab6')">Answer Sheet</a>.&nbsp;<br>
+ Turn in the Answer Sheet and the printouts required by the exercises.</h5>
+</center>
+  <!-- Blank Space --> <br>
+&nbsp; <br>
+&nbsp; <br>
+&nbsp;   <!--REFERENCES ----> 
+<center> References  <br>
+<br>
+<a name="1"></a>1.&nbsp; Wang, Paul.&nbsp; C++ with Object-Oriented Programming,
+PWS Publishing Company, 1994. </center>
+ <br>
+&nbsp; <br>
+&nbsp;  <!--RETURN LINK ---> 
+<center> <a href="#top">Return to the top of this lab</a> <br>
+<a href="../index.html">Return to the link page for all 2170 labs</a> </center>
+ <!--counter --> 
+<center> <img
+ src="http://www.mtsu.edu/cgi-bin/users/csdept/217man/counter.pl?count_lab6">
+ </center>
+ <br>
+</body>
+</html>

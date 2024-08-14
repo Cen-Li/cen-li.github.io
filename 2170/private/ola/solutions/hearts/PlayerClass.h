@@ -1,0 +1,99 @@
+#include <iostream>
+using namespace std;
+
+#include "type.h"
+
+#ifndef PlayerClass_H
+#define PlayerClass_H
+
+const int MAX_PLAYER_CARDS = 13;
+class PlayerClass
+{
+     public:
+       // default constructor
+       // post-condition: count is assigned 0
+       PlayerClass();
+
+       // add one card to the player's hand
+       // pre-condition: player has less than 13 cards
+       // post-condition: player has one more card in the hand
+       //                 count is increased by 1
+       void        AddCard(CardStruct);
+
+       // prints out the current cards the player has
+       void        DisplayCards();
+
+       // select to play the first card that has the suit 
+       // supplied from the client program
+       // if no card can be found that has the suit
+       // supplied by the client program,
+       // random card from the hand is played
+       // pre-condition: there are >= 1 cards in hand
+       // post-condition: a card is returned, count is 
+       // decremented by 1
+       CardStruct  FollowOneCard(CardSuitType s);
+
+       // plays the first card of a round
+       // Random card in the player's hand is selected
+       // pre-condition: there are >= 1 card in the hand
+       // post-condition: one card is played/returned.
+       //                 count is decremented by 1
+       CardStruct  StartOneHand();
+
+       // Checks to see if the player should lead the
+       // first round in the game, e.g., check whether the
+       // player has 2 of club
+       // pre-condition: the hand is full (have 13 cards)
+       // post-condition: if this player has 2 of club,
+       //           true is returned, otherwise, return false.
+       bool		   IsFirstLead();
+
+       // The current score of the player is returned
+       int         GetScore();
+
+
+       // the points from the current round is added to the
+       // current player's score
+       // pre-condition: 
+       // post-condition: the player's score is increased
+       //         by the points supplied from the client program
+       void        AddScore(int);
+
+       // plays the card selected by user
+       // pre-condition:  the card number selected by
+       //                 the user is supplied
+       // post-condition: the card corresponding to the 
+       //                  user choice is played/returned
+       //                 the number of cards in player's 
+       //                 hand is decremented by 1
+       CardStruct  PlaySelectedCard(int choice);
+
+       // Return the number of cards the player has 
+       // post-condition:   the number of cards is returned
+       int         GetCount();
+
+       // Checks to see if the card the user chooses is a 
+       // valid choice, e.g., whether it matches the 
+       // leading suit on that round, if he has any.
+       // pre-condition:  the player's choice and the
+       //                 leading suit is supplied
+       // post-condition: returns true if 
+       //         (1) user has cards of leading suit
+       //           and the choice card is of that suit   
+       //         (2) user does not have card of leading suit
+       //         false is returned otherwise
+       bool        IsValidChoice(CardSuitType, int);
+
+       // Sort the cards in hand by suit
+       // pre-condition:  there is >1 cards in hand
+       // post-condition: cards in one's hand is sorted by suit
+       void   SortCards();
+
+     private:
+        CardStruct   hand[MAX_PLAYER_CARDS]; 
+        int          count;   // keeps record of
+                             //  number of cards player has
+        int          score;   // keeps score for the player
+};
+
+#endif

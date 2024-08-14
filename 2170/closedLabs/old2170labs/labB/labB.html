@@ -1,0 +1,620 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Brad Rudnik">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en]C-AtHome0405  (Win95; U) [Netscape]">
+   <meta name="Description" content="CSCI 2170 - Closed Lab 3 - Lesson Page.">
+   <title>CSCI 2170 Lab B - Analysis of Algorithms</title>
+
+<!-- load the Javascript source file -->
+<script type="text/javascript" src="../windows.js">
+document.write("Included JS file not found");
+</script>
+
+<!-- load the style sheet -->
+<link rel="stylesheet" type="text/css" href="../styles.css" title="styles">
+</head>
+
+<body background="labB.gif"><a NAME="top"></a>
+
+<center>
+<h1>
+CSCI 2170 Lab B<br>
+Analysis of Algorithms</h1></center>
+
+<table width="100%" >
+<tr>
+<td width="70%">
+<dl>
+<dt>
+<b>Objectives:</b></dt>
+
+<dd>
+<b>To introduce the concept of efficiency of an algorithm
+<br>To study run-time efficiency of an algorithm
+<br>To introduce Big-O notation
+<br>To determine the Big-O of an algorithm
+</b></dd></dl>
+</td>
+
+<td>
+<center><font SIZE="+1"><a href="javascript:AnswerWindow('labB/labB')">CREATE
+ANSWER SHEET for Lab B</a></font></center>
+</td>
+</tr>
+</table>
+
+<!--File access for browsers without javascript capabilities-->
+<noscript>
+<blockquote>
+<blockquote><b>For those of you without Javascript capabilities these links
+will provide access to the additional files needed to complete this lab.
+They are set to open a new browser window if your browser supports this
+feature.</b>
+<center><b>
+<a href="labBAns.html" target="_new">Answer Sheet</a></b></center>
+</blockquote>
+</blockquote>
+</noscript>
+
+<blockquote>A.&nbsp; <a href="#A">Efficiency of Algorithms</a>
+<br>B.&nbsp; <a href="#B">Run-time Efficiency</a>
+<br>C.&nbsp; <a href="#C">A Formal Definition of Big-O Analysis</a>
+<br>D.&nbsp; <a href="#D">Determine the Big-O of an Algorithm</a>
+<br>E.&nbsp; <a href="#E">Best-case, Average-case, and Worst-case Run-time</a></blockquote>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<!-- PART A ------>
+<center>
+<h3>
+<a NAME="A"></a>A. Efficiency of Algorithms</h3></center>
+One goal of software engineering is to design efficient algorithms.
+At it's heart, the concept of efficiency is NOT about expending very little
+effort or using very few resources.  Instead, efficiency is about ensuring that
+all actions/resources associated with an algrithm are usefully employed.
+That is, an algorithm is efficient if it can solve a problem
+without wasting effort or resources.
+<p>Consider the following very inefficient search algorithm to locate an element <b>s</b> in an
+array <b>a[0..n-1]</b>.
+<blockquote>
+<blockquote id="box">
+<pre>
+<b>found = false
+k = 0
+while not found and k &lt; n - 1
+{
+       k = k + 1
+       for (i = 0; i &lt; k; i++)
+           if (a[i] == s) found = true
+}
+</b>
+</pre>
+</blockquote>
+</blockquote>
+
+<h5>
+NOTE: For each of the following exercises, indicate answers on the <a href="javascript:AnswerWindow('lab3/lab3')">answer
+sheet.</a></h5>
+
+<!-- EXERCISE 1 -->
+<h5>
+<a href="javascript:Answer('Exercise1')">Exercise 1</a> : 
+In what way is the above algorithm inefficient.</h5>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<p>There are many measures of efficiency, but two common measures are
+<b>space</b> (amount of memory used) and
+<b>time</b>.&nbsp; If we are interested in space efficiency, we can compare the space used by each
+of several algorithms that solves the same problem.&nbsp; If one algorithm
+requires less space than another, then in some sense, it is better.&nbsp;
+For example, consider the following two algorithms for reversing the order
+of the elements in an array a[0..n-1].
+<blockquote>
+<blockquote id="box">
+<pre>
+<b>
+<font color="#3333FF">
+//Reverse 1:</font>
+for (i = 0; i &lt; (n/2); i++)   // go through half the elements
+{
+     save = a[i];         //swap 1st with nth, 2nd with n-1st
+     a[i] = a[n - i - 1]  //{etc...}
+     a[n - i - 1] = save
+}
+
+<font color="#3333FF">//Reverse 2:</font>
+//Copy the 1st array to a 2nd array but in reverse order.
+j = n - 1;        // j runs backward through b[0..n-1]
+for (i = 0; i &lt; n; i++)
+{
+     b[j] = a[i]
+     j = j - 1
+}
+
+// Copy b[0..n-1] into a[0..n-1].
+for (i = 0; i &lt; n; i++)
+    a[i] = b[i]
+</b>
+</pre>
+</blockquote>
+</blockquote>
+
+<!-- EXERCISE 2 -->
+<h5>
+<a href="javascript:Answer('Exercise2')">Exercise 2</a> : Examine Reverse1
+and Reverse 2.&nbsp; Which algorithm is more efficient in its use of space?&nbsp; Why?</h5>
+As software developers we must be aware of such space inefficiencies and
+avoid them.  However, in this lab, we will focus only on time efficiency.
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<!-- PART B -->
+<center>
+<h3>
+<a NAME="B"></a>B.&nbsp; Run-time Efficiency</h3></center>
+<p>In this lab we will not measure the <i>space</i> efficiency of an algorithm; instead
+we will measure the efficiency of an algorithm by estimating its <b>run-time</b>.&nbsp;
+<b>Run-time</b> means the time it takes the CPU to execute an implementation
+of the algorithm.&nbsp; Run-time is different than the <b>wall-clock-time</b>
+required to run your program since there will be start up time, time-sharing
+time, I/O time, and so on.&nbsp; The C++ compiler translates a C++ instruction
+into a group of machine language instructions (probably about 10 machine
+instructions for each C++ instruction).&nbsp; Each computer has a "speed"
+often measured in GHz (gigahertz), which shows the machine's speed in billions 
+of machine cycles per second.&nbsp; High-powered graphics workstations may
+run faster than 3 GHz.&nbsp; PCs often run between 1 and 3 GHz.
+&nbsp; Thus wall-clock-time
+would depend on what computer was being used.&nbsp; It can also depend
+on which compiler is used (one compiler may produce a more efficient set
+of machine instructions).&nbsp; It may depend on the time of day and so
+on.&nbsp; Thus wall-clock-time is not the best measure to use for "time"
+efficiency.
+<p>There are many ways to measure "run-time" besides "CPU time of execution."&nbsp;
+We could, for instance, count the number of machine instructions that are
+executed when the algorithm runs and expect that another algorithm that
+requires more machine instructions would be less efficient.&nbsp; This
+approach is more appealing as it is machine (speed) independent.&nbsp;
+That is, the efficiency of the algorithm is not affected by the speed of
+the machine on which you execute it.&nbsp; But who wants to count machine
+instructions?
+<p>Relatively speaking we could just as well count the C++ instructions
+or the pseudo-code steps that are executed as the algorithm runs.&nbsp;
+The number of C++ instructions should give us a good measure of the number
+of machine instructions.&nbsp; This is how we will measure the run-time
+efficiency of an algorithm.&nbsp; Usually the "number of steps" depends
+on the number <b>n</b> of inputs to the algorithm.&nbsp; For instance,
+if you are searching an array, it will usually take less steps if the size
+<b>n</b> of the&nbsp; array is smaller.
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<!-- PART C -->
+<center>
+<h3>
+<a NAME="C"></a>C. A Formal Definition of Big-O Analysis</h3></center>
+<p>A notation we use to give an <b>approximation</b> to the run-time efficiency
+of an algorithm is called <b>Big-O notation</b> (The O is for order of
+magnitude of operations or space at run-time.&nbsp; Some books use Big-Oh.)&nbsp;
+First we try to understand the notation.&nbsp; We say a function f(n) (f(n)
+is the number of steps executed for an algorithm with <b>n</b> inputs)
+is Big-O of g(n) and write
+<blockquote><b>f(n) = O(g(n)) (which is read f of n is big
+O of g of n or&nbsp; f of n has order g of n)</b></blockquote>
+<b>if there exist a positive real value C and a nonnegative integer m such
+that</b>
+<blockquote><b>| f(n) | &le; C * | g(n) |&nbsp; for all n > m.</b></blockquote>
+This means that the number of steps for executing an algorithm for an input
+of size <b>n</b> is less than or equal to some positive constant C times
+g(n) for all but a few values of n.  For example, 10x + 5 = O(x<sup>2</sup>).
+It is also true that 10x + 5 = O(x) (hint:  let C be 20, then
+10x + 5 &#8804; 20x for all values of x &#8805; 1/2). 
+On the other hand, x<sup>3</sup> &#8800; O(x<sup>2</sup>).  Think about why.
+<p>The Big-O of a function is a relative measure of how fast the function
+grows with respect to n.&nbsp; To apply Big-O to an algorithm we let f(n)
+= the number of steps (or instructions) that are executed when the algorithm
+runs on <b>n</b> inputs.&nbsp; There are certain Big-Oh values that occur
+frequently in the analysis of algorithms.&nbsp; Here is a partial list
+in increasing "size" and the approximate value of |f(n)| for a few values
+of <b>n</b>.&nbsp; Notice the change in orders of magnitude.
+<br>&nbsp;
+<center><table BORDER WIDTH="95%" >
+<tr>
+<td>n</td>
+
+<td>O(1)&nbsp;</td>
+
+<td>O(log<sub>2</sub> n)</td>
+
+<td>O(n)&nbsp;</td>
+
+<td>O(nlog<sub>2</sub> n)&nbsp;</td>
+
+<td>O(n<sup>2</sup>)</td>
+
+<td>O(2<sup>n</sup>)</td>
+
+<td>O(n!)</td>
+</tr>
+
+<tr>
+<td>10</td>
+
+<td>C</td>
+
+<td>3</td>
+
+<td>10</td>
+
+<td>30</td>
+
+<td>10<sup>2</sup></td>
+
+<td>10<sup>3</sup></td>
+
+<td>4*10<sup>6</sup></td>
+</tr>
+
+<tr>
+<td>100</td>
+
+<td>C</td>
+
+<td>7</td>
+
+<td>100</td>
+
+<td>700</td>
+
+<td>10<sup>4</sup></td>
+
+<td>10<sup>30</sup></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>1000</td>
+
+<td>C</td>
+
+<td>10</td>
+
+<td>1000</td>
+
+<td>10<sup>4</sup></td>
+
+<td>10<sup>6</sup></td>
+
+<td>10<sup>300</sup></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>1,000,000</td>
+
+<td>C</td>
+
+<td>20</td>
+
+<td>1,000,000</td>
+
+<td>2*10<sup>6</sup></td>
+
+<td>10<sup>12</sup></td>
+
+<td>10<sup>300,000</sup></td>
+
+<td></td>
+</tr>
+</table></center>
+<p>The last column could not be completed because the values were too
+big to calculate!
+<blockquote><b><i>O(1)</i>&nbsp;&nbsp; means the number of steps to execute
+the algorithm is some constant and is not dependent on n the size of the
+input. This is called <i>constant time</i>.</b>
+<br><b><i>O(log<sub>2 </sub>n)</i>&nbsp; means the number of steps is bounded
+by log<sub>2</sub> n.&nbsp; Such an algorithm is very efficient.&nbsp;
+This is called <i>logarithmic time</i>.</b>
+<br><b><i>O(n)</i>&nbsp;&nbsp; means the time is directly proportional
+to the size of the input.&nbsp; This is called <i>linear time</i>.</b>
+<br><b><i>O(n<sup>2</sup>)</i>&nbsp;&nbsp; is <i>quadratic time</i>.</b>
+<br><b>&nbsp;<i>O(n<sup>3</sup>)</i>&nbsp;&nbsp; is <i>cubic time</i>.</b>
+<br><b><i>O(2<sup>n</sup>)&nbsp;</i>&nbsp; is <i>exponential time</i>.</b></blockquote>
+<p>If an algorithm is O(n<sup>m</sup>), for a constant m, it is called a polynomial
+time algorithm.&nbsp; A polynomial time algorithm is generally considered
+an efficient algorithm (for small values of m).&nbsp; 
+Algorithms with exponential time are generally
+too inefficient or costly to run on a computer.
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<!-- PART D -->
+<center>
+<h3>
+<a NAME="D"></a>D.&nbsp;&nbsp; Determine the Big-O of an Algorithm</h3></center>
+<p>Consider the following algorithm to calculate the sum of the n elements
+in an integer array a[0..n-1].
+<ol>
+<li>
+sum = 0</li>
+
+<li>
+for (i = 0; i &lt; n; i++)</li>
+
+<li>
+&nbsp;&nbsp;&nbsp;&nbsp; sum += a[i]</li>
+
+<li>
+print sum</li>
+</ol>
+<p>Consider the question:&nbsp; How many steps are executed when this algorithm
+runs?
+<p>The answer is:&nbsp;&nbsp; 2*n + 3
+<p>Why?&nbsp; Line 1 and line 4 execute one time each.&nbsp; Line 3 executes
+n times since it lies inside the for loop.&nbsp; Line 2 causes the counter
+i to be changed and tested n + 1 times (one extra for the final test when
+i = n).&nbsp; Thus the total is:
+<ul>
+<li>
+Line 1:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1</li>
+
+<li>
+Line 4:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1</li>
+
+<li>
+Line 3:&nbsp; n</li>
+
+<li>
+<u>Line 2:&nbsp; n +1</u></li>
+
+<li>
+Total:&nbsp; 2n +3</li>
+</ul>
+<p>The polynomial 2*n + 3 will be dominated by the 1st term as n (the number
+of elements in the array) becomes very large.&nbsp; In determining the
+Big-O category we ignore constants such as 2 and 3.&nbsp; Therefore the
+algorithm above is order n which is written as follows:
+<blockquote><b>f(n) = O(n)</b></blockquote>
+<p>In other words the run-time of this algorithm increases at roughly the
+rate of the size of the inputs (array size) n.
+<p>Now consider an algorithm for finding the largest element in a square
+two-dimensional array a[0..n-1][0..n-1]
+<ol>
+<li>
+max = a[0][0]</li>
+
+<li>
+for (row = 0; row &lt; n; row++)</li>
+
+<li>
+&nbsp;&nbsp;&nbsp;&nbsp; for (col = 0; col &lt; n; col++)</li>
+
+<li>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (a[row][col]
+&gt; max)&nbsp; max = a[row][col].</li>
+
+<li>
+print max</li>
+</ol>
+<p>Line 1 and 5 execute one time each.&nbsp; For each execution of line 2
+or each time <b>row</b> changes, line 3 executes n+1 times (or <b>col</b>
+changes n+1 times) and line 4 executes n times.&nbsp; Since the block of
+statements containing lines 3 and 4 executes n times (row = 0 to n-1) we
+see the number of steps executed in this algorithm is
+<ul>
+<li>
+Line 1:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1</li>
+
+<li>
+Line 5:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1</li>
+
+<li>
+Line 2:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; n+1</li>
+
+<li>
+Line 3:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; n*(n+1)</li>
+
+<li>
+<u>Line 4:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; n*(n&nbsp;&nbsp;&nbsp; )</u></li>
+
+<li>
+Total:&nbsp;&nbsp; 2n<sup>2</sup> + 2n + 3</li>
+</ul>
+<p>The n<sup>2</sup> term will dominate the polynomial therefore the Big-O
+of the algorithm is f(n) = O(n<sup>2</sup>).
+
+<!-- EXERCISE 3 -->
+<h5>
+<a href="javascript:Answer('Exercise3')">Exercise 3</a> : Consider the
+following algorithm which determines the sum of the first n positive integers.&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp; 1.&nbsp; sum = 0<br>
+&nbsp;&nbsp;&nbsp;&nbsp; 2.&nbsp; for (int j = n; j > 0; j--)<br>
+&nbsp;&nbsp;&nbsp;&nbsp; 3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sum = sum + j<br>
+&nbsp;&nbsp;&nbsp;&nbsp; 4.&nbsp; print sum<br>
+Analyze this algorithm and determine the number of steps executed in each
+line of the algorithm.&nbsp; Determine the Big-O of the algorithm.</h5>
+
+<!-- EXERCISE 4 -->
+<h5>
+<a href="javascript:Answer('Exercise4')">Exercise 4</a> : Determine a O(1)
+algorithm to calculate the sum of the first n positive integers.&nbsp;
+If you can't figure it out ask the lab assistant.&nbsp; Hint: This sum
+is called the <i>Gauss</i> sum.&nbsp; There is a one line equation in math
+to compute this sum.</h5>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<p>As a third example, consider the algorithm below that calculates the
+sum of the powers of 2 that are less than n.
+<ol>
+<li>
+sum = 1</li>
+
+<li>
+powerTwo = 2</li>
+
+<li>
+while powerTwo &lt; n</li>
+
+<li>
+&nbsp;&nbsp;&nbsp;&nbsp; sum = sum + powerTwo</li>
+
+<li>
+&nbsp;&nbsp;&nbsp;&nbsp; powerTwo = 2 * powerTwo</li>
+
+<li>
+print sum</li>
+</ol>
+
+<!-- EXERCISE 5 -->
+<h5>
+<a href="javascript:Answer('Exercise5')">Exercise 5</a> : Let K be the
+number of times the while loop executes in the above algorithm.&nbsp; The
+number of steps executed is 4 + 3 * K.&nbsp; To see that this is true,
+determine how many times each of the lines (1 - 6) is executed and find
+the total.</h5>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<p>Now we must determine K.&nbsp; From the algorithm, we see that K is
+the largest integer such that 2<sup>K</sup> &lt; n.&nbsp; In other words,
+K should be such that 2<sup>K</sup> is approximately equal to n.&nbsp; Suppose for
+example that&nbsp; n = 2<sup>K</sup> , then K = log<sub>2</sub>n so we
+may say K is approximately log<sub>2</sub>n.&nbsp; Thus the number of steps
+executed by this algorithm is approximately (that's all Big-O's are anyway)
+
+<blockquote><b>f(n) = 4 + 3 * K = 4 + 3 * log<sub>2</sub>n
+ = O(log<sub>2</sub>n)</b></blockquote>
+
+<!-- EXERCISE 6 -->
+<h5>
+<a href="javascript:Answer('Exercise6')">Exercise 6</a> : If n = 1000,
+approximately how many steps will be executed in the last algorithm?</h5>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<p>In general if the number of steps needed to carry out an algorithm can
+be expressed as follows:
+<blockquote><b>f(n) = a<sub>k</sub> n<sup>k</sup> + a<sub>k-1</sub> n<sup>k-1</sup>
++ ... + a<sub>1</sub> n<sup>1</sup> + a<sub>0</sub></b></blockquote>
+then f(n) is a polynomial in n with degree k and f(n) = O(n<sup>k</sup>).
+&nbsp; To obtain the order of a polynomial function we
+use the term with the highest degree and disregard any constants and terms
+with lower degrees.
+
+<p>To determine the order of an algorithm look at the loops.&nbsp; If
+the algorithm contains one loop of the form <b>for (i = 0; i &lt; n; i++)</b>
+then the loop will cause the statements in the loop to be executed n times.&nbsp;
+Thus the number of steps is approximately n * the number of instructions
+in the loop.&nbsp;&nbsp; Therefore if the loop causes the most steps to
+be executed in the algorithm, then the algorithm is O(n).&nbsp; Nested
+loops such as
+<blockquote>for (i = 0; i &lt; n; i++)
+<br>&nbsp;&nbsp;&nbsp;&nbsp; for (j = 0; j &lt; n; j++)</blockquote>
+are O(n x n) or O(n<sup>2</sup>).
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<!-- PART E -->
+<center>
+<h3>
+<a NAME="E"></a>E.&nbsp; Best-case, Average-case, and Worst-case Run-time</h3></center>
+<p>Some algorithms don't execute a fixed number of steps even for a fixed
+value of n.&nbsp; For example, a search algorithm may stop after one step
+if it finds the value it is searching for on the first comparison.&nbsp;
+On the other hand, it may search through all elements of the array and
+still not find the value being sought.&nbsp; In such cases we usually calculate
+a <b>best-case</b> (the least number of steps executed for an input of
+size n), <b>average-case</b> (the average number of steps executed for
+any input of size n), and <b>worst-case</b> (the most number of steps executed
+for an input of size n) run-time for the algorithm.
+<p>For a sequential search of an array a[0..n] with n elements:
+<blockquote>
+<blockquote><b>best-case: element searched for appears in 1<sup>st</sup>
+position</b>
+<br><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1 comparison and the item is found so O(1)</b>
+<br><b>average-case: element searched for near middle of array</b>
+<br><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+n/2 comparisons are required so O(n)</b>
+<br><b>worst-case: element searched for in last array element</b>
+<br><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+n iterations of search loop so O(n)</b></blockquote>
+</blockquote>
+
+<!-- EXERCISE 7 -->
+<h5>
+<a href="javascript:Answer('Exercise7')">Exercise 7</a> : We have implemented
+three search functions in C++:&nbsp; binarySearch, sequentialSearch, and awfulSearch.<br>
+In this exercise, you will experiment with these three algorithms (contained
+in the source file <a href="javascript:Display('$CLA/inlabB.cc')">inlabB.cc</a>)
+for different values of n. Copy the source file to your
+account.&nbsp; Look at the code then execute it to see what it does.
+Remove the statements that print the array (save trees!) and add code to
+each function so it will calculate (and print) the number, <i>f(n)</i>,
+of times the comparison statement<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (sArray[??] == Item) ....<br>
+is executed.&nbsp; This value will essentially give the BIG-O for the function.&nbsp;&nbsp;
+Why?&nbsp; Do a worst-case analysis (that is, search for a value that is
+not in the array).&nbsp; Create a table containing the number of times
+the comparison statement is execute for n = 100, 200, 300, 400, and 500
+for all three searches.&nbsp; Use the table to guess the Big-O of each
+algorithm.</h5>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<center>
+<h5>
+----- End of Lab B - Analysis of Algorithms -----<br>
+Complete the Exercises on the <a href="javascript:AnswerWindow('labB/labB')">Answer
+Sheet</a>.&nbsp;<br>
+Turn in the Answer Sheet and the printouts required by the exercises.</h5></center>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<!--RETURN LINK -->
+<center><a href="#top">Return to the top of this lab</a>
+<br><a href="../index.html">Return to the link page for all 2170 labs</a></center>
+
+</body>
+</html>

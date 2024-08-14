@@ -1,0 +1,178 @@
+////Programmer:			Chris Vogel
+//	Assignment:			OLA4B
+//	Class:				CSCI 2170-002
+//	Course instructor:	Dr. Cen Li
+//	Due date:			Sunday, 03/20/2011
+//
+//	Descrition: This is the specification file for MazeClass.
+
+#ifndef MAZECLASS_H
+#define MAZECLASS_H
+#include <fstream>
+
+using namespace std;
+
+// I feel that this should be in a separate file, but PeerSpace
+// doesn't have a field for another file. The preprocessor instructions
+// keep the Coordinate struct from being defined twice.
+#ifndef COORDINATE
+#define COORDINATE
+// This struct defines a location within the maze
+// The top-left corner of the maze is (0, 0)
+struct Coordinate
+{
+	// The horizontal location
+	int x;
+	
+	// The vertical location
+	int y;
+};
+
+#endif
+
+// All the possible attributes that a spot in the maze could have
+// WALL: A wall is there (represented by "*")
+// VISITED: The creature has already been there ("v")
+// PATH: The location is part of the solution through the maze ("p")
+// CLEAR: The location has no wall, nor has it been visited ("c")
+enum SquareType {WALL, VISITED, PATH, CLEAR};
+// Numbers         0      1       2      3
+// Letter values   *      v       p      c
+
+class MazeClass
+{
+	private:
+		// The maze (two-dimensional array of SquareType)
+		SquareType** maze;
+		
+		// How many rows are in the maze
+		int numRows;
+		
+		// How many columns are in the maze
+		int numColumns;
+		
+		// The entrance location of the maze
+		Coordinate entrance;
+		
+		// The exit location of the maze
+		Coordinate exit;
+	
+	public:
+		// void ReadMaze
+		// Description: This function reads the maze from a data file
+		// Arguments:
+		//	ifstream& mazeFile: location of maze data
+		// Precondition: There is no maze
+		// Postcondition: The maze information from the file is used to
+		//		populate the 2D maze array
+		void ReadMaze(ifstream& mazeFile);
+		
+		// void Display
+		// Description: This function displays the maze and converts the
+		//	SquareType values to human-readable values
+		// Precondition: None
+		// Postcondition: The maze is displayed
+		void Display() const;
+		
+		// Coordinate GetEntrance
+		// Description: This function returns the entrance of the maze as a
+		// 	coordinate.
+		// Precondition: None
+		// Postcondition: The entrance coordinate is returned
+		Coordinate GetEntrance() const;
+		
+		// Coordinate GetExit
+		// Description: This function returns the exit of the maze as a
+		// 	coordinate.
+		// Precondition: None
+		// Postcondition: The exit coordinate is returned
+		Coordinate GetExit() const;
+		
+		// bool MarkVisited
+		// Description: This function marks a point in the maze as visited.
+		// Arguments:
+		//	Coordinate point: the point to be marked visited
+		// Precondition: The point is marked clear
+		// Postcondition: The point is marked visited
+		// return TRUE: The operation was successful
+		// return FALSE: The operation was unsuccessful
+		bool MarkVisited(Coordinate point);
+		
+		// bool MarkPath
+		// Description: This function marks a point in the maze as part of
+		//	the solution.
+		// Arguments:
+		//	Coordinate point: the point to be marked as part of the path
+		// Precondition: The point is marked clear
+		// Postcondition: The point is marked part of the path
+		// return TRUE: The operation was successful
+		// return FALSE: The operation was unsuccessful
+		bool MarkPath(Coordinate point);
+		
+		// bool IsWall
+		// Description: This function returns whether a certain point is a wall
+		// Arguments:
+		//	Coordinate point: the point that could be a wall
+		// Precondition: None
+		// Postcondition: If TRUE, the point is a wall. If FALSE, the point
+		//	is not a wall.
+		bool IsWall(Coordinate point) const;
+		
+		// bool IsClear
+		// Description: This function returns whether a certain point is clear
+		// Arguments:
+		//	Coordinate point: the point that could be clear
+		// Precondition: None
+		// Postcondition: If TRUE, the point is clear. If FALSE, the point
+		//	is not clear.
+		bool IsClear(Coordinate point) const;
+		
+		// bool IsPath
+		// Description: This function returns whether a certain point is part
+		//	of the solution (the path).
+		// Arguments:
+		//	Coordinate point: the point that could be part of the path
+		// Precondition: None
+		// Postcondition: If TRUE, the point is part of the path. If FALSE,
+		//	the point is not part of the path.
+		bool IsPath(Coordinate point) const;
+		
+		// bool IsVisited
+		// Description: This function returns whether a certain point
+		//	is visited
+		// Arguments:
+		//	Coordinate point: the point that could be visited
+		// Precondition: None
+		// Postcondition: If TRUE, the point is visited. If FALSE, the point
+		//	is not visited.
+		bool IsVisited(Coordinate point) const;
+		
+		// bool IsExit
+		// Description: This function returns whether a certain point
+		//	is the exit
+		// Arguments:
+		//	Coordinate point: the point that could be the exit
+		// Precondition: None
+		// Postcondition: If TRUE, the point is the exit. If FALSE, the point
+		//	is not the exit.
+		bool IsExit(Coordinate point) const;
+		
+		// bool IsInMaze
+		// Description: This function returns whether a certain point is
+		//	in the maze
+		// Arguments:
+		//	Coordinate point: the point that could be in the maze
+		// Precondition: None
+		// Postcondition: If TRUE, the point is in the maze. If FALSE,
+		//	the point is not in the maze.
+		bool IsInMaze(Coordinate point) const;
+		
+		// Destructor ~MazeClass
+		// Description: This is the destructor for MazeClass.
+		// Precondition: The pointers have memory allocated
+		// Postcondition: The pointers have been cleared
+		~MazeClass();
+};
+
+
+#endif

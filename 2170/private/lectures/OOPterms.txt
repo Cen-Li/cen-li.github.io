@@ -1,0 +1,18 @@
+header file (specification file)
+implmentation file
+client file
+class
+object
+private section
+public section
+constructor
+multiple constructors
+destructor
+method
+mutator
+accessor
+scope resolution operator
+conditional compilation for prevention of multiple inclusion
+const type function
+overloaded operator (logical operators, input and output operators)
+this

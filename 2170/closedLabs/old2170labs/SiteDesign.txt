@@ -1,0 +1,140 @@
+
+  SiteDesign
+
+  Web Design by: Brad Rudnik - bar2a@mtsu.edu - May 1999 
+  For Middle Tennessee State University
+      Computer Science Department 
+      Project Manager: Dr. Thomas Cheatham - cheatham@mtsu.edu
+
+  Web address: http://www.mtsu.edu/~csci217/manual
+
+  Purpose: To provide MTSU CSCI 217 students web access to the 
+           Computer Science II LABORATORY MANUAL 1998-1999 Edition
+                    written by: Thomas Cheatham
+                                Judith Hankins
+                                Brenda Parker
+
+  Directory
+  Structure: Main Directory: manual
+             Contents: 
+
+             --- index.html --- an index page that provides links to all the 
+             individual lesson pages. This Page also checks the browser for
+             Javascript support. A <noscript> tag is used to produce a message
+             warning the user of limited access. Javascript will also warn the 
+             user if they are accessing the site with a sub level 4 browser. 
+             --- mainbg.gif --- a background for index.html
+             --- windows.js --- a Javascript source code file required by each
+             lesson page. Needed to produce separate browser windows.
+             --- styles.css --- an external Cascading Style Sheet file required
+             by each lesson page & answer sheet.
+             --- SiteDesign --- this document, an overview of this site.
+
+         --- subdirectories ---
+
+             --- counter --- contains all the necessary files needed to record
+                             and view visitor stats for this site: number of 
+                             hits, browser type, etc. ( see counter/notes.txt
+                             for the details on recording and viewing this
+                             information )
+             --- each Lab--- all materials related to the individual lab
+                             ( lesson, answer sheet, etc. ) will be contained in
+                             it's directory. 
+                             [ a more complete list is included below ]
+                                
+
+             CGI Directory & Files:
+
+             --- http://www.mtsu.edu/cgi-bin/users/csdept/217man
+
+             --- master.pl --- a copy of the CSCI 117 Perl script modified for
+             the 217 directory.
+
+             --- AnswerSheet.pl --- the above file modified to support the 
+             separate answer sheet window.
+
+             ---viewcode.pl --- a Perl Script to retrieve C++ Source Code Files
+             ( stored in the $CLA directory for student use ) and display these
+             files in the browser ( html format ).
+
+             --- counter.pl --- a Perl Script to track page counts and record a
+             visitor log.
+
+             --- viewlog.pl --- a Perl Script to report visitor stats in HTML format.
+             This script is accessed at 
+                   http://www.mtsu.edu/~csci217/counter/index.html
+
+  Lesson 
+  Files: --- lab#.html (# = 1, 2, 3... etc.) --- main lesson text   
+         --- lab#Ans.html --- an answer sheet used by the student to record and
+         print lesson assignments for grading.
+         --- lab#.gif --- a background graphic, all backgrounds used in 217 
+         were taken from the 117 online manual pages.
+         --- *.gif --- additional graphics as needed - file names are coded 
+         as follows: when more than one is used: labXSectionNumber.gif
+         labX is the actual lab number, Section is A, B, etc., Number is the 
+         place (first(1), second(2), etc) in that section if more than one 
+         is needed. {Example: lab6A1.gif - 1st image in lab 6 section A}
+         When a special graphic is need only for the answer sheet it will
+         contain 'Ans' in the name.
+         --- other files as needed 
+
+  Lesson
+  Layout: The main page contains all the course text copied from the CSCI 217
+          Lab Manual mentioned above. The answer sheet and other reference
+          material used by the lab is designed to open in separate smaller
+          browser window. The answer window provides the student with the option
+          to save their answers for later use or to produce a final version 
+          suitable for printing. 
+
+  Requirements:
+     A 4.0+ Browser with Javascript "ON" for a fully functional session. The
+     MTSU default browser ( Netscape ) is recommended due to the following:
+     under certain conditions Microsoft Internet Explorer will loose the ability
+     to run the Javascripts if one of the child windows is closed. Refreshing
+     the page will usually correct this situation.
+     
+     Each lesson page must load the script file by placing a link in the header
+     telling the browser where the file is located:
+
+                  <SCRIPT SRC="../windows.js">
+                  document.write("Included JS file not found");
+                  </SCRIPT>
+
+     The functions must be called using standard Javascript link procedure:
+
+       <a href="javascript:AnswerWindow('lab1/lab1')">Create Answer Sheet</a>
+
+     other resource material:
+       <a href="javascript:Display('$CLA/inlab1.cc')">inlab1.cc source code</a>
+
+     or pages:
+       <a href="javascript:Display('http://www.mtsu.edu')"> MTSU Site </a>
+       <a href="javascript:Display('../lab2/lab2.html')"> Lab 2 </a>
+
+     The scripts could be placed on each page if level 3.0 browser support was 
+     required but due to the size of this site I opted to make the code more
+     generic and easier to change should the need arise.
+
+     The production of the Answer sheet requires the Perl CGI file masterAns.pl
+     The location of this file ( at this time ) is listed above. If this 
+     location changes it will necessary to modify the directory variable in the 
+     windows.js file. The masterAns.pl file also contains and uses this 
+     location so it will also need to be modified.
+
+     Colors, fonts, and basic design items are stored in one file, styles.css
+     a link to this file is included in the head of lesson & answer pages:
+
+   <LINK rel="stylesheet" type="text/css" href="../styles.css" title="styles">
+
+     Omitting this link will simply result in the browser default settings
+     being used to display the page. Changes made here are universal to all
+     pages loading this style sheet. 
+
+     Visitor Counts and Logs are recorded by Counter.pl in the cgi-bin listed 
+     above. To call this script an image tag should be placed in the calling
+     page passing the action 'count' and the page 'name' separated by an 
+     underline '_' to the script file:
+     <img src="http://www.mtsu.edu/cgi-bin/users/csdept/217man/counter.pl?count_lab1">
+
+End of File.

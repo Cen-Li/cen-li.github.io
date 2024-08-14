@@ -1,0 +1,422 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Brad Rudnik">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en]C-AtHome0405  (Win95; U) [Netscape]">
+   <meta name="Description" content="CSCI 2170 - Closed Lab 12 - Lesson Page.">
+   <title>CSCI 2170 Lab 12 - Introduction to Abstract Data Types &amp; Stacks</title>
+
+<!-- load the Javascript source file -->
+<script type="text/javascript" src="../windows.js">
+document.write("Included JS file not found");
+</script>
+
+<!-- load the style sheet -->
+<link rel="stylesheet" type="text/css" href="../styles.css" title="styles">
+
+</head>
+<body background="lab12.gif"><a NAME="top"></a>
+
+<center>
+<h1>
+CSCI 2170 LAB 12<br>
+Introduction to Abstract Data Types &amp; Stacks</h1></center>
+
+<table width="100%" >
+<tr>
+<td width="70%">
+<b>
+<dl>
+<dt>
+Objectives:&nbsp;</dt>
+<dd>
+Review the concept of an abstract data type
+<br>Introduce the stack abstract data type
+<br>Implement the stack abstract data type using an array
+<br>Implement the stack abstract data type using pointers</dd></dl></b>
+</td>
+
+<td>
+<font size=4>
+<center><a href="javascript:AnswerWindow('lab12/lab12')">CREATE ANSWER SHEET for LAB 12</a></center>
+</font>
+</td>
+</tr>
+</table>
+
+<!-- File access for browsers without javascript capabilities -->
+<noscript>
+<blockquote>
+<blockquote><b>For those of you without Javascript capabilities these links
+will provide access to the additional files needed to complete this lab.
+They are set to open a new browser window if your browser supports this
+feature.</b>
+<center><b><a href="lab11Ans.html" target="_new">Answer Sheet</a></b></center>
+</blockquote>
+</blockquote>
+</noscript>
+
+<p>In this lab we will discuss a widely-used abstract data type called
+a stack.
+<blockquote>A.&nbsp; <a href="#A">Abstract Data Type</a><br>B.&nbsp; <a href="#B">Stacks</a>
+<br>C.&nbsp; <a href="#C">Array Implementation of&nbsp; the Stack Class</a>
+<br>D.&nbsp; <a href="#D">Pointer Implementation of Stacks</a></blockquote>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<!-- PART A -->
+<center>
+<h3>
+<a NAME="A"></a>A.&nbsp; Abstract Data Type </h3></center>
+<p>In previous labs, we have used the phrase Abstract Data Type to describe some 
+of our classes.&nbsp; In particular, we used it to describe the <em><strong>list</strong></em> 
+class.&nbsp; In this section, we explore exactly what we mean by Abstract Data Type (ADT).&nbsp;
+</p>
+<p>In Lab 5, we looked at common primitive data types like int, double, char and 
+so on.&nbsp; We say a data type is characterized by:</p>
+<ol>
+	<li>a set of values,</li>
+	<li>a data representation common to all these values, and</li>
+	<li>a set of operations which can be applied uniformly to all of these 
+	values. </li>
+</ol>
+<p>For example, an <strong>int</strong> data type contains the set of negative 
+and positive whole numbers plus 0.&nbsp; The data representation is a string of 
+binary digits and the operations include +, -, *, /, and so on.</p>
+<p>An ADT is similar to a data type though slightly different.&nbsp; It is a set of 
+values and a set of operations that can be applied uniformly to these values.&nbsp; 
+When we use the word abstract, we usually generalize or leave out information.&nbsp;
+</p>
+<hr>
+<p class="newStyle1">
+<!-- EXERCISE 1 -->
+<a href="javascript:Answer('Exercise1')"><b><font color="BB2222">Exercise 1:</font></b></a><font color="BB2222">Compare 
+the description of a data type and an abstract data type. What information was 
+left out?</font></p>
+<hr>
+<p class="newStyle1">A <strong>class</strong> defines a data type.&nbsp; The <strong>instances</strong> 
+of a class (or objects of the class) are the possible values of the class.&nbsp; The 
+operations on the objects are the <strong>methods</strong> defined in the 
+class.&nbsp; The data representation is all the data members that are contained 
+within the object.&nbsp; If there is no external access to the data representation, 
+the class is an abstract data type.&nbsp; The underlying representation of the data 
+members is not important as long as the operations work properly.&nbsp; </p>
+<p>For example, suppose we have a Calendar class.&nbsp; It is an ADT because the 
+underlying data representation of a calendar is unimportant.&nbsp; All the user of 
+the calendar cares about are the operations that can be done such as display the 
+calendar, change the month to the next month or previous month, change the year, 
+or select a given day on the calendar.</p>
+<p>In the following sections, we will learn about a stack which is a very 
+important abstract data type.</p>
+
+<!-- PART B -->
+<center>
+<h3>
+<a NAME="B"></a>B.&nbsp; Stacks</h3></center>
+<p>A <b>stack</b> is an abstract data type that contains a set of values and permits insertion and deletion
+at only one end called the <b>top</b>.&nbsp; Note:
+<ol>
+<li>
+Description of elements:&nbsp; A stack is defined to hold one type of data
+element.&nbsp; Only the element indicated by the <i>top</i> can be accessed.&nbsp;
+The elements are related to each other by the order in which they are put
+on the stack.</li>
+
+<li>
+Description of operations:&nbsp; Among the standard operations for a stack
+are:
+<br>
+<br>(a)&nbsp; insert an element on top of the stack (push),
+<br>(b)&nbsp; remove the top element from the stack (pop),
+<br>(c) determine if the stack is empty.</li>
+</ol>
+
+<p>An example of a stack is the pop-up mechanism that holds trays or plates
+in a cafeteria.&nbsp; The last plate placed on the stack (insertion) is
+the first plate off the stack (deletion).&nbsp; A stack is sometimes called
+a <b>Last-In, First-Out</b> or <b>LIFO</b> data structure.&nbsp; Stacks
+have many uses in computing.&nbsp; They are used in&nbsp; solving such
+diverse problems as "evaluating an expression" to "traversing a maze."
+<p>A stack data structure is used when subprograms are called.&nbsp; The
+system must remember where to return after the called subprogram has executed.&nbsp;
+It must remember the contents of all local variables before control was
+transferred to the called subprogram.&nbsp; The return from a subprogram
+is to the instruction following the call that originally transferred control
+to the subprogram.&nbsp; Therefore, the return address and the local variables
+of the calling subprogram must be stored in a designated area in memory.&nbsp;
+For example, suppose function A has control and calls B which calls C which
+calls D.&nbsp; While D is executing, the return stack might look like this:
+<center><img src="image006.jpg"></center>
+<p>The first "return" would return (from D) to the return address in Function
+C and the return stack would then look like:
+<center><img src="image007.jpg"></center>
+
+<p>The last function called is the first one completed.&nbsp; Function C cannot
+finish execution until Function D has finished execution.&nbsp; The sequence
+in which these functions are executed is last-in, first-out.&nbsp; Therefore,
+a stack is the logical data structure to use for storing return addresses
+and local variables during subprogram invocations.&nbsp; You can see that
+the "stack" keeps the return addresses in the exact order necessary to
+reverse the steps of the forward chain of control as A calls B, B calls C, C
+calls D.
+<p>Suppose we want to print a linked list in reverse order.&nbsp; A stack
+is the storage structure we need to hold the data in the nodes of the list
+as we traverse the list in a forward fashion.&nbsp; We traverse the linked
+list starting at the head.&nbsp; As each node is visited its data value
+is pushed onto a stack.&nbsp; Once the stack is built, we will take each
+item off the stack one at a time and print it giving the last to first
+order desired.
+<br>&nbsp;
+<center>
+<img src="image001.gif">
+</center>
+
+<p>For example, traversing the list and "pushing" each element onto a stack
+would give the following stack:
+<br>&nbsp;
+<center>
+<img src="image002.gif">
+</center>
+
+<p>Removing one element at a time from the stack and printing we have the
+following:
+<blockquote>
+<blockquote><b><pre>75.44, &nbsp; 56.25, &nbsp; 92.75, &nbsp;35.60</pre></b></blockquote>
+</blockquote>
+
+<h5>
+NOTE: For each of the following exercises, indicate answers on the <a href="javascript:AnswerWindow('lab12/lab12')">answer
+sheet.</a></h5>
+
+<!-- EXERCISE 2 -->
+<hr>
+<a href="javascript:Answer('Exercise2')"><b><font color="BB2222">Exercise 2:</font></b></a><font color="BB2222">It is now time
+to review what we know about stacks.&nbsp; Answer the following:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; A.&nbsp;&nbsp;&nbsp; Which stack element(s) can
+be accessed?<br>
+&nbsp;&nbsp;&nbsp;&nbsp; B.&nbsp;&nbsp;&nbsp; Name three operations which
+can be performed on a stack.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; C.&nbsp;&nbsp;&nbsp; A stack is called a LIFO
+structure.&nbsp; What does this mean?<br>
+&nbsp;&nbsp;&nbsp;&nbsp; D.&nbsp;&nbsp; Give an example of an application
+of the stack.</font><hr>
+
+<!-- Blank Space -->
+<br>&nbsp;
+
+<p>The stack data structure is one example of a restricted list.&nbsp;
+It is restricted because insertion and deletion can only occur at the <i>top</i>
+of the stack.&nbsp; A stack is the simplest type of list.
+<p>We will use a class called <b>Stack</b> to represent the stack abstract
+data type. <b>Insertion</b> and <b>deletion</b> operations have special
+names in stacks--insertion is called "<b>push</b>" and deletion is called
+"<b>pop</b>".&nbsp; Thus <i>s.push(item)</i> means to insert "item" at
+the top of stack s and&nbsp; <i>s.pop()</i> means to remove the value at
+the top of the stack.
+
+<!-- PART C -->
+<center>
+<h3>
+<a NAME="C"></a>C.&nbsp; Array Implementation of&nbsp; the Stack Class</h3></center>
+<p>A stack's data can be represented internally in various ways. We will illustrate
+two methods and discuss the merits of each.&nbsp; First, we demonstrate
+how it can be represented using an <b>array</b>.
+<p>The data in a stack could be implemented using a data member which
+is an array called <b>elements[0..MAX_STACK_SIZE-1]</b>.&nbsp; The stack of elements
+could be built up (from low index, 0, toward higher indices) or down (from high
+index, MAX_STACK_SIZE-1, toward lower indices).&nbsp;&nbsp; It is just a matter of taste.&nbsp;&nbsp;
+We also need a data member that indicates the location of the top of the
+stack.&nbsp; Call it <b>top</b>.&nbsp; When the stack is empty we have the following&nbsp;
+(the ?? means the memory locations are uninitialized) :
+<p>&nbsp;
+
+<img src="image003.gif">
+<p>Note that <b>s.top</b> contains the value -1, meaning that the stack is empty.
+<p>If we push one item, say 92, on the stack we have:
+<p><img src="image004.gif">
+<p>Note that <b>s.top</b> now contains the value 0 meaning that the top of the stack is <b>
+s.element[0]</b>.<p>
+
+<!-- EXERCISE 3 -->
+<hr>
+<a href="javascript:Answer('Exercise3')"><b><font color="BB2222">Exercise 3:</font></b></a><font color="BB2222">Show the array
+s.elements[] and s.top from above&nbsp; after the following operations have all been
+completed: (Draw the final picture of s.elements[] and show the value of
+s.top)<br>
+&nbsp;&nbsp;&nbsp;&nbsp; 1. s.push(20)<br>
+&nbsp;&nbsp;&nbsp;&nbsp; 2. s.push(51)<br>
+&nbsp;&nbsp;&nbsp;&nbsp; 3. s.pop()<br>
+&nbsp;&nbsp;&nbsp;&nbsp; 4. s.push(43)</font><hr>
+
+<br>&nbsp;
+
+<p>An array has some fixed limit like <b>MAX_STACK_SIZE</b> above.&nbsp; If top is MAX_STACK_SIZE-1, the
+stack is full and an error should occur if you try to <i>push</i> another
+item onto the stack.&nbsp;&nbsp; If an array implementation were used,
+a member function <b>full()</b> should be included which will perform a
+test for a full stack.&nbsp; Likewise, a member function <b>empty()</b>
+should be included which will be used to determine if a <i>pop</i> were
+valid.&nbsp; A <i>pop</i> from an empty stack (top is -1) should cause
+an error condition.&nbsp; Both error conditions must be handled.
+<p>We have implemented a stack class using an array.&nbsp; The file <a href="javascript:Display('$CLA/inlab12a.h')">inlab12a.h</a>
+includes the declaration of the class and the implementation of the class
+is included in the file <a href="javascript:Display('$CLA/inlab12a.cc')">inlab12a.cc</a>.
+
+<!-- EXERCISE 4 -->
+<hr>
+<a href="javascript:Answer('Exercise3')"><b><font color="BB2222">Exercise 4:</font></b></a><font color="BB2222">Copy the files
+<a href="javascript:Display('$CLA/inlab12a.h')">inlab12a.h</a>, <a href="javascript:Display('$CLA/inlab12a.cc')">inlab12a.cc</a>,
+and a main function, <a href="javascript:Display('$CLA/main12.cc')">main12.cc</a>,
+to your account.&nbsp; The main program
+should use a stack to print an input string of characters in reverse.&nbsp;&nbsp;
+A portion of the program needs to be written.&nbsp; Complete the program.&nbsp;
+Compile and test the program.</font>
+
+<!-- EXERCISE 5 -->
+<hr>
+<a href="javascript:Answer('Exercise5')"><b><font color="BB2222">Exercise 5:</font></b></a><font color="BB2222">Add a&nbsp; member
+function called <i>numOnStack</i> to the class.&nbsp; This function should&nbsp;
+return the number of elements on the stack.&nbsp;&nbsp; Hint: It is a very
+short function.&nbsp;&nbsp; Add a call in the main program to test your
+new function and print out the return value.&nbsp; Turn in a printout of
+the revised inlab12a.h, inlab12a.cc, and main12.cc with a compile and run
+demonstrating that the code written for Exercises 3 and 4 is working.</font><hr>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<p>This implementation of a stack has a few disadvantages.&nbsp; Since
+we are using an array, we must know in advance the upper bound for the
+number of elements in the list.&nbsp; In some situations, knowledge of
+such an upper bound is impossible.&nbsp; If we use an upper bound which
+is extremely large (in order to have a stack which can contain our data),
+we may be wasting space if our data turns out to be quite small.&nbsp;
+If we select an upper bound too small, then we have to worry about a stack
+overflow.&nbsp; Thus&nbsp; we may find it advantageous to use a dynamic
+linked list implementation instead of the static array implementation.&nbsp;&nbsp;
+In a linked list implementation, space is allocated only as needed.&nbsp;
+If we do have a reasonable upper bound for the number of elements, the
+static implementation of the stack has the advantage of using less space
+per element than a dynamic list since a dynamic linked list must contain
+nodes with a data&nbsp; field <b>and</b> a link field.
+
+<!-- PART D -->
+<center>
+<h3>
+<a NAME="D"></a>D.&nbsp;&nbsp; Pointer Implementation of Stacks</h3></center>
+<p>The problem with a "full" stack almost disappears if we use a linked list
+implementation of a stack.&nbsp; With a list, the "full" condition will
+only be <b>true</b> if there is no more memory for the system to allocate
+to your program.&nbsp;&nbsp; While this can happen (and does), it is much
+less frequent than filling up an array.
+</p>
+
+<p>Here is a picture of a stack implemented as a linked list:
+<br>&nbsp;
+<center>
+<img src="image005.gif">
+</center>
+
+<!-- EXERCISE 6 -->
+<hr>
+<h2><span style="font-weight: 400"><a href="javascript:Answer('Exercise6')"><b>
+<font size="3" color="BB2222">Exercise 
+6:</font></b></a><font size="3" color="BB2222">After 
+the following operations have all been completed: draw the 
+picture of the resulting queue using this pointer implementation. <br>&nbsp;&nbsp;&nbsp; 
+1. s.push(20)<br>
+&nbsp;&nbsp;&nbsp; 2. s.push(51)<br>
+&nbsp;&nbsp;&nbsp; 3. s.push(31)<br>
+&nbsp;&nbsp;&nbsp; 4. s.push(71)<br>
+&nbsp;&nbsp;&nbsp; 5. s.pop()<br>
+&nbsp;&nbsp;&nbsp; 6. s.push(43)</font></span></h2>
+<hr>
+<a href="javascript:Answer('Exercise7')"><b><font color="BB2222">Exercise 7:</font></b></a><font color="BB2222">Now we consider
+an implementation of the Stack class using a linked list.&nbsp; The&nbsp;
+class definition and a partial implementation of the class are contained
+in <a href="javascript:Display('$CLA/inlab12b.h')">inlab12b.h</a> and in
+<a href="javascript:Display('$CLA/inlab12b.cc')">inlab12b.cc</a> respectively.&nbsp;
+Copy these files to your account.&nbsp;
+Notice that the function member,&nbsp; <i>push()</i>, is incomplete.&nbsp;
+Complete this function.</font></p>
+
+<!-- EXERCISE 8 -->
+<hr>
+<a href="javascript:Answer('Exercise8')"><b><font color="BB2222">Exercise 8:</font></b></a><font color="BB2222">Add a member
+function numOnStack() to the class that returns the number of elements
+on the stack.</font>
+
+<!-- EXERCISE 9 -->
+<hr>
+<a href="javascript:Answer('Exercise9')"><b><font color="BB2222">Exercise 9:</font></b></a><font color="BB2222">The program
+<a href="javascript:Display('$CLA/main12.cc')">main12.cc</a> used the stack
+class to print a string in reverse order.&nbsp; Notice that the code in
+that program is independent of the implementation of the <i>Stack</i> class.&nbsp;
+Turn in a listing of the files inlab12b.h, inlab12b.cc and main12.cc together
+with a compile and run to demonstrate that the code written in Exercises
+5 and 6 is working.</font>
+
+<!-- EXERCISE 10 -->
+<hr>
+<a href="javascript:Answer('Exercise10')"><b><font color="BB2222">Exercise 10:</font></b></a>
+<font color="BB2222">We are going
+to modify the program main12.cc&nbsp; to read a string and determine if
+the string is a palindrome.&nbsp; A palindrome is a string which is the
+same whether the characters are read from left to right or from right to
+left.&nbsp; For example "radar" , "deed", and "able was I ere I saw elba"
+are all examples of palindromes.&nbsp; There is a simple algorithm to determine
+whether a string is a palindrome:</font>
+
+<blockquote>
+<blockquote id="box"><b>
+<pre><font color="BB2222">
+push each letter of the string on a stack.&nbsp; Also place the character
+into a character array, say str.
+Set j = 0 and done = false
+While the stack is not empty and not(done)
+     pop a character, say ch
+     if str[j] == ch then 
+        increment j and continue
+     else set done to true (the string isn't a palindrome)
+if done is true
+   the string isn't a palindrome
+else it is.</font></pre></b>
+</blockquote>
+</blockquote>
+
+
+<font color="BB2222">The first part of <i>main12.cc</i> needs to be modified slightly.&nbsp;
+It already reads a string and pushes it on a stack.&nbsp; The string also
+needs to be saved in a character array.&nbsp; Modify the&nbsp; program
+to correspond with the algorithm above.&nbsp; Turn in a listing, compile
+and run of this modified program.&nbsp; Test your program with the strings
+listed above and with a string which is not a palindrome to demonstrate
+that it works.</font><hr>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<center>
+<h5>
+----- End of Lab 12 - Introduction to Abstract Data Types &amp; Stacks -----<br>
+Complete the Exercises on the <a href="javascript:AnswerWindow('lab12/lab12')">Answer Sheet</a>.&nbsp;<br>
+Turn in the Answer Sheet and the printouts required by the exercises.</h5></center>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<!-- RETURN LINK -->
+<center><a href="#top">Return to the top of this lab</a>
+<br><a href="../index.html">Return to the link page for all 2170 labs</a></center>
+</body>
+</html>

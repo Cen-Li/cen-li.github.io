@@ -1,0 +1,227 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+  <title>Lab 17 - Sorted list with struct type data 
+  </title>
+</head>
+  <!--!!!!!!!!!! Lesson Title and Objective   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!--> 
+    <center>
+      <h1>
+Lab 17 -- Sorted List Class with <em>Struct Type Data</em> 
+      </h1>
+      </center>
+
+In this lab, we practice using the <em>sorted list class</em> to work with struct type data.
+Follow the steps shown below to develop your project:
+<ol>
+<li>Create a new directory for this project. Copy the code provided into this directory.
+Copy the data file into this directory.<p>
+<p>
+
+Add the following struct type definition for BookType to slist.h file.
+<br>
+In addition, make "ItemType" an alias of the type "BookType".
+<li>
+<xmp>
+#ifndef SortedList_H
+#define SortedList_H
+
+struct BookType
+{
+    string title;
+    string author;
+    int publicationYear;
+
+    bool operator < (const BookType & rhs) {
+        return (title < rhs.title);
+    }
+    bool operator != (const BookType & rhs) {
+        return (title != rhs.title);
+    }
+    bool operator > (const BookType & rhs) {
+        return (title > rhs.title);
+    }
+};
+
+const int MAX_LENGTH=50;
+typedef BookType ItemType;       // <-- this line sets the item type of this list to be of type "BookType"
+
+class SortedList 
+{
+   ....
+
+};
+#endif
+
+</xmp>
+<p>
+
+Write the client program to read the book records from the data file one record at a time. 
+Once the values of one book is read, insert it into the list of books.
+Repeat this until the end of the data file is reached or the capacity of the list is reached.
+<br>Hint: This is the same data file we discussed in this example:
+<a href=../../private/code/review/31-struct-sort.cpp target=new>link to program code</a>. 
+<p>
+<br>
+<xmp>
+int size=0;
+BookType aBook;
+while (size < MAX_SIZE && getline(myIn, aBook.title)) {
+
+		getline(myIn, aBook.author);
+
+		myIn >> aBook.publicationYear;
+		myIn.ignore(100, '\n');
+
+		// You are required add code below 
+                // to add the book into the list and update "size"
+
+
+}
+</xmp>
+<p>
+
+<li>After the list of books is built, display the books one by one as shown below.
+<p>
+<li>Prompt the user to enter the name of an author, display only the books written by this author.
+<br>Here is the program logic for the client program:
+<xmp>
+// First, add code here to "reset" the iterator for the list object
+
+// Then, apply a "for" loop to go through the entire list item by item:
+{
+   // First, retrieve the next item
+
+   // Then, check to see if this item has the author name matches with the author name entered by the user
+
+         // If the name matches, display the information about the book 
+
+}
+</xmp>
+</ol>
+
+
+<h2>Example output of the program</h2>
+
+<xmp>
+
+The list of books are:
+
+Title:  A Couple of Blaguards
+Author: Frank McCourt
+Publication Year: 2013
+
+Title:  Angela's Ashes: A Memoir
+Author: Frank McCourt
+Publication Year: 2012
+
+Title:  Born Free
+Author: Leo Johnson
+Publication Year: 2012
+
+Title:  Cat Lovers
+Author: Mary Johnson
+Publication Year: 2013
+
+Title:  Catching Fire
+Author: Suzanne Collins
+Publication Year: 2013
+
+Title:  Emma
+Author: Jane Austin
+Publication Year: 2013
+
+Title:  Harry Potter And The Order Of The Phoenix
+Author: J. K. Rowling
+Publication Year: 2015
+
+Title:  Harry Potter and the Deathly Hallows
+Author: J. K. Rowling
+Publication Year: 2014
+
+Title:  Harry Potter and the Half-Blood Prince
+Author: J. K. Rowling
+Publication Year: 2015
+
+Title:  Mockingjay
+Author: Suzanne Collins
+Publication Year: 2014
+
+Title:  Persuasion
+Author: Jane Austin
+Publication Year: 2015
+
+Title:  Pride and Prejudice
+Author: Jane Austin
+Publication Year: 2012
+
+Title:  The Cat Bible
+Author: John Eddleman
+Publication Year: 2012
+
+Title:  The Fault in Our Stars
+Author: John Green
+Publication Year: 2013
+
+Title:  The Girl on the Train
+Author: Paula Hawkins
+Publication Year: 2014
+
+Title:  The Golden Compass: His Dark Materials
+Author: Philips Pullman
+Publication Year: 2012
+
+Title:  The Hunger Game
+Author: Suzanne Collins
+Publication Year: 2011
+
+Title:  The Jungle Cats
+Author: Steve Martin
+Publication Year: 2013
+
+
+Please enter the name of an author: J. K. Rowling
+
+Title:  Harry Potter And The Order Of The Phoenix
+Author: J. K. Rowling
+Publication Year: 2015
+
+Title:  Harry Potter and the Deathly Hallows
+Author: J. K. Rowling
+Publication Year: 2014
+
+Title:  Harry Potter and the Half-Blood Prince
+Author: J. K. Rowling
+Publication Year: 2015
+
+</xmp>
+
+<hr>
+
+<p>
+<h2>Makefile</h2>
+
+<p>
+<p>
+Create the makefile as this:
+<xmp>
+## Create the executable file 
+lab17Run:slist.o main.o
+        $(CC) slist.o main.o -o lab17Run
+
+## Create the object files 
+slist.o:slist.cpp
+        $(CC) $(CFLAGS) -c slist.cpp
+
+main.o:main.cpp
+        $(CC) $(CFLAGS) -c main.cpp
+
+clean:
+        rm *.o
+</xmp>
+To compile the program, simply type "make" at the prompt. This will create the executable file
+named lab17Run. Execute the program by typing "lab17Run".
+<p>
+<h2>What to Submit?</h2>
+For this lab, you need to submit these files: <b>slist.h, slist.cpp, main.cpp, and makefile </b>
+</body></html>

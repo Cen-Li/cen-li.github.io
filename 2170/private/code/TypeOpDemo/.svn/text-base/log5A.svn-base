@@ -1,0 +1,617 @@
+Script started on Wed 30 Mar 2011 02:07:59 AM CDT
+$ pr -n -t -e4 sortedListClass.h
+    1	//// Programmer:        Scott Welsh
+    2	// Assignment:          OLA5/Flight Map
+    3	// Class:               CSCI 2170-003
+    4	// Course Instructor:   Dr. Cen Li
+    5	// Due Date:            3/30/2011
+    6	// Description: sortedListClass header file
+    7	
+    8	
+    9	
+   10	#ifndef _SORTEDLISTCLASS_H
+   11	#define _SORTEDLISTCLASS_H
+   12	
+   13	#include "type.h"
+   14	
+   15	
+   16	
+   17	// Node structure
+   18	struct Node
+   19	{
+   20	    ListItem item;      // Data content
+   21	    Node * next;        // Pointer to next node
+   22	};
+   23	
+   24	
+   25	// sortedListClass
+   26	class sortedListClass
+   27	{
+   28	public:
+   29	
+   30	    // Name: sortedListClass
+   31	    // Function: default constructor
+   32	    // Precondition: none
+   33	    // Postcondition: list object initialized
+   34	    sortedListClass();
+   35	
+   36	    // Name: sortedListClass
+   37	    // Function: deep copy constructor
+   38	    // Precondition: none
+   39	    // Postcondition: list object initialized with copy data
+   40	    sortedListClass(sortedListClass & list);
+   41	
+   42	    // Name: Insert
+   43	    // Function: inserts an item into the list
+   44	    // Precondition: none
+   45	    // Postcondition: item inserted
+   46	    bool Insert(ListItem newItem);
+   47	
+   48	    // Name: Get
+   49	    // Function: gets an item from the array
+   50	    // Precondition: specified item exists
+   51	    // Postcondition: getItem contains item, otherwise is unchanged
+   52	    bool Get(ListItem & getItem);
+   53	
+   54	    // Name: Remove
+   55	    // Function: deletes an item from the array
+   56	    // Precondition: specified item exists
+   57	    // Postcondition: item is removed
+   58	    bool Remove(ListItem delItem);
+   59	
+   60	    // Name: GetSize
+   61	    // Function: returns number of items in the list
+   62	    // Precondition: none
+   63	    // Postcondition: number of items returned
+   64	    int GetSize() const;
+   65	    
+   66	    // Name: IsEmpty
+   67	    // Function: returns true if list is empty
+   68	    // Precondition: none
+   69	    // Postcondition: returns true if empty, false otherwise
+   70	    bool IsEmpty();
+   71	
+   72	    // Name: operator <<
+   73	    // Function: Output the list
+   74	    // Precondition: list not empty
+   75	    // Postcondition: list displayed
+   76	    friend ostream & operator << (ostream & out, sortedListClass & list);
+   77	    
+   78	    // Name: ~sortedListClass
+   79	    // Function: class Destructor
+   80	    // Precondition: none
+   81	    // Postcondition: list object destructed
+   82	    ~sortedListClass();
+   83	    
+   84	
+   85	private:
+   86	    
+   87	    Node * head;    // Pointer to first node
+   88	
+   89	    int size;       // Size of list
+   90	
+   91	};
+   92	
+   93	
+   94	#endif  /* _SORTEDLISTCLASS_H */
+   95	
+$ pr -n -t -e4 o[KsortedListClass.cpp
+    1	//// Programmer:        Scott Welsh
+    2	// Assignment:          OLA5/Flight Map
+    3	// Class:               CSCI 2170-003
+    4	// Course Instructor:   Dr. Cen Li
+    5	// Due Date:            3/30/2011
+    6	// Description: sortedListClass implimentation file
+    7	
+    8	#include "sortedListClass.h"
+    9	
+   10	
+   11	// sortedListClass
+   12	
+   13	// Name: sortedListClass
+   14	// Function: default constructor
+   15	// Precondition: none
+   16	// Postcondition: list object initialized
+   17	sortedListClass::sortedListClass()
+   18	{
+   19	    // Constructor initialization
+   20	    head = NULL;    // No node
+   21	    size = 0;       // Zero size
+   22	}
+   23	
+   24	// Name: sortedListClass
+   25	// Function: deep copy constructor
+   26	// Precondition: none
+   27	// Postcondition: list object initialized with copy data
+   28	sortedListClass::sortedListClass(sortedListClass & list)
+   29	{
+   30	}
+   31	
+   32	// Name: Insert
+   33	// Function: inserts an item into the list
+   34	// Precondition: none
+   35	// Postcondition: item inserted
+   36	bool sortedListClass::Insert(ListItem newItem)
+   37	{
+   38	    bool result = false;    // result of insertion attempt
+   39	    Node * ptr = NULL;      // Node pointer for traversal
+   40	    Node * prev = NULL;     // Node pointer to hold last node
+   41	    Node * newNode = NULL;  // Temp pointer to hold new node
+   42	
+   43	    // If list is empty
+   44	    if(head == NULL)
+   45	    {
+   46	        // Insert node
+   47	        newNode = new Node;         // Create new node
+   48	        
+   49	        // If new alloc succeeded
+   50	        if(newNode != NULL)
+   51	        {
+   52	            newNode->item = newItem;    // assign item data
+   53	            newNode->next = ptr;        // Link next node
+   54	            head = newNode;             // Link node into list
+   55	            result = true;              // insert succeeded
+   56	            size++;                     // increase size
+   57	        }
+   58	    }
+   59	    // List is not empty
+   60	    // Check if replacing first item
+   61	    else if(head->item > newItem)
+   62	    {
+   63	        // Insert node
+   64	        newNode = new Node;         // Create new node
+   65	        
+   66	        // If new alloc succeeded
+   67	        if(newNode != NULL)
+   68	        {
+   69	            newNode->item = newItem;    // assign item data
+   70	            newNode->next = head;       // Link next node
+   71	            head = newNode;             // Link node into list
+   72	            result = true;              // insert succeeded
+   73	            size++;                     // increase size
+   74	        }
+   75	    }
+   76	    // Replace other item
+   77	    else
+   78	    {
+   79	        // Initalize pointer
+   80	        ptr = head;
+   81	
+   82	        // Traverse the list until end or insertion point found
+   83	        while(ptr != NULL && newItem > ptr->item)
+   84	        {
+   85	            // Move on to next node
+   86	            prev = ptr;
+   87	            ptr = ptr->next;
+   88	        }
+   89	        newNode = new Node;         // Create new node
+   90	        
+   91	        // If new alloc succeeded
+   92	        if(newNode != NULL)
+   93	        {
+   94	            newNode->item = newItem;    // assign item data
+   95	            newNode->next = ptr;        // Link next node
+   96	            prev->next = newNode;       // Link node into list
+   97	            result = true;              // insert succeeded
+   98	            size++; 
+   99	        }
+  100	    }
+  101	    return result;  // Return result of attempt
+  102	}
+  103	
+  104	// Name: Get
+  105	// Function: gets an item from the list
+  106	// Precondition: specified item exists
+  107	// Postcondition: item is returned
+  108	bool sortedListClass::Get(ListItem & getItem)
+  109	{
+  110	    bool result = false;    // result of insertion attempt
+  111	    Node * ptr = head;      // Node pointer for traversal
+  112	    
+  113	    // If list is empty
+  114	    if(head == NULL)
+  115	    {
+  116	        // Item not found
+  117	        // cout << "Item in list" << endl;
+  118	    }
+  119	    // List is not empty
+  120	    else
+  121	    {
+  122	        // Traverse the list until end or item found
+  123	        while(ptr != NULL && !(getItem == ptr->item))
+  124	        {
+  125	            // Move on to next node
+  126	            ptr = ptr->next;
+  127	        }
+  128	        // If item exists
+  129	        if(ptr != NULL)
+  130	        {
+  131	            // If item data matches search data
+  132	            if(getItem == ptr->item)
+  133	            {
+  134	                getItem = ptr->item;    // Copy item
+  135	                result = true;          // Get succeeded
+  136	            }
+  137	        }
+  138	    }
+  139	    return result;  // Return result of attempt
+  140	}
+  141	
+  142	// Name: Remove
+  143	// Function: deletes an item from the array
+  144	// Precondition: specified item exists
+  145	// Postcondition: item is removed
+  146	bool sortedListClass::Remove(ListItem delItem)
+  147	{
+  148	    bool result = false;    // result of insertion attempt
+  149	    Node * ptr = head;      // Node pointer for traversal
+  150	    Node * tmp = NULL;      // Temp pointer to hold node
+  151	    Node * prev = NULL;     // Node pointer to hold last node
+  152	
+  153	    // If list is empty
+  154	    if(head == NULL)
+  155	    {
+  156	        // Item not found
+  157	        // Empty list
+  158	    }
+  159	    // List is not empty
+  160	    else
+  161	    {
+  162	        // Check if removing head
+  163	        if(head->item == delItem)
+  164	        {
+  165	            tmp = head;             // Copy pointer
+  166	            head = head->next;      // Move ptr to next node
+  167	            tmp->next = NULL;       // NULLify old link 
+  168	            delete tmp;             // Destory node
+  169	            result = true;          // Remove succeeded
+  170	            size--;                 // Decrease size
+  171	        }
+  172	        // Traverse the list until end or deletion item found
+  173	        else
+  174	        {
+  175	            while(ptr != NULL && !(delItem == ptr->item))
+  176	            {
+  177	                // Move on to next node
+  178	                prev = ptr;
+  179	                ptr = ptr->next;
+  180	            }
+  181	            // If item exists
+  182	            if(ptr != NULL)
+  183	            {
+  184	                // If item data matches search data
+  185	                if(delItem == ptr->item)
+  186	                {
+  187	                    tmp = ptr;              // Copy pointer
+  188	                    prev->next = ptr->next; // Move ptr to next node
+  189	                    tmp->next = NULL;       // NULLify old link 
+  190	                    delete tmp;             // Destory node
+  191	                    result = true;          // Remove succeeded
+  192	                    size--;                 // Decrease size
+  193	                }
+  194	            }
+  195	        }
+  196	    }
+  197	    return result;  // Return result of attempt
+  198	}
+  199	
+  200	// Name: GetSize
+  201	// Function: returns number of items in the list
+  202	// Precondition: none
+  203	// Postcondition: number of items returned
+  204	int sortedListClass::GetSize() const
+  205	{
+  206	    // Return size of list
+  207	    return size;
+  208	}
+  209	
+  210	// Name: IsEmpty
+  211	// Function: returns true if list is empty
+  212	// Precondition: none
+  213	// Postcondition: returns true if empty, false otherwise
+  214	bool sortedListClass::IsEmpty()
+  215	{
+  216	    bool result = true;     // Hold result of check
+  217	    
+  218	    // If head is NULL
+  219	    if(head == NULL)
+  220	    {
+  221	        result = false;
+  222	    }
+  223	    // Return result of check
+  224	    return result;
+  225	}
+  226	
+  227	// Name: operator <<
+  228	// Function: Output the list
+  229	// Precondition: list not empty
+  230	// Postcondition: list displayed
+  231	ostream & operator << (ostream & out, sortedListClass & list)
+  232	{
+  233	    Node * ptr = list.head;     // Node pointer for traversal
+  234	
+  235	    // If list is not empty
+  236	    if(ptr != NULL)
+  237	    {
+  238	        // Loop through each node and print it to a line    
+  239	        while(ptr != NULL)
+  240	        {
+  241	            //cout << "List print: " << i << endl;
+  242	            if(ptr != NULL)
+  243	            {
+  244	                // Print flight rec
+  245	                out << ptr->item;
+  246	            }
+  247	            // Move to next node
+  248	            ptr = ptr->next;
+  249	        }
+  250	    }
+  251	    // List is empty
+  252	    else
+  253	    {
+  254	        // Print error
+  255	        out << "List is empty" << endl;
+  256	    }
+  257	
+  258	    // Give ostream back
+  259	    return out;
+  260	}
+  261	
+  262	// Name: ~sortedListClass
+  263	// Function: class Destructor
+  264	// Precondition: none
+  265	// Postcondition: list object destructed
+  266	sortedListClass::~sortedListClass()
+  267	{
+  268	    Node * ptr = head;  // Pointer for traversal
+  269	    Node * tmp = NULL;  // Tmp for destroying
+  270	    
+  271	    head = NULL;        // NULLify head
+  272	    // Loop and delete everything
+  273	    for(int i = 0; i < size; i++)
+  274	    {
+  275	        //cout << "List print: " << i << endl;
+  276	        if(ptr != NULL)
+  277	        {
+  278	            // Copy ptr for destruction
+  279	            tmp = ptr;
+  280	            
+  281	            // Move ptr to next node
+  282	            ptr = ptr->next;
+  283	            
+  284	            // NULLify old next
+  285	            tmp->next = NULL;
+  286	            
+  287	            // Delete old node
+  288	            delete tmp;
+  289	        }
+  290	    }
+  291	}
+  292	
+  293	// The End
+$ pr -n -t -e [K4 ola5A.cc
+    1	//// Programmer:        Scott Welsh
+    2	// Assignment:          OLA5/Flight Map
+    3	// Class:               CSCI 2170-003
+    4	// Course Instructor:   Dr. Cen Li
+    5	// Due Date:            3/30/2011
+    6	// Description: Throughly test the sortedListClass to 
+    7	// make sure that all methods work correctly.
+    8	
+    9	
+   10	// Includes
+   11	#include <fstream>
+   12	#include "sortedListClass.h"
+   13	
+   14	// Define for debugging messages
+   15	#define _DEBUG_
+   16	// Namespace
+   17	using namespace std;
+   18	
+   19	// Constants
+   20	char FLIGHTS_DAT[] = "flights.dat";     // File containing
+   21	
+   22	// Prototypes
+   23	void ReadFlights(ifstream & inFile, sortedListClass & fList);
+   24	
+   25	// Entry Point
+   26	int main()
+   27	{
+   28	    // Variables
+   29	    sortedListClass fList;      // List to store flight data
+   30	    ifstream inFile;            // Input file stream for file reading
+   31	    FlightRec tRec;             // Temp record for search and delete
+   32	        
+   33	    // Open flights data file
+   34	    inFile.open(FLIGHTS_DAT);
+   35	    
+   36	    // Read flights into list
+   37	    ReadFlights(inFile, fList);
+   38	    
+   39	    // Close flights data file
+   40	    inFile.close();
+   41	    
+   42	    cout << "Testing List output" << endl;
+   43	    cout << "Flight #              Origin         Destination     Price" << endl;
+   44	    cout << "==========================================================" << endl;
+   45	    // Print flights data list
+   46	    cout << fList;
+   47	    
+   48	    // TODO
+   49	    // Search for a record
+   50	    cout << "Testing record search" << endl;
+   51	    cout << "Type Origin city: ";
+   52	    cin >> tRec.origin;
+   53	    cout << "Type Destintation city: ";
+   54	    cin >> tRec.dest;
+   55	    
+   56	    // Try to get match
+   57	    if(fList.Get(tRec))
+   58	    {
+   59	        // Print record
+   60	        cout << tRec;
+   61	    }
+   62	    else
+   63	    {
+   64	        // Print no match
+   65	        cout << "No flight record found." << endl;
+   66	    }
+   67	
+   68	    cout << "Testing delete" << endl;
+   69	    // Delete three records
+   70	    for(int i = 0; i < 3; i++)
+   71	    {
+   72	        // Prompt and read flight info
+   73	        cout << "Type Origin city: ";
+   74	        cin >> tRec.origin;
+   75	        cout << "Type Destintation city: ";
+   76	        cin >> tRec.dest;
+   77	        
+   78	        // Delete from list
+   79	        if(fList.Remove(tRec))
+   80	        {
+   81	            cout << "Record deleted." << endl;
+   82	        }
+   83	        else
+   84	        {
+   85	            cout << "No record to delete." << endl;
+   86	        }
+   87	    }
+   88	    
+   89	    // Print final list
+   90	    cout << "Final list" << endl;
+   91	    cout << "Flight #              Origin         Destination     Price" << endl;
+   92	    cout << "==========================================================" << endl;
+   93	    cout << fList;
+   94	    
+   95	    return 0;   // Exit Normally
+   96	}
+   97	
+   98	// Name: ReadFlights
+   99	// Function: Read flight records from file and insert into list
+  100	// Precondition: File stream opened
+  101	// Postcondition: Records read into list
+  102	void ReadFlights(ifstream & inFile, sortedListClass & fList)
+  103	{
+  104	    FlightRec fr;           // Flight record for temp storage
+  105	    bool result = false;    // Holds result of insertion attempt
+  106	    
+  107	    // If Input file stream is good for I/O
+  108	    if(inFile.good())
+  109	    {
+  110	        // Loop until EOF reading records
+  111	        while(!inFile.eof())
+  112	        {
+  113	            // Read record and store in tmp variable
+  114	            inFile >> fr.fNumber;
+  115	            inFile >> fr.origin;
+  116	            inFile >> fr.dest;
+  117	            inFile >> fr.cost;
+  118	            
+  119	            // Insert into list
+  120	            result = fList.Insert(fr);
+  121	            #ifdef _DEBUG_
+  122	            cout << "Inserting: " << result << endl;
+  123	            #endif
+  124	        }
+  125	    }
+  126	    else
+  127	    {
+  128	        cout << "ERROR accessing file: " << FLIGHTS_DAT << endl;
+  129	    }
+  130	    // Done
+  131	    return;
+  132	}
+$ aCC sortedlis[K[K[KListClass.cpp type.cpp ola5A.cc -o run
+$ run
+Inserting: 1
+Inserting: 1
+Inserting: 1
+Inserting: 1
+Inserting: 1
+Inserting: 1
+Inserting: 1
+Inserting: 1
+Inserting: 1
+Inserting: 1
+Inserting: 1
+Inserting: 1
+Inserting: 1
+Inserting: 1
+Inserting: 1
+Inserting: 1
+Inserting: 1
+Inserting: 1
+Inserting: 1
+Inserting: 1
+Inserting: 1
+Inserting: 1
+Inserting: 1
+Testing List output
+Flight #              Origin         Destination     Price
+==========================================================
+     380             Chicago         Albuquerque       400
+     888       New-York-City             Atlanta       430
+     888       New-York-City             Atlanta       430
+     339           Nashville             Atlanta        83
+     211       New-York-City              Boston       140
+    3345       Washington-DC              Boston       440
+    1114              Dallas             Chicago       320
+     891             Memphis              Dallas       140
+     920           Nashville           LaS-Vegas        59
+     772       San-Francisco         Los-Angelas        89
+    1172             Atlanta             Memphis        47
+     722             Orlando               Miami        80
+    2843             Chicago               Miami       500
+     103              Dallas               Miami       350
+     290           Las-Vegas           Nashville        59
+     983           Nashville       New-York-City       260
+     112              Boston       New-York-City       140
+     233       Washington-DC             Orlando       195
+     920             Atlanta             Orlando       270
+    3940             Chicago             Orlando       430
+    8322       San-Francisco           San-Diego       120
+     829              Dallas       San-Francisco       250
+    3746         Los-Angelas             Seattle       230
+Testing record search
+Type Origin city: Dallas
+Type Destintation city: Miami
+     103              Dallas               Miami       350
+Testing delete
+Type Origin city: Chicago
+Type Destintation city: Albuquerque
+Record deleted.
+Type Origin city: Dallas
+Type Destintation city: Miami
+Record deleted.
+Type Origin city: Dallas
+Type Destintation city: Nashville
+No record to delete.
+Final list
+Flight #              Origin         Destination     Price
+==========================================================
+     888       New-York-City             Atlanta       430
+     888       New-York-City             Atlanta       430
+     339           Nashville             Atlanta        83
+     211       New-York-City              Boston       140
+    3345       Washington-DC              Boston       440
+    1114              Dallas             Chicago       320
+     891             Memphis              Dallas       140
+     920           Nashville           LaS-Vegas        59
+     772       San-Francisco         Los-Angelas        89
+    1172             Atlanta             Memphis        47
+     722             Orlando               Miami        80
+    2843             Chicago               Miami       500
+     290           Las-Vegas           Nashville        59
+     983           Nashville       New-York-City       260
+     112              Boston       New-York-City       140
+     233       Washington-DC             Orlando       195
+     920             Atlanta             Orlando       270
+    3940             Chicago             Orlando       430
+    8322       San-Francisco           San-Diego       120
+     829              Dallas       San-Francisco       250
+    3746         Los-Angelas             Seattle       230
+$ exit
+exit
+
+Script done on Wed 30 Mar 2011 02:11:00 AM CDT

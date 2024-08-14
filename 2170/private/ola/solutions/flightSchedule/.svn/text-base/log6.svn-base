@@ -1,0 +1,1923 @@
+Script started on Thu 14 Apr 2011 10:00:21 PM CDT
+$ ty[K[Kpr -n -e4 type.h
+
+
+2011-04-14 21:12                      type.h                      Page 1
+
+
+    1	//// PROGRAMMER:    Joo Kim
+    2	// Assignment:      Open Lab Assignment 6
+    3	// Class:           CSCI 2170-003
+    4	// Course Instructor: Dr. Cen Li
+    5	// Due Date:        Soft Copy: Midnight, Sunday, 4/17/2011
+    6	//                  Hard Copy: Monday, 4/18/2011
+    7	// Description:     Header file for flightRec struct
+    8	
+    9	#include <iostream>
+   10	#include <fstream>
+   11	using namespace std;
+   12	
+   13	#ifndef Type_H
+   14	#define Type_H
+   15	
+   16	//define struct flightRec
+   17	struct flightRec{
+   18	    int flightNum;
+   19	    int price;
+   20	    int dcNum;
+   21	    
+   22	    bool operator < (const flightRec & rhs) const;
+   23	    //overloaded < operator for flightRec
+   24	    //this function compares the destinations between two flightRec
+   25	    
+   26	    bool operator == (const flightRec & rhs) const;
+   27	    //overloaded == operator for flightRec
+   28	    //this function compares the origins and destinations between two flightRec
+   29	    
+   30	    friend ostream& operator << (ostream & os, const flightRec & f);
+   31	    //overloaded output operator for flightRec struct
+   32	};
+   33	
+   34	#endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$ pr -n -e4 type.cpp
+
+
+2011-04-14 21:14                     type.cpp                     Page 1
+
+
+    1	//// PROGRAMMER:    Joo Kim
+    2	// Assignment:      Open Lab Assignment 6
+    3	// Class:           CSCI 2170-003
+    4	// Course Instructor: Dr. Cen Li
+    5	// Due Date:        Soft Copy: Midnight, Sunday, 4/17/2011
+    6	//                  Hard Copy: Monday, 4/18/2011
+    7	// Description:     Implementation for flightRec struct
+    8	
+    9	#include "type.h"
+   10	#include <iostream>
+   11	#include <fstream>
+   12	#include <iomanip>
+   13	using namespace std;
+   14	
+   15	// implement the overloaded operator 
+   16	bool flightRec::operator < (const flightRec & rhs) const
+   17	{
+   18	    return (dcNum < rhs.dcNum);
+   19	}
+   20	
+   21	// implement the overloaded operator 
+   22	bool flightRec::operator == (const flightRec & rhs) const
+   23	{
+   24	    return ((flightNum == rhs.flightNum) && (dcNum == rhs.dcNum));
+   25	}
+   26	
+   27	ostream& operator << (ostream & os, const flightRec & f)
+   28	{
+   29	    //display the every element in the flightRec in an appropriate format
+   30	    os << f.flightNum << setw(4) 
+   31	        << "$" << setw(3) << f.price << endl;
+   32	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$ pr -n -e4 sortedListClass.c[Kh
+
+
+2011-04-14 15:51                sortedListClass.h                 Page 1
+
+
+    1	//// PROGRAMMER:    Joo Kim
+    2	// Assignment:      Open Lab Assignment 6
+    3	// Class:           CSCI 2170-003
+    4	// Course Instructor: Dr. Cen Li
+    5	// Due Date:        Soft Copy: Midnight, Sunday, 4/17/2011
+    6	//                  Hard Copy: Monday, 4/18/2011
+    7	// Description:     Header file for sortedListClass
+    8	
+    9	#include <iostream>
+   10	#include <fstream>
+   11	using namespace std;
+   12	
+   13	#ifndef SORTEDLISTCLASS_H
+   14	#define SORTEDLISTCLASS_H
+   15	
+   16	#include "type.h"
+   17	
+   18	struct Node{
+   19	    flightRec record;
+   20	    Node* next;
+   21	};
+   22	
+   23	typedef Node* NodePtr;  //pointer to flightRec
+   24	
+   25	class SortedListClass
+   26	{
+   27	    public:
+   28	        //constructors and destructors
+   29	        SortedListClass();
+   30	        //default constructor
+   31	    
+   32	        SortedListClass(const SortedListClass& s);
+   33	        //copy constructor
+   34	    
+   35	        ~SortedListClass();
+   36	        //Destructor
+   37	    
+   38	        //overloaded operators:
+   39	        friend ostream& operator << (ostream & os, const SortedListClass & s);
+   40	        //overloaded output operator for sortedListClass
+   41	        
+   42	        flightRec& operator [] (int index);   
+   43	        // subscript operator
+   44	    
+   45	        SortedListClass& operator = (const SortedListClass & s);
+   46	        // assignment operator
+   47	    
+   48	        bool operator == (const SortedListClass & rhs);
+   49	        // equal to operator
+   50	    
+   51	        //sortedListClass operations
+   52	        void Insert(const flightRec newRec, bool& success);
+   53	        //Insert a flight record in ascending order by destination city
+   54	        //Pre-condition: SortedListClass object is declared
+   55	        //               zero or more flightRec are in the list
+   56	        //               in ascending order
+
+
+
+
+
+
+
+2011-04-14 15:51                sortedListClass.h                 Page 2
+
+
+   57	        //Post-condition: new record is added to the list in ascending order
+   58	        //                size is increased by 1.
+   59	    
+   60	        void Delete(const flightRec delRec, bool& success);
+   61	        //Delete a flight record that matches with origin and destination
+   62	        //as parameter values
+   63	        //Pre-condition: SortedListClass object is declared
+   64	        //               one or more flightRec are in the list
+   65	        //Post-condition: flightRec that contains the given origin and dest
+   66	        //                is deleted
+   67	        //                return false by reference if < 0 flightRec
+   68	        //                or no match is in the list.
+   69	        //                size is decreased by 1.
+   70	        
+   71	        void Find(flightRec& rec, bool& success);
+   72	        //Finds and returns a flight record with given originand dest
+   73	        //Pre-condition: SortedListClass object is declared
+   74	        //               one or more flightRec are in the list
+   75	        //Post-condition: flightRec is returned  by ref. if finds the match
+   76	        //                otherwise return false by reference if < 0 flightRec
+   77	        //                or no match is in the list.
+   78	
+   79	        int GetLength() const;
+   80	        //returns the size of the list
+   81	        //Pre-condition: SortedListClass object is declared
+   82	        //Post-condition: size(length) of the list is returned
+   83	        
+   84	        bool IsEmpty() const;
+   85	        //check if the list is empty
+   86	        //Pre-condition: SortedListClass object is declared
+   87	        //Post-condition: returns true is one or more flightRec is in the list
+   88	        //                otherwise return false
+   89	        
+   90	    private:
+   91	        int size;               //length of the list
+   92	        NodePtr head;           //pointer to the flightRec in the list
+   93	}; //end list
+   94	
+   95	#endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$ pr -n -e4 sortedListClass.cpp
+
+
+2011-04-14 21:11               sortedListClass.cpp                Page 1
+
+
+    1	//// PROGRAMMER:    Joo Kim
+    2	// Assignment:      Open Lab Assignment 6
+    3	// Class:           CSCI 2170-003
+    4	// Course Instructor: Dr. Cen Li
+    5	// Due Date:        Soft Copy: Midnight, Sunday, 4/17/2011
+    6	//                  Hard Copy: Monday, 4/18/2011
+    7	// Description:     Implementation for sortedListClass
+    8	
+    9	#include "sortedListClass.h"
+   10	#include <iostream>
+   11	#include <fstream>
+   12	#include <cstddef>
+   13	#include <cassert>
+   14	#include <iomanip>
+   15	using namespace std;
+   16	
+   17	SortedListClass::SortedListClass()
+   18	{
+   19	    size = 0;
+   20	    head = NULL;
+   21	}
+   22	
+   23	SortedListClass::SortedListClass(const SortedListClass & s)
+   24	{
+   25	    size = s.size;
+   26	    
+   27	    if(s.head == NULL)
+   28	        head = NULL;        //original list is empty
+   29	    
+   30	    else
+   31	    {
+   32	        //copy first node
+   33	        head = new Node;
+   34	        assert(head!=NULL); //check allocation
+   35	        head->record = s.head->record;
+   36	        
+   37	        //copy rest of list
+   38	        NodePtr NewPtr = head;
+   39	        
+   40	        //NewPtr points to last node in new list
+   41	        //OrigPtr points to nodes in original list
+   42	        for(NodePtr OrigPtr = s.head->next; OrigPtr!=NULL; 
+   43	            OrigPtr=OrigPtr->next)
+   44	        {
+   45	            NewPtr->next = new Node;
+   46	            assert(NewPtr->next != NULL);
+   47	            NewPtr = NewPtr->next;
+   48	            NewPtr->record = OrigPtr->record;
+   49	        }
+   50	        
+   51	        NewPtr->next = NULL;
+   52	    }
+   53	}
+   54	
+   55	SortedListClass::~SortedListClass()
+   56	{
+
+
+
+
+
+
+
+2011-04-14 21:11               sortedListClass.cpp                Page 2
+
+
+   57	    NodePtr curr=head;
+   58	    NodePtr prev=head;
+   59	    
+   60	    //delete every nodes in the list
+   61	    while(curr!=NULL)
+   62	    {
+   63	        prev=curr;
+   64	        curr=curr->next;
+   65	        
+   66	        prev->next = NULL;
+   67	        delete prev;
+   68	        prev = NULL;
+   69	    }
+   70	}
+   71	
+   72	ostream & operator << (ostream & os, const SortedListClass & s)
+   73	{
+   74	    //for traversing down the list
+   75	    NodePtr curr = s.head;
+   76	
+   77	    //display every node
+   78	    //while the curr is not pointing the end of the list
+   79	    while(curr!=NULL)
+   80	    {
+   81	        os << curr->record.flightNum
+   82	        << setw(4) << "$" << setw(3) << curr->record.price << endl;
+   83	        
+   84	        curr = curr->next;
+   85	    }
+   86	    
+   87	    cout << endl;
+   88	    
+   89	    //print the length of the list
+   90	    cout << "Number of records: " << s.size << endl << endl;
+   91	}
+   92	
+   93	flightRec& SortedListClass::operator [] (int index)
+   94	{
+   95	    NodePtr curr = head;
+   96	    int count=0;
+   97	    
+   98	    //traverse the list
+   99	    while(curr!=NULL && count < index)
+  100	    {
+  101	        curr=curr->next;
+  102	        count++;
+  103	    }
+  104	    return curr->record;
+  105	}
+  106	
+  107	SortedListClass& SortedListClass::operator = (const SortedListClass & s)
+  108	{
+  109	    size = s.size;
+  110	    
+  111	    if(s.head == NULL)
+  112	        head = NULL;        //original list is empty
+
+
+
+
+
+
+
+2011-04-14 21:11               sortedListClass.cpp                Page 3
+
+
+  113	    
+  114	    else
+  115	    {
+  116	        //copy first node
+  117	        head = new Node;
+  118	        assert(head!=NULL); //check allocation
+  119	        head->record = s.head->record;
+  120	        
+  121	        //copy rest of list
+  122	        NodePtr NewPtr = head;
+  123	        
+  124	        //NewPtr points to last node in new list
+  125	        //OrigPtr points to nodes in original list
+  126	        for(NodePtr OrigPtr = s.head->next; OrigPtr!=NULL; 
+  127	            OrigPtr=OrigPtr->next)
+  128	        {
+  129	            NewPtr->next = new Node;
+  130	            assert(NewPtr->next != NULL);
+  131	            NewPtr = NewPtr->next;
+  132	            NewPtr->record = OrigPtr->record;
+  133	        }
+  134	        NewPtr->next = NULL;    //last node's next assigns NULL
+  135	    }
+  136	    
+  137	    return *this;
+  138	}
+  139	
+  140	bool SortedListClass::operator == (const SortedListClass & rhs)
+  141	{
+  142	    if(size != rhs.size)
+  143	        return false;
+  144	    else
+  145	    {
+  146	        for (NodePtr lhsPtr=head, rhsPtr=rhs.head; 
+  147	                (lhsPtr!=NULL)&&(rhsPtr!=NULL); 
+  148	            lhsPtr=lhsPtr->next, rhsPtr=rhsPtr->next)
+  149	        {
+  150	            if  ( !(lhsPtr->record == rhsPtr->record) ) // !=
+  151	                return false;
+  152	        }
+  153	        
+  154	        return true;
+  155	    }
+  156	}
+  157	
+  158	void SortedListClass::Insert(const flightRec newRec, bool& success)
+  159	{
+  160	    //for traversing down the list and finding the insertion point
+  161	    NodePtr prev, curr;
+  162	    
+  163	    NodePtr newNode = new Node;         //create new node
+  164	    assert(newNode);                    //check allocation
+  165	    
+  166	    success = bool(newNode!=NULL);
+  167	    
+  168	    //if the memory has been allocated,
+
+
+
+
+
+
+
+2011-04-14 21:11               sortedListClass.cpp                Page 4
+
+
+  169	    //insertion will be successful
+  170	    if(success)
+  171	    {
+  172	        newNode->record = newRec;       //copy data to new node
+  173	        newNode->next = NULL;
+  174	        
+  175	        //if the list is empty, make newNode as head
+  176	        if(head==NULL)
+  177	            head = newNode;
+  178	        
+  179	        //else if the new data's destination comes before the first node,
+  180	        //insert the new node in the first position
+  181	        else if(newRec < head->record)
+  182	        {
+  183	            newNode->next = head;
+  184	            head = newNode;
+  185	        }
+  186	        
+  187	        //else traverse down the list to find the insertion point
+  188	        //and insert in that position
+  189	        else
+  190	        {
+  191	            prev = head;
+  192	            curr = head;
+  193	            
+  194	            while(curr!=NULL && curr->record < newRec)
+  195	            {
+  196	                prev=curr;
+  197	                curr=curr->next;
+  198	            }
+  199	            
+  200	            newNode->next = curr;
+  201	            prev->next = newNode;
+  202	        }
+  203	        
+  204	        size++;                         //increase the size by one
+  205	    }
+  206	}
+  207	
+  208	void SortedListClass::Delete(const flightRec delRec, bool& success)
+  209	{
+  210	    //for traversing down the list and finding the match to delete
+  211	    NodePtr prev, curr;
+  212	    
+  213	    //if the list is empty, cannot perform the deletion
+  214	    if(IsEmpty())
+  215	    {
+  216	        cout << "The list is empty." << endl;
+  217	        success = false;
+  218	    }
+  219	    
+  220	    //else if the first node matches with the record that the
+  221	    //user wants to delete, delete the first node
+  222	    else if(head->record == delRec)
+  223	    {
+  224	        curr = head;
+
+
+
+
+
+
+
+2011-04-14 21:11               sortedListClass.cpp                Page 5
+
+
+  225	        head = head->next;
+  226	        curr->next = NULL;
+  227	        delete curr;
+  228	        curr = NULL;
+  229	        
+  230	        success = true;
+  231	        size--;
+  232	    }
+  233	    
+  234	    //else, traverse down the list and find the match to perform delete
+  235	    else
+  236	    {
+  237	        prev = head;
+  238	        curr = head;
+  239	        
+  240	        while(curr!=NULL && !(curr->record == delRec))
+  241	        {
+  242	            prev = curr;
+  243	            curr = curr->next;
+  244	        }
+  245	        
+  246	        //if found, curr should be at the deletion point
+  247	        //delete the node
+  248	        if(curr!=NULL)
+  249	        {
+  250	            prev->next = curr->next;
+  251	            curr->next = NULL;
+  252	            delete curr;
+  253	            curr = NULL;
+  254	            
+  255	            success = true;
+  256	            size--;
+  257	        }
+  258	        
+  259	        //if not found, then the curr should be equal to NULL
+  260	        //display appropriate message and the deletion fails
+  261	        else
+  262	        {
+  263	            cout << "No match is in the list." << endl;
+  264	            success = false;
+  265	        }
+  266	    }
+  267	}
+  268	
+  269	void SortedListClass::Find(flightRec& rec, bool& success)
+  270	{
+  271	    //for traversing down the list and finding the match
+  272	    NodePtr curr;
+  273	    
+  274	    //if the list is empty, no match is in the list
+  275	    if(IsEmpty())
+  276	    {
+  277	        cout << "The list is empty." << endl;
+  278	        success = false;
+  279	    }
+  280	    
+
+
+
+
+
+
+
+2011-04-14 21:11               sortedListClass.cpp                Page 6
+
+
+  281	    //else, traverse down the list and find the match
+  282	    else
+  283	    {
+  284	        curr = head;
+  285	        
+  286	        while(curr!=NULL && !(curr->record == rec))
+  287	            curr = curr->next;
+  288	        
+  289	        //if found, return the record by reference
+  290	        if(curr!=NULL)
+  291	        {
+  292	            success = true;
+  293	            rec = curr->record;
+  294	        }
+  295	        
+  296	        //if not found, curr should be equal to NULL
+  297	        //match not found
+  298	        else
+  299	            success = false;
+  300	    }
+  301	}
+  302	
+  303	int SortedListClass::GetLength() const
+  304	{
+  305	    return size;
+  306	}
+  307	
+  308	bool SortedListClass::IsEmpty() const
+  309	{
+  310	    //if head is equal to NULL, then the list is empty
+  311	    if(head==NULL)
+  312	        return true;
+  313	    else
+  314	        return false;
+  315	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$ pr -n -e4 stackClass.h
+
+
+2011-04-14 17:48                   stackClass.h                   Page 1
+
+
+    1	//// PROGRAMMER:    Joo Kim
+    2	// Assignment:      Open Lab Assignment 6
+    3	// Class:           CSCI 2170-003
+    4	// Course Instructor: Dr. Cen Li
+    5	// Due Date:        Soft Copy: Midnight, Sunday, 4/17/2011
+    6	//                  Hard Copy: Monday, 4/18/2011
+    7	// Description:     Header for StackClass Class
+    8	#ifndef StackClass_H
+    9	#define StackClass_H
+   10	
+   11	typedef int stackItemType;
+   12	struct stackNode
+   13	{
+   14	   stackItemType  Item;
+   15	   stackNode * Next;
+   16	};
+   17	
+   18	typedef stackNode * stackPtrType;
+   19	
+   20	class StackClass
+   21	{
+   22	public:
+   23	// constructors and destructor:
+   24	   StackClass();  // default constructor
+   25	   StackClass(const StackClass & S);
+   26	   ~StackClass();
+   27	
+   28	// stack operations:
+   29	   bool IsEmpty() const;
+   30	   // Determines whether a stack is empty.
+   31	   // Precondition: None.
+   32	   // Postcondition: Returns true if the stack is empty;
+   33	   // otherwise returns false.
+   34	 
+   35	   void Push(stackItemType NewItem);
+   36	   // Adds an item to the top of a stack.
+   37	   // Precondition: NewItem is the item to be added.
+   38	   // Postcondition: If insertion was successful, NewItem
+   39	   // is on the top of the stack and Success is true; 
+   40	   // otherwise Success is false.
+   41	
+   42	   void Pop();
+   43	   // Removes the top of a stack.
+   44	   // Precondition: None.
+   45	   // Postcondition: If the stack was not empty, the item 
+   46	   // that was added most recently is removed and Success 
+   47	   // is true. However, if the stack was empty, deletion is 
+   48	   // impossible and Success is false.
+   49	
+   50	   void Pop(stackItemType& StackTop);
+   51	   // Retrieves and removes the top of a stack.
+   52	   // Precondition: None.
+   53	   // Postcondition: If the stack was not empty, StackTop
+   54	   // contains the item that was added most recently, the 
+   55	   // item is removed, and Success is true. However, if the
+   56	   // stack was empty, deletion is impossible, StackTop is 
+
+
+
+
+
+
+
+2011-04-14 17:48                   stackClass.h                   Page 2
+
+
+   57	   // unchanged, and Success is false.
+   58	
+   59	   void GetTop(stackItemType& StackTop) const;
+   60	   // Retrieves the top of a stack.
+   61	   // Precondition: None.
+   62	   // Postcondition: If the stack was not empty, StackTop
+   63	   // contains the item that was added most recently and 
+   64	   // Success is true. However, if the stack was empty, the 
+   65	   // operation fails, StackTop is unchanged, and Success 
+   66	   // is false. The stack is unchanged.
+   67	
+   68	private:
+   69	   stackPtrType TopPtr;  // points to top of stack
+   70	};  // end class
+   71	// End of header file.
+   72	
+   73	#endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$ r[Kpr -n -e4 stackClass.cpp
+
+
+2011-04-14 17:59                  stackClass.cpp                  Page 1
+
+
+    1	//// PROGRAMMER:    Joo Kim
+    2	// Assignment:      Open Lab Assignment 6
+    3	// Class:           CSCI 2170-003
+    4	// Course Instructor: Dr. Cen Li
+    5	// Due Date:        Soft Copy: Midnight, Sunday, 4/17/2011
+    6	//                  Hard Copy: Monday, 4/18/2011
+    7	// Description:     Implementation for StackClass Class
+    8	
+    9	#include "stackClass.h"  // header file
+   10	#include <stddef.h>  // for NULL
+   11	#include <assert.h>  // for assert
+   12	
+   13	StackClass::StackClass() : TopPtr(NULL)
+   14	{
+   15	}  // end default constructor
+   16	
+   17	StackClass::StackClass(const StackClass& S) 
+   18	{
+   19	   if (S.TopPtr == NULL)
+   20	      TopPtr = NULL;  // original list is empty
+   21	
+   22	   else
+   23	   {  // copy first node
+   24	      TopPtr = new stackNode;
+   25	      assert(TopPtr != NULL);
+   26	      TopPtr->Item = S.TopPtr->Item;
+   27	
+   28	      // copy rest of list
+   29	      stackPtrType NewPtr = TopPtr;    // new list pointer
+   30	      for (stackPtrType OrigPtr = S.TopPtr->Next;
+   31	                   OrigPtr != NULL;
+   32	                   OrigPtr = OrigPtr->Next)
+   33	      {  NewPtr->Next = new stackNode;
+   34	         assert(NewPtr->Next != NULL);
+   35	         NewPtr = NewPtr->Next;
+   36	         NewPtr->Item = OrigPtr->Item;
+   37	      }  // end for
+   38	
+   39	      NewPtr->Next = NULL;
+   40	   }  // end if
+   41	}  // end copy constructor
+   42	
+   43	StackClass::~StackClass()
+   44	{
+   45	   // pop until stack is empty
+   46	   while(!IsEmpty())
+   47	       Pop();
+   48	}  // end destructor
+   49	
+   50	bool StackClass::IsEmpty() const
+   51	{
+   52	   return bool(TopPtr == NULL);
+   53	}  // end IsEmpty
+   54	
+   55	void StackClass::Push(stackItemType NewItem)
+   56	{
+
+
+
+
+
+
+
+2011-04-14 17:59                  stackClass.cpp                  Page 2
+
+
+   57	   bool Success;
+   58	    
+   59	   // create a new node
+   60	   stackPtrType NewPtr = new stackNode;
+   61	
+   62	   Success = bool(NewPtr != NULL);  // check allocation
+   63	   if (Success)
+   64	   {  // allocation successful; set data portion of new node
+   65	      NewPtr->Item = NewItem;
+   66	
+   67	      // insert the new node
+   68	      NewPtr->Next = TopPtr;
+   69	      TopPtr = NewPtr;
+   70	   }  // end if
+   71	}  // end Push
+   72	
+   73	void StackClass::Pop()
+   74	{
+   75	   bool Success;
+   76	    
+   77	   Success = bool(!IsEmpty());
+   78	   if (Success)
+   79	   {  // stack is not empty; delete top
+   80	      stackPtrType Temp = TopPtr;
+   81	      TopPtr = TopPtr->Next;
+   82	
+   83	      // return deleted node to system
+   84	      Temp->Next = NULL;  // safeguard
+   85	      delete Temp;
+   86	   }  // end if
+   87	}  // end Pop
+   88	
+   89	void StackClass::Pop(stackItemType& StackTop)
+   90	{
+   91	   bool Success;
+   92	    
+   93	   Success = bool(!IsEmpty());
+   94	   if (Success)
+   95	   {  // stack is not empty; retrieve and delete top
+   96	      StackTop = TopPtr->Item;  
+   97	      stackPtrType Temp = TopPtr;
+   98	      TopPtr = TopPtr->Next;
+   99	
+  100	      // return deleted node to system
+  101	      Temp->Next = NULL;  // safeguard
+  102	      delete Temp;
+  103	   }  // end if
+  104	}  // end Pop
+  105	
+  106	void StackClass::GetTop(stackItemType& StackTop) const
+  107	{
+  108	   bool Success = bool(!IsEmpty());
+  109	   if (Success)
+  110	      // stack is not empty; retrieve top
+  111	      StackTop = TopPtr->Item;  
+  112	}  // end GetStackTop
+
+
+
+
+
+
+
+2011-04-14 17:59                  stackClass.cpp                  Page 3
+
+
+  113	// End of implementation file.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$ pr -n -e4 flightMap.h
+
+
+2011-04-14 21:50                   flightMap.h                    Page 1
+
+
+    1	//// PROGRAMMER:    Joo Kim
+    2	// Assignment:      Open Lab Assignment 6
+    3	// Class:           CSCI 2170-003
+    4	// Course Instructor: Dr. Cen Li
+    5	// Due Date:        Soft Copy: Midnight, Sunday, 4/17/2011
+    6	//                  Hard Copy: Monday, 4/18/2011
+    7	// Description:     Header file for flightMap Class
+    8	
+    9	#include <iostream>
+   10	#include <fstream>
+   11	using namespace std;
+   12	
+   13	#ifndef FLIGHTMAPCLASS_H
+   14	#define FLIGHTMAPCLASS_H
+   15	
+   16	#include "sortedListClass.h"
+   17	#include "stackClass.h"
+   18	
+   19	class FlightMapClass
+   20	{
+   21	    public:
+   22	        //constructors and destructor
+   23	        FlightMapClass();
+   24	        //default constructor
+   25	    
+   26	        FlightMapClass(const FlightMapClass& f);
+   27	        //copy constructor
+   28	    
+   29	        ~FlightMapClass();
+   30	        //destructor
+   31	    
+   32	        
+   33	        //FlightMapClass operations
+   34	        void ReadCities(ifstream& myCities);
+   35	        //Read cities from a data file
+   36	        //Pre-condition: Input stream is provided
+   37	        //Post-condition: Data file is read
+   38	        //                Cities are in ascending order
+   39	    
+   40	        void BuildMap(ifstream& myFlights);
+   41	        //Reads flight information and build the adjacency list
+   42	        //Pre-condition: list of the flight information is provided
+   43	        //Post-condition: Flight map is built
+   44	        
+   45	        void DisplayMap() const;
+   46	        //Displays the flight map in a formatted table
+   47	        //Pre-condition: none
+   48	        //Post-condition: Flight map is displayed
+   49	        
+   50	        bool CheckCity(string cityName) const;
+   51	        //Check whether a city is in the cities that EastWest airline serves.
+   52	        //Pre-condition: cityNumber to be checked is provided
+   53	        //Post-condition: return true if the city is in the cities array
+   54	        //              otherwise return false
+   55	        
+   56	        void DisplayAllCities() const;
+
+
+
+
+
+
+
+2011-04-14 21:50                   flightMap.h                    Page 2
+
+
+   57	        //Displays all of the cities
+   58	        
+   59	        void MarkVisited(int city);
+   60	        //Marks a city as visited
+   61	        //Pre-condition: city to be marked as visited is provided
+   62	        //Post-condition: a city is marked as visited
+   63	        
+   64	        void UnvisitAll();
+   65	        //Clears marks on all cities
+   66	        //Pre-condition: there are > 0 cities in a cities array
+   67	        //Post-condition: all cities marked as unvisited
+   68	        
+   69	        bool IsVisited(int city) const;
+   70	        //Determines whether a city was visited
+   71	        //Pre-condition: city is provided
+   72	        //Post-condition: return true if city has been visited
+   73	        //              otherwise return false
+   74	        
+   75	        bool GetNextCity(int fromCity, int & nextCity);
+   76	        //Determines the next unvisited city, if any,
+   77	        //that is adjacent to a given city.
+   78	        //success indicates whether an unvisited adjacent city was found
+   79	        //Pre-condition: topCity and nextCity provided
+   80	        //Post-condition: return true if an unvisited adjacent city was found
+   81	        //              otherwise return false
+   82	        
+   83	        int GetCityNumber(string cityName) const;
+   84	        //returns the integer index corresponding to a city name
+   85	        //Pre-condition: name of a city is provided
+   86	        //Post-condition: returns the index number corresponding to a city name
+   87	        
+   88	        string GetCityName(int cityNumber) const;
+   89	        //returns the name of a city given its corresponding index
+   90	        //Pre-condition: number of a city is provided
+   91	        //Post-condition: returns the city's name
+   92	        
+   93	        void FindPath(int originCity, int destinationCity);
+   94	        //Determines whether a sequence of flights between two cities exists.
+   95	        //Pre-condition: originCity and destinationCity are the city
+   96	        //              numbers of the origin and destination city, respectively
+   97	        //Post-condition: returns true if a sequence of flights exists
+   98	        //              from origin to destination; otherwise return false.
+   99	        //              Cities visited during the search are marked as visited
+  100	        //              in the flight map.
+  101	        
+  102	    private:
+  103	        int size;               //number of cities
+  104	        string* cities;         //list of cities
+  105	        bool* visited;          //records whether a city has been visited
+  106	        SortedListClass* map;   //flight map
+  107	};
+  108	
+  109	#endif
+
+
+
+
+
+
+
+
+$ pr -n -e4 flightMap.cpp
+
+
+2011-04-14 21:54                  flightMap.cpp                   Page 1
+
+
+    1	//// PROGRAMMER:    Joo Kim
+    2	// Assignment:      Open Lab Assignment 6
+    3	// Class:           CSCI 2170-003
+    4	// Course Instructor: Dr. Cen Li
+    5	// Due Date:        Soft Copy: Midnight, Sunday, 4/17/2011
+    6	//                  Hard Copy: Monday, 4/18/2011
+    7	// Description:     Implementation for flightMap Class
+    8	
+    9	#include "flightMap.h"
+   10	#include <iostream>
+   11	#include <fstream>
+   12	#include <cstddef>
+   13	#include <cassert>
+   14	#include <iomanip>
+   15	using namespace std;
+   16	
+   17	FlightMapClass::FlightMapClass()
+   18	{
+   19	    size = 0;
+   20	    cities = NULL;
+   21	    visited = NULL;
+   22	    map = NULL;
+   23	}
+   24	
+   25	FlightMapClass::FlightMapClass(const FlightMapClass& f)
+   26	{
+   27	    int i;              //loop index
+   28	    
+   29	    //copy the size
+   30	    size = f.size;
+   31	    
+   32	    //dynamic allocation for 1D array
+   33	    cities = new string [size];
+   34	    assert(cities != NULL);
+   35	    
+   36	    //copy the cities
+   37	    for(i=0; i<size; i++)
+   38	        cities[i] = f.cities[i];
+   39	    
+   40	    //dynamic allocation for 1D array
+   41	    visited = new bool [size];
+   42	    assert(visited != NULL);
+   43	    
+   44	    //copy the visited array
+   45	    for(i=0; i<size; i++)
+   46	        visited[i] = f.visited[i];
+   47	    
+   48	    //dynamic allocation
+   49	    map = new SortedListClass[size];
+   50	    
+   51	    //copy the map using overloaded = operator for SortedListClass
+   52	    for(i=0; i<size; i++)
+   53	        map[i] = f.map[i];
+   54	}
+   55	
+   56	FlightMapClass::~FlightMapClass()
+
+
+
+
+
+
+
+2011-04-14 21:54                  flightMap.cpp                   Page 2
+
+
+   57	{       
+   58	    delete [] cities;
+   59	    delete [] map;
+   60	}
+   61	
+   62	void FlightMapClass::ReadCities(ifstream& myCities)
+   63	{   
+   64	    string tempCity;        //holds the city name temporarily
+   65	    int i,j,k;              //loop index
+   66	    
+   67	    myCities >> size; 
+   68	    
+   69	    cities = new string [size];
+   70	    visited = new bool [size];
+   71	    
+   72	    for(i=0; i<size; i++)
+   73	    {
+   74	        myCities >> tempCity;
+   75	        
+   76	        //if the list is empty, put tempCity into
+   77	        //the first element of the array
+   78	        if(i == 0)
+   79	            cities[i] = tempCity;
+   80	
+   81	        else
+   82	        {
+   83	            //finding location
+   84	            //i is the current size of the array
+   85	            for(j=0; j<i; j++)
+   86	            {
+   87	                if(tempCity < cities[j])
+   88	                {
+   89	                    //if the location has been found,
+   90	                    //shift every elements after the locaton by one
+   91	                    //i is the current size of the array
+   92	                    for(k=i; k>=j; k--)
+   93	                        cities[k] = cities[k-1];
+   94	                    break;
+   95	                }
+   96	            }
+   97	            //put tempCity into the found position
+   98	            cities[j] = tempCity;
+   99	        }
+  100	        
+  101	        visited[i] = false;
+  102	    }
+  103	}
+  104	
+  105	void FlightMapClass::BuildMap(ifstream& myFlights)
+  106	{
+  107	    int flightNum, price;       //holds the flightNum and price from a data file
+  108	    string origin, destination; //holds the cities info from a data file
+  109	    flightRec temp;             //holds the data temporarily
+  110	    bool success;               //whether the insertion is successful or not
+  111	    
+  112	    map = new SortedListClass[size];
+
+
+
+
+
+
+
+2011-04-14 21:54                  flightMap.cpp                   Page 3
+
+
+  113	    
+  114	    //Reading info from a data file
+  115	    while(myFlights >> flightNum >> origin >> destination >> price)
+  116	    {
+  117	        temp.flightNum = flightNum;
+  118	        temp.price = price;
+  119	        temp.dcNum = GetCityNumber(destination);
+  120	        
+  121	        //This for loop traverse the cities list
+  122	        //and look for the city that matches with the current
+  123	        //record's origin city
+  124	        for(int i=0; i<size; i++)
+  125	        {
+  126	            //if found the city that matches,
+  127	            if(origin == cities[i])
+  128	            {
+  129	                //then insert the current record 
+  130	                //and link it with the current city
+  131	                map[i].Insert(temp, success);
+  132	                
+  133	                //if the insertion fails, display appropriate message
+  134	                if(!success)
+  135	                {
+  136	                cout << "Flight #" << flightNum 
+  137	                    << " insert operation failed." << endl;
+  138	                }
+  139	            }
+  140	        }
+  141	    }
+  142	}
+  143	
+  144	void FlightMapClass::DisplayMap() const
+  145	{
+  146	    SortedListClass currList;       //holds the current city's list
+  147	    flightRec currFlight;           //holds the current flight info
+  148	    
+  149	    //Display the heading
+  150	    cout << setw(19) << "Origin" << setw(21) << "Destination"
+  151	        << setw(8) << "Flight" << setw(7) << "Price" << endl;
+  152	    cout << "========================================================" << endl;
+  153	    
+  154	    //This for loop is used to display the entire flight map
+  155	    for(int i=0; i<size; i++)
+  156	    {
+  157	        //if the origin city has no flight at all,
+  158	        //then skip the city
+  159	        if(map[i].GetLength() == 0)
+  160	            continue;
+  161	        else
+  162	        {
+  163	        
+  164	            //Display origin city
+  165	            cout << " From " << setw(13) << cities[i] << " to:";
+  166	            
+  167	            currList = map[i];
+  168	            
+
+
+
+
+
+
+
+2011-04-14 21:54                  flightMap.cpp                   Page 4
+
+
+  169	            for(int j=0; j<currList.GetLength(); j++)
+  170	            {
+  171	                //currFlight is the current record in the list
+  172	                currFlight = currList[j];
+  173	                
+  174	                //Using different method to display in a tabular format
+  175	                if(j==0)
+  176	                {
+  177	                    cout << setw(17) << GetCityName(currFlight.dcNum)
+  178	                        << setw(8) << currFlight.flightNum
+  179	                        << setw(4) << "$" << setw(3) << currFlight.price
+  180	                        << endl;
+  181	                }
+  182	                else
+  183	                {
+  184	                    cout << setw(40) << GetCityName(currFlight.dcNum)
+  185	                        << setw(8) << currFlight.flightNum
+  186	                        << setw(4) << "$" << setw(3) << currFlight.price
+  187	                        << endl;
+  188	                }
+  189	            }
+  190	        }
+  191	    }
+  192	}
+  193	
+  194	bool FlightMapClass::CheckCity(string cityName) const
+  195	{
+  196	    bool found = false;
+  197	    
+  198	    for(int i=0; i<size; i++)
+  199	    {
+  200	        if(cityName == cities[i])
+  201	            found = true;
+  202	    }
+  203	    
+  204	    return found;
+  205	}
+  206	        
+  207	void FlightMapClass::DisplayAllCities() const
+  208	{
+  209	    //This for loop prints every cities in cities array
+  210	    for(int i=0; i<size; i++)
+  211	        cout << cities[i] << endl;
+  212	}
+  213	
+  214	void FlightMapClass::MarkVisited(int city)
+  215	{
+  216	    visited[city] = true;
+  217	}
+  218	
+  219	void FlightMapClass::UnvisitAll()
+  220	{
+  221	    //This for loop changes all of the boolean values
+  222	    //to false in visited array
+  223	    for(int i=0; i<size; i++)
+  224	        visited[i] = false;
+
+
+
+
+
+
+
+2011-04-14 21:54                  flightMap.cpp                   Page 5
+
+
+  225	}
+  226	
+  227	bool FlightMapClass::IsVisited(int city) const
+  228	{
+  229	    return visited[city];
+  230	}
+  231	
+  232	bool FlightMapClass::GetNextCity(int fromCity, int & nextCity)
+  233	{
+  234	    SortedListClass currList;   //holds the current city's adj. list
+  235	    flightRec currFlight;       //holds the current flight info
+  236	    int cityNum;                //holds the destination city number to check
+  237	    bool success = false;
+  238	    
+  239	    //currList holds the adj. list of fromCity
+  240	    currList = map[fromCity];
+  241	    
+  242	    //This for loop searches the unvisited adjacent city
+  243	    for(int i=0; i<currList.GetLength(); i++)
+  244	    {
+  245	        //currFlight holds the ith flight info in currList
+  246	        currFlight = currList[i];
+  247	        
+  248	        //cityNum holds the currFlight's destination city number
+  249	        cityNum = currFlight.dcNum;
+  250	        
+  251	        //Check if the adjacent city is visited
+  252	        //if not visited, success is true and get out of the loop
+  253	        if(!visited[cityNum])
+  254	        {
+  255	            success = true;
+  256	            break;
+  257	        }
+  258	    }
+  259	    
+  260	    //if the unvisted adjacent city has been found,
+  261	    //return nextCity setted to found city number by reference
+  262	    if(success)
+  263	        nextCity = cityNum;
+  264	    
+  265	    return success;
+  266	}
+  267	
+  268	int FlightMapClass::GetCityNumber(string cityName) const
+  269	{
+  270	    int i;                  //loop index
+  271	    
+  272	    //This for loop searches the corresponding cityName
+  273	    for(i=0; i<size; i++)
+  274	    {
+  275	        if(cities[i] == cityName)
+  276	            break;
+  277	    }
+  278	    
+  279	    //return the corresponding number
+  280	    return i;
+
+
+
+
+
+
+
+2011-04-14 21:54                  flightMap.cpp                   Page 6
+
+
+  281	}
+  282	
+  283	string FlightMapClass::GetCityName(int cityNumber) const
+  284	{
+  285	    //return the actual name of the cityNumber
+  286	    return cities[cityNumber];
+  287	}
+  288	
+  289	void FlightMapClass::FindPath(int originCity, int destinationCity)
+  290	{
+  291	    StackClass aStack;          //Stack to hold itinerary
+  292	    StackClass auxStack;        //used to store the itinerary in reverse order
+  293	    int topCity, nextCity;      //holds the city numbers
+  294	    int ocNum;                  //holds the origin city's number in currFlight
+  295	    int temp;
+  296	    bool success;
+  297	    int total=0;                //holds the total price
+  298	    
+  299	    UnvisitAll();           //clear marks on all cities
+  300	    
+  301	    //push origin city onto aStack, mark it visited
+  302	    aStack.Push(originCity);
+  303	    MarkVisited(originCity);
+  304	    
+  305	    //Get the origin city
+  306	    aStack.GetTop(topCity);
+  307	    
+  308	    //Loop invariant: the stack contains a directed path
+  309	    //from the origin city at the bottom of the stack to the city
+  310	    //at the top of the stack
+  311	    //find and unvisited city adjacent to the city on the top of the stack
+  312	    while(!aStack.IsEmpty() && (topCity != destinationCity))
+  313	    {
+  314	        success = GetNextCity(topCity, nextCity);
+  315	        
+  316	        if(!success)
+  317	            aStack.Pop(); //no city found, backtrack
+  318	        
+  319	        else    //visit city
+  320	        {
+  321	            aStack.Push(nextCity);
+  322	            MarkVisited(nextCity);
+  323	        }
+  324	        
+  325	        aStack.GetTop(topCity);
+  326	    }
+  327	    
+  328	    if(aStack.IsEmpty())
+  329	    {   //no path exists
+  330	        cout << "Sorry, EastWest airline does not fly from "
+  331	            << GetCityName(originCity) << " to "
+  332	            << GetCityName(destinationCity) << "." << endl;
+  333	    }
+  334	    else
+  335	    {
+  336	        SortedListClass currList;   //holds the current city's adj. list
+
+
+
+
+
+
+
+2011-04-14 21:54                  flightMap.cpp                   Page 7
+
+
+  337	        flightRec currFlight;       //holds the current flight info
+  338	        
+  339	        //Print the heading
+  340	        cout << "EastWest airline serves between these two cities. " << endl;
+  341	        cout << "The flight itinerary is:" << endl;
+  342	        cout << "Flight #" << setw(15) << "From"
+  343	            << setw(15) << "To" << setw(7) << "Cost" << endl;
+  344	        
+  345	        cout << "---------------------------------------------" << endl;
+  346	        
+  347	        //Put itinerary in reverse order
+  348	        while(!aStack.IsEmpty())
+  349	        {
+  350	            aStack.Pop(temp);
+  351	            auxStack.Push(temp);
+  352	        }
+  353	        
+  354	        //Get the origin city
+  355	        auxStack.Pop(temp);
+  356	        ocNum = temp;
+  357	        while(!auxStack.IsEmpty())
+  358	        {
+  359	            //currList changes through a while loop
+  360	            //as the temp(city) changes
+  361	            currList = map[temp];
+  362	            
+  363	            //Pull the next destination city's number
+  364	            auxStack.Pop(temp);
+  365	            for(int i=0; i<currList.GetLength(); i++)
+  366	            {
+  367	                //currFlight holds the ith flight of currList
+  368	                currFlight = currList[i];
+  369	                
+  370	                //if the ith currFlight's destination city number
+  371	                //matches with the next destination city's number
+  372	                //print the flight info
+  373	                if(currFlight.dcNum == temp)
+  374	                {
+  375	                    cout << setw(8) << currFlight.flightNum
+  376	                        << setw(15) << GetCityName(ocNum)
+  377	                        << setw(15) << GetCityName(currFlight.dcNum)
+  378	                        << setw(3) << "$" <<  setw(4) << currFlight.price
+  379	                        << endl;
+  380	                    
+  381	                    //Calculate the total price
+  382	                    total = total+currFlight.price;
+  383	                    
+  384	                    //Set the origin city's number to
+  385	                    //current destination city's number
+  386	                    ocNum = currFlight.dcNum;
+  387	                    break;
+  388	                }
+  389	            }
+  390	        }
+  391	        
+  392	        //Print the total
+
+
+
+
+
+
+
+2011-04-14 21:54                  flightMap.cpp                   Page 8
+
+
+  393	        cout << "---------------------------------------------" << endl;
+  394	        cout << setw(38) << "Total:"
+  395	            << setw(3) << "$" <<  setw(4) << total << endl;
+  396	    }
+  397	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$ -r [K[K[Kpr -n -e4 ola6.cc
+
+
+2011-04-14 21:56                     ola6.cc                      Page 1
+
+
+    1	//// PROGRAMMER:    Joo Kim
+    2	// Assignment:      Open Lab Assignment 6
+    3	// Class:           CSCI 2170-003
+    4	// Course Instructor: Dr. Cen Li
+    5	// Due Date:        Soft Copy: Midnight, Sunday, 4/17/2011
+    6	//                  Hard Copy: Monday, 4/18/2011
+    7	// Description:     This program will generate flight itinerary
+    8	//                  for customer requests to fly from some origin city to
+    9	//                  some destination city if available.
+   10	
+   11	#include "flightMap.h"
+   12	#include "sortedListClass.h"
+   13	#include "stackClass.h"
+   14	#include <iostream>
+   15	#include <fstream>
+   16	using namespace std;
+   17	
+   18	int main()
+   19	{
+   20	    FlightMapClass map;
+   21	    string originCity, destinationCity;
+   22	    int ocNum, dcNum;               //numbers of origin and destination city
+   23	    
+   24	    ifstream myCities("cities.dat");
+   25	    ifstream myFlights("flights.dat");
+   26	    ifstream myRequests("requests.dat");
+   27	    
+   28	    //Read cities from a data file
+   29	    map.ReadCities(myCities);
+   30	    
+   31	    //Read flight informations from a data file and build a flight map
+   32	    map.BuildMap(myFlights);
+   33	    
+   34	    //This while loop reads the request information
+   35	    //and search for the flight itinerary
+   36	    //If the path has been found, flight information will be
+   37	    //printed according to the itinerary
+   38	    //otherwise, that is, if not found, appropriate message will be displayed
+   39	    while(myRequests >> originCity >> destinationCity)
+   40	    {
+   41	        cout << "Request is to fly from " << originCity
+   42	            << " to " << destinationCity << "." << endl;
+   43	        
+   44	        //Check if the airline serves originCity
+   45	        if(!map.CheckCity(originCity))
+   46	        {
+   47	            cout << "Sorry, EastWest airline does not serve "
+   48	                << originCity << "." << endl;
+   49	        }
+   50	        //Check if the airline serves destinationCity
+   51	        else if(!map.CheckCity(destinationCity))
+   52	        {
+   53	            cout << "Sorry, EastWest airline does not serve "
+   54	                << destinationCity << "." << endl;
+   55	        }
+   56	        else    //airline serves both origin and destination city
+
+
+
+
+
+
+
+2011-04-14 21:56                     ola6.cc                      Page 2
+
+
+   57	        {
+   58	            //ocNum holds the city number of origin city
+   59	            ocNum = map.GetCityNumber(originCity);
+   60	            //dcNum holds the city number of destination city
+   61	            dcNum = map.GetCityNumber(destinationCity);
+   62	        
+   63	            map.FindPath(ocNum, dcNum);
+   64	            cout << endl;
+   65	        }
+   66	    }
+   67	    
+   68	    return 0;
+   69	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$ aCC type.cpp sortedListClass.cpp stackClass.cpp fligut[K[K[KghtMap.cpp ola7[K6.cc -o run7[K6
+$ run6
+Request is to fly from Atlanta to San-Diego.
+EastWest airline serves between these two cities. 
+The flight itinerary is:
+Flight #           From             To   Cost
+---------------------------------------------
+    2901        Atlanta        Chicago  $ 175
+    2843        Chicago          Miami  $ 500
+    1031          Miami         Dallas  $ 350
+     829         Dallas  San-Francisco  $ 250
+    8322  San-Francisco      San-Diego  $ 120
+---------------------------------------------
+                                Total:  $1395
+
+Request is to fly from Los-Angeles to Seattle.
+EastWest airline serves between these two cities. 
+The flight itinerary is:
+Flight #           From             To   Cost
+---------------------------------------------
+    3746    Los-Angeles        Seattle  $ 230
+---------------------------------------------
+                                Total:  $ 230
+
+Request is to fly from Dallas to Seattle.
+EastWest airline serves between these two cities. 
+The flight itinerary is:
+Flight #           From             To   Cost
+---------------------------------------------
+     829         Dallas  San-Francisco  $ 250
+     772  San-Francisco    Los-Angeles  $  89
+    3746    Los-Angeles        Seattle  $ 230
+---------------------------------------------
+                                Total:  $ 569
+
+Request is to fly from New-York-City to Dallas.
+EastWest airline serves between these two cities. 
+The flight itinerary is:
+Flight #           From             To   Cost
+---------------------------------------------
+     888  New-York-City        Atlanta  $ 430
+    2901        Atlanta        Chicago  $ 175
+    2843        Chicago          Miami  $ 500
+    1031          Miami         Dallas  $ 350
+---------------------------------------------
+                                Total:  $1455
+
+Request is to fly from Nashville to Washington-DC.
+EastWest airline serves between these two cities. 
+The flight itinerary is:
+Flight #           From             To   Cost
+---------------------------------------------
+     983      Nashville  New-York-City  $ 260
+     211  New-York-City         Boston  $ 140
+     563         Boston  Washington-DC  $ 440
+---------------------------------------------
+                                Total:  $ 840
+
+Request is to fly from Las-Vegas to Boston.
+EastWest airline serves between these two cities. 
+The flight itinerary is:
+Flight #           From             To   Cost
+---------------------------------------------
+     290      Las-Vegas      Nashville  $  59
+     983      Nashville  New-York-City  $ 260
+     211  New-York-City         Boston  $ 140
+---------------------------------------------
+                                Total:  $ 459
+
+Request is to fly from Denver to Washington-DC.
+EastWest airline serves between these two cities. 
+The flight itinerary is:
+Flight #           From             To   Cost
+---------------------------------------------
+    1204         Denver      Nashville  $ 590
+     983      Nashville  New-York-City  $ 260
+     211  New-York-City         Boston  $ 140
+     563         Boston  Washington-DC  $ 440
+---------------------------------------------
+                                Total:  $1430
+
+Request is to fly from Phoenix to Tampa.
+Sorry, EastWest airline does not fly from Phoenix to Tampa.
+
+Request is to fly from Boston to Miami.
+EastWest airline serves between these two cities. 
+The flight itinerary is:
+Flight #           From             To   Cost
+---------------------------------------------
+     345         Boston        Chicago  $ 390
+     290        Chicago        Atlanta  $ 175
+    1172        Atlanta        Memphis  $  47
+     891        Memphis         Dallas  $ 140
+     103         Dallas          Miami  $ 350
+---------------------------------------------
+                                Total:  $1102
+
+Request is to fly from Philadelphia to Dallas.
+EastWest airline serves between these two cities. 
+The flight itinerary is:
+Flight #           From             To   Cost
+---------------------------------------------
+     883   Philadelphia      Nashville  $ 410
+     339      Nashville        Atlanta  $  83
+    2901        Atlanta        Chicago  $ 175
+    2843        Chicago          Miami  $ 500
+    1031          Miami         Dallas  $ 350
+---------------------------------------------
+                                Total:  $1518
+
+Request is to fly from Dallas to Charlotte.
+Sorry, EastWest airline does not fly from Dallas to Charlotte.
+
+Request is to fly from Boston to Orlando.
+EastWest airline serves between these two cities. 
+The flight itinerary is:
+Flight #           From             To   Cost
+---------------------------------------------
+     345         Boston        Chicago  $ 390
+     290        Chicago        Atlanta  $ 175
+     920        Atlanta        Orlando  $ 270
+---------------------------------------------
+                                Total:  $ 835
+
+Request is to fly from Dallas to Boston.
+Sorry, EastWest airline does not fly from Dallas to Boston.
+
+$ exit
+exit
+
+Script done on Thu 14 Apr 2011 10:02:33 PM CDT

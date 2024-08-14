@@ -1,0 +1,23 @@
+//// Programmer:		Scott Welsh
+// Assignment:			OLA4/Recursive Maze
+// Class:				CSCI 2170-003
+// Course Instructor:	Dr. Cen Li
+// Due Date:			3/20/2011
+// Description: typedef header containing common
+// elements between creature and maze headers.
+
+#ifndef _TYPEDEF_H
+#define	_TYPEDEF_H
+
+// Define SquareType
+enum SquareType { WALL, CLEAR, PATH, VISITED };
+
+// Define 2D point
+struct Point
+{
+	int x;
+	int y;
+};
+
+#endif	/* _TYPEDEF_H */
+

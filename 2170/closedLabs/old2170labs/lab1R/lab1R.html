@@ -1,0 +1,483 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Brad Rudnik">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win95; I) [Netscape]">
+   <meta name="Description" content="CSCI 2170 - Closed Lab 1 - Lesson Page.">
+   <title>CSCI 2170 Lab 1 - Problem Solving</title>
+
+<!-- load the Javascript source file -------------------------------->
+<SCRIPT SRC="../windows.js">
+document.write("Included JS file not found");
+</SCRIPT>
+
+<!-- load the style sheet ------------------------------------------->
+<LINK rel="stylesheet" type="text/css" href="../styles.css" title="styles">
+
+</head>
+
+<body background="lab1.gif"><a NAME="top"></a>
+
+<center>
+<h1>
+CSCI 2170 LAB 1R<br>
+Problem Solving</h1></center>
+
+<h2><i>A couple of book keeping items before starting</i></h2>
+All of the labs should be done using the <i>ranger</i> (ranger.cs.mtsu.edu) system.
+<br>You should access <i>ranger</i> using an NX client. If you are not familar with NX connectivity,
+please refer to  <a href="http://www.cs.mtsu.edu/~cs1170/manual/RangerAccess/ranger.html" target="_new">Accessing Ranger</a>
+<br>If you are using one of the CS lab systems, the first section of the CS 1170 
+<a href= "http://www.cs.mtsu.edu/~cs1170/manual/lab1aR/lab1aR.html#access" >Lab 1 </a> 
+will show you how to connect using NX. 
+<p>
+<table COLS=2 WIDTH="100%">
+<tr><td width=70%><b>
+<dl><dt>
+Objectives:&nbsp;</dt>
+
+<dd>
+To learn problem solving strategies
+<br>To practice problem solving skills</dd>
+</dl></b></td>
+
+<td>
+<font size=4>
+<center><a href="javascript:AnswerWindow('lab1R/lab1R')">CREATE ANSWER SHEET for LAB 1R</a></center>
+</font>
+</td>
+</tr>
+</table>
+
+<!--File access for browsers without javascript capabilities-->
+<noscript>
+<blockquote>
+<blockquote>
+<b>For those of you without Javascript capabilities these links will
+provide access to the additional files needed to complete this lab. They
+are set to open a new browser window if your browser supports this feature.<br>
+<center>
+<a href="inlab1.cc.html" target="_new">inlab1.cc</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<a href="inlab1rnd.cc.html" target="_new">inlab1rnd.cc</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<a href="lab1RAns.html" target="_new">Answer Sheet</a></b></center>
+</blockquote>
+</blockquote>
+</noscript>
+
+<p>A course in data structures requires extensive problem solving.&nbsp;
+You are no longer learning the syntax of a language.&nbsp;&nbsp; You are
+expected to use a programming language to solve ever more complex problems.&nbsp;&nbsp;
+Early man had to solve problems just to survive--how to get food, how to
+stay warm, how to travel from one place to another.&nbsp;&nbsp; We may
+not have to solve problems to survive (though sometimes we must) but we
+must solve problems to succeed.&nbsp; Problem solving skills, more than
+intelligence or hard work, will help you attain a successful career in
+computing.&nbsp; In this laboratory assignment we will consider the following
+aspects of problem solving:
+<blockquote>A.&nbsp; <a href="#A">What is a problem?</a>
+<br>B.&nbsp; <a href="#B">What is a solution to a problem?</a>
+<br>C.&nbsp; <a href="#C">How does one solve a problem?</a></blockquote>
+
+<p>Lastly, as a review, we will:
+<blockquote>D.&nbsp; <a href="#D">Analyze a problem and design a solution.</a>
+<br>E.&nbsp; <a href="#E">Solve a problem using the computer.</a></blockquote>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<!-- PART A ------>
+<center>
+<h3>
+<a NAME="A"></a>A. What is a problem?</h3></center>
+<p><b>A problem exists when the current state is different from the desired
+state.</b>&nbsp; We have hungry people in the world and we don't want anyone
+to be hungry.&nbsp; We have five classes and we want to earn an "A" in
+each.&nbsp;&nbsp; We have a set of names and we want a computer to put
+them in alphabetical order.&nbsp; A famous problem in logic is the Missionaries
+and&nbsp;<a NAME="Cannibals"></a>Cannibals Problem which is described below:
+<blockquote id="box">Three missionaries and three cannibals are on the west side
+of a river.&nbsp; They have a small row boat that can hold up to two people.&nbsp;
+The problem is to get all six to the east side of the river.&nbsp; If the
+cannibals outnumber the missionaries on either side of the river, the cannibals
+will eat the missionaries.</blockquote>
+<p>This problem certainly does not require a computer solution.&nbsp; Other
+problems such as the "four-color problem" may never have been solved without
+the use of a computer.&nbsp; Problems solved on a computer are often divided
+into categories such as mathematical, sorting, searching, string processing,
+and graph problems.&nbsp; A typical mathematical problem might be to generate
+a <b>random</b> real number between 0.0 and 1.0.
+<p>Donald Knuth's book <a href="#1">[ 1 ]</a>, <b><i>The Art of Computer
+Programming</i></b> Volume 2, is the primary reference for random number
+generation techniques and related issues.&nbsp; Many introductory programming
+texts provide one or more algorithms for generating random numbers.&nbsp;
+Check your text to see if it contains an algorithm.&nbsp; We will do more
+with random number generation later in this lab.
+<p>Jon&nbsp;<a NAME="Bentley"></a>Bentley's book <b><i>Programming Pearls</i></b>
+<a href="#2">[ 2 ]</a> contains an interesting sorting problem.
+<blockquote id="box"><i>Problem:</i>&nbsp; A file contains at most 27,000 4 byte
+integers in the range 1 to 27,000.&nbsp; No integer occurs more than once
+and no other data is associated with an integer.&nbsp; At most, 1,000 32-bit
+words of main memory are available for the code and the data.&nbsp; How
+can a sorted list of integers be produced within a few minutes (of run
+time)?</blockquote>
+
+<p>Another problem from Bentley's column illustrates "searching."
+<blockquote id="box"><i>Problem:</i>&nbsp; Given a dictionary of English words,
+find all sets of anagrams.&nbsp; For instance "pots", "stop" and "tops"
+are all anagrams of each other because each can be formed by permuting
+the letters of the others.</blockquote>
+<p>The inference engine of an expert system, a compiler program, and a program
+that encrypts/decrypts text all provide examples of "string processing"
+problems.&nbsp; A typical "graph" problem is to find the shortest path
+through a directed weighted graph.
+<p>The Traveling Salesman Problem is a famous graph problem for which no
+polynomial (runs in a reasonable amount of) time algorithm has been found
+but for which there exists heuristic computer algorithms that have worked
+(in the examples tried so far) in polynomial time.&nbsp; The Traveling
+Salesman Problem is explained as follows: given a set of cities and distances
+between&nbsp; pairs of cities, find a tour of all cities whose total distance
+is minimal.
+<p>There are many problems--more than any of us can solve.&nbsp; The successful
+person must decide which problems can be solved and which problems are
+important enough to merit his/her attention.&nbsp; Choosing the "correct"
+problem is a very real problem as every Ph.D. student readily knows.&nbsp;
+Many people become famous or rich for a simple idea that any of us could
+have come up with but we did not select the correct problem.&nbsp; J. P.
+Guilford said, "To live is to have problems and to solve problems is to
+grow intellectually."
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<!--PART B -------->
+<center>
+<h3>
+<a NAME="B"></a>B. What is a solution to a problem?</h3></center>
+
+<p><b>A solution is a set of steps that will transform the current state
+into the desired state.</b>&nbsp; In the sciences, we usually must choose a
+symbolic representation of the problem before we can write down the solution
+steps.&nbsp; In other disciplines, the representation is often English
+text.
+<br>&nbsp;
+<h5>
+NOTE: For each of the following exercises, indicate answers on the
+ <a href="javascript:AnswerWindow('lab1/lab1')">answer sheet.</a></h5>
+&nbsp;
+
+<!--EXERCISE 1 ----->
+<h5>
+<a href="javascript:Answer('Exercise1')">Exercise 1</a> : A partial solution
+to the Missionaries and Cannibals problem as described <a href="#Cannibals">above</a>
+is given below<br>
+( M represents missionaries, C represents cannibals, and E represents the
+east side of the river ).</h5>
+
+<h5>
+Complete the solution to this problem.</h5>
+
+<blockquote>
+<h5>
+A.&nbsp; M &amp; C go to East side, M brings boat back&nbsp;&nbsp;&nbsp;
+(1C on E)<br>
+B.&nbsp; 2 Cs go to East side, C brings boat back&nbsp;&nbsp;&nbsp;&nbsp;
+(2C on E)<br>
+C.&nbsp; 2 Ms go to East side, M &amp; C bring boat back&nbsp; (1M, 1C
+on E)<br>
+D.&nbsp; ______________________________________________________<br>
+E.&nbsp; ______________________________________________________<br>
+F.&nbsp; ______________________________________________________</h5>
+</blockquote>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+
+<p>The following is a description of Bentley's solution to the sorting
+problem stated in the <a href="#Bentley">previous section.</a>&nbsp; Since
+no integer can appear more than once in the file, we use a bit array (with
+at least 27,000 bits) to mark whether an integer is in the file.
+<blockquote>1.&nbsp; Initialize the 27,000 bit array B[1..27000] to all
+0's.
+<br>2.&nbsp; While not end of file
+<br>&nbsp;&nbsp;&nbsp;&nbsp; a. Read next integer from file into variable
+i
+<br>&nbsp;&nbsp;&nbsp;&nbsp; b. Set B[i] = True 
+<br>3.&nbsp; Print the sorted list of integers.</blockquote>
+
+<!--EXERCISE 2 ----->
+<h5>
+<a href="javascript:Answer('Exercise2')">Exercise 2</a> :&nbsp; If the
+file contained only five integers:&nbsp; 9, 3, 10, 6, and 2 what would
+the bit array B[&nbsp;] look like after the "while" loop finishes? (Assume the
+first position in the bit array is called location 1. Write the answer
+something like 01010110001100... where 1 and 0 have the obvious meaning.</h5>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<!--PART C -------->
+<center>
+<h3>
+<a NAME="C"></a>C. How does one solve a problem?</h3></center>
+<p>The short answer is "anyway you can."&nbsp; The mathematician George Polya
+wrote a book in 1957 called <b><i>How to Solve It</i></b> <a href="#3">[ 3 ]</a>
+in which he explains techniques for solving mathematical problems.&nbsp;
+Most of what he says can be applied directly to computing.&nbsp; His suggestions
+are as follows:
+<blockquote id="box">1.&nbsp; Understand the problem
+<br>2.&nbsp; Devise a plan
+<br>3.&nbsp; Carry out the plan
+<br>4.&nbsp; Look back.</blockquote>
+<p>Usually to understand a problem you must ask questions, think, and research.&nbsp;
+First you should ask yourself questions.&nbsp;&nbsp; If you do this out
+loud, you might get strange looks.&nbsp; It is better to be in a quiet
+place-someplace free of distractions.&nbsp; If the answers are not forthcoming
+after some thought, then plant (fix) the question in your mind and go do
+something else.&nbsp; Take a break.&nbsp; Relax.&nbsp; Think about the
+problem but not exclusively.&nbsp; Let your subconscious mind work on the
+problem.&nbsp; This is called "incubation."&nbsp; It works, but you have
+to learn how to make it work for you.
+<br>&nbsp;
+
+<!--EXERCISE 3 ----->
+<h5>
+<a href="javascript:Answer('Exercise3')">Exercise 3</a> : Explain the strategy
+of "incubation".</h5>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+
+<p>King Hiero suspected his goldsmith had used some silver instead
+of all gold to make his royal crown.&nbsp; He asked Archimedes to determine
+if this were true.&nbsp; Archimedes struggled with the problem a long time
+and then, while taking a bath, he suddenly noticed his body caused some
+water to spill over the edge of the tub.&nbsp; In an instant, he realized
+the solution to his problem.&nbsp; Whereupon he jumped out of the tub in
+the public baths and ran home naked, shouting as he ran:&nbsp; "Eureka!&nbsp;
+Eureka! I've found it!&nbsp; I've found it!"&nbsp; Try taking a shower,
+but, if you get the solution, put on your clothes before you run to the
+lab to test your idea.&nbsp; Creative genius comes from the subconscious.&nbsp;
+Develop this skill.&nbsp; As William James said, "We learn to swim in the
+winter and to (ice) skate in the summer."
+
+<p>In addition to asking yourself and others questions about the problem
+and thinking about it consciously and subconsciously, you should also research
+the problem.&nbsp; See what has been written on or what is related to the
+problem.&nbsp; As Louis Pasteur said, "Chance favors only the prepared
+mind."&nbsp; Look in your text book, library books, journals, and so on.&nbsp;
+Why reinvent the wheel?&nbsp; Of course you should use integrity and reference
+any book or journal you use.&nbsp; Don't plagiarize anyone's work.
+
+<p>Often you cannot solve the problem as stated.&nbsp; Understanding the
+problem will give you enough information to restate the problem so that
+it is easier to find a solution.&nbsp; Try to generalize the question.&nbsp;
+If the problem is to invent a new mouse trap, try to understand the requirements
+of the problem.&nbsp; If one requirement is to keep mice out of your home,
+then generalize the problem to:&nbsp; How can we best keep mice out of
+our home?&nbsp; Maybe the answer is not a better mouse trap but better
+placement of the existing mouse trap (or a hungry cat).
+
+<p>Try to divide the problem into smaller subproblems.&nbsp; This is called
+<b>divide-and-conquer</b>.&nbsp; It works!&nbsp; Is there a binary search routine
+described in your text book ?&nbsp;&nbsp; The list to be searched is sorted
+into ascending order and the element being searched for is compared to
+the middle element of the list.&nbsp; If they are equal, the search is
+completed.&nbsp; Otherwise determine which half of the array should be
+searched next and continue the search.&nbsp; One comparison divides the
+search space into half of what it was originally.&nbsp; This division into
+halves continues until the element is found or until the array is exhausted.
+
+<p>Restate a problem several different ways.&nbsp; Open your mind to divergent,
+non-traditional solutions.&nbsp; Think of foolish solutions and try to
+see some merit or value in them.&nbsp; A creative idea is more apt to come
+to a person who has a large number of ideas.&nbsp; Generate several potential
+solutions before you try to implement one.&nbsp; One may be much easier
+than the others like Bentley's bit-array solution to the sorting problem.&nbsp;
+Once you have several ideas, you must select the approach that you will
+follow to solve the problem.&nbsp; That is, identify the "best" solution.
+
+<p>Finally, you must transform the potential solution you have selected
+into a useful result.&nbsp; This process is essentially a repeat of what
+you have done to get to this point. In his book entitled <b><i>The Art of
+Creative Thinking</i></b> <a href="#4">[ 4 ]</a>, Robert Olson suggests the <i><b>"DO
+IT" </i></b>(<i><b>D</i></b>esign a solution, <i><b>O</i></b>pen yourself to many solution ideas, 
+<i><b>I</i></b>dentify the "best" solution, and <i><b>T</i></b>ransform your solution into 
+results) approach to problem solving.&nbsp; It works!
+<br>&nbsp;
+
+<!--EXERCISE 4 ---->
+<h5>
+<a href="javascript:Answer('Exercise4')">Exercise 4</a> : Explain the divide
+and conquer strategy for problem solving.</h5>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<!--PART D ------->
+<center>
+<h3>
+<a NAME="D"></a>D. Analysis and Design</h3></center>
+<p>The process of problem solving involved in the complete development of
+a program is called the software life cycle.&nbsp; The first two phases
+of this process are called analysis and design.&nbsp; Analysis is the "What"
+and design is the "How."&nbsp; In the analysis phase of problem solving,
+we try to understand the problem and decide what (not how) must be done
+to solve it.&nbsp; In the analysis phase, we must understand the <b>"requirements"</b>
+of the problem.&nbsp; Requirements are often divided into two groups--functional
+and non-functional requirements.&nbsp; A functional requirement is a function
+or feature the software solution to the problem must possess.&nbsp; For
+example, in Bentley's sorting problem, the software must produce a sorted
+list of the integers in the file.&nbsp; A non-functional requirement is
+a property or constraint the software must satisfy.&nbsp; In a solution
+to the sorting problem, the code and data could not use more than 1,000
+32-bit words of main memory, the file could not contain duplicate integers,
+and the run-time of the solution could not exceed "several minutes".&nbsp;
+These are non-functional requirements.&nbsp; Usually the problem statement
+contains the requirements which need to be carefully reviewed and discussed.&nbsp;
+Ideally, requirements should be clear, unambiguous, and consistent.
+
+<p>In the design phase you actually describe <b>how</b> you will solve the problem.&nbsp;
+In software development we often use stepwise-refinement expressed in either
+pseudo-code or a flowchart or both to solve a problem.&nbsp; High-level
+pseudo-code for Bentley's sorting problem was given earlier.&nbsp; Steps
+1 and 3 need to be refined before the design is translated into a programming
+language.&nbsp; Refinement of the previous solution follows:
+<blockquote id="box">1. for j=1 to 27000
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Set B[j] = False
+<br>2. while not end of file
+<br>&nbsp;&nbsp;&nbsp;&nbsp; a. Read next integer from file into variable
+i
+<br>&nbsp;&nbsp;&nbsp;&nbsp; b. Set B[i] = True
+<br>3. for j=1 to 27000
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; If B[j] = True then print j on a
+new line</blockquote>
+One way to express the design is to use a flowchart.&nbsp; Note the following
+partial flowchart.
+
+<!--Flowchart -->
+<p><center>
+<img src="flowchart.gif" alt="Bentley's sorting problem flowchart"></center>
+
+<!--EXERCISE 5 ----->
+<h5>
+<a href="javascript:Answer('Exercise5')">Exercise 5</a> : Complete
+the above flowchart.</h5>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+
+<p>In earlier versions of the C-language and C++ there was no boolean type 
+and some extra work had to be done by the programmer to manage an array of
+27000 bits. Of course, the programmer could
+just declare an array of 27000 integers, initialize them all to 0 and mark
+each index in the array with a 1 if the integer is found to exist in the
+file.&nbsp; Because an integer usually occupies a word (possibly up to
+32 bits) of memory, this would be a very costly waste of storage space.
+In older versions of C++ we would have 
+set up a character array (a character array requires 8 bits to store each
+character) and then we allow each subscript in the array
+to represent 8 different integers.&nbsp; 
+With ANSI C++'s <b>bool</b> type we can avoid all this hassle and just 
+declare an array of 27000 places of type bool.
+
+<p>By using the bit-wise operators supplied in C++, the bit array can
+then be manipulated to set the appropriate bits in the array.&nbsp; Now,
+it is a straightforward task to translate this design into the corresponding
+C++ code provided in the file <a href="javascript:Display('$CLA/inlab1.cc')">inlab1.cc</a>.
+
+<!--EXERCISE 6 ----->
+<h5>
+<a href="javascript:Answer('Exercise6')">Exercise 6</a> : Explain
+what could go wrong with this sorting technique.  For example, describe
+what happens if the data file contains duplicate values.
+</h5>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<!--PART E -------->
+<center>
+<h3>
+<a NAME="E"></a>E. Problems</h3></center>
+<!--EXERCISE 7 ------>
+<h5>
+<a href="javascript:Answer('Exercise7')">Exercise 7</a> : The source
+file, <a href="javascript:Displaynln('$CLA/inlab1rnd.cc')">inlab1rnd.cc</a>
+contains code to generate 100 random real numbers between 0.0 and 1.0 (non-inclusive)
+and write them into a text file inlab1r.dat.&nbsp; 
+You may copy and paste from your browser or copy inlab1rnd.cc to
+your CSCI 2170 course account
+and alter it so that it will generate 270 random integers
+between 1 and 27000.&nbsp;&nbsp; 
+<b>REMEMBER to execute your program, you need as an argument to the main program the 
+output file name.</b> Turn in a copy of the modified source
+file with your name on it.</h5>
+&nbsp;
+<!--EXERCISE 8 ------>
+<h5>
+<a href="javascript:Answer('Exercise8')">Exercise 8</a> : Copy the
+C++ code for Bentley's sorting problem <a href="javascript:Displaynln('$CLA/inlab1.cc')">inlab1.cc</a>
+to your account and, by experimentation, determine that it does sort the
+integers that you generated in Exercise 7 into ascending order.&nbsp; Study
+this clever sorting algorithm and look for an opportunity to use it.</h5>
+<p><br>
+<center>
+<h5>
+----- End of Lab1 - Problem Solving -----<br>
+Complete the Exercises on the <a href="javascript:AnswerWindow('lab1/lab1')">Answer Sheet</a>.  
+<br>Turn in the Answer Sheet 
+and the printouts required by the exercises.</h5></center>
+
+<!-- Blank Space -->
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+
+<!--REFERENCES ---->
+<center>
+<br>References</center>
+<blockquote>
+<a NAME="1"></a>1. Knuth, Donald. The Art of Computer Programming, Volume
+2,&nbsp; Addison-Wesley.&nbsp; 1969.<br>
+<br><a NAME="2"></a>2. Bentley, Jon. Programming Pearls, Addison-Wesley,
+Reading, MA,&nbsp; 1985.<br>
+<br><a NAME="3"></a>3. Polya, George. How to Solve It: A New Aspect of
+Mathematics 2nd ed., Princeton, NJ, Princeton University Press.&nbsp; 1973.<br>
+<br><a NAME="4"></a>4. Olson, Robert. The Art of Creative Thinking, Barnes&nbsp;
+&amp; Noble, New York, 1980.
+<br></blockquote>
+<!--RETURN LINK --->
+<center>
+<a href="#top">Return to the top of this lab</a>
+<br><a href="../index.html">Return to the link page for all 2170 labs</a>
+</center>
+
+<!--counter -->
+<center>
+<img src="http://www.mtsu.edu/cgi-bin/users/csdept/217man/counter.pl?count_lab1">
+</center>
+</body>
+</html>

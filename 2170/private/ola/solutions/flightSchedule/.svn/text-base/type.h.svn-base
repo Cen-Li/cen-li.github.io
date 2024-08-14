@@ -1,0 +1,34 @@
+//// PROGRAMMER:    Joo Kim
+// Assignment:      Open Lab Assignment 6
+// Class:           CSCI 2170-003
+// Course Instructor: Dr. Cen Li
+// Due Date: 		Soft Copy: Midnight, Sunday, 4/17/2011
+//                  Hard Copy: Monday, 4/18/2011
+// Description:     Header file for flightRec struct
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+#ifndef Type_H
+#define Type_H
+
+//define struct flightRec
+struct flightRec{
+	int flightNum;
+	int price;
+	int dcNum;
+	
+	bool operator < (const flightRec & rhs) const;
+	//overloaded < operator for flightRec
+	//this function compares the destinations between two flightRec
+	
+	bool operator == (const flightRec & rhs) const;
+	//overloaded == operator for flightRec
+	//this function compares the origins and destinations between two flightRec
+	
+	friend ostream& operator << (ostream & os, const flightRec & f);
+	//overloaded output operator for flightRec struct
+};
+
+#endif

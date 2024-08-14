@@ -1,0 +1,86 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Brad Rudnik">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win95; I) [Netscape]">
+   <meta name="Description" content="CSCI 2170 - Closed Lab 1 - Lesson Page.">
+   <title>CSCI 2170 Lab 1A - Getting Started</title>
+
+<!-- load the Javascript source file -------------------------------->
+<SCRIPT SRC="../windows.js">
+document.write("Included JS file not found");
+</SCRIPT>
+
+<!-- load the style sheet ------------------------------------------->
+<LINK rel="stylesheet" type="text/css" href="../styles.css" title="styles">
+
+</head>
+
+<body background="lab1.gif"><a NAME="top"></a>
+
+<center>
+<h1>
+CSCI 2170 LAB 1A<br>
+Getting Started</h1></center>
+
+<font size=4>
+We have a number of book keeping items before continuing withe C++ programming that you did in CSCI 1170.</font>
+<hr>
+<ul>
+<li>Most of the closed labs will be done primarily using the <i>ranger</i> (ranger.cs.mtsu.edu) system. You should always access <i>ranger</i> using an NX client. The first part of this closed lab will show you how to use NX if you are not familar with NX connectivity.
+<li>The second part of this lab shows you how to enter a simple <i>Hello World</i> program using <i>NetBeans</i>
+<li>The third part of this lab is to acquaint you with the <i>handin</i> program.
+<li>The third part of this lab is to acquaint you will Robozzle 
+<li>The fourth part of this lab is to acquaint you with PeerSpace.
+<li>The final part of this lab is to acquaint you will AlgoTutor
+</ul>
+<br>
+<hr>
+You are NOT expected to complete all these activities in the first day of closed lab. Completion of items A through D is desirable.
+<h2>
+<a NAME="A"></a>A.  Accessing Ranger, Customizing your account, and NetBeans
+</h2>
+<p>
+For this portion of the lab please refer to  <a href="http://www.cs.mtsu.edu/~csal/common/2170/Netbeans v1.doc" target="_new">Setting up NetBeans</a> from step 1 down to and including step 12.
+<br>
+<h2>
+<a NAME="B"></a>B.  Entering the <i>Hello World</i> program in  NetBeans
+</h2>
+<p>
+
+For this portion of the lab please refer to  <a href="http://www.cs.mtsu.edu/~csal/common/2170/Netbeans v1.doc" target="_new">Setting up NetBeans</a> steps 13 through 18
+<br>
+<h2>
+<a NAME="C"></a>C.  The <i>handin</i> program
+</h2>
+<p>
+For this portion of the lab please refer to  <a href="http://www.cs.mtsu.edu/~csal/common/2170/Netbeans v1.doc" target="_new">Setting up NetBeans</a> starting at step 19
+<br>
+<br>
+<h2>
+<a NAME="D"></a>D.  <i>Robozzle</i>
+</h2>
+<p>
+For this portion of the lab please complete the lab found at  
+<a href="http://www.cs.mtsu.edu/~cs2170/manual/robozzle/robozzle.html" target="_new">Robozzle</a> and hand in the requested hard copies.
+<br>
+<br>
+<h2>
+<a NAME="E"></a>E.  <i>PeerSpace</i>
+</h2>
+<p>
+
+Complete the following PeerSpace lab: <a href="http://www.cs.mtsu.edu/~cen/1170/PeerSpaceLabA/LabA.html/" target="_new">PeerSpace Lab A</a>  
+<br>
+<br>
+<h2>
+<a NAME="F"></a>F.  <i>AlgoTutor</i>
+</h2>
+<p>
+Log into the AlgoTutor server found at <a href="http://cslabserver2.cs.mtsu.edu/" target="_new">AlgoTutor</a> and the use the browser to print the intial page showing that you have succesfully logged into the server.
+<br>
+<p>
+
+</body>
+</html>

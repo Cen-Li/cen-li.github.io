@@ -1,0 +1,1398 @@
+Script started on Mon 28 Feb 2011 06:45:20 PM CST
+$ pr -n -t -e4 CardClasss[K.h
+    1	//// PROGRAMMER:    Joo Kim
+    2	// Assignment:      Open Lab Assignment 3
+    3	// Class:           CSCI 2170-003
+    4	// Course Instructor: Dr. Cen Li
+    5	// Due Date:        Part 1
+    6	//                  Soft Copy: Midnight, Tuesday, 2/22/2011
+    7	//                  Hard Copy: Wednesday, 2/23/2011
+    8	//                  Part 2
+    9	//                  Soft Copy: Midnight, Tuesday, 3/1/2011
+   10	//                  Hard Copy: Wednesday, 3/2/2011
+   11	// Description:     Header file for CardClass
+   12	
+   13	#ifndef CARDCLASS_H
+   14	#define CARDCLASS_H
+   15	
+   16	const int MAX_DECK_SIZE = 52;           //size of the deck
+   17	const int MAX_SUIT = 4;                 //number of suits in the deck
+   18	const int MAX_CARDS_PER_SUIT = 13;      //number of cards per suit
+   19	const int MAX_PLAYERS = 4;              //number of players
+   20	
+   21	//define enum type CardSuitType
+   22	enum suitType { DIAMOND, CLUB, HEART, SPADE };
+   23	
+   24	struct CardStruct{
+   25	    suitType suit;
+   26	    int value;
+   27	    int points;
+   28	};
+   29	
+   30	class CardClass
+   31	{
+   32	    public:
+   33	        CardClass();
+   34	        //Default Constructor: creates the deck of cards by assigning
+   35	        //appropriate suit, value, and points for each card
+   36	        //Pre-condition: none
+   37	        //Post-condition: A deck of cards created
+   38	        //                number of cards remaining in deck is assigned
+   39	    
+   40	        void ShuffleCards();
+   41	        //Shuffles the cards into a random order
+   42	        //Pre-condition: A deck of cards in order
+   43	        //Post-condition: A deck of cards in random order
+   44	    
+   45	        CardStruct& DealCards();
+   46	        //Deals out one card only
+   47	        //Pre-condition: Shuffled deck of cards, 
+   48	        //               number of cards in the deck remaining
+   49	        //Post-condition: one card is dealt to the player,
+   50	        //                -1 cards in the deck remaining
+   51	
+   52	    private:
+   53	        int numOfCards;
+   54	        //number of cards remaining in deck
+   55	    
+   56	        CardStruct deck[MAX_DECK_SIZE];
+   57	        //the deck of cards
+   58	};
+   59	
+   60	#endif
+$ pr -n -t -e4 CardCa[Klass.cpp
+    1	//// PROGRAMMER:    Joo Kim
+    2	// Assignment:      Open Lab Assignment 3
+    3	// Class:           CSCI 2170-003
+    4	// Course Instructor: Dr. Cen Li
+    5	// Due Date:        Part 1
+    6	//                  Soft Copy: Midnight, Tuesday, 2/22/2011
+    7	//                  Hard Copy: Wednesday, 2/23/2011
+    8	//                  Part 2
+    9	//                  Soft Copy: Midnight, Tuesday, 3/1/2011
+   10	//                  Hard Copy: Wednesday, 3/2/2011
+   11	// Description:     Implementation for CardClass
+   12	
+   13	#include "CardClass.h"
+   14	#include <ctime>
+   15	#include <cstdlib>
+   16	
+   17	CardClass::CardClass()
+   18	{
+   19	    int i, k;           //loop index
+   20	    int index=0;        //used for assigning points and values in nested for loop
+   21	
+   22	    //This for loop assigns suit
+   23	    //13 cards per suit
+   24	    for(i=0; i<MAX_DECK_SIZE; i++)
+   25	    {
+   26	        if(i<13)
+   27	            deck[i].suit=DIAMOND;
+   28	        else if(i<26)
+   29	            deck[i].suit=CLUB;
+   30	        else if(i<39)
+   31	            deck[i].suit=HEART;
+   32	        else
+   33	            deck[i].suit=SPADE;
+   34	    }
+   35	
+   36	    //This nested for loop assigns values and points
+   37	    for(i=0; i<MAX_SUIT; i++)
+   38	    {
+   39	        for(k=0; k<MAX_CARDS_PER_SUIT; k++)
+   40	        {
+   41	            //assign values
+   42	            deck[index].value=k+2;
+   43	
+   44	            //assign points
+   45	            //HEART cards less than 10 has a point of 5
+   46	            //HEART cards of J, Q, K have points of 10
+   47	            if(deck[index].suit==HEART)
+   48	            {
+   49	                if(deck[index].value>=10)
+   50	                    deck[index].points=10;
+   51	                else
+   52	                    deck[index].points=5;
+   53	            }
+   54	            //Queen of SPADE has a point of 100
+   55	            else if(deck[index].suit==SPADE && deck[index].value==12)
+   56	                deck[index].points=100;
+   57	            //Jack of CLUB has a point of -100
+   58	            else if(deck[index].suit==CLUB && deck[index].value==11)
+   59	                deck[index].points=-100;
+   60	            //rest of the cards have 0 point
+   61	            else
+   62	                deck[index].points=0;
+   63	            index++;                    //increase index by 1
+   64	        }
+   65	    }
+   66	    
+   67	    numOfCards = MAX_DECK_SIZE;
+   68	}
+   69	
+   70	void CardClass::ShuffleCards()
+   71	{
+   72	    int i;                  //loop index
+   73	    int randNum;            //stores the random number
+   74	    CardStruct temp;        //to use in swap
+   75	
+   76	    srand(time(0)); //prevents the rand() from generating same number
+   77	
+   78	
+   79	    //This for loop shuffles the cards into random order
+   80	    for(i=0; i<MAX_DECK_SIZE; i++)
+   81	    {
+   82	        randNum = rand() % MAX_DECK_SIZE;
+   83	        temp=deck[i];
+   84	        deck[i]=deck[randNum];
+   85	        deck[randNum]=temp;
+   86	    }
+   87	}
+   88	
+   89	CardStruct& CardClass::DealCards()
+   90	{
+   91	    numOfCards--;               //decrement the number of cards remaining in the deck
+   92	    return deck[numOfCards];    //deal one card
+   93	}
+$ pr -n -t -e4 PlayerClass.h
+    1	//// PROGRAMMER:    Joo Kim
+    2	// Assignment:      Open Lab Assignment 3
+    3	// Class:           CSCI 2170-003
+    4	// Course Instructor: Dr. Cen Li
+    5	// Due Date:        Part 1
+    6	//                  Soft Copy: Midnight, Tuesday, 2/22/2011
+    7	//                  Hard Copy: Wednesday, 2/23/2011
+    8	//                  Part 2
+    9	//                  Soft Copy: Midnight, Tuesday, 3/1/2011
+   10	//                  Hard Copy: Wednesday, 3/2/2011
+   11	// Description:     header file for PlayerClass
+   12	
+   13	#include <iostream>
+   14	using namespace std;
+   15	
+   16	#ifndef PlayerClass_H
+   17	#define PlayerClass_H
+   18	
+   19	#include "CardClass.h"
+   20	const int MAX_PLAYER_CARDS = 13;
+   21	class PlayerClass
+   22	{
+   23	     public:
+   24	       // default constructor
+   25	       // post-condition: count is assigned 0
+   26	       PlayerClass();
+   27	
+   28	       // add one card to the player's hand
+   29	       // pre-condition: player has less than 13 cards
+   30	       // post-condition: player has one more card in the hand
+   31	       //                 count is increased by 1
+   32	       void        AddCard(CardStruct);
+   33	
+   34	       // prints out the current cards the player has
+   35	       void        DisplayCards();
+   36	
+   37	       // select to play the first card that has the suit 
+   38	       // supplied from the client program
+   39	       // if no card can be found that has the suit
+   40	       // supplied by the client program,
+   41	       // random card from the hand is played
+   42	       // pre-condition: there are >= 1 cards in hand
+   43	       // post-condition: a card is returned, count is 
+   44	       // decremented by 1
+   45	       CardStruct  FollowOneCard(suitType s);
+   46	
+   47	       // plays the first card of a round
+   48	       // Random card in the player's hand is selected
+   49	       // pre-condition: there are >= 1 card in the hand
+   50	       // post-condition: one card is played/returned.
+   51	       //                 count is decremented by 1
+   52	       CardStruct  StartOneHand();
+   53	
+   54	       // Checks to see if the player should lead the
+   55	       // first round in the game, e.g., check whether the
+   56	       // player has 2 of club
+   57	       // pre-condition: the hand is full (have 13 cards)
+   58	       // post-condition: if this player has 2 of club,
+   59	       //           true is returned, otherwise, return false.
+   60	       bool        IsFirstLead();
+   61	
+   62	       // The current score of the player is returned
+   63	       int         GetScore();
+   64	
+   65	
+   66	       // the points from the current round is added to the
+   67	       // current player's score
+   68	       // pre-condition: 
+   69	       // post-condition: the player's score is increased
+   70	       //         by the points supplied from the client program
+   71	       void        AddScore(int);
+   72	
+   73	       // plays the card selected by user
+   74	       // pre-condition:  the card number selected by
+   75	       //                 the user is supplied
+   76	       // post-condition: the card corresponding to the 
+   77	       //                  user choice is played/returned
+   78	       //                 the number of cards in player's 
+   79	       //                 hand is decremented by 1
+   80	       CardStruct  PlaySelectedCard(int choice);
+   81	
+   82	       // Return the number of cards the player has 
+   83	       // post-condition:   the number of cards is returned
+   84	       int         GetCount();
+   85	
+   86	       // Checks to see if the card the user chooses is a 
+   87	       // valid choice, e.g., whether it matches the 
+   88	       // leading suit on that round, if he has any.
+   89	       // pre-condition:  the player's choice and the
+   90	       //                 leading suit is supplied
+   91	       // post-condition: returns true if 
+   92	       //         (1) user has cards of leading suit
+   93	       //           and the choice card is of that suit   
+   94	       //         (2) user does not have card of leading suit
+   95	       //         false is returned otherwise
+   96	       bool        IsValidChoice(suitType, int);
+   97	
+   98	       // Sort the cards in hand by suit
+   99	       // pre-condition:  there is >1 cards in hand
+  100	       // post-condition: cards in one's hand is sorted by suit
+  101	       void   SortCards();
+  102	
+  103	     private:
+  104	        CardStruct   hand[MAX_PLAYER_CARDS]; 
+  105	        int          count;   // keeps record of
+  106	                             //  number of cards player has
+  107	        int          score;   // keeps score for the player
+  108	};
+  109	
+  110	#endif
+$ pr -n -t -e4 PlayerClass.cpp
+    1	//// PROGRAMMER:    Joo Kim
+    2	// Assignment:      Open Lab Assignment 3
+    3	// Class:           CSCI 2170-003
+    4	// Course Instructor: Dr. Cen Li
+    5	// Due Date:        Part 1
+    6	//                  Soft Copy: Midnight, Tuesday, 2/22/2011
+    7	//                  Hard Copy: Wednesday, 2/23/2011
+    8	//                  Part 2
+    9	//                  Soft Copy: Midnight, Tuesday, 3/1/2011
+   10	//                  Hard Copy: Wednesday, 3/2/2011
+   11	// Description:     Implementation for PlayerClass
+   12	
+   13	#include "PlayerClass.h"
+   14	#include "CardClass.h"
+   15	#include <cstdlib>
+   16	#include <iomanip>
+   17	
+   18	PlayerClass::PlayerClass()
+   19	{
+   20	    count=0;
+   21	    score=0;
+   22	}
+   23	
+   24	void PlayerClass::AddCard(CardStruct c)
+   25	{
+   26	    hand[count]=c;  
+   27	    count++;
+   28	}
+   29	
+   30	void PlayerClass::DisplayCards()
+   31	{
+   32	    int i;              //loop index
+   33	    
+   34	    cout << setw(2) << "#";
+   35	    cout << setw(7) << "SUIT";
+   36	    cout << setw(14) << "VALUE";
+   37	    cout << setw(14) << "POINTS" << endl;
+   38	
+   39	    //This for loop prints the user's cards in hand
+   40	    for(i=0; i<count; i++)
+   41	    {
+   42	        //Using enum type switch expression
+   43	        //Print values of each card
+   44	        //if the value is 11, then print J.
+   45	        //if the value is 12, then print Q.
+   46	        //if the value is 13, then print K.
+   47	        //if the value is 14, then print A.
+   48	        //Then print point of each card
+   49	        switch (hand[i].suit)
+   50	        {
+   51	            case DIAMOND:
+   52	                cout << setw(2) << i+1;
+   53	                cout << setw(9) << "Diamond";
+   54	                if(hand[i].value==14)
+   55	                    cout << setw(10) << "A";
+   56	                else if(hand[i].value==11)
+   57	                    cout << setw(10) << "J";
+   58	                else if(hand[i].value==12)
+   59	                    cout << setw(10) << "Q";
+   60	                else if(hand[i].value==13)
+   61	                    cout << setw(10) << "K";
+   62	                else
+   63	                    cout << setw(10) << hand[i].value;
+   64	                cout << setw(14) << hand[i].points;
+   65	                cout << endl;
+   66	                break;
+   67	
+   68	            case CLUB:
+   69	                cout << setw(2) << i+1;
+   70	                cout << setw(7) << "Club";
+   71	                if(hand[i].value==14)
+   72	                    cout << setw(12) << "A";
+   73	                else if(hand[i].value==11)
+   74	                    cout << setw(12) << "J";
+   75	                else if(hand[i].value==12)
+   76	                    cout << setw(12) << "Q";
+   77	                else if(hand[i].value==13)
+   78	                    cout << setw(12) << "K";
+   79	                else
+   80	                    cout << setw(12) << hand[i].value;
+   81	                cout << setw(14) << hand[i].points;
+   82	                cout << endl;
+   83	                break;
+   84	
+   85	            case HEART:
+   86	                cout << setw(2) << i+1;
+   87	                cout << setw(8) << "Heart";
+   88	                if(hand[i].value==14)
+   89	                    cout << setw(11) << "A";
+   90	                else if(hand[i].value==11)
+   91	                    cout << setw(11) << "J";
+   92	                else if(hand[i].value==12)
+   93	                    cout << setw(11) << "Q";
+   94	                else if(hand[i].value==13)
+   95	                    cout << setw(11) << "K";
+   96	                else
+   97	                    cout << setw(11) << hand[i].value;
+   98	                cout << setw(14) << hand[i].points;
+   99	                cout << endl;
+  100	                break;
+  101	                
+  102	            case SPADE:
+  103	                cout << setw(2) << i+1;
+  104	                cout << setw(8) << "Spade";
+  105	                if(hand[i].value==14)
+  106	                    cout << setw(11) << "A";
+  107	                else if(hand[i].value==11)
+  108	                    cout << setw(11) << "J";
+  109	                else if(hand[i].value==12)
+  110	                    cout << setw(11) << "Q";
+  111	                else if(hand[i].value==13)
+  112	                    cout << setw(11) << "K";
+  113	                else
+  114	                    cout << setw(11) << hand[i].value;
+  115	                cout << setw(14) << hand[i].points;
+  116	                cout << endl;
+  117	                break;
+  118	        }
+  119	    }
+  120	    cout << endl;
+  121	}
+  122	
+  123	CardStruct PlayerClass::FollowOneCard(suitType s)
+  124	{
+  125	    bool found = false;
+  126	    int i, j;
+  127	    int randNum;
+  128	    CardStruct tmp;
+  129	    
+  130	    // search to see if the player has card of suit s
+  131	    for (i=0; !found&&i<count; i++)
+  132	    {
+  133	        if (hand[i].suit == s)
+  134	        {
+  135	            found = true;
+  136	            break;
+  137	        }
+  138	    }
+  139	  
+  140	    if (found)   // player has the same suit card
+  141	    {
+  142	        tmp = hand[i]; // plays the first card of suit s
+  143	    
+  144	        // remove the card from the hand
+  145	        for (j=i; j<count-1; j++)
+  146	            hand[j] = hand[j+1];   
+  147	    }
+  148	    
+  149	    // no same suit card, play the random card in the player's hand
+  150	    // and then shifts other cards above randNum up one position
+  151	    else
+  152	    {
+  153	        srand(time(0));
+  154	        randNum = rand() % count;
+  155	        tmp = hand[randNum];
+  156	        
+  157	        for(int k=randNum; k<count; k++)
+  158	            hand[k] = hand[k+1];
+  159	    }
+  160	    count --;
+  161	
+  162	    return tmp;
+  163	}
+  164	
+  165	CardStruct PlayerClass::StartOneHand()
+  166	{
+  167	    // When it is the player's turn to play
+  168	    // he always picks the random card to play
+  169	    CardStruct tmp;
+  170	    
+  171	    int randNum;
+  172	    
+  173	    //if the hand is full, pick 2 of CLUB for a first round of the game
+  174	    if(count == 13)
+  175	    {
+  176	        //this for loop finds 2 of CLUB
+  177	        for(int i=0; i<count; i++)
+  178	        {
+  179	            //if finds, return 2 of CLUB
+  180	            if(hand[i].suit == CLUB && hand[i].value == 2)
+  181	            {
+  182	                tmp=hand[i];
+  183	                
+  184	                //Since 2 of CLUB is in the middle of the player's hand
+  185	                //this for loop shifts other cards up one position
+  186	                for(int k=i; k<count; k++)
+  187	                    hand[k] = hand[k+1];
+  188	                
+  189	                count--;
+  190	                return tmp;
+  191	            }
+  192	        }
+  193	        
+  194	    }
+  195	    
+  196	    // If there are still one or more cards in the player's hand,
+  197	    // return the random card in the player's hand,
+  198	    // shifts other cards above randNum up one position 
+  199	    // and reduce the number of cards remaining in hand by 1
+  200	    if (count > 0)
+  201	    {
+  202	        srand(time(0));
+  203	        randNum = rand() % count;
+  204	        tmp = hand[randNum];
+  205	        
+  206	        for(int k=randNum; k<count; k++)
+  207	            hand[k] = hand[k+1];
+  208	        
+  209	        count--;    // card is decremented by one;
+  210	        return tmp;
+  211	    }
+  212	    else
+  213	    {
+  214	        cout << "The player does not have cards left" << endl;
+  215	        exit(-1);
+  216	    } 
+  217	}
+  218	
+  219	bool PlayerClass::IsFirstLead()
+  220	{
+  221	    bool lead=false;
+  222	    
+  223	    //this for loop finds if the player has 2 of Club
+  224	    for(int i=0; i<count; i++)
+  225	    {
+  226	        if(hand[i].suit == CLUB && hand[i].value == 2)
+  227	            lead = true;
+  228	    }
+  229	    
+  230	    return lead;
+  231	}
+  232	
+  233	int PlayerClass::GetScore()
+  234	{
+  235	    return score;
+  236	}
+  237	
+  238	void PlayerClass::AddScore(int s)
+  239	{
+  240	    score = score + s;
+  241	}
+  242	
+  243	CardStruct PlayerClass::PlaySelectedCard(int choice)
+  244	{
+  245	    CardStruct tmp;
+  246	    
+  247	    //Assigns a card of user's choice to tmp
+  248	    tmp = hand[choice-1];
+  249	    
+  250	    //remove a card of user's choice from the user's hand
+  251	    for(int i=choice-1; i<count; i++)
+  252	        hand[i] = hand[i+1];
+  253	    
+  254	    count--;
+  255	    
+  256	    return tmp;
+  257	}
+  258	
+  259	int PlayerClass::GetCount()
+  260	{
+  261	    return count;
+  262	}
+  263	
+  264	bool PlayerClass::IsValidChoice(suitType s, int choice)
+  265	{
+  266	    bool available = true;
+  267	    
+  268	    //if the user's choice matches with the leading suit
+  269	    //return true
+  270	    if(hand[choice-1].suit == s)
+  271	        return true;
+  272	    
+  273	    //else, if the user has any card of the leading suit,
+  274	    //then the choice is not valid
+  275	    else
+  276	    {
+  277	        for(int i=0; i<count; i++)
+  278	        {
+  279	            if(hand[i].suit == s)
+  280	                available = false;
+  281	        }
+  282	    }
+  283	    
+  284	    return available;
+  285	}
+  286	
+  287	void PlayerClass::SortCards()
+  288	{
+  289	    //bubble sort
+  290	    bool sorted=false;              //is the list sorted?
+  291	    int last=MAX_PLAYER_CARDS-1;    //start last at the last array element
+  292	    int i;                          //loop index
+  293	    CardStruct temp;
+  294	
+  295	    while(!sorted)
+  296	    {
+  297	        sorted=true;
+  298	        for(i=0; i<last; i++)
+  299	        {
+  300	            if(hand[i].suit > hand[i+1].suit)
+  301	            {
+  302	                temp=hand[i];
+  303	                hand[i]=hand[i+1];
+  304	                hand[i+1]=temp;
+  305	                sorted=false;
+  306	            }
+  307	        }
+  308	        last--;
+  309	    }
+  310	}
+$ pr -n -t -e4 heartsB.cc
+    1	//// PROGRAMMER:    Joo Kim
+    2	// Assignment:      Open Lab Assignment 3
+    3	// Class:           CSCI 2170-003
+    4	// Course Instructor: Dr. Cen Li
+    5	// Due Date:        Part 1
+    6	//                  Soft Copy: Midnight, Tuesday, 2/22/2011
+    7	//                  Hard Copy: Wednesday, 2/23/2011
+    8	//                  Part 2
+    9	//                  Soft Copy: Midnight, Tuesday, 3/1/2011
+   10	//                  Hard Copy: Wednesday, 3/2/2011
+   11	// Description:     The program plays "Hearts" with four players:
+   12	//                  computer 1, computer 2, computer 3, and the user.
+   13	//                  The winner of the game is the person who has the
+   14	//                  lowest number of points after the game is over.
+   15	
+   16	#include "CardClass.h"
+   17	#include "PlayerClass.h"
+   18	#include <iostream>
+   19	#include <iomanip>
+   20	using namespace std;
+   21	
+   22	const int MAX_ROUNDS = 13;          //Maximum rounds
+   23	
+   24	//This function calls the member function to find lead
+   25	//Pre-Condition: player class array
+   26	//Post-Condition: returns the player's index who has 2 of club
+   27	int FindLead(PlayerClass p[]);
+   28	
+   29	//This function plays the rounds
+   30	//Pre-Condition: player class array, game table,
+   31	//                  and index of the player who's lead
+   32	//Post-Condition: plays the round
+   33	void PlayRound(PlayerClass p[], CardStruct t[], int & lead);
+   34	
+   35	//This function displays a card's suit and value
+   36	//Pre-condition: one card in supplied
+   37	//Post-condition: supplied card's suit and value is printed
+   38	void DisplayCard(const CardStruct c);
+   39	
+   40	//This function read the user's choice
+   41	//Pre-condition: User has >1 cards
+   42	//Post-condition: Plays the card of user's choice
+   43	//                  if the choice matches with the leading suit
+   44	//                  or user does not have card of leading suit
+   45	int GetChoice(PlayerClass user, suitType s, int turn);
+   46	
+   47	//This function find who has played the card of highest value of the round
+   48	//Pre-condition: table and score variable is supplied
+   49	//Post-condition: returns the index of player who has the highest value card
+   50	//                  and returns the sum of the points by parameter
+   51	int FindCollector(const CardStruct t[], int & score);
+   52	
+   53	//This function prints each player's score
+   54	//Pre-condition: player class array is supplied
+   55	//Post-condition: scores of each player are printed
+   56	void DisplayScoreBoard(PlayerClass p[]);
+   57	
+   58	//This function finds who won the game
+   59	//Pre-condition: player class array is supplied
+   60	//Post-condition: returns the index of player who has the lowest points
+   61	int FindWinner(PlayerClass p[]);
+   62	
+   63	int main()
+   64	{
+   65	    int i;                              //loop index
+   66	    int k;                              //loop index
+   67	    int lead;                           //who is leading
+   68	    int round=1;                        //round
+   69	    int highVal=0;                      //used for comparison
+   70	    int winner;                         //holds winner's index
+   71	    
+   72	    int highValuePlayerIndex;           //Holds the player's index who has the highest value
+   73	                                        //of the round
+   74	    
+   75	    CardStruct table[MAX_PLAYERS];      //Current Card
+   76	    CardClass deckOfCards;              //deck is created
+   77	    PlayerClass players[MAX_PLAYERS];   //user and players
+   78	    
+   79	    deckOfCards.ShuffleCards(); //shuffle the deck of cards
+   80	    
+   81	    //This for loop deals ONLY ONE card at a time
+   82	    //by repetitively calling the DealCard method of CardClass
+   83	    for(i=0; i<MAX_PLAYER_CARDS; i++)
+   84	    {
+   85	        for(k=0; k<MAX_PLAYERS; k++)
+   86	        {
+   87	            players[k].AddCard(deckOfCards.DealCards());
+   88	        }
+   89	    }
+   90	    
+   91	    //This for loop sorts each players cards
+   92	    for(i=0; i<MAX_PLAYERS; i++)
+   93	        players[i].SortCards();
+   94	    
+   95	    cout << "**********************************************" << endl;
+   96	    cout << "                    HEARTS                    " << endl;
+   97	    cout << "**********************************************" << endl;
+   98	    
+   99	
+  100	    //Find who leads the first round
+  101	    lead = FindLead(players);
+  102	    
+  103	    cout << endl;
+  104	    
+  105	    //This while loop iterates 13 rounds
+  106	    while(round<=13)
+  107	    {
+  108	        cout << "ROUND " << round << endl;
+  109	        cout << "Your Cards" << endl;
+  110	        players[0].DisplayCards();
+  111	        
+  112	        PlayRound(players, table, lead);
+  113	        
+  114	        round++;
+  115	    }
+  116	    
+  117	    //Find winner
+  118	    winner = FindWinner(players);
+  119	    
+  120	    //prints the player who won the game
+  121	    if(winner==0)
+  122	        cout << "You won!" << endl;
+  123	    else
+  124	        cout << "Computer " << winner << " has won the game." << endl;
+  125	    
+  126	    return 0;
+  127	}
+  128	
+  129	//This function calls the member function to find lead
+  130	int FindLead(PlayerClass p[])
+  131	{
+  132	    int i;                      //loop index
+  133	    
+  134	    //This for loop check each players hand if he has a 2 of club
+  135	    for(i=0; i<MAX_PLAYERS; i++)
+  136	    {
+  137	        if(p[i].IsFirstLead())
+  138	        {
+  139	            if(i==0)
+  140	                cout << "You are the first lead." << endl;
+  141	            else
+  142	                cout << "Computer " << i << " is the first lead." << endl;
+  143	            return i;
+  144	        }
+  145	    }
+  146	}
+  147	
+  148	//This function plays the rounds
+  149	void PlayRound(PlayerClass p[], CardStruct t[], int & lead)
+  150	{
+  151	    int i;                  //loop index
+  152	    int choice;             //user's choice
+  153	    int roundScore;         //score of a round
+  154	    suitType leadingSuit;   //leading suit
+  155	    
+  156	    //this switch statement prints "user" if the lead is 0
+  157	    //otherwise prints computer number
+  158	    switch(lead)
+  159	    {
+  160	        case 0:
+  161	            cout << "User";
+  162	            break;
+  163	        case 1:
+  164	        case 2:
+  165	        case 3:
+  166	            cout << "Computer " << lead;
+  167	            break;
+  168	    }
+  169	    cout << " is leading the round" << endl << endl;
+  170	    
+  171	    //This for loop lets the players to play a card
+  172	    for(i=0; i<MAX_PLAYERS; i++)
+  173	    {
+  174	        //if a player's hand is full
+  175	        //and if the player is leading,
+  176	        //then start the game by play 2 of club
+  177	        if(p[lead].GetCount() == 13 && i==0)
+  178	            t[lead] = p[lead].StartOneHand();
+  179	        
+  180	        //if computer is leading, then the computer plays a card
+  181	        else if(lead!=0 && i==0)
+  182	            t[lead] = p[lead].StartOneHand();
+  183	        
+  184	        //else if the user is leading, get a choice from the user
+  185	        //otherwise computer plays a card by following a leading suit
+  186	        else
+  187	        {
+  188	            switch(lead)
+  189	            {
+  190	                case 0:
+  191	                    choice = GetChoice(p[lead], leadingSuit, i);
+  192	                    t[lead] = p[lead].PlaySelectedCard(choice);
+  193	                    break;
+  194	                case 1:
+  195	                case 2:
+  196	                case 3:
+  197	                    t[lead] = p[lead].FollowOneCard(leadingSuit);
+  198	                    break;
+  199	            }
+  200	        }
+  201	        
+  202	        //this switch statement prints "user" if the lead is 0
+  203	        //otherwise prints computer number
+  204	        switch(lead)
+  205	        {
+  206	            case 0:
+  207	                cout << "User: ";
+  208	                break;
+  209	            case 1:
+  210	            case 2:
+  211	            case 3:
+  212	                cout << "Computer " << lead << ": ";
+  213	                break;
+  214	        }
+  215	        
+  216	        //sets the leading suit played by the players who is leading the round
+  217	        if(i==0)
+  218	            leadingSuit = t[lead].suit;
+  219	        
+  220	        //Displays a card played by a current player
+  221	        DisplayCard(t[lead]);
+  222	        
+  223	        //Clockwise rotation
+  224	        lead=(lead+1)%4;
+  225	    }
+  226	    
+  227	    //Finds who has the highest value of a round
+  228	    //And assigns lead to who has the highest value
+  229	    lead=FindCollector(t, roundScore);
+  230	    
+  231	    cout << endl;
+  232	    
+  233	    //this switch statement prints "user" if the lead is 0
+  234	    //otherwise prints computer number
+  235	    switch(lead)
+  236	    {
+  237	        case 0:
+  238	            cout << "User";
+  239	            break;
+  240	        case 1:
+  241	        case 2:
+  242	        case 3:
+  243	            cout << "Computer " << lead;
+  244	            break;
+  245	    }
+  246	    
+  247	    cout << " gets " << roundScore << " points." << endl << endl;
+  248	    
+  249	    //Adds current round's score to the player who had the highest value
+  250	    p[lead].AddScore(roundScore);
+  251	    
+  252	    //Prints the score board
+  253	    DisplayScoreBoard(p);
+  254	    cout << endl;
+  255	}
+  256	
+  257	//This function prints one card's suit and value
+  258	void DisplayCard(const CardStruct c)
+  259	{
+  260	    //using enum type switch statement
+  261	    switch(c.suit)
+  262	    {
+  263	        case DIAMOND:
+  264	            if(c.value==14)
+  265	                cout << "Ace";
+  266	            else if(c.value==13)
+  267	                cout << "King";
+  268	            else if(c.value==12)
+  269	                cout << "Queen";
+  270	            else if(c.value==11)
+  271	                cout << "Jack";
+  272	            else
+  273	                cout << c.value;
+  274	            cout << " of Diamond" << endl;
+  275	            break;
+  276	            
+  277	        case CLUB:
+  278	            if(c.value==14)
+  279	                cout << "Ace";
+  280	            else if(c.value==13)
+  281	                cout << "King";
+  282	            else if(c.value==12)
+  283	                cout << "Queen";
+  284	            else if(c.value==11)
+  285	                cout << "Jack";
+  286	            else
+  287	                cout << c.value;
+  288	            cout << " of Club" << endl;
+  289	            break;
+  290	            
+  291	        case HEART:
+  292	            if(c.value==14)
+  293	                cout << "Ace";
+  294	            else if(c.value==13)
+  295	                cout << "King";
+  296	            else if(c.value==12)
+  297	                cout << "Queen";
+  298	            else if(c.value==11)
+  299	                cout << "Jack";
+  300	            else
+  301	                cout << c.value;
+  302	            cout << " of Heart" << endl;
+  303	            break;
+  304	            
+  305	        case SPADE:
+  306	            if(c.value==14)
+  307	                cout << "Ace";
+  308	            else if(c.value==13)
+  309	                cout << "King";
+  310	            else if(c.value==12)
+  311	                cout << "Queen";
+  312	            else if(c.value==11)
+  313	                cout << "Jack";
+  314	            else
+  315	                cout << c.value;
+  316	            cout << " of Spade" << endl;
+  317	            break;
+  318	    }
+  319	}
+  320	
+  321	//This function read the user's choice
+  322	int GetChoice(PlayerClass user, suitType s, int turn)
+  323	{
+  324	    bool validChoice=false;     //is a choice valid?
+  325	    int choice;
+  326	    
+  327	    //if the user is leading the round
+  328	    //get a choice from the user
+  329	    if(turn==0)
+  330	    {
+  331	        cout << "Please enter the card number you want to play: ";
+  332	        cin >> choice;
+  333	        return choice;
+  334	    }
+  335	    
+  336	    //if the user is playing after the lead,
+  337	    //then get a choice and check if it is a valid choice
+  338	    else
+  339	    {
+  340	        cout << endl;
+  341	        cout << "Leading suit: ";
+  342	        
+  343	        //enum type switch statement
+  344	        switch(s)
+  345	        {
+  346	            case DIAMOND: cout << "Diamond" << endl; break;
+  347	            case CLUB: cout << "Club" << endl; break;
+  348	            case HEART: cout << "Heart" << endl; break;
+  349	            case SPADE: cout << "Spade" << endl; break;
+  350	        }
+  351	        
+  352	        //get user's choice until it is valid
+  353	        while(!validChoice)
+  354	        {
+  355	            cout << "Please enter the card number you want to play: ";
+  356	            cin >> choice;
+  357	                            
+  358	            if(user.IsValidChoice(s, choice))
+  359	            {
+  360	                validChoice = true;
+  361	                return choice;
+  362	            }
+  363	            else
+  364	                cout << "Not a valid choice." << endl;
+  365	        }
+  366	    }
+  367	}
+  368	
+  369	//This function find who has played the card of highest value of the round
+  370	int FindCollector(const CardStruct t[], int & score)
+  371	{
+  372	    int hiVal=0;            //holds highest value
+  373	    int hiValPlayer=0;      //holds the index of player 
+  374	                            //who has the highest value
+  375	    int i;                  //loop index
+  376	    
+  377	    score = 0;
+  378	
+  379	    //This for loop sums all of the points
+  380	    //and then finds who has playeed the card of highest value fo the round
+  381	    for(i=0; i<MAX_PLAYERS; i++)
+  382	    {
+  383	        score = score + t[i].points;
+  384	        
+  385	        if(t[i].value > hiVal)
+  386	        {
+  387	            hiVal=t[i].value;
+  388	            hiValPlayer=i;
+  389	        }
+  390	    }
+  391	    
+  392	    return hiValPlayer;
+  393	}
+  394	
+  395	//This function prints each player's score
+  396	void DisplayScoreBoard(PlayerClass p[])
+  397	{
+  398	    int i;
+  399	    
+  400	    cout << "-----Score Board-----" << endl;
+  401	    
+  402	    //This for loop prints each player's score
+  403	    for(i=0; i<MAX_PLAYERS; i++)
+  404	    {
+  405	        if(i==0)
+  406	            cout << "User: ";
+  407	        else
+  408	            cout << "Computer " << i << ": ";
+  409	        cout << p[i].GetScore() << " points" << endl;
+  410	    }
+  411	}
+  412	
+  413	//This function finds who won the game
+  414	int FindWinner(PlayerClass p[])
+  415	{
+  416	    int i;                          //loop index
+  417	    int winner=0;                   //hold the winner's index
+  418	    int temp = p[0].GetScore();     //temporary integer variable
+  419	    
+  420	    
+  421	    //This for loop finds who has the lowest points
+  422	    for(i=0; i<MAX_PLAYERS; i++)
+  423	    {
+  424	        if(p[i].GetScore() < temp)
+  425	        {
+  426	            temp = p[i].GetScore();
+  427	            winner = i;
+  428	        }
+  429	    }
+  430	    
+  431	    return winner;
+  432	}
+$ aCC CardClass.cpp PlayerClass.cpp heartsB.cc -o Run[K[K[K[K[K[K[K
+$ a.lu[K[Kout
+**********************************************
+                    HEARTS                    
+**********************************************
+Computer 1 is the first lead.
+
+ROUND 1
+Your Cards
+ #   SUIT         VALUE        POINTS
+ 1  Diamond         5             0
+ 2  Diamond         J             0
+ 3   Club           Q             0
+ 4   Club           6             0
+ 5   Club           K             0
+ 6   Club           9             0
+ 7   Heart          7             5
+ 8   Heart          4             5
+ 9   Heart          6             5
+10   Spade          2             0
+11   Spade          A             0
+12   Spade          7             0
+13   Spade          9             0
+
+Computer 1 is leading the round
+
+Computer 1: 2 of Club
+Computer 2: 10 of Club
+Computer 3: 8 of Club
+
+Leading suit: Club
+Please enter the card number you want to play: 3
+User: Queen of Club
+
+User gets 0 points.
+
+-----Score Board-----
+User: 0 points
+Computer 1: 0 points
+Computer 2: 0 points
+Computer 3: 0 points
+
+ROUND 2
+Your Cards
+ #   SUIT         VALUE        POINTS
+ 1  Diamond         5             0
+ 2  Diamond         J             0
+ 3   Club           6             0
+ 4   Club           K             0
+ 5   Club           9             0
+ 6   Heart          7             5
+ 7   Heart          4             5
+ 8   Heart          6             5
+ 9   Spade          2             0
+10   Spade          A             0
+11   Spade          7             0
+12   Spade          9             0
+
+User is leading the round
+
+Please enter the card number you want to play: 6
+User: 7 of Heart
+Computer 1: King of Heart
+Computer 2: Ace of Heart
+Computer 3: Queen of Heart
+
+Computer 2 gets 35 points.
+
+-----Score Board-----
+User: 0 points
+Computer 1: 0 points
+Computer 2: 35 points
+Computer 3: 0 points
+
+ROUND 3
+Your Cards
+ #   SUIT         VALUE        POINTS
+ 1  Diamond         5             0
+ 2  Diamond         J             0
+ 3   Club           6             0
+ 4   Club           K             0
+ 5   Club           9             0
+ 6   Heart          4             5
+ 7   Heart          6             5
+ 8   Spade          2             0
+ 9   Spade          A             0
+10   Spade          7             0
+11   Spade          9             0
+
+Computer 2 is leading the round
+
+Computer 2: 9 of Diamond
+Computer 3: King of Diamond
+
+Leading suit: Diamond
+Please enter the card number you want to play: 3
+Not a valid choice.
+Please enter the card number you want to play: 1
+User: 5 of Diamond
+Computer 1: 2 of Diamond
+
+Computer 3 gets 0 points.
+
+-----Score Board-----
+User: 0 points
+Computer 1: 0 points
+Computer 2: 35 points
+Computer 3: 0 points
+
+ROUND 4
+Your Cards
+ #   SUIT         VALUE        POINTS
+ 1  Diamond         J             0
+ 2   Club           6             0
+ 3   Club           K             0
+ 4   Club           9             0
+ 5   Heart          4             5
+ 6   Heart          6             5
+ 7   Spade          2             0
+ 8   Spade          A             0
+ 9   Spade          7             0
+10   Spade          9             0
+
+Computer 3 is leading the round
+
+Computer 3: 5 of Heart
+
+Leading suit: Heart
+Please enter the card number you want to play: 5
+User: 4 of Heart
+Computer 1: 2 of Heart
+Computer 2: Jack of Heart
+
+Computer 2 gets 25 points.
+
+-----Score Board-----
+User: 0 points
+Computer 1: 0 points
+Computer 2: 60 points
+Computer 3: 0 points
+
+ROUND 5
+Your Cards
+ #   SUIT         VALUE        POINTS
+ 1  Diamond         J             0
+ 2   Club           6             0
+ 3   Club           K             0
+ 4   Club           9             0
+ 5   Heart          6             5
+ 6   Spade          2             0
+ 7   Spade          A             0
+ 8   Spade          7             0
+ 9   Spade          9             0
+
+Computer 2 is leading the round
+
+Computer 2: 10 of Spade
+Computer 3: 8 of Spade
+
+Leading suit: Spade
+Please enter the card number you want to play: 1
+Not a valid choice.
+Please enter the card number you want to play: 9
+User: 9 of Spade
+Computer 1: King of Spade
+
+Computer 1 gets 0 points.
+
+-----Score Board-----
+User: 0 points
+Computer 1: 0 points
+Computer 2: 60 points
+Computer 3: 0 points
+
+ROUND 6
+Your Cards
+ #   SUIT         VALUE        POINTS
+ 1  Diamond         J             0
+ 2   Club           6             0
+ 3   Club           K             0
+ 4   Club           9             0
+ 5   Heart          6             5
+ 6   Spade          2             0
+ 7   Spade          A             0
+ 8   Spade          7             0
+
+Computer 1 is leading the round
+
+Computer 1: Ace of Diamond
+Computer 2: 7 of Diamond
+Computer 3: 4 of Diamond
+
+Leading suit: Diamond
+Please enter the card number you want to play: 1
+User: Jack of Diamond
+
+Computer 1 gets 0 points.
+
+-----Score Board-----
+User: 0 points
+Computer 1: 0 points
+Computer 2: 60 points
+Computer 3: 0 points
+
+ROUND 7
+Your Cards
+ #   SUIT         VALUE        POINTS
+ 1   Club           6             0
+ 2   Club           K             0
+ 3   Club           9             0
+ 4   Heart          6             5
+ 5   Spade          2             0
+ 6   Spade          A             0
+ 7   Spade          7             0
+
+Computer 1 is leading the round
+
+Computer 1: 10 of Diamond
+Computer 2: Queen of Diamond
+Computer 3: 6 of Diamond
+
+Leading suit: Diamond
+Please enter the card number you want to play: 2
+User: King of Club
+
+User gets 0 points.
+
+-----Score Board-----
+User: 0 points
+Computer 1: 0 points
+Computer 2: 60 points
+Computer 3: 0 points
+
+ROUND 8
+Your Cards
+ #   SUIT         VALUE        POINTS
+ 1   Club           6             0
+ 2   Club           9             0
+ 3   Heart          6             5
+ 4   Spade          2             0
+ 5   Spade          A             0
+ 6   Spade          7             0
+
+User is leading the round
+
+Please enter the card number you want to play: 5
+User: Ace of Spade
+Computer 1: 3 of Spade
+Computer 2: 5 of Spade
+Computer 3: 6 of Spade
+
+User gets 0 points.
+
+-----Score Board-----
+User: 0 points
+Computer 1: 0 points
+Computer 2: 60 points
+Computer 3: 0 points
+
+ROUND 9
+Your Cards
+ #   SUIT         VALUE        POINTS
+ 1   Club           6             0
+ 2   Club           9             0
+ 3   Heart          6             5
+ 4   Spade          2             0
+ 5   Spade          7             0
+
+User is leading the round
+
+Please enter the card number you want to play: 3
+User: 6 of Heart
+Computer 1: 3 of Heart
+Computer 2: 10 of Heart
+Computer 3: 9 of Heart
+
+Computer 2 gets 25 points.
+
+-----Score Board-----
+User: 0 points
+Computer 1: 0 points
+Computer 2: 85 points
+Computer 3: 0 points
+
+ROUND 10
+Your Cards
+ #   SUIT         VALUE        POINTS
+ 1   Club           6             0
+ 2   Club           9             0
+ 3   Spade          2             0
+ 4   Spade          7             0
+
+Computer 2 is leading the round
+
+Computer 2: Jack of Spade
+Computer 3: Queen of Spade
+
+Leading suit: Spade
+Please enter the card number you want to play: 3
+User: 2 of Spade
+Computer 1: Ace of Club
+
+Computer 1 gets 100 points.
+
+-----Score Board-----
+User: 0 points
+Computer 1: 100 points
+Computer 2: 85 points
+Computer 3: 0 points
+
+ROUND 11
+Your Cards
+ #   SUIT         VALUE        POINTS
+ 1   Club           6             0
+ 2   Club           9             0
+ 3   Spade          7             0
+
+Computer 1 is leading the round
+
+Computer 1: 3 of Diamond
+Computer 2: 3 of Club
+Computer 3: 8 of Diamond
+
+Leading suit: Diamond
+Please enter the card number you want to play: 3
+User: 7 of Spade
+
+Computer 3 gets 0 points.
+
+-----Score Board-----
+User: 0 points
+Computer 1: 100 points
+Computer 2: 85 points
+Computer 3: 0 points
+
+ROUND 12
+Your Cards
+ #   SUIT         VALUE        POINTS
+ 1   Club           6             0
+ 2   Club           9             0
+
+Computer 3 is leading the round
+
+Computer 3: 5 of Club
+
+Leading suit: Club
+Please enter the card number you want to play: 1
+User: 6 of Club
+Computer 1: 7 of Club
+Computer 2: 4 of Club
+
+Computer 1 gets 0 points.
+
+-----Score Board-----
+User: 0 points
+Computer 1: 100 points
+Computer 2: 85 points
+Computer 3: 0 points
+
+ROUND 13
+Your Cards
+ #   SUIT         VALUE        POINTS
+ 1   Club           9             0
+
+Computer 1 is leading the round
+
+Computer 1: Jack of Club
+Computer 2: 4 of Spade
+Computer 3: 8 of Heart
+
+Leading suit: Club
+Please enter the card number you want to play: 1
+User: 9 of Club
+
+Computer 1 gets -95 points.
+
+-----Score Board-----
+User: 0 points
+Computer 1: 5 points
+Computer 2: 85 points
+Computer 3: 0 points
+
+You won!
+$ exit
+exit
+
+Script done on Mon 28 Feb 2011 06:48:39 PM CST
