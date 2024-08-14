@@ -1,0 +1,137 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+  <title>Lab 20 - Sorted Linked List 
+  </title>
+</head>
+  <!--!!!!!!!!!! Lesson Title and Objective   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!--> 
+    <center>
+      <h1>
+Lab 20 -- Sorted Linked List
+      </h1>
+      </center>
+
+
+<p>
+In this lab, we will practice coding sorted linked list. 
+We are not going to use a C++ class for this lab.
+The linked list will be developed entirely in the client program. 
+<p>
+
+This program reads in a number of values from the data file and inserts the items into a sorted list in alphabetical order.
+The format of the data file is as the following:
+
+<xmp>
+apple 
+pineapple
+orange
+milk
+...
+</xmp>
+
+Your program will read the items from the data file one at a time and inserts the item into the list. It repeats 
+these read-insert steps til the end of the data file is reached.
+The content of the sorted list after each read-insert step is as following:
+<ul> 
+<li>After the first item "apple" is read, the list content is head->apple.
+<li>After the item "pineapple" is read, the list is : head->apple->pineapple.
+<li>After the item "orange" is read, the list is : head->apple->orange->pineapple.
+<li>After the item "milk" is read, the list is : head->apple->milk->orange->pineapple.
+</ul>
+<p>
+Copy the data file using the following command: 
+<xmp>
+cp ~cen/data/produce.dat  workspace-directory/project-directory/.
+</xmp>
+
+
+<p>
+Write a client program with the following components:
+
+<xmp>
+// fill in the blank area 
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <cassert>
+using namespace std;
+
+typedef string ListItemType;
+
+struct Node {
+   ListItemType data;
+   Node * next;
+};
+typedef Node * NodePtr;
+
+// Declare the function "BuildSortedList" here
+
+
+// Declare the function "SortedListInsert" here
+
+
+// Declare the function "DisplayList" here
+
+
+// Declare the function "DestroyList" here
+
+
+
+int main()
+{
+    ifstream myIn;
+    NodePtr  head;  
+    
+    myIn.open("../produce.dat");
+    assert(myIn);
+
+    // call function "BuildSortedList" to read data from the data file and  
+    // construct the list
+
+
+    // call function "DisplayList" to display the list
+
+
+    // call function "DestroyList" here
+
+
+
+    return 0;
+}
+
+// define the function "BuildSortedList" below
+// Write a "while" loop to read position-item pairs from the data file.
+// insert the item into the list at the specified position. Call "SortedListInsert" function for insertion.
+// The loop terminates when the end of the data file is reached.
+
+
+// define the function "SortedListInsert" below
+
+
+
+// define the function "DisplayList" below
+
+
+
+// define the function "DestroyList" below
+
+
+
+
+</xmp>
+
+For this lab, you need to submit one file: <em>main.cpp</em>.
+<p>
+<h2>Steps to edit, compile, run, and submit the program:</h2>
+<ul>
+<li>If after you compile your program, there is compilation errors, then you need to modify the program according to the error messages. 
+You may need to edit and compile your program multiple times before it compiles successfully.
+
+<li>Now you can run the program, check to make sure the output is correct. If not, you need to modify the program and recompile and rerun the program.
+
+<li>Once you are able to successfully run the program with the correct outputs, you are ready to submit the program electronically. Only submit the source file. 
+
+Locate the source file in your "project" directory under your "workspace" directory. 
+For example, if you named your "workspace" as "codelite" under your home directory, and named the project "cla19", then "main.cpp" should be in ~/codelite/cla20 directory.
+
+</body></html>

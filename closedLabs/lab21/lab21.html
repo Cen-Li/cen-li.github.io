@@ -1,0 +1,204 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+  <title>Lab 21 - circular doubly linked sorted linked list  with dummy head
+  </title>
+</head>
+  <!--!!!!!!!!!! Lesson Title and Objective   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!--> 
+    <center>
+      <h1>
+Lab 21 -- Circular Doubly Sorted Linked List with Dummy Head
+      </h1>
+      </center>
+
+
+<p>
+In this lab, we will practice coding one type of linked list variation: the Circular Doubly Linked List with Dummy Head. The list is to be maintained in sorted (ascending) order. 
+The advantages of this linked list variation include :
+<ol>
+<li> When coding for "insertion" and "deletion", there is no need to differentiate between the two cases: (1) insert/delete at the beginning of the list; (2) insert/delete at the middle or end of the list
+<li> For maintaining a sorted list, only one temporary pointer "cur" is needed to locate the insertion/deletion location and to perform the insertion/deletion operation.
+</ol>
+<p>
+
+This program reads in a number of string type values from a data file 
+and inserts the items into the list maintaining the sorted order of the list after each item is inserted.
+
+The format of the data file is as the following:
+
+<xmp>
+apple 
+pineapple
+orange
+milk
+...
+</xmp>
+
+Your program will read the items frwm the data file one at a time and inserts the item into the list. It repeats 
+these read-insert steps til the end of the data file is reached.
+The content of the sorted list after each read-insert step is as following:
+<ul> 
+<li>When the list is first created, an empty circular doubly linked list with dummy head is: head<->dummy-head-node (and dummy->next points to dummy; dummy->precede points to dummy.)
+<li>After the first item "apple" is read, the list content is head<->dummy<->apple<->dummy. (apple->next points to dummy, dummy->precede points to apple)
+<li>After the item "pineapple" is read, the list is : head<->dummy<->apple<->pineapple<->dummy. (pineapple->next points to dummy, dummy->precede points to pineapple)
+<li>After the item "orange" is read, the list is : head<->dummy<->apple<->orange<->pineapple<->dummy. 
+<li>After the item "milk" is read, the list is : head<->dummy<->apple<->milk<->orange<->pineapple<->dummy. 
+</ul>
+<p>
+Copy the data file using the following command: 
+<xmp>
+cp ~cen/data/produce.dat  workspace-directory/project-directory/.
+</xmp>
+
+<p>
+We are not going to use a C++ class for this lab.
+The linked list will be developed entirely in the client program. 
+
+<p>
+Write a client program with the following components:
+
+<xmp>
+// fill in the blank area 
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <cassert>
+using namespace std;
+
+typedef string ListItemType;
+
+struct Node {
+   Node * precede;
+   ListItemType data;
+   Node * next;
+};
+typedef Node * NodePtr;
+
+// Declare the function "BuildSortedList" here
+
+
+// Declare the function "InitializeDummyHead" here
+
+
+// Declare the function "PrintForward" here
+
+
+// Declare the function "PrintBackward" here
+
+
+// Declare the function "DestroyList" here
+
+
+int main()
+{
+    ifstream myIn;
+    NodePtr  head;  
+    
+    myIn.open("../produce.dat");
+    assert(myIn);
+
+    // call function "InitializeDummyHead" to create and initialize the dummy head of the list
+
+
+    // call function "BuildList" to read data from the data file and  
+    // construct the circular doubly linked list with dummy head
+
+
+    // call function "PrintForward" to display the list in the forward order
+
+
+    // call function "PrintBackward" to display the list in the backward order
+
+
+    // call function "DestroyList" here
+
+    myIn.close();
+
+    return 0;
+}
+
+// define the function "InitializeDummyHead" here 
+// This function dynamically allocate space for the head node
+// and assigns both the "precede" and the "next" fields of the node to point to itself
+
+
+
+
+// define the function "BuildSortedList"  here
+// Write a "while" loop to read the items from the data file one by one.
+// In the body of the loop, for each item read, insert it into the doubly linked circular list with dummy head
+// The list should be maintained in the sorted order after each data is inserted.
+// The loop terminates when the end of the data file is reached.
+
+
+
+
+// define the function "PrintForward" here 
+// This function prints out the items in the list in the order as they appear in the list
+
+
+
+
+// define the function "PrintBackward" here 
+// This function prints out the items in the list in the reverse order as they appear in the list
+
+
+
+
+// define the function "DestroyList"  here
+// This function de-allocates the memory of all the nodes of the list.
+// After all the memory is released back to the heap, it assigns NULL as 
+// the value of "head" 
+
+
+
+
+</xmp>
+
+<p>
+Here  is an example output from the program run:
+<xmp>
+Printing forward:
+
+apple
+banana
+bread
+cake
+candy
+chips
+egg
+icecream
+milk
+onion
+pepper
+
+Printing backward:
+
+pepper
+onion
+milk
+icecream
+egg
+chips
+candy
+cake
+bread
+banana
+apple
+</xmp>
+
+For this lab, you need to submit one file: <em>main.cpp</em>.
+<p>
+<h2>Steps to edit, compile, run, and submit the program:</h2>
+<ul>
+<li>If after you compile your program, there is compilation errors, then you need to modify the program according to the error messages. 
+You may need to edit and compile your program multiple times before it compiles successfully.
+
+<li>Now you can run the program, check to make sure the output is correct. If not, you need to modify the program and recompile and rerun the program.
+
+<li>Once you are able to successfully run the program with the correct outputs, you are ready to submit the program electronically. Only submit the source file. 
+
+Locate the source file in your "project" directory under your "workspace" directory. 
+For example, if you named your "workspace" as "codelite" under your home directory, and named the project "cla21", then "main.cpp" should be in ~/codelite/cla21 directory.
+
+</body></html>
