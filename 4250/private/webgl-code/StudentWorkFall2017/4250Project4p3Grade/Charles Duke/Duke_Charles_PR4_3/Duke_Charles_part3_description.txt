@@ -1,0 +1,36 @@
+The javascript code has been split into 3 files each meant for specific
+purposes.
+
+objects_part1.js: Holds the object vertices and primitive functions used
+                  to render them. generatePoints() is implemented here
+                  and all generated objects are stored in the scene
+                  namespace (objectList).
+
+scene_part1.js: The main lifter, this file holds the scene namespace as
+                well as an additional namespace called controls. The
+                scene namespace greatly simplifies drawing by storing
+                the starting and ending points in an object list, which
+                can then be recalled using the implemented draw
+                function. The controls namespace contains several
+                variables that control various aspects of the scene,
+                such as the camera angle and render type. The WebGL
+                inits are also held in this file, as well as the render
+                function and event handlers.
+
+draw_part1.js: This file contains every draw function to facilitate what
+               would be a very sloppy render function. Each object has
+               a draw function that handles all translation, rotations,
+               and scaling as needed to fit the scene. Also contains
+               functions for dealing with textures.
+
+
+
+Textures have been added to all drawn objects. Textures used will be
+found in the "texture" directory.
+
+Sound effects have been added, specifically to coexist with the clock.
+10 different "tick-tock" sound effects have been added to simulate the
+sound of a real clock with a sense of variety so that it isn't jarring.
+Sound effects used will be found in the "sound" directory. Sound effects
+can be toggled on/off using the provided button or by pressing the 's'
+key.

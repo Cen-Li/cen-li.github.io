@@ -1,0 +1,44 @@
+<!--Name:       Charles Nathan Duke
+//Course:       CSCI 4250-001
+//Instructor:   Dr. Cen Li
+//Due:          9/12/2017
+//File:         twoSquares.html
+//Description:  Simply draws 2 different colored squares
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Draw two colored squares</title>
+</head>
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+attribute vec4 vPosition;
+void main() {
+    gl_Position = vPosition;
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+precision mediump float;
+// declare a uniform variable of vec4
+//Used to change colors around
+uniform vec4 index;
+void main() { //Add uniform var index to js. Check ColoredPoints for example
+	//Obtain the frag color from the index set in js
+    gl_FragColor = index;
+}
+</script>
+
+<script type="text/javascript" src="../Common/webgl-utils.js"></script>
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="../Common/MV.js"></script>
+<script type="text/javascript" src="twoSquares.js"></script>
+</head>
+
+<body onload="main()">
+<canvas id="gl-canvas" width="512" height="512">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+</body>
+</html>

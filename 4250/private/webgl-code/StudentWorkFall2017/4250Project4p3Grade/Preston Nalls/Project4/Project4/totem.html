@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="styles.css">
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+	attribute  vec4 vPosition;
+	attribute  vec3 vNormal;
+	attribute  vec4 vColor;
+	varying vec4 fColor;
+
+	uniform vec4 ambientProduct, diffuseProduct, specularProduct;
+	uniform mat4 modelViewMatrix;
+	uniform mat4 projectionMatrix;
+	uniform vec4 lightPosition;
+	uniform float shininess;
+
+	void main()
+	{
+	    vec3 pos = (modelViewMatrix * vPosition).xyz;
+	    //vec3 light = (modelViewMatrix * lightPosition).xyz;
+	    vec3 light = lightPosition.xyz;
+	    vec3 L = normalize( light - pos );
+
+	    vec3 E = normalize( -pos );
+	    vec3 H = normalize( L + E );
+	    
+	    vec4 NN = vec4(vNormal,0);
+
+	    // Transform vertex normal into eye coordinates
+	       
+	    vec3 N = normalize( (modelViewMatrix*NN).xyz);
+
+	    // Compute terms in the illumination equation
+	    vec4 ambient = ambientProduct;
+
+	    float Kd = max( dot(L, N), 0.0 );
+	    vec4  diffuse = Kd*diffuseProduct;
+
+	    float Ks = pow( max(dot(N, H), 0.0), shininess );
+	    vec4  specular = Ks * specularProduct;
+	    
+	    if( dot(L, N) < 0.0 ) {
+			specular = vec4(0.0, 0.0, 0.0, 1.0);
+	    } 
+
+	    gl_Position = projectionMatrix * modelViewMatrix * vPosition;
+	    fColor = vColor + ambient + diffuse + specular;
+	    
+	    fColor.a = 1.0;
+	}
+</script>
+<script id="fragment-shader" type="x-shader/x-fragment">
+
+	precision mediump float;
+	varying vec4 fColor;
+	   
+	void
+	main()
+	{
+	   gl_FragColor = fColor;
+	}
+
+</script>
+
+		<script type="text/javascript" src="../Common/webgl-utils.js"></script>
+		<script type="text/javascript" src="../Common/initShaders.js"></script>
+
+		<script type="text/javascript" src="../Common/MV.js"></script>
+		<script type="text/javascript" src="totem.js"></script>
+		<script type="text/javascript" src="generatepoints.js"></script>
+	</head>
+
+	<body>
+		<!--<div id="title-screen"><h1>TOTEM</h1></div>-->		<br>
+		<br>
+		
+<canvas id="gl-canvas" oncontextmenu="return false;" style="cursor: grabbing;" width="830" height="512">
+		Oops ... your browser doesn't support the HTML5 canvas element
+		</canvas>
+		<br>
+		<br>
+		<div class="btn-panel">
+			<div>
+				<button id = "phiPlus" class="top-row-btn">PHI++</button>
+				<button id = "phiMinus" class="top-row-btn">PHI--</button>
+				<button id = "thetaPlus" class="top-row-btn">THETA++</button>
+				<button id = "thetaMinus">THETA--</button>
+			</div>
+			<br>
+			<div>
+				<button id = "zoomIn" class="bottom-row-btn">ZOOM IN</button>
+				<button id = "zoomOut">ZOOM OUT</button>
+			</div>
+		</div>
+		<br>
+		<br>
+
+	</body>
+</html>

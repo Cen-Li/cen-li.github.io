@@ -1,0 +1,68 @@
+<!--Name:       Charles Nathan Duke
+//Course:       CSCI 4250-001
+//Instructor:   Dr. Cen Li
+//Due:          10/26/2017
+//File:         halloween.html
+//Description:  A halloween themed game!
+//              
+//              Controls:
+//              r/R - Rotate bow right
+//              l/L - Rotate bow left
+//              f/F - Fire arrow in the direction the bow is currently facing
+//              s/S - Spawn the ghost
+//              b/B - Reset the game (Despawn ghost, reset rotation on bow)
+//
+//              The object of the game is simple. When spawning the ghost, it will appear in a random location in the center
+//              canvas. Rotate the bow and aim for the ghost. When the shot is lined up, fire! If you land the hit, the ghost will
+//              despawn. If you miss, the arrow will fly off the screen and you'll reload your bow. At any point, you can reset the
+//              game, which will despawn the ghost (If present) and reset the rotation on your bow.
+//
+//              You cannot rotate the bow more than 90 degrees in either direction. The ghost never spawns below such points.
+//
+//              The ghost has a boundary box that is used to determine collision with the arrow. Using a delay frame, the arrow
+//              must make contact for at least 8 ticks to register a hit. This is used to better handle "ghost hits".
+//
+//              The scene is randomly generated when the page is first loaded. This scene will persist through resets unless the
+//              page is reloaded. Factors that are randomized include...
+//                                  Number of stars
+//                                  Number and size of mountains
+//                                  Number and size of trees
+//                                  Number, size, and rotation of rocks
+//              The only persistent factors are the sky, ground, and ringed planet. These will always be the same between resets or
+//              reloads.
+-->
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<title>Halloween Game</title>
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+attribute  vec4 vPosition;
+attribute  vec4 vColor;
+varying vec4 fColor;
+
+uniform mat4 modelViewMatrix;
+uniform mat4 projectionMatrix;
+
+void main() {
+   gl_Position =  projectionMatrix * modelViewMatrix * vPosition;
+   fColor = vColor;
+} 
+</script><script id="fragment-shader" type="x-shader/x-fragment">
+precision mediump float;
+varying vec4 fColor;
+   
+void main() {
+   gl_FragColor = fColor;
+}
+</script><script type="text/javascript" src="../Common/webgl-utils.js"></script>
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="../Common/MV.js"></script>
+<script type="text/javascript" src="halloween.js"></script></head>
+
+
+<body onload="main()">
+<canvas id="gl-canvas" width="830" "="" height="512">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+
+</body></html>

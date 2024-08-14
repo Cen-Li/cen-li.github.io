@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<style type="text/css">
+    canvas { background: blue; }
+</style>
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+
+attribute  vec4 vPosition;
+attribute  vec4 vColor;
+varying vec4 fColor;
+
+uniform mat4 modelViewMatrix;
+uniform mat4 projectionMatrix;
+
+void main()
+{
+    gl_Position = projectionMatrix * modelViewMatrix * vPosition;
+    fColor = vColor;
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+
+precision mediump float;
+varying vec4 fColor;
+void main()
+{
+    gl_FragColor = fColor;
+}
+</script>
+
+<script type="text/javascript" src="../common/webgl-utils.js"></script>
+<script type="text/javascript" src="../common/initShaders.js"></script>
+<script type="text/javascript" src="../common/MV.js"></script>
+<script type="text/javascript" src="ortho-eye.js"></script>
+
+<body>
+<canvas id="gl-canvas" width="512" height="512">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+
+<div>
+<p>
+  Enter eye location:
+  <FORM name="parameterForm">
+  X: <input type=text name="xValue" value=0>
+  Y: <input type=text name="yValue" value=0>
+  Z: <input type=text name="zValue" value=2>
+  <INPUT TYPE="BUTTON" id="eyeValue" VALUE="Submit">
+  </Form>
+
+<p>
+  <button id = "ButtonX">Rotate X</button>
+  <button id = "ButtonY">Rotate Y</button>
+  <button id = "ButtonZ">Rotate Z</button>
+  <button id = "ButtonT">Toggle Rotation</button>
+</div>
+
+</body>
+</html>

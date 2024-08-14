@@ -1,0 +1,38 @@
+<!-- 
+	Student Name: Preston Nalls
+	Professor Name: Cen Li, PhD
+	Assignment: Homework 1 
+-->
+
+<!-- tells browser that this file of document type HTML -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Two Squares</title>
+		<!-- set the postion of GL vertex shader -->
+		<script id="vertex-shader" type="x-shader/x-vertex">
+			attribute vec4 vPosition;
+			void main() {
+				gl_Position = vPosition;
+			}
+		</script>
+		<!-- set GL fragment color for varying colors -->
+		<script id="fragment-shader" type="x-shader/x-fragment">
+			precision mediump float;
+			uniform vec4 u_FragColor;
+			void main() {
+				gl_FragColor = u_FragColor;
+			}
+		</script>
+		<script type="text/javascript" src="../Common/webgl-utils.js"></script>
+		<script type="text/javascript" src="../Common/initShaders.js"></script>
+		<script type="text/javascript" src="../Common/MV.js"></script>
+		<script type="text/javascript" src="symbol.js"></script>
+	</head>
+	<body onload="main()">
+		<canvas id="gl-canvas" width="512" height="512">
+			Oops... your browser doesn't support the HTML5 canvas element
+		</canvas>
+	</body>
+</html>

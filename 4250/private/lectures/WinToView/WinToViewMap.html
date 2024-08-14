@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Window-to-Viewpoint Mapping</title>
+<style type="text/css">
+<!--
+body,td,th {
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	color: #000000;
+}
+body {
+	background-color: #EEEEEE;
+	
+	background-repeat: repeat;
+}
+a:link {
+	color: #3333CC;
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+	color: #FF0000;
+}
+a:hover {
+	text-decoration: underline;
+}
+a:active {
+	text-decoration: none;
+}
+.style1 {
+	color: #000099;
+	font-style: italic;
+}
+.style2 {color: #000099}
+-->
+</style></head>
+
+<body>
+<h1 align="center" class="style1">Window-to-Viewport Mapping</h1>
+<hr style="elevation:above" size="4"/>
+<blockquote>
+	<blockquote>
+  		<h3 align="justify" class="style2"><u>Definitions</u></h3>
+	</blockquote>
+    <ul>
+      <li>
+        <p align="justify"><strong>World Coordinate System</strong> - This is object space or the space in which the application model is defined.</p>
+      </li>
+      <li>
+        <p><strong>Screen Coordinate System</strong> - The space in which the image is displayed.</p>
+      </li>
+      <li>
+        <p><strong>Clip Coordinate (or Object Coordinate) System</strong> - This is the rectangle in the world defining the region that is to be displayed. Default to be (x: [-1, 1]; y:[-1, 1] )</p>
+      </li>
+      <li>
+        <p><strong>Interface Window</strong> - The window opened on the raster graphics screen in which the image will be displayed. Think of it as the Canvas to draw on. </p>
+      </li>
+      <li>
+        <p><strong>Viewport</strong> - The rectangular portion of the interface window that defines where the image will actually appear (default is the entire interface window but in some cases modified to be a portion of the interface window).</p>
+      </li>
+      <li>        <strong>Viewing Transformation</strong> - The process of mapping a world window in <em>World Coordinates</em> to the <em>Viewport</em>. </li>
+    </ul>
+  <blockquote>
+    <p align="center"><img src="winToView.JPG" width="662" height="258" /></p>
+      <h3 align="justify" class="style2"><u>Description</u></h3>
+      <p align="justify"><strong>Window-to-Viewport</strong> <strong>mapping</strong> is the process of mapping or transforming a two-dimensional, world-coordinate scene to device coordinates. In particular, objects inside the world or clipping window are mapped to the viewport. The viewport is displayed in the interface window on the screen. In other words, the clipping window is used to select the part of the scene that is to be displayed. The viewport then positions the scene on the output device.</p>
+      <blockquote><p align="justify">example</p></blockquote>
+      <p align="center"><img src="WinToViewMap/WorldToViewport.PNG" width="624" height="225" /></p>
+      <p align="justify">&nbsp;</p>
+      <h3 align="justify" class="style2"><strong><u>Development of the Window-To-Viewport Mapping</u> </strong></h3>
+      <p align="justify">This mapping or transformation involves developing formulas that start with a point in the world window, say (xw, yw). The formula is used to produce a corresponding point in viewport coordinates, say (xv, yv). We would like for this mapping to be &quot;proportional&quot; in the sense that if xw is 30% of the way from the left edge of the world window, then xv is 30% of the way from the left edge of the viewport. Similarly, if yw is 30% of the way from the bottom edge of the world window, then yv is 30% of the way from the bottom edge of the viewport. The picture below shows this proportionality.</p>
+      <p align="center"><img src="proportionality.JPG" width="568" height="386" /> </p>
+      <p align="left">Using this proportionality, the following ratios must be equal. </p>
+      <p align="center"><img src="WinToViewMap/eq1.png" width="273" height="125" /> </p>
+      <p align="justify">By solving these equations for the unknown viewport position (xv, yv), the following becomes true:</p>
+      <p align="center"><img src="WinToViewMap/eq2.png" width="155" height="75" /> </p>
+      <p align="justify">The scale factors (Sx, Sy) would be:</p>
+      <p align="center"><img src="WinToViewMap/eq3.png" alt="Scale factors" width="172" height="125" /></p>
+      <p align="justify">And the translation factors (Tx, Ty) would be:</p>
+    <p align="center"><img src="WinToViewMap/eq4.png" alt="Translation factors" width="271" height="125" /></p>
+    <p align="left">The position of the viewport can be changed allowing objects to be viewed at different positions on the Interface Window. Multiple viewports can also be used to display different sections of a scene at different screen positions. Also, by changing the dimensions of the viewport, the size and proportions of the objects being displayed can be manipulated. Thus, a zooming affect can be achieved by successively mapping different dimensioned clipping windows on a fixed sized viewport.</p>
+    <p align="left">If the aspect ratio of the world window and the viewport are different, then the image may look distorted.</p>
+    <h3 align="left" class="style2"><strong><u>WebGL Window-To-Viewport Mapping</u></strong></h3>
+    <p align="left">In WebGL, the function <strong>ortho(left, right, bottom, top);</strong> is used to set up the world window. For example, if we wanted a world window with x varying from -1.0 to 1.0 and y varying from 3.0 to 5.0, we would use the following code to accomplish this:</p>
+    <p align="left"><strong>projectMatrix=ortho(-1.0, 1.0, 3.0, 5.0);</strong></p>
+    <p aligh="left">The projectMatrix is later sent over to the vertex shader to perform the mapping computation.
+    <p align="left">To set up the viewport, we would use <strong>gl.viewport(left, bottom, width, height); </strong>For example, if we wished a viewport to start at the lower left corner of the interface window, have a width of 200 and a height of 300, we would use the following WebGL statement to accomplish this:</p>
+    <p align="left"><strong>gl.viewport(0, 0, 200, 300);</strong></p>
+    <h3 align="left" class="style2"><strong><u>Tiling using the Window-To-Viewport transformation</u></strong></h3>
+    <p align="left">If we draw a number of copies of the same image in rows and columns across the interface window so that they cover the entire window, it is called <em><strong>tiling. </strong></em>The picture that is drawn many times is called a <em><strong>motif</strong></em>. To achieve tiling in computer graphics, the window remains static and the viewport is changed many times and the picture is redrawn each time the viewport is changed. The following picture shows the same image from the world drawn 4 times in 4 different viewports.</p>
+    <p align="center"><img src="tilings.JPG" width="303" height="296" /> </p>
+    <p align="left">This can be achieved using the following code:</p>
+   
+      <pre>
+	  for (int i = 0; i &lt; 2; i++)
+	       for (int j = 0; j &lt; 2; j++)
+		   {
+		        gl.viewport (i * screenWidth/2.0, j * screenHeight/2.0, screenWidth/2, screenHeight/2); 
+			drawSaturn();
+	     	   }
+ </pre>
+
+      <h3 class="style2"><u>Zooming or Panning Using Window-to-Viewport transformation</u>
+</h3>
+      <p><em><strong>Zooming</strong></em> is a technique in which users can change the size of the area to be viewed in order to see more detail or less detail. <em><strong>Panning</strong></em> or <em><strong>roaming</strong></em> means sliding the camera across the scene, taking in different parts of it at different times. Both zooming and panning can be achieved in computer graphics by leaving the viewport static and changing the world window. The picture below (taken from wikipedia.org) shows these concepts.</p>
+      <p align="center"><img src="ZUI_example.png" width="776" height="328" /> </p>
+      <hr style="elevation:above" size="4"/>
+<p align="left">&nbsp;</p>
+</body>
+</html>

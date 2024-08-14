@@ -1,0 +1,120 @@
+<!--
+    FILE NAME:      house.html
+    PROGRAMMER:     Pete Sripitak
+    COURSE:         CSCI 4250
+    ASSIGNMENT:     Project 4 Final
+    DUE DATE:       Wednesday, 12/03/14
+    INSTRUCTOR:     Dr. Li
+
+    DESCRIPTION:	This program produces a scene of a house and a well.
+    INPUT:			None.
+    OUTPUT:			A scene of a house and a well.
+    TIPS:			None.
+    LIMITATIONS:	None.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scene</title>
+    <script id="vertex-shader" type="x-shader/x-vertex">
+        attribute  vec4 vPosition;
+        attribute  vec3 vNormal;
+        attribute  vec2 vTexCoord;
+
+        varying vec4 fColor;
+        varying vec2 fTexCoord;
+
+        uniform vec4 ambientProduct, diffuseProduct, specularProduct;
+        uniform mat4 modelViewMatrix;
+        uniform mat4 projectionMatrix;
+        uniform vec4 lightPosition;
+        uniform float shininess;
+
+        void main()
+        {
+            vec3 pos = -(modelViewMatrix * vPosition).xyz;
+            //vec3 light = -(modelViewMatrix * lightPosition).xyz;
+            vec3 light = lightPosition.xyz;
+            vec3 L = normalize( light - pos );
+
+            vec3 E = normalize( -pos );
+            vec3 H = normalize( L + E );
+
+            vec4 NN = vec4(vNormal,0);
+
+            // Transform vertex normal into eye coordinates
+            vec3 N = normalize( (modelViewMatrix*NN).xyz);
+
+            // Compute terms in the illumination equation
+            vec4 ambient = ambientProduct;
+
+            float Kd = max( dot(L, N), 0.0 );
+            vec4  diffuse = Kd * diffuseProduct;
+
+            float Ks = pow( max(dot(N, H), 0.0), shininess );
+            vec4  specular = Ks * specularProduct;
+
+            if( dot(L, N) < 0.0 ) {
+                specular = vec4(0.0, 0.0, 0.0, 1.0);
+            }
+
+            gl_Position = projectionMatrix * modelViewMatrix * vPosition;
+
+            fColor = ambient + diffuse + specular;
+            fColor.a = 1.0;
+
+            fTexCoord = vTexCoord;
+        }
+    </script>
+    <script id="fragment-shader" type="x-shader/x-fragment">
+        #ifdef GL_ES
+        precision highp float;
+        #endif
+
+        varying vec4 fColor;
+        varying vec2 fTexCoord;
+
+        uniform sampler2D texture;
+        uniform int textureFlag;
+
+        void
+        main()
+        {
+            // Compare the different effects: 
+            // with light only, with texture only, with both.
+            if (textureFlag == 1)
+                gl_FragColor = fColor;
+            else if (textureFlag == 2)
+                gl_FragColor = texture2D( texture, fTexCoord );
+            else if (textureFlag == 3)
+                gl_FragColor = fColor * texture2D( texture, fTexCoord );
+        }
+    </script>
+    <script type="text/javascript" src="../Common/webgl-utils.js"></script>
+    <script type="text/javascript" src="../Common/initShaders.js"></script>
+    <script type="text/javascript" src="../Common/MV.js"></script>
+    <script type="text/javascript" src="house.js"></script>
+</head>
+<body>
+    <canvas id="gl-canvas" width="768" height="640">
+        Oops ... your browser doesn't support the HTML5 canvas element
+    </canvas>
+    <div>
+        <button id="RotateLeft">Rotate Left</button>
+        <button id="RotateRight">Rotate Right</button>
+        <button id="RotateUp">Rotate Up</button>
+        <button id="RotateDown">Rotate Down</button>
+        <button id="zoomIn">Zoom In</button>
+        <button id="zoomOut">Zoom Out</button>
+    </div>
+    <br />
+    <div>
+        <button id="LightOnly">Light Only</button>
+        <button id="TextureOnly">Texture Only</button>
+        <button id="LightTexture">Light and Texture</button>
+        <button id="Day">Day Mode</button>
+        <button id="Night">Night Mode</button>
+    </div>
+</body>
+</html>

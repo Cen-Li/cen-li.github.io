@@ -1,0 +1,1075 @@
+<META NAME="author" CONTENT="Cen Li">
+<head>
+<TITLE>CSCI 4250/5250: Intro to Computer Graphics</TITLE>
+
+<style type="text/css">
+body {font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;}
+#mytable
+{
+border:1px solid black;
+width: 100%;
+}
+#mytable th
+{
+border:1px solid black;
+font-size: small;
+font-weight: bold;
+padding-left:10px;
+padding-right:0px;
+padding-top:0px;
+padding-bottom:0px;
+}
+#mytable td
+{
+border:1px solid black;
+font-size: small;
+padding-left:10px;
+padding-right:0px;
+padding-top:0px;
+padding-bottom:0px;
+}
+#mytable td li
+{
+position: relative;
+left: -25px;
+padding-top:0px;
+padding-bottom:0px;
+}
+</style>
+
+</HEAD>
+
+<BODY bgcolor=white>
+
+<p>
+
+<center>
+ <table border="8"> <tbody><tr valign="middle">
+   <td bgcolor="white"><img src="../images/WordmarkTiny.gif" alt="MTSU" width="97" height="48"></td>
+   <td bgcolor="white"> <center>
+     <font color="navy" size="6"> &nbsp; <b><em>
+              CSCI 4250/5250 -  Introduction to Computer Graphics</em>
+     </b></font>
+<p>
+     <font color="navy" size="4"> &nbsp; <b><em>Fall 2023</em>
+     </b></font>
+     <p>
+     <p>
+     <font color="navy" size="2"> &nbsp; <b>
+     <em><br>
+<a href=http://www.cs.mtsu.edu/~cen>Instructor: Dr. Cen Li</a> <br>Email: Cen.Li@mtsu.edu <br>
+           Office hours: Monday and Wednesday 2:00-3:00pm; <br>Tuesday and Thursday 8:00-9:00pm
+        <p>
+          Teaching Assistant: Mr. Caleb Griffy <br>
+          Email: cgg3a@mtmail.mtsu.edu <br>
+         Office hours: Tuesday and Thursday 9:30am - 12:00pm
+ </tr> </tbody></table>
+</center>
+
+<p>
+<H3>
+<center>Tentative Class schedule (subject to change)</center>
+</H3>
+
+
+
+<p>
+<em>Course material copyrighted by Dr. Cen Li</em>
+<p>
+<TABLE id=mytable>
+<TR>
+    <TH width="50">Week</TH>
+    <TH>Date</TH>
+    <TH>Topics</TH>
+    <TH>Example code</TH>
+    <TH>Assignments</TH>
+</TR>
+
+<TR>
+    <TH rowspan="2">Week 1</TH>
+	<TH> Aug 29rd (Tue)  </TH>
+	<TD>
+	<ul>
+	<li> <a href=private/syllabus.pdf target=new>Course Syllabus (PDF)</a>
+	<li><a href=private/lectures/1-ch1.pdf target=new>Introduction</a> <br>
+            <li><a href=private/lectures/javascript.pdf target=new>Javascript</a>
+	<ul>
+	</TD>
+	<TD>
+	<ul>
+        </ul>
+        </TD>
+	<TD>
+	<ul>
+	    <li><a href=https://www.testim.io/blog/best-javascript-editor-6-options/>Best Javascript editors(2020) </li>
+            <ul>
+            <li><a href=https://atom.en.softonic.com/mac>Atom</li>
+            </ul>
+            <li><a href=https://www.youtube.com/watch?v=sK2EZE617pY target=new>SIGGRAPH 2022</a>
+            <li><a href=https://www.youtube.com/watch?v=VBZ2sDxvZQE target=new>SIGGRAPH 2023</a>
+	</ul>
+	</TD>
+</TR>
+
+<TR>
+	<TH> Aug 31st (Thur)</TH>
+	<TD>
+		<ul>
+	        <li>Continue with: 
+                    <ul>
+                     <li><a href=private/lectures/javascript.pdf target=new>Javascript</a>
+                     <li><a href=private/lectures/1-ch1.pdf target=new>Introduction</a> <br>
+                    </ul>
+		<li><a href=private/lectures/2-FirstWebGL-full.pdf target=new>First WebGL programs</a>
+    	</ul>
+	</TD>
+	<TD>
+	<ul>
+             <li> <a href=private/webgl-code/demo/1-HelloCanvas.html>1-HelloCanvas.html</a>,
+	          <a href=private/webgl-code/demo/1-HelloCanvas.js>1-HelloCanvas.js</a>
+             <li> <a href=private/webgl-code/demo/2-DrawRectangle.html>2-DrawRectangle.html</a>,
+                  <a href=private/webgl-code/demo/2-DrawRectangle.js>2-DrawRectangle.js</a>
+             <li> <a href=private/webgl-code/demo/3-HelloPoint1.html>3-HelloPoint1.html</a>,
+                  <a href=private/webgl-code/demo/3-HelloPoint1.js>3-HelloPoint1.js</a>
+             <li> <a href=private/webgl-code/demo/4-HelloPoint2.html>4-HelloPoint2.html</a>,
+                  <a href=private/webgl-code/demo/4-HelloPoint2.js>4-HelloPoint2.js</a>
+             <li> <a href=private/webgl-code/demo/6-MultiPoint.html>6-MultPoint.html</a>,
+                 <a href=private/webgl-code/demo/6-MultiPoint.js>6-MultPoint.js</a>
+             <li>Drawing geometric shapes:
+             <ul>
+	        <li>
+                  <a href=private/webgl-code/demo/7-square.html>7-square.html</a>
+                  <a href=private/webgl-code/demo/7-square.js>7-square.js</a>
+ 	</ul>
+	</TD>
+	<TD>
+	</TD>
+</TR>
+
+<TR>
+    <TH rowspan="2">Week 2</TH>
+    <TH> Sept 5th (Tue) </TH>
+        <TD>
+        <ul>
+        	<li><a href=private/lectures/2-FirstWebGL-full.pdf target=new>First WebGL programs</a>
+		(continued)
+	    </ul>
+	</TD>
+	<TD>
+	<ul>
+            <li>  <a href=private/webgl-code/demo/5-ClickedPoints.html>5-ClickedPoints.html</a>,
+                  <a href=private/webgl-code/demo/5-ClickedPoints.js>5-ClickedPoints.js</a>
+            <li>  <a href=private/webgl-code/demo/6-ColoredPoints.html>6-ColoredPoints.html</a>,
+                  <a href=private/webgl-code/demo/6-ColoredPoints.js>6-ColoredPoints.js</a>
+        </ul>
+       <ul>
+	</TD>
+	<TD>
+        <ul>
+	<li><a href=private/homework/hw1.pdf target=new>Homework 1</a>(Due: midnight, Thur Sept 7th)
+        <ul>
+		<li><a href=Common.tar.gz target=new>Common.tar.gz</a>
+		<li><a href=Common/ target=new>Common directory</a>
+             <li>Example code: <a href=private/webgl-code/demo/7B-square.html>7B-square.html</a>,
+              <a href=private/webgl-code/demo/7B-square.js>7B-square.js</a>
+        </ul>
+	</ul>
+ 	<ul>
+	</ul>
+        </TD>
+</TR>
+
+<TR>
+	<TH> Sept 7th (Thur) </TH>
+	<TD>
+	<ul>
+	    <li><a href=private/lectures/3-GraphicsExecutionModel.pdf target=new>Graphics Execution Model</a>
+            <li>Draw circle
+            <li>Discuss homework 1
+        </ul>
+     </TD>
+	<TD>
+        <ul>
+	    <li>  <a href=private/webgl-code/demo/8-circle.html>8-circle.html</a>
+                  <a href=private/webgl-code/demo/8-circle.js>8-circle.js</a>
+	    <li>  <a href=private/webgl-code/demo/8-circle-color.html>8-circle-color.html</a>
+                  <a href=private/webgl-code/demo/8-circle-color.js>8-circle-color.js</a>
+            <li>  <a href=private/webgl-code/demo/8-symbol1.html>8-symbol1.html</a>,
+                  <a href=private/webgl-code/demo/8-symbol1.js>8-symbol1.js</a>
+	</ul>
+        </TD>
+     <TD>
+     </TD>
+</TR>
+
+<TR>
+    <TH rowspan="2">Week 3</TH>
+    <TH> Sept 12th </TH>
+	<TD>
+           <ul>
+            <li><a href=private/lectures/3-Fractals.pdf target=new>Fractals</a>
+            <li>Siepinski's Gasket Examples
+            <li>Discuss homework 2
+	   </ul>
+        </TD>
+	<TD>
+        <ul>
+            <li>Siepinski's Gasket:
+            <ul>
+            	<li><a href=private/webgl-code/demo/9-gasket1.html>9-gasket1.html</a> and <a href=private/webgl-code/demo/9-gasket1.js>9-gasket1.js</a>
+            	<li><a href=private/webgl-code/demo/9-gasket1v2.html>9-gasket1v2.html</a> and <a href=private/webgl-code/demo/9-gasket1v2.js>9-gasket1v2.js</a>
+            	<li>Siepinski's Gasket by recursion: <a href=private/webgl-code/demo/10-gasket2.html>10-gasket2.html</a> and  <a href=private/webgl-code/demo/10-gasket2.js>10-gasket2.js</a>
+            </ul>
+            <li>3D Gasket by recursion:
+	    <ul>
+	    <li><a href=private/webgl-code/demo/10-gasket3.html>10-gasket3.html</a> <a href=private/webgl-code/demo/10-gasket3.js>10-gasket3.js</a>
+	    <li><a href=private/webgl-code/demo/11-gasket4.html>11-gasket4.html</a> <a href=private/webgl-code/demo/11-gasket4.js>11-gasket4.js</a>
+	    </ul>
+              <li>Twisted Gasket: <a href=private/webgl-code/demo/twisted-gasket.html>twisted-gasket.html</a> and  <a href=private/webgl-code/demo/twisted-gasket.js>twisted-gasket.js</a>
+        </ul>
+        </TD>
+	<TD>
+        <ul>
+ 	<li> <a href=private/homework/hw2.pdf target=new>Homework 2</a> (Due: midnight, Wednesday, Sept 13th)
+		<ul>
+		<li>
+		<a href=private/homework/Homework2hints.pdf target=new>hints for Homework 2</a>
+                <li>Example code (Twisted Gasket): <a href=private/webgl-code/demo/twisted-gasket.html>twisted-gasket.html</a> and  <a href=private/webgl-code/demo/twisted-gasket.js>twisted-gasket.js</a>
+                <ul>
+        </ul>
+        </TD>
+</TR>
+
+<TR>
+	<TH> Sept 14th </TH>
+	<TD>
+	<ul>
+        <li>Discuss Project 1
+	<li><a href=private/lectures/FirstTransformation.pdf target=new>Transformation -- A First Look</a>
+	</ul>
+	</TD>
+	<TD>
+        <ul>
+	    <li>Translation:
+	    <a href=private/webgl-code/demo/12-TranslateTriangle.html>12-TranslateTriangle.html</a> <a href=private/webgl-code/demo/12-TranslateTriangle.js>12-TranslateTriangle.js</a><br>
+	    <a href=private/webgl-code/demo/12-TranslateTriangle2.html>12-TranslateTriangle2.html</a> <a href=private/webgl-code/demo/12-TranslateTriangle2.js>12-TranslateTriangle2.js</a>
+	    <li>Rotation:
+	    <a href=private/webgl-code/demo/12-RotatedTriangle.html>12-RotatedTriangle.html</a> <a href=private/webgl-code/demo/12-RotatedTriangle.js>12-RotatedTriangle.js</a> <br>
+	    <a href=private/webgl-code/demo/12-RotatedTriangle2.html>12-RotatedTriangle2.html</a> <a href=private/webgl-code/demo/12-RotatedTriangle2.js>12-RotatedTriangle2.js</a>
+	    <li>Scale:
+	    <a href=private/webgl-code/demo/12-ScaleTriangle.html>12-ScaleTriangle.html</a> <a href=private/webgl-code/demo/12-ScaleTriangle.js>12-ScaleTriangle.js</a> <br>
+	    <li>Two Transformations
+	     <ul>
+	        <li> <a href=private/webgl-code/demo/13-twoTransforms.html>13-twoTransforms.html</a> <a href=private/webgl-code/demo/13-twoTransforms.js>13-twoTransforms.js</a> <br>
+	     </ul>
+
+        </ul>
+	</TD>
+	<TD>
+            <ul>
+            <li><a href=private/projects/project1.pdf target=new>Project 1</a>
+        <br>(<font color=red>Due: midnight, Monday Sept 25th, Deadline: midnight, Monday Oct 2nd</font>)
+               <ul>
+                <li>mouse click and key press example code:
+         	<a href=private/webgl-code/demo/14-keypress.html>14-keypress.html</a> and
+         	<a href=private/webgl-code/demo/14-keypress.js>14-keypress.js</a>,
+               <li><a href=https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_event_key_keycode2>javascript keycode</a>
+               </ul>
+            <p>
+            <li>Watch : <a href=https://www.youtube.com/watch?v=0YaYmyfy9Z4 target=new>The Amazing Mandelbrot Set</a>
+	    <li>Watch: <a href=http://www.youtube.com/watch?v=jiejNAUwcQ8>LCD Display</a>
+            </ul>
+	</TD>
+</TR>
+
+<TR>
+    <TH rowspan="2">Week 4</TH>
+    <TH> Sept 19th  </TH>
+	<TD>
+	<ul>
+	<li><a href=private/lectures/5-VectorMatrix-PartOne.pdf target=new>Vector Math</a>
+              <ul>
+                <li><a href=private/lectures/5-MathCG.pdf target=new>Additional notes on Vector Analysis</a>
+                <li><a href=private/lectures/Tweening.pdf target=new>Tweening</a>
+                <li>change of frame</li></ul>
+	      </ul>
+	</TD>
+	<TD>
+        <ul>
+            <li>Tweening:
+            <ul>
+                 <li> <a href=private/webgl-code/demo/21-tweening.html>21-tweening.html</a>,
+                 <a href=private/webgl-code/demo/21-tweening.js>21-tweening.js</a> <br>
+            </ul>
+            <li>Curves
+            <ul>
+            <li><a href=private/webgl-code/demo/bezier.html>bezier.html</a>,
+                 <a href=private/webgl-code/demo/bezier.js>bezier.js</a>
+            </ul>
+	    <li>Parametric Curves:
+	    <ul>
+	    <li><a href=private/webgl-code/demo/16-rose.html>16-rose.html</a> and
+	         <a href=private/webgl-code/demo/16-rose.js>16-rose.js</a>
+            <li>Simple transformations:
+            </ul>
+            <ul>
+            </ul>
+	</ul>
+         </TD>
+         <TD>
+         <ul>
+        </ul>
+	</TD>
+</TR>
+
+<TR>
+    <TH> Sept 21st </TH>
+        <TD>
+        <ul>
+	<li><a href=private/lectures/5-VectorMatrix-PartOne.pdf target=new>Vector Math</a>
+        </ul>
+        </TD>
+        <TD>
+        </TD>
+        <TD>
+        <ul>
+            <li> <a href=private/homework/hw3.pdf target=new>Homework 3</a> (Due midnight, Monday Oct 2nd)
+        </ul>
+        </TD>
+</TR>
+
+<TR>
+    <TH rowspan="2">Week 5</TH>
+    <TH> Sept 26th </TH>
+	<TD>
+        <ul>
+	    <li><a href=private/lectures/7-TransformationPart1.pdf target=new>Transformations notes part one</a>
+        </ul>
+	</TD>
+	<TD>
+	</TD>
+	<TD>
+	</TD>
+</TR>
+
+<TR>
+    <TH> Sept 28th</TH>
+	<TD>
+	<ul>
+	    <li><a href=private/lectures/7-TransformationPart1.pdf target=new>Transformations notes part one</a>
+	</ul>
+	</TD>
+	<TD>
+	<ul>
+        	<li>mouse position for squares:
+         	<a href=private/webgl-code/demo/14-square.html>14-square.html</a> and <a href=private/webgl-code/demo/14-square.js>14-square.js</a>
+        	<li>mouse position for triangle strips:
+         	<a href=private/webgl-code/demo/14-triangle.html>14-triangle.html</a> and
+         	<a href=private/webgl-code/demo/14-triangle.js>14-triangle.js</a>
+            <li>mouse position for squares:
+         	<a href=private/webgl-code/demo/14-square.html>14-square.html</a> and <a href=private/webgl-code/demo/14-square.js>14-square.js</a>
+            <li>mouse position for triangle strips:
+         	<a href=private/webgl-code/demo/14-triangle.html>14-triangle.html</a> and
+         	<a href=private/webgl-code/demo/14-triangle.js>14-triangle.js</a>
+             <li>Computer Aided Design(CAD)1:
+                  <a href=private/webgl-code/demo/cad1.html>cad1.html</a>,
+                  <a href=private/webgl-code/demo/cad1.js>cad1.js</a>
+             <li>Computer Aided Design(CAD)2:
+                  <a href=private/webgl-code/demo/cad2.html>cad2.html</a>,
+                  <a href=private/webgl-code/demo/cad2.js>cad2.js</a>
+                    <p>
+        </ul>
+ 	</ul>
+	</TD>
+	<TD>
+	</TD>
+</TR>
+
+<TR>
+    <TH rowspan="2">Week 6</TH>
+    <TH> Oct 3rd </TH>
+        <TD>
+        <ul>
+	<li><a href=private/lectures/8-TransformationPart2.pdf target=new>Transformations notes part two</a>
+        </ul>
+        </TD>
+        <TD>
+        <ul>
+	     <li> transformation demonstration example: <br>
+                  <a href=private/webgl-code/demo/17-transformations2d.html>17-transformations2d.html</a>,
+                  <a href=private/webgl-code/demo/17-transformations2d.js>17-transformations2d.js</a>
+             <li> Transformation example - snowflake :
+                  <ul>
+      	          <li><a href=private/webgl-code/demo/18-snowflake.html>18-snowflake2.html</a>,
+      	          <a href=private/webgl-code/demo/18-snowflake.js>18-snowflake2.js</a>
+      	          <li><a href=private/webgl-code/demo/18-snowflake2.html>18-snowflake2.html</a>,
+      	          <a href=private/webgl-code/demo/18-snowflake2.js>18-snowflake2.js</a>
+      	          <li><a href=private/webgl-code/demo/18-snowflake3.html>18-snowflake2.html</a>,
+      	          <a href=private/webgl-code/demo/18-snowflake3.js>18-snowflake2.js</a>
+                  </ul>
+	     <li>Animation example: <br>
+                 <ul>
+                 <li>Move in one direction:
+                     <ul>
+      	             <li><a href=private/webgl-code/demo/18-snowflake4.html>18-snowflake4.html</a>,
+      	             <a href=private/webgl-code/demo/18-snowflake4.js>18-snowflake4.js</a>
+                     </ul>
+                 <li>Move in two lines:
+                     <ul>
+                     <li><a href=private/webgl-code/demo/15-others.html>15-others.html</a> and
+	             <a href=private/webgl-code/demo/15-others.js>15-others.js</a>
+                     </ul>
+	</ul>
+        </TD>
+        <TD>
+            <ul>
+            <li><a href=private/homework/hw4.pdf target=new>Homework 4</a> 
+              (Due: midnight Tuesday Oct 10th)
+              <ul>
+              <li>Example code using "SetInterval" to control the animation speed:
+                <ul>
+                  <li><a href=private/webgl-code/demo/setInterval.html>setInterval.html</a>
+                  <li><a href=private/webgl-code/demo/setInterval.js>setInterval.js</a>
+                </ul>
+            </ul>
+	</TD>
+</TR>
+
+<TR>
+        <TH> Oct 5th</TH>
+        <TD>
+        <ul>
+        <li>Transformation in class exercise
+        <li><a href=private/lectures/6-Interactivity-Animation.pdf target=new>Animation</a>(bufferSubData)
+        </ul>
+	<TD>
+        <ul>
+         <li> In-class exercise on transformations: <br>
+      	  <a href=private/webgl-code/demo/18-circleSquarePractice.html>18-circleSquarePractice.html</a>,
+      	  <a href=private/webgl-code/demo/18-circleSquarePractice.js>18-circleSquarePractice.js</a>
+	<li>Animation in-class exercise:
+	<ul>
+           <li>Exercise 1: Moving a square across the canvas: <br>
+               <a href=private/webgl-code/demo/class-exercises-animation/2-bouncingSq.html>2-bouncingSq.html</a>,
+               <a href=private/webgl-code/demo/class-exercises-animation/2-bouncingSq.js>2-bouncingSq.js</a>;
+              <ul>
+              <li>Solution: <br>
+               <a href=private/webgl-code/demo/class-exercises-animation/solutions/bouncingSq.html>boundcingSq.html</a>,
+               <a href=private/webgl-code/demo/class-exercises-animation/solutions/bouncingSq.js>boundcingSq.js</a>
+              </ul>
+	   <li>Exercise 2: Moving a rose of 3 petals along the Archimedean spiral track: <br>
+               <a href=private/webgl-code/demo/class-exercises-animation/3-spiralAnimation.html>3-spiralAnimation.html</a>,
+               <a href=private/webgl-code/demo/class-exercises-animation/3-spiralAnimation.js>3-spiralAnimation.js</a>;
+               <ul>
+	       <li>Helpful to first draw the rose and the Archimedean spiral:<br>
+               <a href=private/webgl-code/demo/class-exercises-animation/1-rose.html>1-rose.html</a>,
+               <a href=private/webgl-code/demo/class-exercises-animation/1-rose.js>1-rose.js</a>,
+               </ul>
+               <ul><li>Solution: <br>
+               <a href=private/webgl-code/demo/class-exercises-animation/solutions/3-spiralAnimation.html>spiralAnimation.html</a>
+               <a href=private/webgl-code/demo/class-exercises-animation/solutions/3-spiralAnimation.js>spiralAmination.js</a>
+               </ul>
+        </ul>
+	</TD>
+	<TD>
+        <ul>
+           <li><a href=private/homework/hw5.pdf target=new>Homework 5</a>  (Due: midnight, Thursday Oct 19th)
+               <p>
+              (This homework is in preparation for Project 2. The figure drawn here will be used directly in Project 2)
+           <ul><li><a href=private/homework/planet.html>planet.html</a> (right click to download the file)</ul>
+           <ul><li><a href=private/homework/planet.js>planet.js</a> (right click to download the file)</ul>
+       </TD>
+</TR>
+
+<TR>
+    <TH rowspan="2">Week 7</TH>
+        <TH> Oct 10th</TH>
+	<TD>
+           <ul>
+        <li>Discuss Project 2
+	   <li><a href=private/lectures/WinToView/WinToViewMap.html target=new>Window to Viewport Mapping</a>
+           <li><a href=private/lectures/windowToviewportEx.pdf target=new>Window to Viewport Mapping Exercise</a>
+           <li>window resizing event <p>
+        <li><a href=private/lectures/6-Interactivity-Animation.pdf target=new>Interactivity </a>
+           </ul>
+	</TD>
+	<TD>
+        <ul>
+            <li>using viewport for display:<br>
+                <a href=private/webgl-code/demo/19-symbol-viewport.html>19-symbol-viewport.html</a>,
+                <a href=private/webgl-code/demo/19-symbol-viewport.js>19-symbol-viewport.js</a>,
+            <li>Zooming:
+                <a href=private/webgl-code/demo/22-swirlZoom.html>22-swirlZoom.html</a>,
+                <a href=private/webgl-code/demo/22-swirlZoom.js>22-swirlZoom.js</a>
+            <li>Window resize event:
+                <a href=private/webgl-code/demo/20-symbol-resize.html>20-symbol-resize.html</a>,
+                <a href=private/webgl-code/demo/20-symbol-resize.js>20-symbol-resize.js</a>,
+	    <li>Interactivity</a>
+	        <ul>
+                <li>mouse click and key press
+         	<a href=private/webgl-code/demo/14-keypress.html>14-keypress.html</a> and
+         	<a href=private/webgl-code/demo/14-keypress.js>14-keypress.js</a>
+        	<li>rotating square:
+         	<a href=private/webgl-code/demo/14-rotatingSquare1.html>14-rotatingSquare1.html</a> and
+         	<a href=private/webgl-code/demo/14-rotatingSquare1.js>14-rotatingSquare1.js</a>
+        	<li>rotating square with button and menu:
+         	<a href=private/webgl-code/demo/14-rotatingSquare2.html>14-rotatingSquare2.html</a> and
+         	<a href=private/webgl-code/demo/14-rotatingSquare2.js>14-rotatingSquare2.js</a>
+        	<li>rotating square with slider:
+         	<a href=private/webgl-code/demo/14-rotatingSquare3.html>14-rotatingSquare3.html</a> and
+         	<a href=private/webgl-code/demo/14-rotatingSquare3.js>14-rotatingSquare3.js</a>
+                </ul>
+             <p>
+          </ul>
+       </TD>
+  <TD>
+            <ul>
+            <li><a href=private/projects/project2.pdf target=new>Project 2</a>
+               <p>(Due: midnight Thursday Oct 26th)
+            <ul>
+            <li>Starting files:
+            <ul>
+             <li><a href=private/webgl-code/demo/halloween1.html>halloween1.html</a>,
+             <li><a href=private/webgl-code/demo/halloween1.js>halloween1.js</a>
+             <li><a href=private/webgl-code/demo/ghost.js>ghost.js</a>
+            </ul>
+            </ul>
+	    </ul>
+  </TD>
+</TR>
+
+<TR>
+        <TH> Oct 12th</TH>
+        <TD>
+        Test 1 (<a href=private/test/test1review.pdf target=new>Test 1 Review</a>) <p>
+        <ul>
+        <li><a href=private/test/draw.html>draw.html</a>,
+        <a href=private/test/draw.js>draw.js</a>
+        </ul>
+        <TD>
+	</TD>
+	<TD>
+        </TD>
+</TR>
+
+
+<TR>
+    <TH rowspan="2">Week 8</TH>
+    <TH> Oct 17th</TH>
+    <TD> Fall break, no class </TD>
+    <TD> </TD>
+    <TD> </TD>
+</TR>
+
+<TR>
+    <TH> Oct 19rd </TH>
+	<TD>
+        <ul>
+        <li><a href=private/lectures/textureMappingNew.pdf target>Texture mapping</a> on 2D object
+        </ul>
+	</TD>
+	<TD>
+        <ul>
+        <li>Square with jpg image:
+           <ul>
+           <li><a href=private/webgl-code/demo/textureSquare-image.html>textureSquare-image.html</a>,
+           <li><a href=private/webgl-code/demo/textureSquare-image.js>textureImage-image.js</a>,
+           <li><a href=private/webgl-code/demo/sky.jpg>sky.jpg</a>,
+           </ul>
+	<li>Using a single buffer for vertices and texture coordinates:
+           <ul>
+           <li><a href=private/webgl-code/demo/textureSquare-oneBuffer.html>textureSquare-oneBuffer.html</a>,
+           <li><a href=private/webgl-code/demo/textureSquare-oneBuffer.js>textureImage-oneBuffer.js</a>,
+           </ul>
+        <li>Using multiple textures:
+           <ul>
+           <li><a href=private/webgl-code/demo/textureSquare-twoImages.html>textureSquare-twoImages.html</a>,
+           <li><a href=private/webgl-code/demo/textureSquare-twoImages.js>textureImage-twoImages.js</a>,
+           </ul>
+        <li>Using pattern created by program:
+           <ul>
+           <li><a href=private/webgl-code/demo/textureSquare-pattern.html>textureSquare-pattern.html</a>,
+           <li><a href=private/webgl-code/demo/textureSquare-pattern.js>textureSquare-pattern.js</a>,
+           </ul>
+        <li>image stored on the web:
+           <ul>
+           <li><a href=private/webgl-code/demo/textureSquare-webimage.html>textureSquare-webimage.html</a>,
+           <li><a href=private/webgl-code/demo/textureSquare-webimage.js>textureSquare-webimage.js</a>,
+           </ul>
+        </ul>
+	</TD>
+	<TD>
+	</TD>
+</TR>
+
+<TR>
+    <TH rowspan="2">Week 9</TH>
+    <TH> Oct 24th </TH>
+    <TD>
+        <ul>
+        <li> <a href=private/lectures/textureMappingNew.pdf target>Texture mapping</a>, in class test browser
+        <li><a href=private/lectures/Draw3DObjs.pdf target=new>Drawing 3D objects(1)</a>
+     </TD>
+     <TD>
+      <ul>
+        <li>striped Cone:
+          <a href=private/webgl-code/demo/stripedCone.html>stripedCone.html</a>,
+          <a href=private/webgl-code/demo/stripedCone.js>stripedCone.js</a>
+
+      </ul>
+     </TD>
+     <TD>
+       <ul>
+       </ul>
+     </TD>
+</TR>
+
+<TR>
+    <TH> Oct 26th </TH>
+       <TD>
+       <ul>
+        <li>Discuss Homework 6
+        <li>Discuss Project 3
+       <li>Continue with: <a href=private/lectures/Draw3DObjs.pdf target=new>Drawing 3D objects(1) -- Cube</a>
+           <li> <a href=private/lectures/ch5-ViewMatrix.pdf target=new>View Matrix</a>, lookat
+        </ul>
+       </TD>
+       <TD>
+         <ul>
+           <li>Cube with array implementation:
+           <a href=private/webgl-code/ch04/cube.html>cube.html</a>,
+           <a href=private/webgl-code/ch04/cube.js>cube.js</a>
+           <li>Cube with index implementation:
+           <a href=private/webgl-code/ch04/cubev.html>cubev.html</a>,
+           <a href=private/webgl-code/ch04/cubev.js>cubev.js</a>
+          </ul>
+        </ul>
+        </TD>
+        <TD>
+	<ul>
+           <li><a href=private/projects/project3.pdf target=new>Project 3</a>
+           (Due: midnight Wednesday Nov 8th ) <p>
+           <li><a href=private/homework/hw6.pdf target=new>Homework 6</a> <br>
+             (Due: midnight, Wed, Nov 1st )
+           <ul>
+           <li>Cube with control: (Use this program as the starting files for the homework. It supports the mouse controls)
+              <ul>
+              <li><a href=private/webgl-code/demo/cube-with-control.html>cube-with-control.html</a>,
+              <li><a href=private/webgl-code/demo/cube-with-control.js>cube-with-control.js</a>,
+              </ul>
+           <li>cube with jpg texture: (Use these files as reference for adding textures to 3D objects)
+              <ul>
+              <li><a href=private/webgl-code/demo/textureCube-image.html>textureCube-image.html</a>,
+              <li><a href=private/webgl-code/demo/textureCube-image.js>textureCube-image.js</a>,
+              </ul>
+           <li>ice cream in texture:
+           <ul>
+           <li><a href=private/webgl-code/demo/textureExamples/icecreamTexture.html>icecreamTexture.html</a>,
+           <li><a href=private/webgl-code/demo/textureExamples/icecreamTexture.js>icecreamTexture.js</a>,
+           </ul>
+           </ul>
+        </ul>
+        </TD>
+</TR>
+
+<TR>
+    <TH rowspan=2> Week 10</TH>
+    <TH> Oct 31st </TH>
+        <TD>
+          <ul>
+           <li> Continue with: <a href=private/lectures/ch5-ViewMatrix.pdf target=new>View Matrix</a>, lookat
+               <ul>
+	         <li><a href=private/webgl-code/demo/ortho-eye.html>ortho-eye.html</a>
+	         <li><a href=private/webgl-code/demo/ortho-eye.js>ortho-eye.js</a>
+               </ul>
+          <li>Moving the eye around a sphere
+          <ul>
+          <li><a href=http://mathworld.wolfram.com/SphericalCoordinates.html target=new>Spherical Coordinates</a>
+          </ul>
+          <p>
+          <li><a href=private/lectures/OrthographicProjection.pdf target=new>Orthographic Projection</a>
+          <li>Zooming and Panning
+          </ul>
+        </TD>
+        <TD>
+        <ul>
+          <li>Example on moving the eye around a sphere:
+          <ul>
+             <li><a href=private/webgl-code/ch05/ortho.html>ortho.html</a>,
+             <li><a href=private/webgl-code/ch05/ortho.js>ortho.js</a>
+          </ul>
+           <li>Zooming:
+                <a href=private/webgl-code/demo/22-swirlZoom.html>22-swirlZoom.html</a>,
+                <a href=private/webgl-code/demo/22-swirlZoom.js>22-swirlZoom.js</a>
+        </ul>
+        </TD>
+        <TD>
+        </TD>
+</TR>
+
+
+<TR>
+       <TH> Nov 2nd</TH>
+        <TD>
+        <ul>
+          <li><a href=private/lectures/PerspectiveProjection.pdf target=new>PerspectiveProjection.pdf</a>
+        </ul>
+        </TD>
+        <TD>
+        <ul>
+          <li>Perspective projection:
+              <a href=private/webgl-code/ch05/perspective.html>perspective.html</a>,
+              <a href=private/webgl-code/ch05/perspective.js>perspective.js</a>
+        </ul>
+        </TD>
+        <TD>
+	Reading:
+        <ul>
+          <li><a href=https://www.tomdalling.com/blog/modern-opengl/explaining-homogenous-coordinates-and-projective-geometry/ target=new>Explaining Homogeneous Coordinates</a>
+        </ul>
+        </TD>
+</TR>
+
+<TR>
+    <TH rowspan=2> Week 11</TH>
+    <TH> Nov 7th </TH>
+        <TD>
+        <ul>
+          <li>Sphere
+          <li><a href=private/lectures/mesh.pdf target=new>Polygonal mesh, extruded shape</a>
+        </ul>
+        </TD>
+        <TD>
+        <ul>
+        <li>mesh barn
+           <ul>
+           <li><a href=private/webgl-code/demo/mesh-barn.html>mesh-barn.html</a>,
+           <li><a href=private/webgl-code/demo/mesh-barn.js>mesh-barn.js</a>,
+           </ul>
+        <li>Sphere with lighting:
+          <ul>
+           <li><a href=private/webgl-code/ch06/shadedSphere1.html>shadedSphere1.html</a>,
+           <li><a href=private/webgl-code/ch06/shadedSphere1.js>shadedSphere1.js</a>
+          </ul>
+           </ul>
+        </ul>
+        </TD>
+        <TD>
+          <ul>
+          <li><a href=private/homework/hw7.pdf target=new>Homework 7</a>
+<li> use these programs for the homework:
+                     <ul>
+                     <li><a href=private/webgl-code/handTrace/view-projection/ortho.html>ortho.html</a>
+                     <li><a href=private/webgl-code/handTrace/view-projection/ortho.js>ortho.js</a>
+                 <li><a href=private/webgl-code/handTrace/common/MV.js>the modified MV.js file</a> (help in tracing the value of the matrices)
+          </ul>
+        </TD>
+</TR>
+
+<TR>
+    <TH> Nov 9th </TH>
+	<TD>
+        <ul>
+        <li><a href=private/lectures/mesh.pdf target=new>Polygonal mesh(continued)</a>
+        <li><a href=private/lectures/13-DShapes-Jack.pdf target=new>3D scene Example</a>
+        <li>code walk through
+        <ul>
+           <li><a href=private/webgl-code/demo/jack.html>jack.html</a>,
+           <li><a href=private/webgl-code/demo/jack.js>jack.js</a>,
+        </ul>
+        <li>Project 3 demo
+        <li>Discuss Project 4
+        </ul>
+	</TD>
+	<TD>
+        <ul>
+        <li>Jack on table
+        <ul>
+           <li><a href=private/webgl-code/demo/jack.html>jack.html</a>,
+           <li><a href=private/webgl-code/demo/jack.js>jack.js</a>,
+        </ul>
+        </ul>
+        </TD>
+        </ul>
+	<TD>
+        <ul>
+        <li><a href=private/projects/Project4.pdf target=new>Project 4</a><br>
+	<li>Examples:
+	    <ul>
+	    <li>Factory Scene:
+	        <a href=private/projects/factory/factory.html>factory.html</a>,
+	        <a href=private/projects/factory/factory.js>factory.js</a>
+	    <li>Arcade Scene:
+                <a href=private/projects/CharlesHarvinP4/CharlesHarvin/charlesharvin.html>charlesharvin.html</a>,
+                <a href=private/projects/CharlesHarvinP4/CharlesHarvin/charlesharvin.js>charlesharvin.js</a>,
+            <li>Playground:
+                <a href=private/projects/ZacharyMiller/Project4StageII.html>Project4StageII.html</a>
+            </ul>
+        </ul>
+	</TD>
+</TR>
+
+<TR>
+  <TH rowspan=2> Week 12</TH>
+	<TH> Nov 14th </TH>
+	<TD>
+        <ul>
+        <li>Extruded Shape
+        <li><a href=private/lectures/mesh.pdf target=new>
+        Mesh: Surface of revolution</a>
+         <li><a href=private/lectures/SurfaceOfRevolution.pdf target=new>surface of revolution</a>
+        <li><a href=private/lectures/textureMappingNew.pdf target>Texture mapping</a> on 3D object
+        </ul>
+	</TD>
+	<TD>
+	<ul>
+       <li>Examples:
+       <ul>
+        <li>extruded shape
+           <ul>
+           <li><a href=private/webgl-code/demo/extruded.html>extruded.html</a>,
+           <li><a href=private/webgl-code/demo/extruded.js>extruded.js</a>,
+           </ul>
+        <li>Wired Sphere :
+          <a href=private/webgl-code/ch06/wireSphere.html>wireSphere.html</a>,
+          <a href=private/webgl-code/ch06/wireSphere.js>wireSphere.js</a>
+        <li>Sphere with lighting:
+          <a href=private/webgl-code/ch06/shadedSphere1.html>shadedSphere1.html</a>,
+          <a href=private/webgl-code/ch06/shadedSphere1.js>shadedSphere1.js</a>
+         <li>Chess piece:
+           <ul>
+           <li><a href=private/webgl-code/demo/surfaceRevolution.html>surfaceRevolution.html</a>,
+           <li><a href=private/webgl-code/demo/surfaceRevolution.js>surfaceRevolutionjs</a>,
+           </ul>
+        <li>Mesh Sphere using Surface of Revolutions
+          <ul>
+          <li>slice by slice
+          <a href=private/webgl-code/demo/meshSphereSlice.html>meshSphereSlice.html</a>,
+          <a href=private/webgl-code/demo/meshSphereSlice.js>meshSphereSlice.js</a>
+          <li>Or, stack by stack
+        <li>Icecream cone example with surface of revolution and two different materials
+            <ul>
+            <li><a href=private/webgl-code/demo/icecream.html>icecream.html</a>
+            <li><a href=private/webgl-code/demo/icecream.js>icecream.js</a>
+            </ul>
+        </ul> </TD>
+	 <TD>
+         </TD> 
+</TR>
+
+<TR>
+    <TH> Nov 16th </TH>
+    <TD>
+    <ul>
+	<li><a href=private/lectures/Lighting.pdf target=new>Lighting and Material</a>
+
+	</ul>
+    </ul>
+    </TD>
+    <TD>
+         <ul>
+             <li>Shaded Cube:
+             <ul>
+             <li><a href=private/webgl-code/demo/shadedCube.html>shadedCube.html</a>,
+             <li><a href=private/webgl-code/demo/shadedCube.js>shadedCube.js</a>,
+             </ul>
+             <li>Shaded Sphere:
+             <ul>
+             <li><a href=private/webgl-code/demo/shadedSphere4.html>shadedSphere.html</a>,
+             <li><a href=private/webgl-code/demo/shadedSphere4.js>shadedSphere.js</a>,
+             </ul>
+             <p>
+            <li>cube with jpg texture:
+           <ul>
+           <li><a href=private/webgl-code/demo/textureCube-image.html>textureCube-image.html</a>,
+           <li><a href=private/webgl-code/demo/textureCube-image.js>textureCube-image.js</a>,
+           </ul>
+           <li>cube with pattern texture:
+           <ul>
+           <li><a href=private/webgl-code/demo/textureCube-pattern.html>textureCube-pattern.html</a>,
+           <li><a href=private/webgl-code/demo/textureCube-pattern.js>textureCube-pattern.js</a>,
+           </ul>
+           <li>cube with pattern texture variation (2 patterns):
+           <ul>
+           <li><a href=private/webgl-code/demo/textureCube-sinPattern.html>textureCube-sinPattern.html</a>,
+           <li><a href=private/webgl-code/demo/textureCube-sinPattern.js>textureCube-sinPattern.js</a>,
+           </ul>
+		</ul>
+    </TD>
+    <TD> </TD>
+</TR>
+
+<TR>
+    <TH rowspan="2">Week 13</TH>
+    <TH> Nov 21st </TH>
+        <TD>
+        <ul>
+        <li>Adding Texture on 3D object
+	<li><a href=private/lectures/ColorBlending.pdf target=new>Blending color and Transparency</a></li>
+        <li><a href=private/lectures/AddingSound.pdf target=new>Adding sound</a>
+        </ul>
+	<TD>
+        <ul>
+           <li>Chess in marble texture:
+           <ul>
+           <li><a href=private/webgl-code/demo/marbledChess.html>marbledChess.html</a>,
+           <li><a href=private/webgl-code/demo/marbledChess.js>marbledChess.js</a>,
+           </ul>
+           <li>ice cream in texture:
+           <ul>
+           <li><a href=private/webgl-code/demo/textureExamples/icecreamTexture.html>icecreamTexture.html</a>,
+           <li><a href=private/webgl-code/demo/textureExamples/icecreamTexture.js>icecreamTexture.js</a>,
+           </ul>
+           <li>Coke Can:
+            <ul>
+           <li><a href=private/webgl-code/demo/textureExamples/cokecan-texture-control.html>cokecan-texture-control.html</a>,
+           <li><a href=private/webgl-code/demo/textureExamples/cokecan-texture-control.js>cokecan-texture-control.js</a>,
+           <li><a href=private/webgl-code/demo/textureExamples/cylinderGeneratePoints.js>cylinderGeneratePoints.js</a>,
+           <li><a href=private/webgl-code/demo/textureExamples/cokelabel.jpg>cokelabel.jpg</a>,
+           </ul>
+           <li>Multi-texture:
+           <ul>
+           <li><a href=private/webgl-code/ExamplesMatsudaLea/ch05/MultiTexture.html>MultiTexture.html</a>,
+           <li><a href=private/webgl-code/ExamplesMatsudaLea/ch05/MultiTexture.js>MultiTexture.js</a>,
+           <li><a href=private/webgl-code/ExamplesMatsudaLea/resources/circle.gif>circle.gif</a>,
+           <li><a href=private/webgl-code/ExamplesMatsudaLea/resources/sky.jpg>sky.jpg</a>,
+	    </ul>
+             <p>
+             <li>2D blending:
+             <ul>
+             <li><a href=private/webgl-code/demo/transparency/twoCircles.html>twoCircles.html</a>,<a href=private/webgl-code/demo/transparency/twoCircles.js>twoCircles.js</a>
+             </ul>
+             <li>3D blending:
+             <ul>
+             <li><a href=private/webgl-code/demo/transparency/textureCube2.html>textureCube2.html</a>,
+             <li><a href=private/webgl-code/demo/transparency/textureCube2.js>textureCube2.js</a>
+             </ul>
+          </ul>
+           </TD>
+	<TD> </TD>
+</TR>
+
+<TR>
+    <TH> Nov 23rd </TH>
+    <TD>Thanksgiving Break no class</TD>
+    <TD> </TD>
+    <TD> </TD>
+</TR>
+
+<TR>
+    <TH rowspan="2">Week 14</TH>
+    <TH> Nov 28th</TH>
+        <TD> 
+        <ul> 
+	<li>2D clipping:
+        	<ul>
+        	<li><a href=private/lectures/ClippingAlg.html target=new>Cohen-Sutherland clipping algorithm</a>
+		<li><a href=private/lectures/CohenSutherlandClipping-formula.pdf target=new>CohenSutherlandClipping formula</a>
+		</ul>
+        <li><a href=private/lectures/clipping.pdf target=new>3D clipping</a>
+        </ul>
+        </TD>
+          </ul>
+            <p>
+        </TD>
+	<TD> </TD>
+	<TD>
+	</TD>
+</TR>
+
+<TR>
+	<TH> Nov 30th </TH>
+	<TD>
+        <ul><li>Project 4 part II in class demo/presentation
+	</TD>
+	<TD>  </TD>
+        <TD> 
+        </TD>
+</TR>
+
+
+<TR>
+    <TH rowspan="1">Week 15</TH>
+        <TD>Tuesday, December 5th  </TD>
+	<TD>
+        <ul><li>
+ 	<b><font color=green>Test 2</font><br>
+           (<a href=private/test/test2review.pdf target=new>Test 2 Review</a>)</b>
+        </ul>
+	</TD>
+	<TD>  </TD>
+        <TD> 
+        </TD>
+</TR>
+
+<TR>
+    <TH rowspan="1">Week 16</TH>
+        <TD>Tuesday, December 12th<br>  </TD>
+   
+        <TD>3:30 pm - 4:30pm, Final Project In class Presentation
+            <br><a href=private/projects/ProjectPeerEvaluation3.pdf>Peer evaluation rubric</a>
+        <p>
+            4:30 pm - 5:30pm, optional Final Exam
+        </TD>
+        <TD></TD>
+	<TD>
+	Example for Part III of project 4:
+	<ul>
+	<li>Archade:
+	<ul>
+	<li><a href=private/projects/finalProject-final/finalProject15/CharlesHarvin/charlesharvin.html>charlesharvin.html</a>
+	<li><a href=private/projects/finalProject-final/finalProject15/CharlesHarvin/charlesharvin.js>charlesharvin.js</a>
+	</ul>
+	<li>Living room:
+	<ul>
+	<li><a href=private/projects/finalProject-final/Project4Final14/SaiManoj/webGL_partIII/demo.html>demo.html</a>
+	<li><a href=private/projects/finalProject-final/Project4Final14/SaiManoj/webGL_partIII/demo.js>demo.js</a>
+	</ul>
+	<li>Jack and table:
+	<ul>
+        <li><a href=private/webgl-code/demo/jackFinal.html>jackFinal.html</a>
+       <li><a href=private/webgl-code/demo/jackFinal.js>jackFinal.js</a>
+	</ul>
+        <li>Castle
+        <ul>
+        <li><a href=private/webgl-code/demo/castle.html>castle.html</a>
+        <li><a href=private/webgl-code/demo/castle.js>castle.js</a>
+         </ul>
+	</ul>
+	</TD>
+</TR>
+</TABLE>
+</center>
+
+<p>
+Useful Links:
+<ul>
+<li>Code Examples
+    <ul>
+   <li><a href=https://mtmailmtsu-my.sharepoint.com/:o:/g/personal/cli_mtsu_edu/EvKGxS313cpIp48hSw43T3wBD-XmTI3LwaKl4AnHg4Y2jg?e=ergGG0>link to Onenote class notes</a>
+    <p>
+    <li><a href=private/webgl-code/ target=new>View class examples by chapter
+    <li><a href=private/webgl-code.tar.gz>Download WebGL class examples as tar file (right click to save the file)</a>
+    </ul>
+<li>WebGL:
+   <ul>
+   <li><a href=https://www.khronos.org/registry/webgl/specs/latest/1.0/#5.14.7 target=new>Khronos WebGL Specification</a>
+   <li><a href=https://webglfundamentals.org target=new>WebGL Fundamentals</a>
+   <li><a href=https://sites.google.com/site/webglbook/ target=new>WebGL Programming Guide</a>
+   </ul>
+<li>Javascript
+   <ul>
+   <li><a href=http://www.w3schools.com/js/DEFAULT.asp target=new>Javascript Tutorial</a>
+   </ul>
+<li>GLSL
+   <ul>
+   <li><a href=http://www.lighthouse3d.com/tutorials/glsl-core-tutorial/ target=new>GLSL Core Tutorial</a>
+   </ul>
+</ul>
+
+Other Notes:
+<ul>
+  <li><a href=turnonSafari.html>Steps to turn on WegGL on Safari</a>
+</ul>
+</body>
+</html>

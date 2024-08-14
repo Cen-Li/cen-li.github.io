@@ -1,0 +1,56 @@
+The javascript code has been split into 3 files each meant for specific
+purposes.
+
+objects_part1.js: Holds the object vertices and primitive functions used
+                  to render them. generatePoints() is implemented here
+                  and all generated objects are stored in the scene
+                  namespace (objectList).
+
+scene_part1.js: The main lifter, this file holds the scene namespace as
+                well as an additional namespace called controls. The
+                scene namespace greatly simplifies drawing by storing
+                the starting and ending points in an object list, which
+                can then be recalled using the implemented draw
+                function. The controls namespace contains several
+                variables that control various aspects of the scene,
+                such as the camera angle and render type. The WebGL
+                inits are also held in this file, as well as the render
+                function and event handlers.
+
+draw_part1.js: This file contains every draw function to facilitate what
+               would be a very sloppy render function. Each object has
+               a draw function that handles all translation, rotations,
+               and scaling as needed to fit the scene.
+
+
+
+5 objects have been implemented so far.
+
+Room: Composed of cubes drawn 4(5) times, scaled, and rotated as needed
+
+Door: Similarly composed of cubes scaled to fit, with the addition of a
+      half circle for the top and a full circle for the doorknob
+
+Christmas Tree: Rendered using surface of revolution, although with a
+                strange fix. The stump is rendered as a full circle with
+                additional height
+
+Fireplace: composed of 7 cubes scaled to fit the desired shape
+
+4-pointed star: Rendered using polygonal mesh techniques. This object
+                was created mostly to test mesh techniques that I can
+                use for more complex objects
+
+
+
+Camera controls have already been implemented, but are disabled by
+default. They can be toggled using the radio button provided or by
+pressing the 'e' key.
+
+Also provided is a togglable ceiling, created with the intention of
+perhaps creating hanging objects, such as a chandelier. Togglable with
+the provided button or by pressing the 'c' key.
+
+Lastly, a render toggle has been provided that simply changes the render
+type to gl.LINE_STRIP or gl.TRIANGLES, based on which one is currently
+active. Togglable using provided button or with the 'r' key.

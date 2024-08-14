@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<!--FILE NAME: 	daft.html
+	PROGRAMMER: Heath Webb
+	CLASS: 		CSCI 4250
+	DUE DATE: 	Wednesday, 11/19/2014
+	INSTRUCTOR: Dr. Li
+
+// This program is for Project 4. It is a model of the stage setup of the Daft Punk Alive Tour. 
+// The 3D scene currently includes:
+// Stage, Trussing, Split Pyramid, Triangular lighting rigs, speaker cabinets, Daft Punk members
+// Texture files necessary include:
+// grill_small.jpg, box.jpg, sequin.jpg
+// The user is able to control the angle of the camera eye with the arrow keys
+// as well as shift the camera left, right, up, down with arrow keys + shift
+// and the user can also hold the alt button and use the up and down keys to zoom in and out
+// In addition to the B key which resets the camera, the 1, 2, 3, 4 keys provide other preset angles
+// and of course the A key means Action! and will start and stop the show animation
+// I was unable to implement directional / embedded sound before the deadline. 
+// The demonstration soundtrack is One More Time / Aerodynamic , tracks 8 & 9 from the Alive album.
+
+-->
+<html>
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+
+attribute vec4 vPosition;
+attribute vec4 vNormal;
+
+varying vec4 fColor;
+attribute vec2 vTexCoord;
+varying   vec2 fTexCoord;
+
+uniform vec4 ambientProduct, diffuseProduct, specularProduct;
+uniform mat4 modelViewMatrix;
+uniform mat4 projectionMatrix;
+uniform vec4 lightPosition;
+uniform float shininess;
+
+void
+main()
+{
+    vec3 pos = -(modelViewMatrix * vPosition).xyz;
+    vec3 light = -(modelViewMatrix * lightPosition).xyz;
+    //vec3 light = lightPosition.xyz;
+    vec3 L = normalize( light - pos );
+
+    vec3 E = normalize( -pos );
+    vec3 H = normalize( L + E );
+
+    // Transform vertex normal into eye coordinates
+    vec3 N = normalize( (modelViewMatrix*vNormal).xyz);
+
+    // Compute terms in the illumination equation
+    vec4 ambient = ambientProduct;
+
+    float Kd = max( dot(L, N), 0.0 );
+    vec4  diffuse = Kd*diffuseProduct;
+
+    float Ks = pow( max(dot(N, H), 0.0), shininess );
+    vec4  specular = Ks * specularProduct;
+    
+    if( dot(L, N) < 0.0 )  specular = vec4(0.0, 0.0, 0.0, 1.0);
+
+    gl_Position = projectionMatrix * modelViewMatrix * vPosition ;
+    
+    fColor = ambient + diffuse +specular;
+	
+	fTexCoord = vTexCoord;
+
+    fColor.a = 1.0;
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+
+precision mediump float;
+
+uniform int textureFlag;
+varying vec4 fColor;
+varying vec2 fTexCoord;
+uniform sampler2D texture;
+
+void
+main()
+{
+       if (textureFlag == 1)
+        gl_FragColor = fColor;
+    else if (textureFlag == 2)
+        gl_FragColor = texture2D( texture, fTexCoord );
+}
+</script>
+
+<script type="text/javascript" src="Common/webgl-utils.js"></script>
+<script type="text/javascript" src="Common/initShaders.js"></script>
+
+<script type="text/javascript" src="Common/MV.js"></script>
+<script type="text/javascript" src="daft.js"></script>
+
+<body>
+<canvas id="gl-canvas" width="720	" height="720">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+
+<div>
+<button id = "left">left</button>
+<button id = "right">right</button>
+<button id = "up">up</button>
+<button id = "down">down</button>
+</div>
+<div>
+<button id = "zoomIn">zoom In</button>
+<button id = "zoomOut">zoom Out</button>
+</div>
+<div>
+<button id = "eyeleft">eye left</button>
+<button id = "eyeright">eye right</button>
+<button id = "eyeup">eye up</button>
+<button id = "eyedown">eye down</button>
+</div>
+
+</body>
+</html>

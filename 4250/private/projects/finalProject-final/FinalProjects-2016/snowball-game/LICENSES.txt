@@ -1,0 +1,9 @@
+Sounds files were converted to mp3's, original files available below
+
+"sfx_throw" is available at:
+http://opengameart.org/content/sfxthrow
+created by Lamoot, under CC-BY 3.0 license
+
+"land" is available at:
+http://opengameart.org/content/3-item-sounds
+created by Michel Baradari, under CC-BY 3.0 license

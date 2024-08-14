@@ -1,0 +1,106 @@
+
+<!--
+ * File: sports.html
+ * Author: Michael Pollard (msp4k)
+ * Class: CSCI 4250
+ * Prof: Dr. Cen Li
+ * Description: This file contains the html source for the
+ *              implementation of the sports.js file in browser
+ -->
+
+<!DOCTYPE html>
+<html>
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+
+attribute vec4 vPosition;
+attribute vec4 vNormal;
+
+varying vec4 fColor;
+
+uniform vec4 ambientProduct, diffuseProduct, specularProduct;
+uniform mat4 modelViewMatrix;
+uniform mat4 projectionMatrix;
+uniform vec4 lightPosition;
+uniform float shininess;
+
+void
+main()
+{
+    vec3 pos = -(modelViewMatrix * vPosition).xyz;
+    //vec3 light = -(modelViewMatrix * lightPosition).xyz;
+    vec3 light = lightPosition.xyz;
+    vec3 L = normalize( light - pos );
+
+    vec3 E = normalize( -pos );
+    vec3 H = normalize( L + E );
+
+    // Transform vertex normal into eye coordinates
+    vec3 N = normalize( (modelViewMatrix*vNormal).xyz);
+
+    // Compute terms in the illumination equation
+    vec4 ambient = ambientProduct;
+
+    float Kd = max( dot(L, N), 0.0 );
+    vec4  diffuse = Kd*diffuseProduct;
+
+    float Ks = pow( max(dot(N, H), 0.0), shininess );
+    vec4  specular = Ks * specularProduct;
+    
+    if( dot(L, N) < 0.0 )  specular = vec4(0.0, 0.0, 0.0, 1.0);
+
+    gl_Position = projectionMatrix * modelViewMatrix * vPosition ;
+    
+    fColor = ambient + diffuse + specular;
+
+    fColor.a = 1.0;
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+
+precision mediump float;
+
+varying vec4 fColor;
+
+void
+main()
+{
+    gl_FragColor = fColor;
+}
+</script>
+
+<script type="text/javascript" src="../Common/webgl-utils.js"></script>
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+
+<script type="text/javascript" src="../Common/MV.js"></script>
+<script type="text/javascript" src="sports.js"></script>
+<script type="text/javascript" src="fans.js"></script>
+<body>
+<canvas id="gl-canvas" style="cursor: grabbing;" oncontextmenu="return false;" width="829" height="512">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+
+<div>
+<button id = "left">Left</button>
+<button id = "right">Right</button>
+<button id = "up">Up</button>
+<button id = "down">Down</button>
+<button id = "+zrot">+ Zrot</button>
+<button id = "-zrot">- Zrot</button>
+<button id = "reset">Reset</button>
+</div>
+<div>
+    <p></p>
+    Game Controls:
+    <p></p>
+    Use Mouse Scroll Wheel to Zoom
+    <p></p>
+    Mouse Buttons rotate/pan screen
+    <p></p>
+    Middle Mouse Button and "b" button resets scene
+    <p></p>
+    Coming Soon: "k" button kicks ball, interactive back judges
+</div>
+</body>
+</html>

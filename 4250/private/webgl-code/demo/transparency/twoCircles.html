@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+attribute vec4 vPosition;
+
+void
+main()
+{
+    gl_Position = vPosition;
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+precision mediump float;
+
+uniform int colorIndex;
+void
+main()
+{
+   if (colorIndex==1)          // yellow
+       gl_FragColor = vec4( 1.0, 1.0, 0.0, 0.75);
+   else if (colorIndex == 2)  // blue
+       gl_FragColor = vec4( 0.0, 0.0, 1.0, 0.75);
+   else if (colorIndex == 3)  // blue-yellow
+       gl_FragColor = vec4(0.75, 0.75, 0.25, 0.75);
+   else if (colorIndex == 4)  // yellow-blue
+       gl_FragColor = vec4( 0.25, 0.25, 0.75, 0.75);
+
+}
+</script>
+
+
+<script type="text/javascript" src="../Common/webgl-utils.js"></script>
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="../Common/MV.js"></script>
+<script type="text/javascript" src="twoCircles.js"></script>
+</head>
+
+<body>
+<canvas id="gl-canvas" width="512" height="512">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+
+<p>
+<button id="BlueFirst">Blue First</button>
+<button id="BlueBlend">Blue Yellow Blend</button>
+<button id="YellowFirst">Yellow First</button>
+<button id="YellowBlend">Yellow Blue Blend</button>
+</body>
+</html>

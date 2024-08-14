@@ -1,0 +1,139 @@
+<!--
+FILE NAME: FinalProject.js (final project part3)
+PROGRAMMER: Li He
+Team Member: Danile Lesnansky
+CLASS: CSCI 4250
+INSTRUCTOR: Dr. Li
+
+Description of Program: 3D Scene Project.
+The method used:
+1.Useprimitive 3D(sphere, cone, cylinder, cube,etc.) objectsto build a 3D figure. 
+2.Use orthographic projection
+3.Use polygonal mesh
+4.This animation should be started and stopped by clicking the key ‘a’.
+5.Material and lighting properties 
+6.extruded shape, surface of revolution, 
+7. Animation which the viewer can “move” a camera about the scene.
+8.The user to move back to the original scene by pressing the ‘b’ key.
+
+-->
+
+
+<!DOCTYPE html>
+<html>
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+
+attribute vec4 vPosition;
+attribute vec4 vNormal;
+
+varying   vec4 fColor;
+attribute vec2 vTexCoord;
+varying   vec2 fTexCoord;
+
+uniform vec4 ambientProduct, diffuseProduct, specularProduct;
+uniform mat4 modelViewMatrix;
+uniform mat4 projectionMatrix;
+uniform vec4 lightPosition;
+uniform float shininess;
+
+void
+main()
+{
+    vec3 pos = -(modelViewMatrix * vPosition).xyz;
+    vec3 light = -(modelViewMatrix * lightPosition).xyz;
+    //vec3 light = lightPosition.xyz;
+    vec3 L = normalize( light - pos );
+
+    vec3 E = normalize( -pos );
+    vec3 H = normalize( L + E );
+
+    // Transform vertex normal into eye coordinates
+    vec3 N = normalize( (modelViewMatrix*vNormal).xyz);
+
+    // Compute terms in the illumination equation
+    vec4 ambient = ambientProduct;
+
+    float Kd = max( dot(L, N), 0.0 );
+    vec4  diffuse = Kd*diffuseProduct;
+
+    float Ks = pow( max(dot(N, H), 0.0), shininess );
+    vec4  specular = Ks * specularProduct;
+    
+    if( dot(L, N) < 0.0 )  specular = vec4(0.0, 0.0, 0.0, 1.0);
+
+    
+    fColor = ambient + diffuse +specular;
+    fColor.a = 1.0;
+
+    fTexCoord = vTexCoord;
+
+    gl_Position = projectionMatrix * modelViewMatrix * vPosition ;
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+
+precision mediump float;
+
+uniform int textureFlag;
+varying vec4 fColor;
+varying vec2 fTexCoord;
+uniform sampler2D texture;
+
+void
+main()
+{
+    if (textureFlag == 1)
+        gl_FragColor = fColor;
+    else if (textureFlag == 2)
+        gl_FragColor = texture2D( texture, fTexCoord );;
+}
+</script>
+
+<script type="text/javascript" src="../Common/webgl-utils.js"></script>
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+
+<script type="text/javascript" src="../Common/MV.js"></script>
+<script type="text/javascript" src="FinalProject.js"></script>
+
+<body>
+<canvas id="gl-canvas" width="800" height="512">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+
+<div> 
+<button id = "phiPlus">Rotate Left</button>
+<button id = "phiMinus">Rotate Right</button>
+<button id = "thetaPlus">Rotate Up</button>
+<button id = "thetaMinus">Rotate Down</button>
+</div>
+<div>
+<button id = "left">Move Left</button>
+<button id = "right">Move Right</button>
+<button id = "up">Move Up</button>
+<button id = "down">Move Down</button>
+</div>
+<div>
+<button id = "zoomIn">Zoom In</button>
+<button id = "zoomOut">Zoom Out</button>
+</div>
+<div>
+<button id = "A">Animation On/Off</button>
+<button id = "B">Return to Original</button>
+</div>
+<div>
+<button id = "d0">0</button>
+<button id = "d1">1</button>
+<button id = "d2">2</button>
+<button id = "d3">3</button>
+<button id = "d4">4</button>
+<button id = "d5">5</button>
+<button id = "d6">6</button>
+<button id = "d7">7</button>
+<button id = "d8">8</button>
+<button id = "d9">9</button>
+</div>
+
+</body>
+</html>

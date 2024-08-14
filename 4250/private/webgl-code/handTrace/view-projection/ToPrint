@@ -1,0 +1,834 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 24 24 571 818
+%%Title: Enscript Output
+%%For: Cen Li
+%%Creator: GNU Enscript 1.6.6
+%%CreationDate: Tue Oct 24 10:58:34 2017
+%%Orientation: Landscape
+%%Pages: (atend)
+%%DocumentMedia: A4 595 842 0 () ()
+%%DocumentNeededResources: (atend)
+%%EndComments
+%%BeginProlog
+%%BeginResource: procset Enscript-Prolog 1.6 6
+%
+% Procedures.
+%
+
+/_S {	% save current state
+  /_s save def
+} def
+/_R {	% restore from saved state
+  _s restore
+} def
+
+/S {	% showpage protecting gstate
+  gsave
+  showpage
+  grestore
+} bind def
+
+/MF {	% fontname newfontname -> -	make a new encoded font
+  /newfontname exch def
+  /fontname exch def
+
+  /fontdict fontname findfont def
+  /newfont fontdict maxlength dict def
+
+  fontdict {
+    exch
+    dup /FID eq {
+      % skip FID pair
+      pop pop
+    } {
+      % copy to the new font dictionary
+      exch newfont 3 1 roll put
+    } ifelse
+  } forall
+
+  newfont /FontName newfontname put
+
+  % insert only valid encoding vectors
+  encoding_vector length 256 eq {
+    newfont /Encoding encoding_vector put
+  } if
+
+  newfontname newfont definefont pop
+} def
+
+/MF_PS { % fontname newfontname -> -	make a new font preserving its enc
+  /newfontname exch def
+  /fontname exch def
+
+  /fontdict fontname findfont def
+  /newfont fontdict maxlength dict def
+
+  fontdict {
+    exch
+    dup /FID eq {
+      % skip FID pair
+      pop pop
+    } {
+      % copy to the new font dictionary
+      exch newfont 3 1 roll put
+    } ifelse
+  } forall
+
+  newfont /FontName newfontname put
+
+  newfontname newfont definefont pop
+} def
+
+/SF { % fontname width height -> -	set a new font
+  /height exch def
+  /width exch def
+
+  findfont
+  [width 0 0 height 0 0] makefont setfont
+} def
+
+/SUF { % fontname width height -> -	set a new user font
+  /height exch def
+  /width exch def
+
+  /F-gs-user-font MF
+  /F-gs-user-font width height SF
+} def
+
+/SUF_PS { % fontname width height -> -	set a new user font preserving its enc
+  /height exch def
+  /width exch def
+
+  /F-gs-user-font MF_PS
+  /F-gs-user-font width height SF
+} def
+
+/M {moveto} bind def
+/s {show} bind def
+
+/Box {	% x y w h -> -			define box path
+  /d_h exch def /d_w exch def /d_y exch def /d_x exch def
+  d_x d_y  moveto
+  d_w 0 rlineto
+  0 d_h rlineto
+  d_w neg 0 rlineto
+  closepath
+} def
+
+/bgs {	% x y height blskip gray str -> -	show string with bg color
+  /str exch def
+  /gray exch def
+  /blskip exch def
+  /height exch def
+  /y exch def
+  /x exch def
+
+  gsave
+    x y blskip sub str stringwidth pop height Box
+    gray setgray
+    fill
+  grestore
+  x y M str s
+} def
+
+/bgcs { % x y height blskip red green blue str -> -  show string with bg color
+  /str exch def
+  /blue exch def
+  /green exch def
+  /red exch def
+  /blskip exch def
+  /height exch def
+  /y exch def
+  /x exch def
+
+  gsave
+    x y blskip sub str stringwidth pop height Box
+    red green blue setrgbcolor
+    fill
+  grestore
+  x y M str s
+} def
+
+% Highlight bars.
+/highlight_bars {	% nlines lineheight output_y_margin gray -> -
+  gsave
+    setgray
+    /ymarg exch def
+    /lineheight exch def
+    /nlines exch def
+
+    % This 2 is just a magic number to sync highlight lines to text.
+    0 d_header_y ymarg sub 2 sub translate
+
+    /cw d_output_w cols div def
+    /nrows d_output_h ymarg 2 mul sub lineheight div cvi def
+
+    % for each column
+    0 1 cols 1 sub {
+      cw mul /xp exch def
+
+      % for each rows
+      0 1 nrows 1 sub {
+        /rn exch def
+        rn lineheight mul neg /yp exch def
+        rn nlines idiv 2 mod 0 eq {
+	  % Draw highlight bar.  4 is just a magic indentation.
+	  xp 4 add yp cw 8 sub lineheight neg Box fill
+	} if
+      } for
+    } for
+
+  grestore
+} def
+
+% Line highlight bar.
+/line_highlight {	% x y width height gray -> -
+  gsave
+    /gray exch def
+    Box gray setgray fill
+  grestore
+} def
+
+% Column separator lines.
+/column_lines {
+  gsave
+    .1 setlinewidth
+    0 d_footer_h translate
+    /cw d_output_w cols div def
+    1 1 cols 1 sub {
+      cw mul 0 moveto
+      0 d_output_h rlineto stroke
+    } for
+  grestore
+} def
+
+% Column borders.
+/column_borders {
+  gsave
+    .1 setlinewidth
+    0 d_footer_h moveto
+    0 d_output_h rlineto
+    d_output_w 0 rlineto
+    0 d_output_h neg rlineto
+    closepath stroke
+  grestore
+} def
+
+% Do the actual underlay drawing
+/draw_underlay {
+  ul_style 0 eq {
+    ul_str true charpath stroke
+  } {
+    ul_str show
+  } ifelse
+} def
+
+% Underlay
+/underlay {	% - -> -
+  gsave
+    0 d_page_h translate
+    d_page_h neg d_page_w atan rotate
+
+    ul_gray setgray
+    ul_font setfont
+    /dw d_page_h dup mul d_page_w dup mul add sqrt def
+    ul_str stringwidth pop dw exch sub 2 div ul_h_ptsize -2 div moveto
+    draw_underlay
+  grestore
+} def
+
+/user_underlay {	% - -> -
+  gsave
+    ul_x ul_y translate
+    ul_angle rotate
+    ul_gray setgray
+    ul_font setfont
+    0 0 ul_h_ptsize 2 div sub moveto
+    draw_underlay
+  grestore
+} def
+
+% Page prefeed
+/page_prefeed {		% bool -> -
+  statusdict /prefeed known {
+    statusdict exch /prefeed exch put
+  } {
+    pop
+  } ifelse
+} def
+
+% Wrapped line markers
+/wrapped_line_mark {	% x y charwith charheight type -> -
+  /type exch def
+  /h exch def
+  /w exch def
+  /y exch def
+  /x exch def
+
+  type 2 eq {
+    % Black boxes (like TeX does)
+    gsave
+      0 setlinewidth
+      x w 4 div add y M
+      0 h rlineto w 2 div 0 rlineto 0 h neg rlineto
+      closepath fill
+    grestore
+  } {
+    type 3 eq {
+      % Small arrows
+      gsave
+        .2 setlinewidth
+        x w 2 div add y h 2 div add M
+        w 4 div 0 rlineto
+        x w 4 div add y lineto stroke
+
+        x w 4 div add w 8 div add y h 4 div add M
+        x w 4 div add y lineto
+	w 4 div h 8 div rlineto stroke
+      grestore
+    } {
+      % do nothing
+    } ifelse
+  } ifelse
+} def
+
+% EPSF import.
+
+/BeginEPSF {
+  /b4_Inc_state save def    		% Save state for cleanup
+  /dict_count countdictstack def	% Count objects on dict stack
+  /op_count count 1 sub def		% Count objects on operand stack
+  userdict begin
+  /showpage { } def
+  0 setgray 0 setlinecap
+  1 setlinewidth 0 setlinejoin
+  10 setmiterlimit [ ] 0 setdash newpath
+  /languagelevel where {
+    pop languagelevel
+    1 ne {
+      false setstrokeadjust false setoverprint
+    } if
+  } if
+} bind def
+
+/EndEPSF {
+  count op_count sub { pos } repeat	% Clean up stacks
+  countdictstack dict_count sub { end } repeat
+  b4_Inc_state restore
+} bind def
+
+% Check PostScript language level.
+/languagelevel where {
+  pop /gs_languagelevel languagelevel def
+} {
+  /gs_languagelevel 1 def
+} ifelse
+%%EndResource
+%%BeginResource: procset Enscript-Encoding-88591 1.6 6
+/encoding_vector [
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/space        	/exclam       	/quotedbl     	/numbersign   	
+/dollar       	/percent      	/ampersand    	/quoteright   	
+/parenleft    	/parenright   	/asterisk     	/plus         	
+/comma        	/hyphen       	/period       	/slash        	
+/zero         	/one          	/two          	/three        	
+/four         	/five         	/six          	/seven        	
+/eight        	/nine         	/colon        	/semicolon    	
+/less         	/equal        	/greater      	/question     	
+/at           	/A            	/B            	/C            	
+/D            	/E            	/F            	/G            	
+/H            	/I            	/J            	/K            	
+/L            	/M            	/N            	/O            	
+/P            	/Q            	/R            	/S            	
+/T            	/U            	/V            	/W            	
+/X            	/Y            	/Z            	/bracketleft  	
+/backslash    	/bracketright 	/asciicircum  	/underscore   	
+/quoteleft    	/a            	/b            	/c            	
+/d            	/e            	/f            	/g            	
+/h            	/i            	/j            	/k            	
+/l            	/m            	/n            	/o            	
+/p            	/q            	/r            	/s            	
+/t            	/u            	/v            	/w            	
+/x            	/y            	/z            	/braceleft    	
+/bar          	/braceright   	/tilde        	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/space        	/exclamdown   	/cent         	/sterling     	
+/currency     	/yen          	/brokenbar    	/section      	
+/dieresis     	/copyright    	/ordfeminine  	/guillemotleft	
+/logicalnot   	/hyphen       	/registered   	/macron       	
+/degree       	/plusminus    	/twosuperior  	/threesuperior	
+/acute        	/mu           	/paragraph    	/bullet       	
+/cedilla      	/onesuperior  	/ordmasculine 	/guillemotright	
+/onequarter   	/onehalf      	/threequarters	/questiondown 	
+/Agrave       	/Aacute       	/Acircumflex  	/Atilde       	
+/Adieresis    	/Aring        	/AE           	/Ccedilla     	
+/Egrave       	/Eacute       	/Ecircumflex  	/Edieresis    	
+/Igrave       	/Iacute       	/Icircumflex  	/Idieresis    	
+/Eth          	/Ntilde       	/Ograve       	/Oacute       	
+/Ocircumflex  	/Otilde       	/Odieresis    	/multiply     	
+/Oslash       	/Ugrave       	/Uacute       	/Ucircumflex  	
+/Udieresis    	/Yacute       	/Thorn        	/germandbls   	
+/agrave       	/aacute       	/acircumflex  	/atilde       	
+/adieresis    	/aring        	/ae           	/ccedilla     	
+/egrave       	/eacute       	/ecircumflex  	/edieresis    	
+/igrave       	/iacute       	/icircumflex  	/idieresis    	
+/eth          	/ntilde       	/ograve       	/oacute       	
+/ocircumflex  	/otilde       	/odieresis    	/divide       	
+/oslash       	/ugrave       	/uacute       	/ucircumflex  	
+/udieresis    	/yacute       	/thorn        	/ydieresis    	
+] def
+%%EndResource
+%%EndProlog
+%%BeginSetup
+%%IncludeResource: font Courier-Bold
+%%IncludeResource: font Courier
+/HFpt_w 10 def
+/HFpt_h 10 def
+/Courier-Bold /HF-gs-font MF
+/HF /HF-gs-font findfont [HFpt_w 0 0 HFpt_h 0 0] makefont def
+/Courier /F-gs-font MF
+/F-gs-font 7 7 SF
+/#copies 1 def
+% Pagedevice definitions:
+gs_languagelevel 1 gt {
+  <<
+    /PageSize [595 842] 
+  >> setpagedevice
+} if
+%%BeginResource: procset Enscript-Header-enscript 1.6 6
+%%IncludeResource: font Times-Bold
+%%IncludeResource: font Times-Roman
+
+% Fonts.
+/Times-Bold /HeaderFont-Bold MF
+/HeaderDateF /HeaderFont-Bold findfont 12 scalefont def
+
+/Times-Roman /HeaderFont-Times MF
+/HeaderHDRF /HeaderFont-Times findfont 14 scalefont def
+
+/HeaderPageNumF /Helvetica-Bold findfont 28.8 scalefont def
+
+/do_header {	% print enscript header
+  gsave
+    d_header_x d_header_y translate
+
+    % light bar
+    0 0 d_header_w d_header_h 2 div Box
+    .95 setgray fill
+
+    % dark gray boxes
+    /dbw d_header_h 2 mul def	% dark box width
+    /dbc .7 def			% dark box color
+
+    % left dark box.
+    0 0 dbw d_header_h Box
+    dbc setgray fill
+
+    0 setgray 
+    HeaderDateF setfont
+    moddatestr dup stringwidth pop dbw exch sub 2 div 
+    d_header_h 2 div 2 add moveto show
+    modtimestr dup stringwidth pop dbw exch sub 2 div 
+    d_header_h 5 div moveto show
+
+    % right dark box
+    d_header_w dbw sub 0 dbw d_header_h Box
+    dbc setgray fill
+
+    HeaderPageNumF setfont
+    1 setgray
+    pagenumstr dup
+    stringwidth pop dbw exch sub 2 div d_header_w dbw sub add
+    d_header_h .2 mul moveto show
+
+    % filename
+    0 setgray 
+    HeaderHDRF setfont
+    d_header_w fname stringwidth pop sub 2 div d_header_h 8 div moveto
+    fname show
+
+    % user supplied header string.
+    user_header_p {
+      /h d_header_h 8 div 5 mul def
+
+      % Implement strict enscript compatibility.
+      user_header_center_str () eq user_header_right_str () eq and {
+        d_header_w user_header_left_str stringwidth pop sub 2 div 
+        h moveto user_header_left_str show
+      } {
+        dbw 5 add h moveto user_header_left_str show
+
+        d_header_w user_header_center_str stringwidth pop sub 2 div 
+        h moveto user_header_center_str show
+
+	d_header_w dbw sub 5 sub user_header_right_str stringwidth pop
+	sub h moveto user_header_right_str show
+      } ifelse
+    } if
+
+  grestore
+} def
+%%EndResource
+/d_page_w 794 def
+/d_page_h 547 def
+/d_header_x 0 def
+/d_header_y 511 def
+/d_header_w 794 def
+/d_header_h 36 def
+/d_footer_x 0 def
+/d_footer_y 0 def
+/d_footer_w 794 def
+/d_footer_h 0 def
+/d_output_w 794 def
+/d_output_h 511 def
+/cols 2 def
+%%EndSetup
+%%Page: (1) 1
+%%BeginPageSetup
+_S
+90 rotate
+24 -571 translate
+/pagenum 1 def
+/fname (ortho.html) def
+/fdir (.) def
+/ftail (ortho.html) def
+% User defined strings:
+/pagenumstr (1) def
+/moddatestr (10/20/15) def
+/modtimestr (12:07:00) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+column_lines
+do_header
+5 501 M
+(<!DOCTYPE html>) s
+5 493 M
+(<html>) s
+5 485 M
+(<style type="text/css">) s
+5 477 M
+(    canvas { background: blue; }) s
+5 469 M
+(</style>) s
+5 453 M
+(<script id="vertex-shader" type="x-shader/x-vertex">) s
+5 437 M
+(attribute  vec4 vPosition;) s
+5 429 M
+(attribute  vec4 vColor;) s
+5 421 M
+(varying vec4 fColor;) s
+5 405 M
+(uniform mat4 modelView;) s
+5 397 M
+(uniform mat4 projection;) s
+5 381 M
+(void main\(\) ) s
+5 373 M
+({) s
+5 365 M
+(    gl_Position = projection*modelView*vPosition;) s
+5 357 M
+(    fColor = vColor;) s
+5 349 M
+(} ) s
+5 341 M
+(</script>) s
+5 325 M
+(<script id="fragment-shader" type="x-shader/x-fragment">) s
+5 309 M
+(precision mediump float;) s
+5 293 M
+(varying vec4 fColor;) s
+5 277 M
+(void) s
+5 269 M
+(main\(\)) s
+5 261 M
+({) s
+5 253 M
+(    gl_FragColor = fColor;) s
+5 245 M
+(}) s
+5 237 M
+(</script>) s
+5 221 M
+(<script type="text/javascript" src="../common/webgl-utils.js"></script>) s
+5 213 M
+(<script type="text/javascript" src="../common/initShaders.js"></script>) s
+5 205 M
+(<script type="text/javascript" src="../common/MV.js"></script>) s
+5 197 M
+(<script type="text/javascript" src="ortho.js"></script>) s
+5 181 M
+(<body>) s
+5 173 M
+(<canvas id="gl-canvas" width="512" height="512">) s
+5 165 M
+(Oops ... your browser doesn't support the HTML5 canvas element) s
+5 157 M
+(</canvas>) s
+5 141 M
+(</body>) s
+5 133 M
+(</html>) s
+_R
+S
+%%Page: (1) 2
+%%BeginPageSetup
+_S
+90 rotate
+24 -571 translate
+/pagenum 1 def
+/fname (ortho.js) def
+/fdir (.) def
+/ftail (ortho.js) def
+% User defined strings:
+/pagenumstr (1) def
+/moddatestr (10/24/17) def
+/modtimestr (10:58:31) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+column_lines
+do_header
+5 501 M
+(var canvas, gl;) s
+5 485 M
+(var numVertices  = 36;) s
+5 477 M
+(var pointsArray = [];) s
+5 469 M
+(var colorsArray = [];) s
+5 453 M
+(/*) s
+5 445 M
+(      E ----  F) s
+5 437 M
+(     /|     / |) s
+5 429 M
+(    A ---  B  |) s
+5 421 M
+(    | |    |  |) s
+5 413 M
+(    | G----+- H) s
+5 405 M
+(    |/     | /) s
+5 397 M
+(    C------D/                 */) s
+5 389 M
+(var vertices = [) s
+5 381 M
+(        vec4\(-1,  1,  1, 1.0 \),  // A \(0\)) s
+5 373 M
+(        vec4\( 1,  1,  1, 1.0 \),  // B \(1\) ) s
+5 365 M
+(        vec4\(-1, -1,  1, 1.0 \),  // C \(2\)) s
+5 357 M
+(        vec4\( 1, -1,  1, 1.0 \), // D \(3\)) s
+5 349 M
+(        vec4\( -1, 1, -1, 1.0 \), // E \(4\)) s
+5 341 M
+(        vec4\( 1,  1, -1, 1.0 \), // F \(5\)) s
+5 333 M
+(        vec4\( -1,-1, -1, 1.0 \), // G \(6\)) s
+5 325 M
+(        vec4\( 1, -1, -1, 1.0 \),  // H \(7\)) s
+5 317 M
+(    ];) s
+5 301 M
+(var vertexColors = [) s
+5 293 M
+(        vec4\( 1.0, 0.0, 0.0, 1.0 \),  // red \(0\)) s
+5 285 M
+(        vec4\( 0.8, 0.8, 0.2, 1.0 \),  // yellowish-green \(1\)) s
+5 277 M
+(        vec4\( 0.0, 1.0, 0.0, 1.0 \),  // green \(2\)) s
+5 269 M
+(        vec4\( 0.0, 0.0, 1.0, 1.0 \),  // blue \(3\)) s
+5 261 M
+(        vec4\( 1.0, 0.0, 1.0, 1.0 \),  // magenta \(4\)) s
+5 253 M
+(        vec4\( 0.0, 1.0, 1.0, 1.0 \),  // cyan \(5\)) s
+5 245 M
+(        vec4\( 1.0, 1.0, 0.0, 1.0 \),  // yellow \(6\)) s
+5 237 M
+(    ];) s
+5 221 M
+(var mvMatrix, pMatrix;) s
+5 213 M
+(var modelView, projection;) s
+5 197 M
+(// quad uses first index to set color for face) s
+5 189 M
+(function quad\(a, b, c, d\) {) s
+5 181 M
+(     pointsArray.push\(vertices[a]\); ) s
+5 173 M
+(     colorsArray.push\(vertexColors[a]\); ) s
+5 165 M
+(     pointsArray.push\(vertices[b]\); ) s
+5 157 M
+(     colorsArray.push\(vertexColors[a]\); ) s
+5 149 M
+(     pointsArray.push\(vertices[c]\); ) s
+5 141 M
+(     colorsArray.push\(vertexColors[a]\);    ) s
+5 133 M
+(     pointsArray.push\(vertices[a]\); ) s
+5 125 M
+(     colorsArray.push\(vertexColors[a]\); ) s
+5 117 M
+(     pointsArray.push\(vertices[c]\); ) s
+5 109 M
+(     colorsArray.push\(vertexColors[a]\); ) s
+5 101 M
+(     pointsArray.push\(vertices[d]\); ) s
+5 93 M
+(     colorsArray.push\(vertexColors[a]\);   ) s
+5 85 M
+(}) s
+5 69 M
+(// Each face is formed with two triangles) s
+5 61 M
+(function colorCube\(\) {) s
+5 53 M
+(    quad\( 0, 1, 3, 2 \);  // front\(ABDC\) red) s
+5 45 M
+(    quad\( 4, 5, 7, 6 \);  // back\(EFHG\)  magenta) s
+5 37 M
+(    quad\( 3, 1, 5, 7 \);  // right \(DBFH\) blue) s
+5 29 M
+(    quad\( 6, 2, 0, 4 \);  // left \(GCAE\) yellow) s
+5 21 M
+(    quad\( 2, 6, 7, 3 \); // bottom \(CGHD\) green) s
+5 13 M
+(    quad\( 5, 4, 0, 1\); // top \(AEFB\) cyan) s
+5 5 M
+(}) s
+402 493 M
+(window.onload = function init\(\) {) s
+402 485 M
+(    canvas = document.getElementById\( "gl-canvas" \);) s
+402 477 M
+(    ) s
+402 469 M
+(    gl = WebGLUtils.setupWebGL\( canvas \);) s
+402 461 M
+(    if \( !gl \) { alert\( "WebGL isn't available" \); }) s
+402 445 M
+(    gl.viewport\( 0, 0, canvas.width, canvas.height \);) s
+402 437 M
+(    ) s
+402 429 M
+(    gl.clearColor\( 1.0, 1.0, 1.0, 1.0 \);) s
+402 421 M
+(    ) s
+402 413 M
+(    gl.enable\(gl.DEPTH_TEST\);) s
+402 397 M
+(    //  Load shaders and initialize attribute buffers) s
+402 389 M
+(    var program = initShaders\( gl, "vertex-shader", "fragment-shader" \);) s
+402 381 M
+(    gl.useProgram\( program \);) s
+402 373 M
+(    ) s
+402 365 M
+(    colorCube\(\);) s
+402 349 M
+(    var cBuffer = gl.createBuffer\(\);) s
+402 341 M
+(    gl.bindBuffer\( gl.ARRAY_BUFFER, cBuffer \);) s
+402 333 M
+(    gl.bufferData\( gl.ARRAY_BUFFER, flatten\(colorsArray\), gl.STATIC_DRAW \);) s
+402 325 M
+(    ) s
+402 317 M
+(    var vColor = gl.getAttribLocation\( program, "vColor" \);) s
+402 309 M
+(    gl.vertexAttribPointer\( vColor, 4, gl.FLOAT, false, 0, 0 \);) s
+402 301 M
+(    gl.enableVertexAttribArray\( vColor\);) s
+402 285 M
+(    var vBuffer = gl.createBuffer\(\);) s
+402 277 M
+(    gl.bindBuffer\( gl.ARRAY_BUFFER, vBuffer \);) s
+402 269 M
+(    gl.bufferData\( gl.ARRAY_BUFFER, flatten\(pointsArray\), gl.STATIC_DRAW \);) s
+402 261 M
+(    ) s
+402 253 M
+(    var vPosition = gl.getAttribLocation\( program, "vPosition" \);) s
+402 245 M
+(    gl.vertexAttribPointer\( vPosition, 4, gl.FLOAT, false, 0, 0 \);) s
+402 237 M
+(    gl.enableVertexAttribArray\( vPosition \);) s
+402 229 M
+( ) s
+402 221 M
+(    modelView = gl.getUniformLocation\( program, "modelView" \);) s
+402 213 M
+(    projection = gl.getUniformLocation\( program, "projection" \);) s
+402 197 M
+(    render\(\);) s
+402 189 M
+(}) s
+402 173 M
+(var eye = vec3\(4, 4, -4\);) s
+402 165 M
+(var at = vec3\(0, 0, 0\);) s
+402 157 M
+(var up = vec3\(0, 1, 0\);) s
+402 141 M
+(var render = function\(\) {) s
+402 133 M
+(    gl.clear\( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT\);) s
+402 125 M
+(           ) s
+402 117 M
+(    mvMatrix = lookAt\(eye, at, up\); ) s
+402 109 M
+(    //pMatrix = ortho\(-3, 3, -3, 3, 2, 6\);) s
+402 101 M
+(    pMatrix = ortho\(-2, 2, -4, 4, 0, 10\);) s
+402 93 M
+(        ) s
+402 85 M
+(    var t=mult\(pMatrix, mvMatrix\);) s
+402 77 M
+(    console.log\("projection*modelview"\);) s
+402 69 M
+(        console.log\(flatten\(t\)\);) s
+402 53 M
+(    gl.uniformMatrix4fv\( modelView, false, flatten\(mvMatrix\) \);) s
+402 45 M
+(    gl.uniformMatrix4fv\( projection, false, flatten\(pMatrix\) \);) s
+402 37 M
+(            ) s
+402 29 M
+(    gl.drawArrays\( gl.TRIANGLES, 0, numVertices \);) s
+402 21 M
+(}) s
+_R
+S
+%%Trailer
+%%Pages: 2
+%%DocumentNeededResources: font Times-Roman Courier-Bold Courier 
+%%+ font Times-Bold 
+%%EOF

@@ -1,0 +1,3 @@
+to run these with texture using Google:
+1) close chrome, then, in the terminal type: 
+2) open /Applications/Google\ Chrome.app --args --allow-file-access-from-files

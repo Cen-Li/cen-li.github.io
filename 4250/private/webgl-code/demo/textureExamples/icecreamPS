@@ -1,0 +1,1520 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 24 24 571 818
+%%Title: Enscript Output
+%%For: Cen Li
+%%Creator: GNU Enscript 1.6.5.2
+%%CreationDate: Tue Nov 10 09:20:14 2015
+%%Orientation: Landscape
+%%Pages: (atend)
+%%DocumentMedia: A4 595 842 0 () ()
+%%DocumentNeededResources: (atend)
+%%EndComments
+%%BeginProlog
+%%BeginResource: procset Enscript-Prolog 1.6.5 2
+%
+% Procedures.
+%
+
+/_S {	% save current state
+  /_s save def
+} def
+/_R {	% restore from saved state
+  _s restore
+} def
+
+/S {	% showpage protecting gstate
+  gsave
+  showpage
+  grestore
+} bind def
+
+/MF {	% fontname newfontname -> -	make a new encoded font
+  /newfontname exch def
+  /fontname exch def
+
+  /fontdict fontname findfont def
+  /newfont fontdict maxlength dict def
+
+  fontdict {
+    exch
+    dup /FID eq {
+      % skip FID pair
+      pop pop
+    } {
+      % copy to the new font dictionary
+      exch newfont 3 1 roll put
+    } ifelse
+  } forall
+
+  newfont /FontName newfontname put
+
+  % insert only valid encoding vectors
+  encoding_vector length 256 eq {
+    newfont /Encoding encoding_vector put
+  } if
+
+  newfontname newfont definefont pop
+} def
+
+/MF_PS { % fontname newfontname -> -	make a new font preserving its enc
+  /newfontname exch def
+  /fontname exch def
+
+  /fontdict fontname findfont def
+  /newfont fontdict maxlength dict def
+
+  fontdict {
+    exch
+    dup /FID eq {
+      % skip FID pair
+      pop pop
+    } {
+      % copy to the new font dictionary
+      exch newfont 3 1 roll put
+    } ifelse
+  } forall
+
+  newfont /FontName newfontname put
+
+  newfontname newfont definefont pop
+} def
+
+/SF { % fontname width height -> -	set a new font
+  /height exch def
+  /width exch def
+
+  findfont
+  [width 0 0 height 0 0] makefont setfont
+} def
+
+/SUF { % fontname width height -> -	set a new user font
+  /height exch def
+  /width exch def
+
+  /F-gs-user-font MF
+  /F-gs-user-font width height SF
+} def
+
+/SUF_PS { % fontname width height -> -	set a new user font preserving its enc
+  /height exch def
+  /width exch def
+
+  /F-gs-user-font MF_PS
+  /F-gs-user-font width height SF
+} def
+
+/M {moveto} bind def
+/s {show} bind def
+
+/Box {	% x y w h -> -			define box path
+  /d_h exch def /d_w exch def /d_y exch def /d_x exch def
+  d_x d_y  moveto
+  d_w 0 rlineto
+  0 d_h rlineto
+  d_w neg 0 rlineto
+  closepath
+} def
+
+/bgs {	% x y height blskip gray str -> -	show string with bg color
+  /str exch def
+  /gray exch def
+  /blskip exch def
+  /height exch def
+  /y exch def
+  /x exch def
+
+  gsave
+    x y blskip sub str stringwidth pop height Box
+    gray setgray
+    fill
+  grestore
+  x y M str s
+} def
+
+/bgcs { % x y height blskip red green blue str -> -  show string with bg color
+  /str exch def
+  /blue exch def
+  /green exch def
+  /red exch def
+  /blskip exch def
+  /height exch def
+  /y exch def
+  /x exch def
+
+  gsave
+    x y blskip sub str stringwidth pop height Box
+    red green blue setrgbcolor
+    fill
+  grestore
+  x y M str s
+} def
+
+% Highlight bars.
+/highlight_bars {	% nlines lineheight output_y_margin gray -> -
+  gsave
+    setgray
+    /ymarg exch def
+    /lineheight exch def
+    /nlines exch def
+
+    % This 2 is just a magic number to sync highlight lines to text.
+    0 d_header_y ymarg sub 2 sub translate
+
+    /cw d_output_w cols div def
+    /nrows d_output_h ymarg 2 mul sub lineheight div cvi def
+
+    % for each column
+    0 1 cols 1 sub {
+      cw mul /xp exch def
+
+      % for each rows
+      0 1 nrows 1 sub {
+        /rn exch def
+        rn lineheight mul neg /yp exch def
+        rn nlines idiv 2 mod 0 eq {
+	  % Draw highlight bar.  4 is just a magic indentation.
+	  xp 4 add yp cw 8 sub lineheight neg Box fill
+	} if
+      } for
+    } for
+
+  grestore
+} def
+
+% Line highlight bar.
+/line_highlight {	% x y width height gray -> -
+  gsave
+    /gray exch def
+    Box gray setgray fill
+  grestore
+} def
+
+% Column separator lines.
+/column_lines {
+  gsave
+    .1 setlinewidth
+    0 d_footer_h translate
+    /cw d_output_w cols div def
+    1 1 cols 1 sub {
+      cw mul 0 moveto
+      0 d_output_h rlineto stroke
+    } for
+  grestore
+} def
+
+% Column borders.
+/column_borders {
+  gsave
+    .1 setlinewidth
+    0 d_footer_h moveto
+    0 d_output_h rlineto
+    d_output_w 0 rlineto
+    0 d_output_h neg rlineto
+    closepath stroke
+  grestore
+} def
+
+% Do the actual underlay drawing
+/draw_underlay {
+  ul_style 0 eq {
+    ul_str true charpath stroke
+  } {
+    ul_str show
+  } ifelse
+} def
+
+% Underlay
+/underlay {	% - -> -
+  gsave
+    0 d_page_h translate
+    d_page_h neg d_page_w atan rotate
+
+    ul_gray setgray
+    ul_font setfont
+    /dw d_page_h dup mul d_page_w dup mul add sqrt def
+    ul_str stringwidth pop dw exch sub 2 div ul_h_ptsize -2 div moveto
+    draw_underlay
+  grestore
+} def
+
+/user_underlay {	% - -> -
+  gsave
+    ul_x ul_y translate
+    ul_angle rotate
+    ul_gray setgray
+    ul_font setfont
+    0 0 ul_h_ptsize 2 div sub moveto
+    draw_underlay
+  grestore
+} def
+
+% Page prefeed
+/page_prefeed {		% bool -> -
+  statusdict /prefeed known {
+    statusdict exch /prefeed exch put
+  } {
+    pop
+  } ifelse
+} def
+
+% Wrapped line markers
+/wrapped_line_mark {	% x y charwith charheight type -> -
+  /type exch def
+  /h exch def
+  /w exch def
+  /y exch def
+  /x exch def
+
+  type 2 eq {
+    % Black boxes (like TeX does)
+    gsave
+      0 setlinewidth
+      x w 4 div add y M
+      0 h rlineto w 2 div 0 rlineto 0 h neg rlineto
+      closepath fill
+    grestore
+  } {
+    type 3 eq {
+      % Small arrows
+      gsave
+        .2 setlinewidth
+        x w 2 div add y h 2 div add M
+        w 4 div 0 rlineto
+        x w 4 div add y lineto stroke
+
+        x w 4 div add w 8 div add y h 4 div add M
+        x w 4 div add y lineto
+	w 4 div h 8 div rlineto stroke
+      grestore
+    } {
+      % do nothing
+    } ifelse
+  } ifelse
+} def
+
+% EPSF import.
+
+/BeginEPSF {
+  /b4_Inc_state save def    		% Save state for cleanup
+  /dict_count countdictstack def	% Count objects on dict stack
+  /op_count count 1 sub def		% Count objects on operand stack
+  userdict begin
+  /showpage { } def
+  0 setgray 0 setlinecap
+  1 setlinewidth 0 setlinejoin
+  10 setmiterlimit [ ] 0 setdash newpath
+  /languagelevel where {
+    pop languagelevel
+    1 ne {
+      false setstrokeadjust false setoverprint
+    } if
+  } if
+} bind def
+
+/EndEPSF {
+  count op_count sub { pos } repeat	% Clean up stacks
+  countdictstack dict_count sub { end } repeat
+  b4_Inc_state restore
+} bind def
+
+% Check PostScript language level.
+/languagelevel where {
+  pop /gs_languagelevel languagelevel def
+} {
+  /gs_languagelevel 1 def
+} ifelse
+%%EndResource
+%%BeginResource: procset Enscript-Encoding-88591 1.6.5 2
+/encoding_vector [
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/space        	/exclam       	/quotedbl     	/numbersign   	
+/dollar       	/percent      	/ampersand    	/quoteright   	
+/parenleft    	/parenright   	/asterisk     	/plus         	
+/comma        	/hyphen       	/period       	/slash        	
+/zero         	/one          	/two          	/three        	
+/four         	/five         	/six          	/seven        	
+/eight        	/nine         	/colon        	/semicolon    	
+/less         	/equal        	/greater      	/question     	
+/at           	/A            	/B            	/C            	
+/D            	/E            	/F            	/G            	
+/H            	/I            	/J            	/K            	
+/L            	/M            	/N            	/O            	
+/P            	/Q            	/R            	/S            	
+/T            	/U            	/V            	/W            	
+/X            	/Y            	/Z            	/bracketleft  	
+/backslash    	/bracketright 	/asciicircum  	/underscore   	
+/quoteleft    	/a            	/b            	/c            	
+/d            	/e            	/f            	/g            	
+/h            	/i            	/j            	/k            	
+/l            	/m            	/n            	/o            	
+/p            	/q            	/r            	/s            	
+/t            	/u            	/v            	/w            	
+/x            	/y            	/z            	/braceleft    	
+/bar          	/braceright   	/tilde        	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/space        	/exclamdown   	/cent         	/sterling     	
+/currency     	/yen          	/brokenbar    	/section      	
+/dieresis     	/copyright    	/ordfeminine  	/guillemotleft	
+/logicalnot   	/hyphen       	/registered   	/macron       	
+/degree       	/plusminus    	/twosuperior  	/threesuperior	
+/acute        	/mu           	/paragraph    	/bullet       	
+/cedilla      	/onesuperior  	/ordmasculine 	/guillemotright	
+/onequarter   	/onehalf      	/threequarters	/questiondown 	
+/Agrave       	/Aacute       	/Acircumflex  	/Atilde       	
+/Adieresis    	/Aring        	/AE           	/Ccedilla     	
+/Egrave       	/Eacute       	/Ecircumflex  	/Edieresis    	
+/Igrave       	/Iacute       	/Icircumflex  	/Idieresis    	
+/Eth          	/Ntilde       	/Ograve       	/Oacute       	
+/Ocircumflex  	/Otilde       	/Odieresis    	/multiply     	
+/Oslash       	/Ugrave       	/Uacute       	/Ucircumflex  	
+/Udieresis    	/Yacute       	/Thorn        	/germandbls   	
+/agrave       	/aacute       	/acircumflex  	/atilde       	
+/adieresis    	/aring        	/ae           	/ccedilla     	
+/egrave       	/eacute       	/ecircumflex  	/edieresis    	
+/igrave       	/iacute       	/icircumflex  	/idieresis    	
+/eth          	/ntilde       	/ograve       	/oacute       	
+/ocircumflex  	/otilde       	/odieresis    	/divide       	
+/oslash       	/ugrave       	/uacute       	/ucircumflex  	
+/udieresis    	/yacute       	/thorn        	/ydieresis    	
+] def
+%%EndResource
+%%EndProlog
+%%BeginSetup
+%%IncludeResource: font Courier-Bold
+%%IncludeResource: font Courier
+/HFpt_w 10 def
+/HFpt_h 10 def
+/Courier-Bold /HF-gs-font MF
+/HF /HF-gs-font findfont [HFpt_w 0 0 HFpt_h 0 0] makefont def
+/Courier /F-gs-font MF
+/F-gs-font 7 7 SF
+/#copies 1 def
+% Pagedevice definitions:
+gs_languagelevel 1 gt {
+  <<
+    /PageSize [595 842] 
+  >> setpagedevice
+} if
+%%BeginResource: procset Enscript-Header-enscript 1.6.5 2
+%%IncludeResource: font Times-Bold
+%%IncludeResource: font Times-Roman
+
+% Fonts.
+/Times-Bold /HeaderFont-Bold MF
+/HeaderDateF /HeaderFont-Bold findfont 12 scalefont def
+
+/Times-Roman /HeaderFont-Times MF
+/HeaderHDRF /HeaderFont-Times findfont 14 scalefont def
+
+/HeaderPageNumF /Helvetica-Bold findfont 28.8 scalefont def
+
+/do_header {	% print enscript header
+  gsave
+    d_header_x d_header_y translate
+
+    % light bar
+    0 0 d_header_w d_header_h 2 div Box
+    .95 setgray fill
+
+    % dark gray boxes
+    /dbw d_header_h 2 mul def	% dark box width
+    /dbc .7 def			% dark box color
+
+    % left dark box.
+    0 0 dbw d_header_h Box
+    dbc setgray fill
+
+    0 setgray 
+    HeaderDateF setfont
+    moddatestr dup stringwidth pop dbw exch sub 2 div 
+    d_header_h 2 div 2 add moveto show
+    modtimestr dup stringwidth pop dbw exch sub 2 div 
+    d_header_h 5 div moveto show
+
+    % right dark box
+    d_header_w dbw sub 0 dbw d_header_h Box
+    dbc setgray fill
+
+    HeaderPageNumF setfont
+    1 setgray
+    pagenumstr dup
+    stringwidth pop dbw exch sub 2 div d_header_w dbw sub add
+    d_header_h .2 mul moveto show
+
+    % filename
+    0 setgray 
+    HeaderHDRF setfont
+    d_header_w fname stringwidth pop sub 2 div d_header_h 8 div moveto
+    fname show
+
+    % user supplied header string.
+    user_header_p {
+      /h d_header_h 8 div 5 mul def
+
+      % Implement strict enscript compatibility.
+      user_header_center_str () eq user_header_right_str () eq and {
+        d_header_w user_header_left_str stringwidth pop sub 2 div 
+        h moveto user_header_left_str show
+      } {
+        dbw 5 add h moveto user_header_left_str show
+
+        d_header_w user_header_center_str stringwidth pop sub 2 div 
+        h moveto user_header_center_str show
+
+	d_header_w dbw sub 5 sub user_header_right_str stringwidth pop
+	sub h moveto user_header_right_str show
+      } ifelse
+    } if
+
+  grestore
+} def
+%%EndResource
+/d_page_w 794 def
+/d_page_h 547 def
+/d_header_x 0 def
+/d_header_y 511 def
+/d_header_w 794 def
+/d_header_h 36 def
+/d_footer_x 0 def
+/d_footer_y 0 def
+/d_footer_w 794 def
+/d_footer_h 0 def
+/d_output_w 794 def
+/d_output_h 511 def
+/cols 2 def
+%%EndSetup
+%%Page: (1) 1
+%%BeginPageSetup
+_S
+90 rotate
+24 -571 translate
+/pagenum 1 def
+/fname (icecream.html) def
+/fdir (.) def
+/ftail (icecream.html) def
+% User defined strings:
+/pagenumstr (1) def
+/moddatestr (11/10/15) def
+/modtimestr (09:20:11) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+column_lines
+do_header
+5 501 M
+(<!DOCTYPE html>) s
+5 493 M
+(<html>) s
+5 477 M
+(<script id="vertex-shader" type="x-shader/x-vertex">) s
+5 461 M
+(attribute vec4 vPosition;) s
+5 453 M
+(attribute vec4 vNormal;) s
+5 437 M
+(varying vec4 fColor;) s
+5 421 M
+(uniform vec4 ambientProduct, diffuseProduct, specularProduct;) s
+5 413 M
+(uniform mat4 modelViewMatrix;) s
+5 405 M
+(uniform mat4 projectionMatrix;) s
+5 397 M
+(uniform vec4 lightPosition;) s
+5 389 M
+(uniform float shininess;) s
+5 373 M
+(void) s
+5 365 M
+(main\(\)) s
+5 357 M
+({) s
+5 349 M
+(    vec3 pos = -\(modelViewMatrix * vPosition\).xyz;) s
+5 341 M
+(    vec3 light = -\(modelViewMatrix * lightPosition\).xyz;) s
+5 333 M
+(    //vec3 light = lightPosition.xyz;) s
+5 325 M
+(    vec3 L = normalize\( light - pos \);) s
+5 309 M
+(    vec3 E = normalize\( -pos \);) s
+5 301 M
+(    vec3 H = normalize\( L + E \);) s
+5 285 M
+(    // Transform vertex normal into eye coordinates) s
+5 277 M
+(    vec3 N = normalize\( \(modelViewMatrix*vNormal\).xyz\);) s
+5 261 M
+(    // Compute terms in the illumination equation) s
+5 253 M
+(    vec4 ambient = ambientProduct;) s
+5 237 M
+(    float Kd = max\( dot\(L, N\), 0.0 \);) s
+5 229 M
+(    vec4  diffuse = Kd*diffuseProduct;) s
+5 213 M
+(    float Ks = pow\( max\(dot\(N, H\), 0.0\), shininess \);) s
+5 205 M
+(    vec4  specular = Ks * specularProduct;) s
+5 197 M
+(    ) s
+5 189 M
+(    if\( dot\(L, N\) < 0.0 \)  specular = vec4\(0.0, 0.0, 0.0, 1.0\);) s
+5 173 M
+(    gl_Position = projectionMatrix * modelViewMatrix * vPosition ;) s
+5 165 M
+(    ) s
+5 157 M
+(    fColor = ambient + diffuse +specular;) s
+5 141 M
+(    fColor.a = 1.0;) s
+5 133 M
+(}) s
+5 125 M
+(</script>) s
+5 109 M
+(<script id="fragment-shader" type="x-shader/x-fragment">) s
+5 93 M
+(precision mediump float;) s
+5 77 M
+(varying vec4 fColor;) s
+5 61 M
+(void) s
+5 53 M
+(main\(\)) s
+5 45 M
+({) s
+5 37 M
+(    gl_FragColor = fColor;) s
+5 29 M
+(}) s
+5 21 M
+(</script>) s
+5 5 M
+(<script type="text/javascript" src="../Common/webgl-utils.js"></script>) s
+402 501 M
+(<script type="text/javascript" src="../Common/initShaders.js"></script>) s
+402 485 M
+(<script type="text/javascript" src="../Common/MV.js"></script>) s
+402 477 M
+(<script type="text/javascript" src="icecream.js"></script>) s
+402 461 M
+(<body>) s
+402 453 M
+(<canvas id="gl-canvas" width="512" height="512">) s
+402 445 M
+(Oops ... your browser doesn't support the HTML5 canvas element) s
+402 437 M
+(</canvas>) s
+402 421 M
+(<div>) s
+402 413 M
+(<button id = "phiPlus">phi ++</button>) s
+402 405 M
+(<button id = "phiMinus">phi --</button>) s
+402 397 M
+(<button id = "thetaPlus">theta ++</button>) s
+402 389 M
+(<button id = "thetaMinus">theta --</button>) s
+402 381 M
+(</div>) s
+402 373 M
+(<div>) s
+402 365 M
+(<button id = "left">left</button>) s
+402 357 M
+(<button id = "right">right</button>) s
+402 349 M
+(<button id = "up">up</button>) s
+402 341 M
+(<button id = "down">down</button>) s
+402 333 M
+(</div>) s
+402 325 M
+(<div>) s
+402 317 M
+(<button id = "zoomIn">zoom In</button>) s
+402 309 M
+(<button id = "zoomOut">zoom Out</button>) s
+402 301 M
+(</div>) s
+402 285 M
+(</body>) s
+402 277 M
+(</html>) s
+_R
+S
+%%Page: (1) 2
+%%BeginPageSetup
+_S
+90 rotate
+24 -571 translate
+/pagenum 1 def
+/fname (icecream.js) def
+/fdir (.) def
+/ftail (icecream.js) def
+% User defined strings:
+/pagenumstr (1) def
+/moddatestr (11/10/15) def
+/modtimestr (09:14:24) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+column_lines
+do_header
+5 501 M
+(// global program control) s
+5 493 M
+(var program) s
+5 485 M
+(var canvas;) s
+5 477 M
+(var gl;) s
+5 461 M
+(// data) s
+5 453 M
+(var pointsArray = [];) s
+5 445 M
+(var normalsArray = [];) s
+5 429 M
+(// ortho) s
+5 421 M
+(var left = -1;) s
+5 413 M
+(var right = 1;) s
+5 405 M
+(var ytop = 1;) s
+5 397 M
+(var bottom = -1;) s
+5 389 M
+(var near = -10;) s
+5 381 M
+(var far = 10;) s
+5 373 M
+(var zoomFactor = .8;) s
+5 365 M
+(var translateFactorX = 0.2;) s
+5 357 M
+(var translateFactorY = 0.2;) s
+5 341 M
+(// lookat) s
+5 333 M
+(var eye;) s
+5 325 M
+(var at=[0, 0, 0];) s
+5 317 M
+(var up=[0, 1, 0];) s
+5 301 M
+(// eye location) s
+5 293 M
+(var theta=0;   // up-down angle) s
+5 285 M
+(var phi=90;     // side-left-right angle) s
+5 277 M
+(var Radius=1.5;) s
+5 261 M
+(// key control) s
+5 253 M
+(var deg=5;) s
+5 245 M
+(var xrot=0;) s
+5 237 M
+(var yrot=0;) s
+5 221 M
+(// light and material) s
+5 213 M
+(var lightPosition = vec4\(1, 1, 1, 0 \);) s
+5 197 M
+(var lightAmbient = vec4\(0.2, 0.2, 0.2, 1.0 \);) s
+5 189 M
+(var lightDiffuse = vec4\(.8, 0.8, 0.8, 1.0 \);) s
+5 181 M
+(var lightSpecular = vec4\( .8, .8, .8, 1.0 \);) s
+5 165 M
+(var materialAmbient = vec4\( .2, .2, .2, 1.0 \);) s
+5 157 M
+(var materialDiffuse = vec4\( 0.0, 0.5, 1, 1.0\);) s
+5 149 M
+(var materialSpecular = vec4\( 0, 0, 1, 1.0 \);) s
+5 141 M
+(var materialShininess = 50.0;) s
+5 125 M
+(var modelViewMatrix, projectionMatrix;) s
+5 117 M
+(var modelViewMatrixLoc, projectionMatrixLoc;) s
+5 109 M
+(var mvMatrixStack=[];) s
+5 93 M
+(window.onload = function init\(\) ) s
+5 85 M
+({) s
+5 77 M
+(    canvas = document.getElementById\( "gl-canvas" \);) s
+5 69 M
+(    ) s
+5 61 M
+(    gl = WebGLUtils.setupWebGL\( canvas \);) s
+5 53 M
+(    if \( !gl \) { alert\( "WebGL isn't available" \); }) s
+5 37 M
+(    gl.viewport\( 0, 0, canvas.width, canvas.height \);) s
+5 29 M
+(    gl.clearColor\( 1.0, 1.0, 1.0, 1.0 \);) s
+5 21 M
+(    ) s
+5 13 M
+(    gl.enable\(gl.DEPTH_TEST\);) s
+402 501 M
+(    //  Load shaders and initialize attribute buffers) s
+402 493 M
+(    program = initShaders\( gl, "vertex-shader", "fragment-shader" \);) s
+402 485 M
+(    gl.useProgram\( program \);) s
+402 469 M
+(    // generate the points/normals) s
+402 461 M
+(        GeneratePrimitives\(\);) s
+402 445 M
+(        SendData\(\);) s
+402 429 M
+(    modelViewMatrixLoc = gl.getUniformLocation\( program, "modelViewMatrix" \);) s
+402 421 M
+(    projectionMatrixLoc = gl.getUniformLocation\( program, "projectionMatrix" \);) s
+402 405 M
+(    SetupLightingMaterial\(\);) s
+402 389 M
+(    SetupUserInterface\(\);) s
+402 373 M
+(    // keyboard handle) s
+402 365 M
+(    window.onkeydown = HandleKeyboard;) s
+402 349 M
+(    render\(\);) s
+402 341 M
+(}) s
+402 325 M
+(function SendData\(\)) s
+402 317 M
+({) s
+402 309 M
+(    // pass data onto GPU) s
+402 301 M
+(    var nBuffer = gl.createBuffer\(\);) s
+402 293 M
+(    gl.bindBuffer\( gl.ARRAY_BUFFER, nBuffer\);) s
+402 285 M
+(    gl.bufferData\( gl.ARRAY_BUFFER, flatten\(normalsArray\), gl.STATIC_DRAW \);) s
+402 277 M
+(    ) s
+402 269 M
+(    var vNormal = gl.getAttribLocation\( program, "vNormal" \);) s
+402 261 M
+(    gl.vertexAttribPointer\( vNormal, 3, gl.FLOAT, false, 0, 0 \);) s
+402 253 M
+(    gl.enableVertexAttribArray\( vNormal\);) s
+402 237 M
+(    var vBuffer = gl.createBuffer\(\);) s
+402 229 M
+(    gl.bindBuffer\(gl.ARRAY_BUFFER, vBuffer\);) s
+402 221 M
+(    gl.bufferData\(gl.ARRAY_BUFFER, flatten\(pointsArray\), gl.STATIC_DRAW\);) s
+402 213 M
+(    ) s
+402 205 M
+(    var vPosition = gl.getAttribLocation\( program, "vPosition"\);) s
+402 197 M
+(    gl.vertexAttribPointer\(vPosition, 4, gl.FLOAT, false, 0, 0\);) s
+402 189 M
+(    gl.enableVertexAttribArray\(vPosition\);) s
+402 181 M
+(}  ) s
+402 165 M
+(function SetupLightingMaterial\(\)) s
+402 157 M
+({) s
+402 149 M
+(    // set up lighting and material) s
+402 141 M
+(    ambientProduct = mult\(lightAmbient, materialAmbient\);) s
+402 133 M
+(    diffuseProduct = mult\(lightDiffuse, materialDiffuse\);) s
+402 125 M
+(    specularProduct = mult\(lightSpecular, materialSpecular\);) s
+402 109 M
+(        // send lighting and material coefficient products to GPU) s
+402 101 M
+(    gl.uniform4fv\( gl.getUniformLocation\(program, "ambientProduct"\),flatten\(ambientProduct\) ) s
+402 93 M
+(\);) s
+402 85 M
+(    gl.uniform4fv\( gl.getUniformLocation\(program, "diffuseProduct"\),flatten\(diffuseProduct\) ) s
+402 77 M
+(\);) s
+402 69 M
+(    gl.uniform4fv\( gl.getUniformLocation\(program, "specularProduct"\),flatten\(specularProduct) s
+402 61 M
+(\) \);    ) s
+402 53 M
+(    gl.uniform4fv\( gl.getUniformLocation\(program, "lightPosition"\),flatten\(lightPosition\) \);) s
+402 45 M
+(    gl.uniform1f\( gl.getUniformLocation\(program, "shininess"\),materialShininess \);) s
+402 37 M
+(}) s
+402 21 M
+(function SetupUserInterface\(\)) s
+402 13 M
+({) s
+402 5 M
+(    // support user interface) s
+_R
+S
+%%Page: (2) 3
+%%BeginPageSetup
+_S
+90 rotate
+24 -571 translate
+/pagenum 2 def
+/fname (icecream.js) def
+/fdir (.) def
+/ftail (icecream.js) def
+% User defined strings:
+/pagenumstr (2) def
+/moddatestr (11/10/15) def
+/modtimestr (09:14:24) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+column_lines
+do_header
+5 501 M
+(    document.getElementById\("phiPlus"\).onclick=function\(\){phi += deg;};) s
+5 493 M
+(    document.getElementById\("phiMinus"\).onclick=function\(\){phi-= deg;};) s
+5 485 M
+(    document.getElementById\("thetaPlus"\).onclick=function\(\){theta+= deg;};) s
+5 477 M
+(    document.getElementById\("thetaMinus"\).onclick=function\(\){theta-= deg;};) s
+5 469 M
+(    document.getElementById\("zoomIn"\).onclick=function\(\){zoomFactor *= 0.95;};) s
+5 461 M
+(    document.getElementById\("zoomOut"\).onclick=function\(\){zoomFactor *= 1.05;};) s
+5 453 M
+(    document.getElementById\("left"\).onclick=function\(\){translateFactorX -= 0.1;};) s
+5 445 M
+(    document.getElementById\("right"\).onclick=function\(\){translateFactorX += 0.1;};) s
+5 437 M
+(    document.getElementById\("up"\).onclick=function\(\){translateFactorY += 0.1;};) s
+5 429 M
+(    document.getElementById\("down"\).onclick=function\(\){translateFactorY -= 0.1;};) s
+5 421 M
+(}) s
+5 405 M
+(function HandleKeyboard\(event\)) s
+5 397 M
+({) s
+5 389 M
+(    switch \(event.keyCode\)) s
+5 381 M
+(    {) s
+5 373 M
+(    case 37:  // left cursor key) s
+5 365 M
+(              xrot -= deg;) s
+5 357 M
+(              break;) s
+5 349 M
+(    case 39:   // right cursor key) s
+5 341 M
+(              xrot += deg;) s
+5 333 M
+(              break;) s
+5 325 M
+(    case 38:   // up cursor key) s
+5 317 M
+(              yrot -= deg;) s
+5 309 M
+(              break;) s
+5 301 M
+(    case 40:    // down cursor key) s
+5 293 M
+(              yrot += deg;) s
+5 285 M
+(    }) s
+5 277 M
+(}) s
+5 261 M
+(function GeneratePrimitives\(\)) s
+5 253 M
+({) s
+5 245 M
+(    GenerateCube\(\);   // always called first, points: 0 - 35, size: 36) s
+5 229 M
+(        slices=24;) s
+5 221 M
+(        stacks=16;// radius\(0.8\), slices \(12\), stack\(8\)) s
+5 213 M
+(        radius=0.8;) s
+5 205 M
+(        // size: \(\(stacks-2\)*6+2*3\)*slices=504, points: 36 - 539) s
+5 197 M
+(    GenerateSphere\(radius, slices, stacks\);    ) s
+5 189 M
+(    ) s
+5 181 M
+(        radius=0.4;) s
+5 173 M
+(        height=1;) s
+5 165 M
+(    GenerateCone\(radius, height\);  // size: \(\(stacks-1\)*6+3\)*slices=540, ) s
+5 157 M
+(}) s
+5 141 M
+(function GenerateCube\(\)) s
+5 133 M
+({) s
+5 125 M
+(    var vertices = [) s
+5 117 M
+(        vec4\( -0.5, -0.5,  0.5, 1.0 \),) s
+5 109 M
+(        vec4\( -0.5,  0.5,  0.5, 1.0 \),) s
+5 101 M
+(        vec4\( 0.5,  0.5,  0.5, 1.0 \),) s
+5 93 M
+(        vec4\( 0.5, -0.5,  0.5, 1.0 \),) s
+5 85 M
+(        vec4\( -0.5, -0.5, -0.5, 1.0 \),) s
+5 77 M
+(        vec4\( -0.5,  0.5, -0.5, 1.0 \),) s
+5 69 M
+(        vec4\( 0.5,  0.5, -0.5, 1.0 \),) s
+5 61 M
+(        vec4\( 0.5, -0.5, -0.5, 1.0 \)) s
+5 53 M
+(    ];) s
+5 37 M
+(    quad\( vertices[1], vertices[0], vertices[3], vertices[2] \);) s
+5 29 M
+(    quad\( vertices[2], vertices[3], vertices[7], vertices[6] \);) s
+5 21 M
+(    quad\( vertices[3], vertices[0], vertices[4], vertices[7] \);) s
+5 13 M
+(    quad\( vertices[6], vertices[5], vertices[1], vertices[2] \);) s
+5 5 M
+(    quad\( vertices[4], vertices[5], vertices[6], vertices[7] \);) s
+402 501 M
+(    quad\( vertices[5], vertices[4], vertices[0], vertices[1] \);) s
+402 493 M
+(}) s
+402 477 M
+(function GenerateSphere\(radius, slices, stacks\) ) s
+402 469 M
+({) s
+402 461 M
+(    var sliceInc = 2*Math.PI/slices;) s
+402 453 M
+(    var stackInc = Math.PI/stacks;) s
+402 437 M
+(    var prev, curr;) s
+402 429 M
+(    var curr1, curr2, prev1, prev2;) s
+402 413 M
+(    var half=[];) s
+402 405 M
+(        var count=0;) s
+402 397 M
+(    // generate half circle: PI/2 \(0\) --> -PI/2 \(stack\)) s
+402 389 M
+(    for \(var phi=Math.PI/2; phi>=-Math.PI/2; phi-=stackInc\) {) s
+402 381 M
+(       half.push\(vec4\(radius*Math.cos\(phi\), radius*Math.sin\(phi\), 0, 1\)\);) s
+402 373 M
+(    }) s
+402 357 M
+(    prev = half;) s
+402 349 M
+(    // rotate around y axis) s
+402 341 M
+(    var m=rotate\(360/slices, 0, 1, 0\);) s
+402 333 M
+(    for \(var i=1; i<=slices; i++\) {) s
+402 325 M
+(        var curr=[]) s
+402 309 M
+(        // compute the new set of points with one rotation) s
+402 301 M
+(        for \(var j=0; j<=stacks; j++\) {) s
+402 293 M
+(            var v4 = multiply\(m, prev[j]\);) s
+402 285 M
+(            curr.push\( v4 \);) s
+402 277 M
+(        }) s
+402 261 M
+(        // top of the sphere j=0 case) s
+402 253 M
+(        triangleS\(prev[0], prev[1], curr[1]\);) s
+402 237 M
+(        // create the triangles for this slice) s
+402 229 M
+(        for \(var j=1; j<stacks-1; j++\) {) s
+402 221 M
+(            prev1 = prev[j];) s
+402 213 M
+(            prev2 = prev[j+1];) s
+402 197 M
+(            curr1 = curr[j];) s
+402 189 M
+(            curr2 = curr[j+1];) s
+402 173 M
+(            quadS\(prev1, curr1, curr2, prev2\);) s
+402 165 M
+(        }) s
+402 149 M
+(        // bottom of the sphere j=stacks case) s
+402 141 M
+(        triangleS\(prev[stacks], prev[stacks-1], curr[stacks-1]\);) s
+402 133 M
+(        ) s
+402 125 M
+(        prev = curr;) s
+402 117 M
+(    }) s
+402 109 M
+(}) s
+402 93 M
+(function GenerateCone\(radius, height\)) s
+402 85 M
+({) s
+402 77 M
+(    var stacks=8;) s
+402 69 M
+(        var slices=12;) s
+402 53 M
+(    var hypotenuse=Math.sqrt\(height*height + radius*radius\);) s
+402 45 M
+(        var cosTheta = radius/hypotenuse;) s
+402 37 M
+(        var sinTheta = height/hypotenuse;) s
+402 21 M
+(    // starting out with a single line in xy-plane) s
+402 13 M
+(        var line=[];) s
+402 5 M
+(        for \(var p=0; p<=stacks; p++\)  {) s
+_R
+S
+%%Page: (3) 4
+%%BeginPageSetup
+_S
+90 rotate
+24 -571 translate
+/pagenum 3 def
+/fname (icecream.js) def
+/fdir (.) def
+/ftail (icecream.js) def
+% User defined strings:
+/pagenumstr (3) def
+/moddatestr (11/10/15) def
+/modtimestr (09:14:24) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+column_lines
+do_header
+5 501 M
+(            line.push\(vec4\(p*hypotenuse/stacks*cosTheta, p*hypotenuse/stacks*sinTheta, 0, 1\)) s
+5 493 M
+(\);) s
+5 485 M
+(    }) s
+5 469 M
+(    prev = line;) s
+5 461 M
+(    // rotate around y axis) s
+5 453 M
+(    var m=rotate\(360/slices, 0, 1, 0\);) s
+5 445 M
+(    for \(var i=1; i<=slices; i++\) {) s
+5 437 M
+(        var curr=[]) s
+5 421 M
+(        // compute the new set of points with one rotation) s
+5 413 M
+(        for \(var j=0; j<=stacks; j++\) {) s
+5 405 M
+(            var v4 = multiply\(m, prev[j]\);) s
+5 397 M
+(            curr.push\( v4 \);) s
+5 389 M
+(        }) s
+5 373 M
+(        // triangle bottom of the cone) s
+5 365 M
+(        triangle\(prev[0], prev[1], curr[1]\);) s
+5 349 M
+(        // create the triangles for this slice) s
+5 341 M
+(        for \(var j=1; j<stacks; j++\) {) s
+5 333 M
+(            prev1 = prev[j];) s
+5 325 M
+(            prev2 = prev[j+1];) s
+5 309 M
+(            curr1 = curr[j];) s
+5 301 M
+(            curr2 = curr[j+1];) s
+5 285 M
+(            quad\(prev1, curr1, curr2, prev2\);) s
+5 277 M
+(        }) s
+5 261 M
+(        prev = curr;) s
+5 253 M
+(    }) s
+5 245 M
+(}) s
+5 229 M
+(// a, b, c, and d are all vec4 type) s
+5 221 M
+(function triangleS\(a, b, c\) ) s
+5 213 M
+({) s
+5 205 M
+(    // triangle abc) s
+5 197 M
+(        pointsArray.push\(a\);) s
+5 189 M
+(        normalsArray.push\(normalize\(a\)\);) s
+5 181 M
+(        pointsArray.push\(b\);) s
+5 173 M
+(        normalsArray.push\(normalize\(b\)\);) s
+5 165 M
+(        pointsArray.push\(c\);) s
+5 157 M
+(        normalsArray.push\(normalize\(c\)\);) s
+5 149 M
+(}) s
+5 133 M
+(// a, b, c, and d are all vec4 type) s
+5 125 M
+(function triangle\(a, b, c\) ) s
+5 117 M
+({) s
+5 109 M
+(    var t1 = subtract\(b, a\);) s
+5 101 M
+(        var t2 = subtract\(c, b\);) s
+5 93 M
+(        var normal = cross\(t1, t2\);) s
+5 85 M
+(        var normal = vec4\(normal\);) s
+5 77 M
+(        normal = normalize\(normal\);) s
+5 61 M
+(    // triangle abc) s
+5 53 M
+(        pointsArray.push\(a\);) s
+5 45 M
+(        normalsArray.push\(normal\);) s
+5 37 M
+(        pointsArray.push\(b\);) s
+5 29 M
+(        normalsArray.push\(normal\);) s
+5 21 M
+(        pointsArray.push\(c\);) s
+5 13 M
+(        normalsArray.push\(normal\);) s
+5 5 M
+(}) s
+402 493 M
+(// a, b, c, and d are all vec4 type) s
+402 485 M
+(function quadS\(a, b, c, d\) ) s
+402 477 M
+({) s
+402 469 M
+(    // triangle abc) s
+402 461 M
+(        pointsArray.push\(a\);) s
+402 453 M
+(        normalsArray.push\(normalize\(a\)\);) s
+402 445 M
+(        pointsArray.push\(b\);) s
+402 437 M
+(        normalsArray.push\(normalize\(b\)\);) s
+402 429 M
+(        pointsArray.push\(c\);) s
+402 421 M
+(        normalsArray.push\(normalize\(c\)\);) s
+402 405 M
+(    // triangle acd) s
+402 397 M
+(        pointsArray.push\(d\);) s
+402 389 M
+(        normalsArray.push\(normalize\(d\)\);) s
+402 381 M
+(        pointsArray.push\(a\);) s
+402 373 M
+(        normalsArray.push\(normalize\(a\)\);) s
+402 365 M
+(        pointsArray.push\(c\);) s
+402 357 M
+(        normalsArray.push\(normalize\(c\)\);) s
+402 349 M
+(}) s
+402 333 M
+(// a, b, c, and d are all vec4 type) s
+402 325 M
+(function quad\(a, b, c, d\) ) s
+402 317 M
+({) s
+402 309 M
+(    var t1 = subtract\(b, a\);) s
+402 301 M
+(        var t2 = subtract\(c, a\);) s
+402 293 M
+(        var normal = cross\(t1, t2\);) s
+402 285 M
+(        var normal = vec4\(normal\);) s
+402 277 M
+(        normal = normalize\(normal\);) s
+402 261 M
+(    // triangle abc) s
+402 253 M
+(        pointsArray.push\(a\);) s
+402 245 M
+(        normalsArray.push\(normal\);) s
+402 237 M
+(        pointsArray.push\(b\);) s
+402 229 M
+(        normalsArray.push\(normal\);) s
+402 221 M
+(        pointsArray.push\(c\);) s
+402 213 M
+(        normalsArray.push\(normal\);) s
+402 197 M
+(    // triangle acd) s
+402 189 M
+(        pointsArray.push\(d\);) s
+402 181 M
+(        normalsArray.push\(normal\);) s
+402 173 M
+(        pointsArray.push\(a\);) s
+402 165 M
+(        normalsArray.push\(normal\);) s
+402 157 M
+(        pointsArray.push\(c\);) s
+402 149 M
+(        normalsArray.push\(normal\);) s
+402 141 M
+(}) s
+402 125 M
+(function DrawIcecream\(\)) s
+402 117 M
+({) s
+402 109 M
+(    var r, s, t;) s
+402 93 M
+(        // lighting and material for sphere) s
+402 85 M
+(    materialAmbient = vec4\( .2, .2, .2, 1.0 \);) s
+402 77 M
+(    materialDiffuse = vec4\( 191/255, 40/255, 126/255, 1.0\);) s
+402 69 M
+(    materialSpecular = vec4\( 191/255, 40/255, 126/255, 1.0 \);) s
+402 61 M
+(    materialShiness=50;) s
+402 53 M
+(    SetupLightingMaterial\(\);) s
+402 37 M
+(        mvMatrixStack.push\(modelViewMatrix\);) s
+402 29 M
+(    // draw sphere) s
+402 21 M
+(        // size: \(\(stacks-2\)*6+2*3\)*slices=\(\(16-2\)*6+6\)*24=2160) s
+402 13 M
+(        s=scale4\(.5, .5, .5\);   // scale to 1/2 radius) s
+402 5 M
+(    t=translate\(0, 1.2, 0\);) s
+_R
+S
+%%Page: (4) 5
+%%BeginPageSetup
+_S
+90 rotate
+24 -571 translate
+/pagenum 4 def
+/fname (icecream.js) def
+/fdir (.) def
+/ftail (icecream.js) def
+% User defined strings:
+/pagenumstr (4) def
+/moddatestr (11/10/15) def
+/modtimestr (09:14:24) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+column_lines
+do_header
+5 501 M
+(    modelViewMatrix = mult\(modelViewMatrix, t\);) s
+5 493 M
+(    modelViewMatrix = mult\(modelViewMatrix, s\);) s
+5 485 M
+(    gl.uniformMatrix4fv\(modelViewMatrixLoc, false, flatten\(modelViewMatrix\)\);) s
+5 477 M
+(    gl.drawArrays\(gl.TRIANGLES, 36, 2160\);) s
+5 469 M
+(        modelViewMatrix=mvMatrixStack.pop\(\);) s
+5 453 M
+(    // lighting and material for cone) s
+5 445 M
+(    materialAmbient = vec4\( .2, .2, .2, 1.0 \);) s
+5 437 M
+(    materialDiffuse = vec4\( 200/255, 150/255, 40/255, 1.0\);) s
+5 429 M
+(    materialSpecular = vec4\( 200/255, 150/255, 40/255, 1.0 \);) s
+5 421 M
+(    SetupLightingMaterial\(\);) s
+5 405 M
+(        mvMatrixStack.push\(modelViewMatrix\);) s
+5 397 M
+(    gl.uniformMatrix4fv\(modelViewMatrixLoc, false, flatten\(modelViewMatrix\)\);) s
+5 381 M
+(    // draw cone) s
+5 373 M
+(    gl.drawArrays\(gl.TRIANGLES, 36+2160, 540\) ) s
+5 365 M
+(        modelViewMatrix=mvMatrixStack.pop\(\);) s
+5 357 M
+(}) s
+5 341 M
+(function DrawSolidCube\(length\)) s
+5 333 M
+({) s
+5 325 M
+(        mvMatrixStack.push\(modelViewMatrix\);) s
+5 317 M
+(        s=scale4\(length, length, length \);   // scale to the given radius) s
+5 309 M
+(    modelViewMatrix = mult\(modelViewMatrix, s\);) s
+5 301 M
+(    gl.uniformMatrix4fv\(modelViewMatrixLoc, false, flatten\(modelViewMatrix\)\);) s
+5 293 M
+(    gl.drawArrays\( gl.TRIANGLES, 0, 36\);) s
+5 285 M
+(        modelViewMatrix=mvMatrixStack.pop\(\);) s
+5 277 M
+(}) s
+5 261 M
+(// a 4x4 matrix multiple by a vec4) s
+5 253 M
+(function multiply\(m, v\)) s
+5 245 M
+({) s
+5 237 M
+(    var vv=vec4\() s
+5 229 M
+(     m[0][0]*v[0] + m[0][1]*v[1] + m[0][2]*v[2]+ m[0][3]*v[3],) s
+5 221 M
+(     m[1][0]*v[0] + m[1][1]*v[1] + m[1][2]*v[2]+ m[1][3]*v[3],) s
+5 213 M
+(     m[2][0]*v[0] + m[2][1]*v[1] + m[2][2]*v[2]+ m[2][3]*v[3],) s
+5 205 M
+(     m[3][0]*v[0] + m[3][1]*v[1] + m[3][2]*v[2]+ m[3][3]*v[3]\);) s
+5 197 M
+(    return vv;) s
+5 189 M
+(}) s
+5 173 M
+(function scale4\(a, b, c\) {) s
+5 165 M
+(        var result = mat4\(\);) s
+5 157 M
+(        result[0][0] = a;) s
+5 149 M
+(        result[1][1] = b;) s
+5 141 M
+(        result[2][2] = c;) s
+5 133 M
+(        return result;) s
+5 125 M
+(}) s
+5 109 M
+(function render\(\)) s
+5 101 M
+({) s
+5 93 M
+(        var s, t, r;) s
+5 77 M
+(        gl.clear\(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT\); ) s
+5 61 M
+(        // set up projection and modelview) s
+5 53 M
+(        projectionMatrix = ortho\(left*zoomFactor-translateFactorX, right*zoomFactor-translat) s
+5 45 M
+(eFactorX, bottom*zoomFactor-translateFactorY, ytop*zoomFactor-translateFactorY, near, far\);) s
+5 37 M
+(        gl.uniformMatrix4fv\(projectionMatrixLoc, false, flatten\(projectionMatrix\)\);) s
+5 21 M
+(    eye=vec3\( Radius*Math.cos\(theta*Math.PI/180.0\)*Math.cos\(phi*Math.PI/180.0\),) s
+5 13 M
+(              Radius*Math.sin\(theta*Math.PI/180.0\),) s
+5 5 M
+(              Radius*Math.cos\(theta*Math.PI/180.0\)*Math.sin\(phi*Math.PI/180.0\)\);) s
+402 501 M
+(        modelViewMatrix=lookAt\(eye, at, up\);) s
+402 493 M
+(        ) s
+402 485 M
+(        var r1 = rotate\(xrot, 1, 0, 0\);) s
+402 477 M
+(        var r2 = rotate\(yrot, 0, 0, 1\);) s
+402 469 M
+(    modelViewMatrix = mult\(mult\(modelViewMatrix, r1\), r2\);) s
+402 461 M
+(        gl.uniformMatrix4fv\(modelViewMatrixLoc, false, flatten\(modelViewMatrix\)\);) s
+402 445 M
+(        // draw icecream cone) s
+402 437 M
+(        mvMatrixStack.push\(modelViewMatrix\);) s
+402 429 M
+(        t=translate\(0, -0.4, 0\);) s
+402 421 M
+(        s=scale4\(0.75, 0.75, 0.75\);) s
+402 413 M
+(    modelViewMatrix=mult\(mult\(modelViewMatrix, t\), s\);) s
+402 405 M
+(    gl.uniformMatrix4fv\(modelViewMatrixLoc, false, flatten\(modelViewMatrix\)\);) s
+402 397 M
+(        DrawIcecream\(\);   ) s
+402 389 M
+(        modelViewMatrix=mvMatrixStack.pop\(\);) s
+402 373 M
+(    requestAnimFrame\(render\);) s
+402 365 M
+(}) s
+_R
+S
+%%Trailer
+%%Pages: 5
+%%DocumentNeededResources: font Times-Roman Courier-Bold Courier 
+%%+ font Times-Bold 
+%%EOF

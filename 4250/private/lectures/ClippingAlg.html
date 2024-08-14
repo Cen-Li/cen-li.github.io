@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Clipping Algorithms</title>
+<style type="text/css">
+<!--
+body,td,th {
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	color: #000000;
+}
+body {
+	background-color: #eeeeee;
+	background-repeat: repeat;
+}
+a:link {
+	color: #3333CC;
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+	color: #FF0000;
+}
+a:hover {
+	text-decoration: underline;
+}
+a:active {
+	text-decoration: none;
+}
+-->
+</style></head>
+
+<body>
+<h1 align="center"><em>Clipping Algorithms </em></h1>
+<hr style="elevation:above" size="4"/>
+<blockquote>
+  <blockquote>
+	<h3 align="justify"><u>Description</u></h3>
+	<p align="justify"><strong>Clipping</strong> is the removal of those parts of an object that fall outside the viewing region, which is like a window through which the user is viewing the scene. This viewing region is known as the clipping rectangle or world window. Many different algorithms exist to perform the clipping action on different types of shapes. One of the most well known and widely used algorithm for clipping lines is the Cohen-Sutherland Line-Clipping Algorithm. This tutorial will focus on this algorithm to give the reader a better understanding of the process of clipping a line.</p>
+	<h3 align="justify"><u>Cohen-Sutherland Line-Clipping Algorithm</u></h3>
+	<p align="justify">This algorithm clips a line to the clipping rectangle. It concerns its self with performing the simple cases quickly. The world can be thought of as being divided into nine regions: top-left, top-middle, top-right, center-left, center, center-right, bottom-left, bottom-middle, and bottom-right. The center would be the boundary for the drawing area. These nine regions can be identified with a unique 4-bit code, called an outcode. The outcode identifies the region based on its position relative to the window (red clipping rectangle in the picture below). In the example below, if the region is to the left of the window then the fist bit (least significant bit) is set to 1. If the region is to the right of the window, the second bit from the right is set to 1. The third bit from the right is set to 1 when the region is below the window. Finally, the fourth bit (most significant bit) is set to 1 when the region is above the window. See the picture below. </p>
+	<p align="center"><img src="ClippingAlg/ClipRect.gif" alt="Clip Region" width="531" height="346" /></p>
+	<p align="justify">Given a line segment with endpoints P1 = (x0, y0) and P2 = (x1, y1), here are the basic steps:</p>
+	<ol>
+    	<li>Determine the 4-bit code or outcode for each endpoint.</li>
+  	    <li>'OR' the bit codes together, if the result is 0000, then the line segment is trivially accepted and lies totally in the drawing area. If this is the case, draw the line and exit the algorithm. </li>
+	    <li>If the result was not 0000, then 'AND' the bit codes together, if the result is not all 0000, then the line segment is trivially rejected and lies totally outside of the drawing area. If this is the case, there is nothing to draw. Just exit the algorithm. </li>
+	    <li>If both cases failed, then the line may be partially visible and partially not visible. Compute the intersection of the line segment with the appropriate window edge. The appropriate window edge is determined by examining the bit codes. If the 1st bit from the right is 1, find the intersection of the line with the left boundary and so on. Suppose P is the intersection point. </li>
+	    <li>This determines two line segments, one from P1 to P and one from P to P2. One of these line segments is outside the window and the other one is inside the window. Select the line segment inside the window and rename the end-points P1 and P2. </li>
+	    <li>Repeat the algorithm until either the line segment remaining is trivially accepted or rejected.</li>
+    </ol>
+	<h4 align="justify"><u>Example A </u></h4>
+	<p align="center"><img src="ClippingAlg/trivialAccept.GIF" alt="Trivial Accept Example" width="531" height="346" /></p>
+	<p align="justify">Step 1: </p>
+	<p align="justify">Looking at line A. Its endpoint outcodes are outcode (Astart) = 0000 and outcode(Aend) = 0000.</p>
+	<p align="justify">Step 2:</p>
+	<p align="justify">'OR' the bits of the outcodes </p>
+	<p align="justify">0000 'OR' 0000 = 0000 -&gt; Result is zero, thus trivial acceptance (the line lies completely within the window). Draw the line and exit the algorithm.</p>
+	<h4 align="justify"><u>Example B</u></h4>
+	<p align="center"><img src="ClippingAlg/trivialReject.GIF" alt="Trivial Reject Example" width="531" height="346" /></p>
+	<p align="justify">Step 1:</p>
+	<p align="justify">Looking at line B. Its endpoint outcodes are outcode(Bstart) = 1010 and outcode( Bend) = 0010.</p>
+	<p align="justify">Step 2:</p>
+	<p align="justify"> 'OR' the bits of the outcodes</p>
+	<p align="justify">1010 'OR' 0010 = 1010 -&gt; Result not zero, thus continue on to step 3.</p>
+	<p align="justify">Step 3:</p>
+	<p align="justify">'AND' the bits of the outcodes</p>
+	<p align="justify">1010 'AND' 0010 = 0010 -&gt; Result not zero, thus trivial reject (the line lies completely outside the window). Exit the algorithm.  </p>
+	<h3 align="justify"><u>Example C:</u></h3>
+	<p align="center"><img src="ClippingAlg/clipEx.GIF" alt="Clipping Example" width="531" height="346" /></p>
+	<p align="justify">Step 1:</p>
+	<p align="justify">Looking at line C. Its endpoint outcodes are outcode(Cstart) = 0000 and outcode(Cend) = 1000.</p>
+	<p align="justify">Step 2:</p>
+	<p align="justify">'OR' the bits of the outcodes</p>
+	<p align="justify">0000 'OR' 1000 = 1000 -&gt; Result not zero, thus continue on to step 3.</p>
+	<p align="justify">Step 3:</p>
+	<p align="justify">'AND' the bits of the outcodes </p>
+	<p align="justify">0000 'AND' 1000 = 0000 -&gt; Result is zero, thus continue on to step 4.</p>
+	<p align="justify">Step 4:</p>
+	<p align="justify">Calculate the intersection of the line with the window. Since the line lies in region 1000, calculate the point of intersection with the upper boundary of the window (y = 200). </p>
+	<p align="justify">Use<em> Point Slope formula</em>: y - y1 = m(x - x1). Suppose the slope of line C is 2. Obviously, Cstart = (0, 0). Plugging in these into the point-slope formula, we get </p>
+	<p align="justify">y - 0 = 2(x - 0)</p>
+	<p align="justify">y = 2x</p>
+	<p align="justify">Intersecting this with the upper window boundary, we know  y = 200 so we must find x: </p>
+	<p align="justify">200 = 2x</p>
+	<p align="justify">x = 200 / 2 = 100</p>
+	<p align="justify">Thus the line intercepts the window at the point  (100, 200). Repeat steps for the new line segments. The line segment C2 from (100, 200) to Cend is outside the window so we can throw that portion of the segment away. The new line segment that must be sent back through the algorithm is the line segment C1 from (0,0) to (100, 200). </p>
+	<blockquote>
+	<p align="justify"><strong>Segment C1</strong></p>
+	<p align="justify">Step 1: </p>
+	<p align="justify">Determine the outcodes. Outcode of (0, 0) is 0000 and outcode of (100, 200) is also 0000. </p>
+	<p align="justify">Step 2: </p>
+	<p align="justify">'OR' the bits of the outcodes</p>
+	<p align="justify">0000 'OR' 0000 = 0000 -&gt; Result is zero, so trivially accept the line, draw the line in the window, and exit the algorithm.</p>
+	</blockquote>
+  </blockquote>
+</blockquote>
+<hr style="elevation:above" size="4"/>
+</body>
+</html>

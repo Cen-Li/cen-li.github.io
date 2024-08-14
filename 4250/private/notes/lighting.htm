@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0051)http://pages.cpsc.ucalgary.ca/~pj/453/lighting.html -->
+<HTML><HEAD>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252">
+<META content="MSHTML 6.00.6000.16705" name=GENERATOR></HEAD>
+<BODY text=#00008b vLink=#336633 aLink=#003300 link=#000066 
+background=lighting_files/phyloback.gif>
+<CENTER><FONT color=#8b0000 size=+3><IMG src="lighting_files/phylloicon.gif"> 
+<U>OpenGL - Lighting</U> </FONT></CENTER><FONT color=#003300>
+<P>
+<UL type=DISC><FONT color=#003300>
+  <LI>There are various types of light that can be used in the scene to 
+  illuminate a model. These are: 
+  <UL type=SQUARE>
+    <LI><I>Ambient</I> light exists in the environment as scattered light. It is 
+    impossible to determine its source. It is scattered equally in all 
+    directions when it strikes a surface. 
+    <LI><I>Diffuse</I> light comes from one direction so it is brighter if it 
+    hits the surface directly. It is scattered equally when it strikes a 
+    surface. 
+    <LI><I>Specular</I> light comes from a particular direction and also bounces 
+    off the surface in a particular direction. It is also called 
+    <I>shininess</I> 
+    <LI><I>Emissive</I> light is light that is, effectvely, emitted from the 
+    object itself, although it doesn't contribute light to the overall scene. 
+    </LI></UL><BR><BR>
+  <LI>As well as defining a light to illuminate the object/scene, the objects in 
+  the scene have material properties similar to the light properties. 
+  <UL type=SQUARE>
+    <LI><I>Ambient and diffuse</I> material properties are combined with the 
+    relevant properties from each light source. These define the colour of the 
+    object and generally very similar in effect. 
+    <LI><I>Specular</I> material is combined with the properties of the light 
+    source. It is usually white, think of a light reflecting off a very shiny 
+    surface, the center of the reflection of the light is usually white, or the 
+    colour of the light source. </LI></UL><BR><BR>
+  <LI>In order to light a scene you have to: 
+  <OL><FONT color=#663366>
+    <LI>Define normal vectors for each vertex or polygon. 
+    <LI>Create and position light sources. 
+    <LI>Create a lighting model. 
+    <LI>Define material properties. </LI></OL></FONT><FONT color=#003300><BR><BR>
+  <LI>Here is the cube from before, with default lighting: <BR><IMG 
+  src="lighting_files/cube.gif"><BR><BR>
+  <LI>Here is the same cube as before, with one light source: <BR><IMG 
+  src="lighting_files/lit1Cube.gif"><BR><BR>
+  <UL type=CIRCLE><FONT color=#663366>
+    <LI>Use these properties (in initialise routine): <PRE>  GLfloat mat_shininess[] = { 50.0 };
+  GLfloat light0_position[] = { 1.0, 2.0, 5.0, 0.0 };
+  GLfloat white_light[] = {1.0, 1.0, 1.0, 1.0};
+  GLfloat lmodel_ambient[] = {0.1, 0.1, 0.1, 1.0};
+
+  glClearColor( 0.0, 0.0, 0.0, 0.0 ); // Let OpenGL clear to black
+  glShadeModel( GL_SMOOTH );
+  glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+  glLightfv(GL_LIGHT0, GL_POSITION, light0_position);
+  glLightfv(GL_LIGHT0, GL_DIFFUSE, white_light);
+  glLightfv(GL_LIGHT0, GL_SPECULAR, white_light);
+  glLightModelfv(GL_LIGHT_MODEL_AMBIENT, lmodel_ambient);
+
+  glEnable(GL_LIGHTING);
+  glEnable(GL_LIGHT0);
+  glEnable(GL_LIGHT1);
+  glEnable(GL_DEPTH_TEST);
+
+				  </PRE>
+    <LI>add a glNormal3f() for each polygon 
+    <LI>use glMaterialfv() in place of glColor() 
+    <LI>Example ~ top: <PRE>  GLfloat mat_R[] = {1.0, 0.0, 0.0};
+  GLfloat mat_G[] = {0.0, 1.0, 0.};
+  GLfloat mat_B[] = {0.0, 0.0, 1.0};
+  GLfloat mat_Y[] = {1.0, 1.0, 0.0};
+  GLfloat mat_M[] = {1.0, 0.0, 1.0};
+  GLfloat mat_C[] = {0.0, 1.0, 1.0};
+
+	 glBegin(GL_POLYGON); //top
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_M);
+		glNormal3f(0.0, 1.0, 0.0);
+		glVertex3f(0.0, 1.0, 0.0); //1
+		glVertex3f(1.0, 1.0, 0.0); //2
+		glVertex3f(1.0, 1.0, 1.0); //7
+		glVertex3f(0.0, 1.0, 1.0); //6
+    glEnd();
+
+				  </PRE></LI></UL>
+  <LI>Here is an example, with two light sources: <BR><IMG 
+  src="lighting_files/lit2Cube.gif"><BR><BR>
+  <UL type=CIRCLE><FONT color=#663366>
+    <LI>Add another light: <PRE>  GLfloat light1_position[] = { -1.0, 2.0, 5.0, 0.0 };
+  glLightfv(GL_LIGHT1, GL_POSITION, light1_position);
+  glLightfv(GL_LIGHT1, GL_DIFFUSE, white_light);
+  glLightfv(GL_LIGHT1, GL_SPECULAR, white_light);
+  </PRE></LI></UL></LI></UL>Remember to check the documentation. </FONT>
+<P><A href="http://pages.cpsc.ucalgary.ca/~pj/453/OpenGL2.html">More OpenGL ~ 3D 
+objects</A> 
+<P><FONT color=#cc3300><U>Useful References</U></FONT> 
+<P><A 
+href="http://ask.ii.uib.no/ebt-bin/nph-dweb/dynaweb/SGI_Developer/OpenGL_PG">OpenGL 
+Programming Guide </A><FONT color=#003300>(The Red Book). 
+<P><A 
+href="http://www.eecs.tulane.edu/www/graphics/doc/OpenGL-Man-Pages/opengl_index_alpha.html">OpenGL 
+Index in Alphabetic Order </A><FONT color=#003300>(This is pretty long)</FONT> 
+<P>
+<P><A href="http://opengl.org/">The OpenGL Website </A>
+<P>
+<P><A href="http://www.opengl.org/developers/code/tutorials.html">The OpenGL 
+Website - tutorials </A>
+<P><FONT color=#cc3300><FONT size=+4>Contact me</FONT></FONT> <BR><FONT 
+color=#663366><FONT size=+1>email: <A 
+href="mailto:pj@cpsc.ucalgary.ca">pj@cpsc.ucalgary.ca</A></FONT></FONT> 
+<BR><FONT color=#663366><FONT size=+1>Tel:&nbsp; (403) 220 7041.</FONT></FONT> 
+</P></FONT></FONT></FONT></FONT></FONT></BODY></HTML>
